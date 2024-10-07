@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-   "start": "node ./bin/www",
-    "server": "nodemon app.js"
+    "start": "node ./bin/www",
+    "server": "nodemon app.js",
+    "swagger": "node ./swagger.js"
   },
   "dependencies": {
     "cookie-parser": "^1.0.0",
@@ -14,6 +15,8 @@
     "jade": "^1.9.2",
     "mongoose": "^8.7.0",
     "morgan": "~1.9.1",
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.1"
   }
 }
