@@ -1,21 +1,15 @@
 # gift-voucher-mean-stack
-mean stack gift voucher selection short project in mean stack development
+MEAN stack gift voucher selection short project in MEAN stack development.
 
 ## client detail :
-- npm start [to run the angular application]
 - Angular V-18
 - angular m-18 [Azure & Blue]
+- npm start [to run the angular application http://localhost:4200/]
 
 ## server detail :
-- npx express-generator
-- npm i mongoose
-- npm i dotenv
-- npm i swagger-autogen | npm i swagger-ui-express
-- npm i nodemon
-- npm i cors
 
-- update this script in package.json
-  "scripts": {
-    "server": "nodemon server.js",
-    "swagger-autogen": "node swagger.js"
-  },
+- node server.js [to run the node application http://localhost:3000/]
+- document reference : https://lpinfotech0-my.sharepoint.com/:w:/g/personal/kanchandeep_kaur_lpinfotech_com/EeGVI9nDP3hBphieADEb4OEBtfhAJ4jTP0CyzsYhZgPeuQ?e=nKc2rj&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiI0OS8yNDA5MDEwMTQyMSIsIkhhc0ZlZGVyYXRlZFVzZXIiOmZhbHNlfQ%3D%3D
+- chatgpt link:- https://chatgpt.com/share/6703759c-6108-8013-a2cc-089f08ddbf8f
+
+
