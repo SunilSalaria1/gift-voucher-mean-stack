@@ -6,13 +6,13 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { RouterLink } from '@angular/router';
 
-
 @Component({
-  selector: 'app-employee-code',
+  selector: 'app-admin-login-access',
   standalone: true,
   imports: [MatButtonModule,MatIconModule,FormsModule,MatInputModule,MatFormFieldModule, RouterLink],
-  templateUrl: './employee-code.component.html',
-  styleUrl: './employee-code.component.css'
+  templateUrl: './admin-login-access.component.html',
+  styleUrl: './admin-login-access.component.css'
 })
-export class EmployeeCodeComponent {
+export class AdminLoginAccessComponent {
+
 }

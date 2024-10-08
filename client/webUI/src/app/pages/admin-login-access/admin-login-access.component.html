@@ -1,0 +1,18 @@
+<section class="main-section">
+    <div>
+        <h4 class="title-lg">Administrator Code</h4>
+        <mat-form-field appearance="outline" class="input-lg">
+            <input matInput>
+            <mat-icon matSuffix>redeem</mat-icon>
+        </mat-form-field>
+        <h4 class="title-lg">Administrator Key</h4>
+        <mat-form-field appearance="outline" class="input-lg">
+            <input matInput>
+            <mat-icon matSuffix>vpn_key</mat-icon>
+        </mat-form-field>
+        <button mat-flat-button class="btn-lg">Send Request</button>
+        <a  class="admin-access-link" [routerLink]="[ '/employee-code']">
+            <mat-icon matSuffix>admin_panel_settings</mat-icon>
+            <span>Employee Login Access</span></a>
+    </div>
+</section>
