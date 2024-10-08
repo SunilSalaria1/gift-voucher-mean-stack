@@ -22,13 +22,16 @@ MEAN stack gift voucher.
 ## steps to install + setup node environment : 
 
 - npx express-generator [https://expressjs.com/en/starter/generator.html]
+
 - create a MongoDB database (used sunil.salaria@lpinfotech.com for this project) [https://cloud.mongodb.com/v2/658e6346ad14f147c8beae92#/clusters]
-- npm i mongoose Install [https://www.npmjs.com/package/mongoose] Mongoose library to connect with MongoDB and make modals/schemas.
+
+- npm i mongoose [https://www.npmjs.com/package/mongoose] Install Mongoose library to connect with MongoDB and make modals/schemas.
+
 - connect with the MongoDB database via Express js:
    - Go the the app.js file, add a reference to the mongoose and then use the below line of code to connect to the database. 
     - const mongoose = require("mongoose");
     - const uri = "mongodb+srv://sunilsalaria:T6MSABNP5uROukEa@cluster0.rolwxi5.mongodb.net/Gift-Voucher?retryWrites=true&w=majority&appName=Cluster0";
-    - .connect(uri)
+    - mongoose.connect(uri)
   .then(() => {
     console.log("Connected to MongoDB");
   })
