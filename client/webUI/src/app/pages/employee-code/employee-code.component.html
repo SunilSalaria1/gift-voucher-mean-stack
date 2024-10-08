@@ -1,14 +1,10 @@
 <section class="main-section">
     <div>
-        <h4 class="title-lg">Employee Code</h4>       
-        <mat-form-field class="input-lg">            
-            <input matInput type="text" [(ngModel)]="value">
-            @if (value) {
-              <button matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                <mat-icon>close</mat-icon>
-              </button>
-            }
-          </mat-form-field>
-        <button mat-flat-button class="btn-lg">Send Code</button>        
+        <h4 class="title-lg">Employee Code</h4>
+        <mat-form-field appearance="outline" class="input-lg">
+            <input matInput>
+            <mat-icon matSuffix>redeem</mat-icon>
+        </mat-form-field>
+        <button mat-flat-button class="btn-lg">Send Code</button>
     </div>
 </section>

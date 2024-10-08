@@ -14,5 +14,4 @@ import {MatFormFieldModule} from '@angular/material/form-field';
   styleUrl: './employee-code.component.css'
 })
 export class EmployeeCodeComponent {
-  value = 'Clear me';
 }
