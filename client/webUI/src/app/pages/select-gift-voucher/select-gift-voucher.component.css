@@ -1,18 +1,17 @@
-.background-overlay{
-background-color: #eef0f4;
-min-height: 100vh;
-min-width: 100vw;
+.background-overlay {
+    background-color: #eef0f4;
+    min-height: 100vh;
 }
 
-.select-gift-page{
-    width:750px;   
+.select-gift-page {
+    width: 800px;
     margin: auto;
     padding-top: 100px;
-    padding-bottom: 100px;    
-} 
+    padding-bottom: 100px;
+}
 
 /* main title */
-.main-title{
+.main-title {
     margin-bottom: 50px;
 }
 
@@ -23,23 +22,48 @@ min-width: 100vw;
 }
 
 /* voucher-card */
-
-.voucher-card{
-    width: 100%;
-    background-color: white; 
-    border-radius: 15px;
-    margin-bottom: 40px;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+.voucher-card-row {
     display: flex;
-    padding: 10px;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
-.voucher-card-picture{
-    width: 60%;    
+.voucher-card {
+    background: #fff;
+    width: 28%;
+    padding: 15px;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    margin-bottom: 20px;
 }
 
-.voucher-card-description{
-    border-left: 1px dashed #ccc;
-    padding-left: 10px;
-    width: 40%;    
+.product-img {
+    overflow: hidden;
+    position: relative;
+}
+
+.product-title {
+    font-weight: 500;
+}
+
+/* btn lg */
+.btn-md {
+    display: block;
+    height: 40px;
+    width: 100%;
+    color: white !important;
+    background-color: #000 !important;
+    border-radius: 3px !important;
+    letter-spacing: 1px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.product-code {
+    border: 1px dashed #000;
+    width: fit-content;
+    padding: 4px 8px;
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 10px;
 }

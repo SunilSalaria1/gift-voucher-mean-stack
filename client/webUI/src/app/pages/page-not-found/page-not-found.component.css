@@ -6,6 +6,17 @@
     justify-content: center;
 }
 
+.bg-gift-icon{
+    background-image: url(../../../assets/images/people-shopping.webp);
+    background-repeat: no-repeat;    
+    position: absolute;   
+    right: 0;
+    bottom: 0;
+    height: 420px;
+    width: 420px;
+    background-size: contain;
+}
+
 /* title lg */
 .title-lg {
     font-weight: bold;

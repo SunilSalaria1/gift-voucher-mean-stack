@@ -5,7 +5,16 @@
     align-items: center;
     justify-content: center;
 }
-
+.bg-gift-icon{
+    background-image: url(../../../assets/images/people-shopping.webp);
+    background-repeat: no-repeat;    
+    position: absolute;   
+    right: 0;
+    bottom: 0;
+    height: 420px;
+    width: 420px;
+    background-size: contain;
+}
 /* main title */
 .main-title{
     margin-bottom: 50px;
@@ -49,9 +58,9 @@
     width: 100%;
     text-align: center;
     margin-top: 10px;
-    background: #ffa50038;
+    background: #f28d2e9c;
     font-weight: 500;
-    padding: 5px 0px;
+    padding: 6px 0px;
     border-radius: 3px !important;
     display: flex;
     justify-content: center;
