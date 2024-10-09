@@ -1,0 +1,45 @@
+.background-overlay{
+background-color: #eef0f4;
+min-height: 100vh;
+min-width: 100vw;
+}
+
+.select-gift-page{
+    width:750px;   
+    margin: auto;
+    padding-top: 100px;
+    padding-bottom: 100px;    
+} 
+
+/* main title */
+.main-title{
+    margin-bottom: 50px;
+}
+
+/* title lg */
+.title-lg {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* voucher-card */
+
+.voucher-card{
+    width: 100%;
+    background-color: white; 
+    border-radius: 15px;
+    margin-bottom: 40px;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    display: flex;
+    padding: 10px;
+}
+
+.voucher-card-picture{
+    width: 60%;    
+}
+
+.voucher-card-description{
+    border-left: 1px dashed #ccc;
+    padding-left: 10px;
+    width: 40%;    
+}

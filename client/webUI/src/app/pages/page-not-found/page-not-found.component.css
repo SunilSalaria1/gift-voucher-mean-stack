@@ -14,9 +14,8 @@
 
 /* btn lg */
 .btn-lg {
-    height: 60px;
-    margin-left: 60px;
-    width: 308px;   
+    height: 60px;   
+    width: 100%;   
     color: white !important;
     background-color: #000 !important;
     border-radius: 0px !important;
@@ -33,5 +32,5 @@
 
 /* paragraph text */
 .paragraph-text {
-    width: 450px;
+    width: 500px;
 }

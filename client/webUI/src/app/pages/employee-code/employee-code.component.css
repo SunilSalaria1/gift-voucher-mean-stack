@@ -6,6 +6,11 @@
     justify-content: center;
 }
 
+/* main title */
+.main-title{
+    margin-bottom: 50px;
+}
+
 /* title lg */
 .title-lg {
     font-weight: bold;
@@ -26,7 +31,7 @@
 .btn-lg {
     display: block;
     height: 60px;
-    width: 308px;    
+    width: 100%;    
     color: white !important;
     background-color: #000 !important;
     border-radius: 3px !important;
