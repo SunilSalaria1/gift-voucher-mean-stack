@@ -4,7 +4,7 @@
 }
 
 .select-gift-page {
-    width: 800px;
+    width: 900px;
     margin: auto;
     padding-top: 100px;
     padding-bottom: 100px;
@@ -34,6 +34,7 @@
     padding: 15px;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
     margin-bottom: 20px;
+    position: relative;
 }
 
 .product-img {
@@ -43,6 +44,16 @@
 
 .product-title {
     font-weight: 500;
+}
+
+.select-voucher-opacity{
+    opacity: 0.05;
+}
+
+.checked-svg{
+    position: absolute;    
+    left: 25%;
+    top: 25%;
 }
 
 /* btn lg */
