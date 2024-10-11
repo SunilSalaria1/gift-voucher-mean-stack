@@ -1,4 +1,4 @@
-/* main section */
+/* main section #f68d31 */
 .main-section {
     display: flex;
     min-height: 100vh;
@@ -58,7 +58,7 @@
     width: 100%;
     text-align: center;
     margin-top: 10px;
-    background: #f28d2e9c;
+    background: #f68d31;
     font-weight: 500;
     padding: 6px 0px;
     border-radius: 3px !important;
