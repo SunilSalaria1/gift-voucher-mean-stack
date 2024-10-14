@@ -15,6 +15,17 @@
     width: 400px;
     background-size: contain;
 }
+
+.gif-bg{
+    background-image: url(../../../assets/images/gift-animation.gif);    
+    background-repeat: no-repeat;
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    right: 15px;
+    top: -40px;
+    background-size: contain;
+}
 /* main title */
 .main-title{
     margin-bottom: 50px;
@@ -24,6 +35,7 @@
 .title-lg {
     font-weight: bold;
     margin-bottom: 5px;
+    position: relative;
 }
 
 .title-lg span{
