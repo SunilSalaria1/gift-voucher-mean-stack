@@ -49,3 +49,8 @@
 .paragraph-text {
     width: 500px;
 }
+
+.page-not-found-svg{
+    padding-left: 100px;
+    margin-bottom: 15px;
+}
