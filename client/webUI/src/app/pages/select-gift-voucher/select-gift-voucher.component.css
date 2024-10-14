@@ -10,6 +10,10 @@
     padding-bottom: 100px;
 }
 
+.title-span-parent {
+    position: relative;
+}
+
 /* main title */
 .main-title {
     margin-bottom: 50px;
@@ -22,7 +26,7 @@
     position: relative;
 }
 
-.title-lg span{
+.title-lg span {
     color: #eb7d2e;
 }
 
@@ -52,11 +56,12 @@
     font-weight: 500;
 }
 
-.select-voucher-opacity{
+.select-voucher-opacity {
     opacity: 0.1;
 }
-.gif-bg{
-    background-image: url(../../../assets/images/gift-animation.gif);    
+
+.gif-bg {
+    background-image: url(../../../assets/images/gift-animation.gif);
     background-repeat: no-repeat;
     position: absolute;
     height: 100px;
@@ -66,8 +71,8 @@
     background-size: contain;
 }
 
-.checked-svg{
-    position: absolute;    
+.checked-svg {
+    position: absolute;
     left: 25%;
     top: 25%;
 }
@@ -95,10 +100,10 @@
     margin-bottom: 10px;
 }
 
-.bg-gift-icon{
+.bg-gift-icon {
     background-image: url(../../../assets/images/people-gift.png);
-    background-repeat: no-repeat;    
-    position: fixed;   
+    background-repeat: no-repeat;
+    position: fixed;
     right: 0;
     bottom: 0;
     height: 400px;
