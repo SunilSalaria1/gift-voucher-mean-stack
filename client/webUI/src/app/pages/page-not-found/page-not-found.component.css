@@ -23,6 +23,10 @@
     margin-bottom: 15px;
 }
 
+.title-lg span{
+    color: #f68d31;
+}
+
 /* btn lg */
 .btn-lg {
     height: 60px;   

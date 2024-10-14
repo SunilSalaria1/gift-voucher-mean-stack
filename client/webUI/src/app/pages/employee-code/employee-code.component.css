@@ -26,6 +26,10 @@
     margin-bottom: 5px;
 }
 
+.title-lg span{
+    color: #f68d31;
+}
+
 /* input lg */
 .input-lg {
     display: block !important;
