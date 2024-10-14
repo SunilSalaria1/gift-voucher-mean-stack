@@ -7,13 +7,13 @@
 }
 
 .bg-gift-icon{
-    background-image: url(../../../assets/images/people-shopping.webp);
+    background-image: url(../../../assets/images/people-gift.png);
     background-repeat: no-repeat;    
     position: absolute;   
     right: 0;
     bottom: 0;
-    height: 420px;
-    width: 420px;
+    height: 400px;
+    width: 400px;
     background-size: contain;
 }
 
@@ -29,7 +29,7 @@
 }
 
 .title-lg span{
-    color: #f68d31;
+    color: #eb7d2e;
 }
 
 /* input lg */
@@ -64,7 +64,7 @@
     width: 100%;
     text-align: center;
     margin-top: 10px;
-    background: #f68d31;
+    background: #eb7d2e;
     font-weight: 500;
     padding: 6px 0px;
     border-radius: 3px !important;
