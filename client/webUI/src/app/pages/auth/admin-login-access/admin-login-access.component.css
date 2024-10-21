@@ -1,12 +1,13 @@
-/* main section #eb7d2e */
+/* main section */
 .main-section {
     display: flex;
     min-height: 100vh;
     align-items: center;
     justify-content: center;
 }
+
 .bg-gift-icon{
-    background-image: url(../../../assets/images/people-gift.png);
+    background-image: url(../../../../assets/images/people-gift.png);
     background-repeat: no-repeat;    
     position: absolute;   
     right: 0;
@@ -16,16 +17,6 @@
     background-size: contain;
 }
 
-.gif-bg{
-    background-image: url(../../../assets/images/gift-animation.gif);    
-    background-repeat: no-repeat;
-    position: absolute;
-    height: 100px;
-    width: 100px;
-    right: 15px;
-    top: -40px;
-    background-size: contain;
-}
 /* main title */
 .main-title{
     margin-bottom: 50px;
@@ -35,7 +26,6 @@
 .title-lg {
     font-weight: bold;
     margin-bottom: 5px;
-    position: relative;
 }
 
 .title-lg span{
