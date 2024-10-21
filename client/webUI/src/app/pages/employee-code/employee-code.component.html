@@ -6,12 +6,17 @@
             <p>Enter your employee code and discover your exclusive rewards!</p>
         </div>
         <h4 class="title-lg">Employee Code</h4>
-        <mat-form-field appearance="outline" class="input-lg">
-            <input matInput>
-            <mat-icon matSuffix>redeem</mat-icon>
-        </mat-form-field>
-        <button mat-flat-button class="btn-lg">Submit</button>
-        <a class="admin-access-link" [routerLink]="[ '/admin-login-access']">
-            <span>Access Administrator Portal</span></a>
+        <form [formGroup]="employeeCodeForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="outline" class="input-lg">
+                <input matInput formControlName="employeeCode">
+                <mat-icon matSuffix>redeem</mat-icon>
+                @if (this.employeeCodeForm.get("employeeCode")?.hasError("required")) {
+                <mat-error>This is required</mat-error>                }
+            </mat-form-field>
+            <button mat-flat-button class="btn-lg" type="submit">Submit</button>
+        </form>
+        <a class="admin-access-link" [routerLink]="['/admin-login-access']">
+            <span>Access Administrator Portal</span>
+        </a>
     </div>
 </section>
