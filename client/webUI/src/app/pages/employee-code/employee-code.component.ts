@@ -47,7 +47,7 @@ export class EmployeeCodeComponent implements OnInit {
       } else {
         // Show error snackbar
         this.snackBar.open('Invalid employee code, try again.', 'close', {
-          duration: 50000000,
+          duration: 5000,
           panelClass: ['snackbar-error'],
           horizontalPosition: "end",
           verticalPosition: "top",
