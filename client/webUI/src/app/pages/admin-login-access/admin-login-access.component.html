@@ -7,17 +7,23 @@
         </div>
 
         <h4 class="title-lg">Administrator Code</h4>
-        <mat-form-field appearance="outline" class="input-lg">
-            <input matInput>
-            <mat-icon matSuffix>redeem</mat-icon>
-        </mat-form-field>
-        <h4 class="title-lg">Administrator Key</h4>
-        <mat-form-field appearance="outline" class="input-lg">
-            <input matInput>
-            <mat-icon matSuffix>vpn_key</mat-icon>
-        </mat-form-field>
-        <button mat-flat-button class="btn-lg">Submit</button>
-        <a  class="admin-access-link" [routerLink]="[ '/employee-code']">            
+        <form [formGroup]="administratorForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="outline" class="input-lg">
+                <input matInput formControlName="administratorCode">
+                <mat-icon matSuffix>redeem</mat-icon>
+                @if (this.administratorForm.get("administratorCode")?.hasError("required")) {
+                    <mat-error>This is required</mat-error> }
+            </mat-form-field>
+            <h4 class="title-lg">Administrator Key</h4>
+            <mat-form-field appearance="outline" class="input-lg">
+                <input matInput formControlName="administratorKey">
+                <mat-icon matSuffix>vpn_key</mat-icon>
+                @if (this.administratorForm.get("administratorKey")?.hasError("required")) {
+                    <mat-error>This is required</mat-error> }
+            </mat-form-field>
+            <button mat-flat-button class="btn-lg">Submit</button>
+        </form>
+        <a class="admin-access-link" [routerLink]="[ '/employee-code']">
             <span>Access Your Rewards</span></a>
     </div>
 </section>

@@ -41,7 +41,7 @@ export class EmployeeCodeComponent implements OnInit {
         this.snackBar.open('Enjoy your exclusive rewards.', 'close', {
           duration: 5000,
           panelClass: ['snackbar-success'],
-          horizontalPosition: "end",
+          horizontalPosition: "center",
           verticalPosition: "top",
         });
       } else {
@@ -49,14 +49,12 @@ export class EmployeeCodeComponent implements OnInit {
         this.snackBar.open('Invalid employee code, try again.', 'close', {
           duration: 5000,
           panelClass: ['snackbar-error'],
-          horizontalPosition: "end",
+          horizontalPosition: "center",
           verticalPosition: "top",
         });
       }
     }
   }
-
-
 }
 
 

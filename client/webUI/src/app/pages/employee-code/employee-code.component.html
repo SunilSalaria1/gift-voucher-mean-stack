@@ -11,7 +11,7 @@
                 <input matInput formControlName="employeeCode">
                 <mat-icon matSuffix>redeem</mat-icon>
                 @if (this.employeeCodeForm.get("employeeCode")?.hasError("required")) {
-                <mat-error>This is required</mat-error>                }
+                <mat-error>This is required</mat-error> }
             </mat-form-field>
             <button mat-flat-button class="btn-lg" type="submit">Submit</button>
         </form>
