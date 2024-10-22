@@ -8,7 +8,8 @@ import { PageNotFoundComponent } from './pages/error/page-not-found/page-not-fou
 
 export const routes: Routes = [
     //auth routes
-    { path: '', component: HomeComponent },
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: 'home', component: HomeComponent },
     { path: 'employee-code', component: EmployeeCodeComponent },  
     { path: 'admin-login-access', component: AdminLoginAccessComponent }, 
     { path: 'select-gift-voucher', component: SelectGiftVoucherComponent }, 
