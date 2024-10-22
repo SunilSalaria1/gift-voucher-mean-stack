@@ -1,76 +1,76 @@
   .dashboard-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
   }
 
   /* Header */
   .header {
-    background-color: #fff;
-    color: #fff;
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;    
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1)
+      background-color: #fff;
+      color: #fff;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1)
   }
 
   .header .logo {
-    font-size: 20px;
-    font-weight: bold;
-    color: #000;
+      font-size: 20px;
+      font-weight: bold;
+      color: #000;
   }
 
   .header .header-links {
-    display: flex;
-    gap: 20px;
+      display: flex;
+      gap: 20px;
   }
 
   .header .header-links a {
-    color: #000;
-    text-decoration: none;
-    font-size: 16px;
+      color: #000;
+      text-decoration: none;
+      font-size: 16px;
   }
 
   /* Layout */
   .main-layout {
-    display: flex;
-    flex-grow: 1;
+      display: flex;
+      flex-grow: 1;
   }
 
   /* Sidebar */
   .sidebar {
-    width: 200px;
-    background-color: #131923;
-    padding: 20px;
+      width: 200px;
+      background-color: #131923;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   }
 
   .sidebar a {
-    display: block;
-    color: #fff;
-    padding: 10px;
-    text-decoration: none;
-    margin-bottom: 10px;
-    border-radius: 5px;
+      display: block;
+      color: #fff;
+      padding: 10px;
+      text-decoration: none;
+      margin-bottom: 10px;
   }
 
   .sidebar a:hover {
-    background-color: #555;
+      background-color: #eb7d2e;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   }
 
   /* Main Content */
   .main-content {
-    padding: 20px;
-    flex-grow: 1;
-    background-color: #eef0f4;
+      padding: 20px;
+      flex-grow: 1;
+      background-color: #eef0f4;
   }
 
   /* Footer */
-  .footer {   
-    text-align: center;   
-    background-color: #fff;
-    color: #000;
-    padding: 15px;   
-    align-items: center;    
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1)
+  .footer {
+      text-align: center;
+      background-color: #fff;
+      color: #000;
+      padding: 15px;
+      align-items: center;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   }
