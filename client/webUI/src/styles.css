@@ -1,4 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+/*===========================================================================================
+         This is global style file where we can write our global style css
+         here we have divided this style.css file into 3 parts
+         1. custom-global css
+         2. custom-global grid css
+         3. custom-global typography css
+ 
+ ============================================================================================*/
+
 /*=== custom-global css ===*/
 html,
 body {
