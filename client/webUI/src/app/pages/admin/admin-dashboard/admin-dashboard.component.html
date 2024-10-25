@@ -1,35 +1,14 @@
 <div class="dashboard-container">
-
     <!-- Header -->
-    <header class="header">
-        <div class="logo">YourLogo</div>
-        <div class="header-links">
-            <a href="#">Profile</a>
-            <a href="#">Notifications</a>
-            <a [routerLink]="[ '/add-gift-item']">Add Product</a>
-        </div>
-    </header>
-
+    <app-header></app-header>
     <!-- Main Layout -->
     <div class="main-layout">
         <!-- Sidebar -->
-        <nav class="sidebar">
-            <a href="#">Dashboard</a>
-            <a href="#">Gift Inventory</a>
-            <a href="#">Employee Picks</a>
-            <a href="#">Product Reports</a>
-            <a href="#">Settings</a>
-            <a href="#">Help</a>
-        </nav>
-
+        <app-aside></app-aside>
         <!-- Main Content -->
         <div class="main-content">
-            <h4>Welcome to the Dashboard</h4>
-            <p>This is where your main content will go.</p>
+            <router-outlet></router-outlet>
         </div>
     </div>
-
     <!-- Footer -->
-    <footer class="footer">
-        &copy; 2024 Your Company. All rights reserved.
-    </footer>
+    <app-footer></app-footer>

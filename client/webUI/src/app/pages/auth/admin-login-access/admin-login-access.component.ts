@@ -36,7 +36,7 @@ export class AdminLoginAccessComponent {
       console.log('Employee Code:', this.administratorForm.value.administratorCode);
       console.log('Employee Code:', this.administratorForm.value.administratorKey);
       if (this.administratorForm.value.administratorCode === 'Ad1234' && this.administratorForm.value.administratorKey === "123123") {
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/admin-dashboard']);
         // Show success snackbar
         this.snackBar.open('Welcome! now you can oversee the system.', 'close', {
           duration: 5000,

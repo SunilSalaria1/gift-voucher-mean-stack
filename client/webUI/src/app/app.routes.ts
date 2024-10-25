@@ -5,16 +5,29 @@ import { SelectGiftVoucherComponent } from './pages/employee/select-gift-voucher
 import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AddGiftItemComponent } from './pages/admin/add-gift-item/add-gift-item.component';
+import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
+import { GiftInventoryComponent } from './pages/admin/gift-inventory/gift-inventory.component';
+import { EmployeePicksComponent } from './pages/admin/employee-picks/employee-picks.component';
+import { ProductReportsComponent } from './pages/admin/product-reports/product-reports.component';
+import { SettingsComponent } from './pages/admin/settings/settings.component';
 import { PageNotFoundComponent } from './pages/error/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
     //auth routes
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
-    { path: 'employee-code', component: EmployeeCodeComponent },  
-    { path: 'admin-login-access', component: AdminLoginAccessComponent }, 
-    { path: 'select-gift-voucher', component: SelectGiftVoucherComponent }, 
-    { path: 'dashboard', component: AdminDashboardComponent }, 
-    { path : 'add-gift-item', component: AddGiftItemComponent},
+    { path: 'employee-code', component: EmployeeCodeComponent },
+    { path: 'admin-login-access', component: AdminLoginAccessComponent },
+    { path: 'select-gift-voucher', component: SelectGiftVoucherComponent },
+    { path: 'admin-dashboard', component: AdminDashboardComponent,
+        children: [
+            { path: 'dashboard', component: DashboardComponent },
+            { path: 'gift-inventory', component: GiftInventoryComponent },
+            { path: 'employee-picks', component: EmployeePicksComponent },
+            { path: 'product-reports', component: ProductReportsComponent },
+            { path: 'settings', component: SettingsComponent },
+            { path: 'add-gift-item', component: AddGiftItemComponent },
+        ]
+     },
     { path: '**', component: PageNotFoundComponent }
 ];

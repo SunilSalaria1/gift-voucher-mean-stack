@@ -1,0 +1,19 @@
+/* Sidebar */
+.sidebar {
+    width: 200px;
+    background-color: #131923;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.sidebar a {
+    display: block;
+    color: #fff;
+    padding: 10px;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.sidebar a:hover {
+    background-color: #eb7d2e;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
