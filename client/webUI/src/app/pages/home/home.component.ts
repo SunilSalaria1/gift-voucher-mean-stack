@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [EmployeeCodeComponent,MatIconModule,AdminLoginAccessComponent, RouterLink,MatButtonModule,],
+  imports: [EmployeeCodeComponent,MatIconModule,AdminLoginAccessComponent, RouterLink,MatButtonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
