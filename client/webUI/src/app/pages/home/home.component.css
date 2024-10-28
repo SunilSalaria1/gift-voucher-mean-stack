@@ -1,4 +1,17 @@
- 
- .logo-font{
-    font-size: 2rem;
- } 
+.logo-font {
+  font-size: 2rem;
+}
+.heading {
+  font-size: 4rem;
+  line-height: 1;
+}
+.button {
+  font-size: 20px;
+}
+.text {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+.icon{
+    font-size: 22px;
+}
