@@ -3,12 +3,11 @@ import { EmployeeCodeComponent } from '../../pages/auth/employee-code/employee-c
 import { AdminLoginAccessComponent } from '../../pages/auth/admin-login-access/admin-login-access.component';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
-import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [EmployeeCodeComponent, AdminLoginAccessComponent, RouterLink,MatButtonModule],
+  imports: [EmployeeCodeComponent, AdminLoginAccessComponent, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
