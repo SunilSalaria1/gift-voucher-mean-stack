@@ -6,17 +6,6 @@
     justify-content: center;
 }
 
-.bg-gift-icon{
-    background-image: url(../../../../assets/images/people-gift.png);
-    background-repeat: no-repeat;    
-    position: absolute;   
-    right: 0;
-    bottom: 0;
-    height: 400px;
-    width: 400px;
-    background-size: contain;
-}
-
 /* title lg */
 .title-lg {
     font-weight: bold;
@@ -27,30 +16,3 @@
     color: #eb7d2e;
 }
 
-/* btn lg */
-.btn-lg {
-    height: 60px;   
-    width: 100%;   
-    color: white !important;
-    background-color: #000 !important;
-    border-radius: 0px !important;
-    font-weight: bold;
-    letter-spacing: 1px;
-    font-size: 18px;
-    border-radius: 3px !important;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    margin-top: 25px;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-}
-
-/* paragraph text */
-.paragraph-text {
-    width: 500px;
-}
-
-.page-not-found-svg{
-    padding-left: 100px;
-    margin-bottom: 15px;
-}
