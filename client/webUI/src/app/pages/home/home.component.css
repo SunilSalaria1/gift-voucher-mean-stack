@@ -3,27 +3,7 @@
   font-size: 2rem;
 }
 
-/* intruction-section */
-.svg {
-  font-size: 1.5rem;
-  line-height: 2rem;
-}
-
-.image-card {
-  background: #eb7d2e;
-  padding: 10px;
-  font-weight: 500;
-  color: white;
+/* how it works  section */
+.border-radius-10 {
   border-radius: 0px 0px 10px 10px;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
-  text-align: center;
 }
-
-/* footer section */
-
-.logo-font2 {
-  font-size: 2rem;
-  line-height: 3rem;
-}
-
-/* =============== */
