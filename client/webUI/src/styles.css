@@ -32,6 +32,10 @@ body {
     font-size: 18px !important;
 }
 
+.button-mh-45 {
+    min-height: 45px !important;    
+}
+
 /* headings */
 .banner-font {
     font-size: 4rem;
