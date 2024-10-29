@@ -3,136 +3,138 @@
   font-size: 2rem;
 }
 
-/* banner-section */
-.heading {
-  font-size: 4rem;
-  line-height: 1;
-}
-.button {
-  font-size: 20px;
-}
-.text {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
- 
 /* gift-image-section */
-.dropping-texts > div {
-  font-size:0px;
-  opacity:0;
-  margin-left:-30px;
-  position:absolute;
-  font-weight:700;   
+.dropping-texts>div {
+  font-size: 0px;
+  opacity: 0;
+  margin-left: -30px;
+  position: absolute;
+  font-weight: 700;
 }
 
-.dropping-texts > div:nth-child(1) {
+.dropping-texts>div:nth-child(1) {
   animation: roll 5s linear infinite 0s;
 }
-.dropping-texts > div:nth-child(2) {
+
+.dropping-texts>div:nth-child(2) {
   animation: roll 5s linear infinite 1s;
 }
-.dropping-texts > div:nth-child(3) {
+
+.dropping-texts>div:nth-child(3) {
   animation: roll 5s linear infinite 2s;
 }
- 
+
 @keyframes roll {
   0% {
-    font-size:0px;
-    opacity:0;
-    margin-left:-30px;
-    margin-top:0px;
+    font-size: 0px;
+    opacity: 0;
+    margin-left: -30px;
+    margin-top: 0px;
     transform: rotate(-25deg);
   }
+
   3% {
-    opacity:1;
+    opacity: 1;
     transform: rotate(0deg);
   }
+
   5% {
-    font-size:inherit;
-    opacity:1;
-    margin-left:0px;
-    margin-top:0px;
+    font-size: inherit;
+    opacity: 1;
+    margin-left: 0px;
+    margin-top: 0px;
   }
+
   20% {
-    font-size:inherit;
-    opacity:1;
-    margin-left:0px;
-    margin-top:0px;
+    font-size: inherit;
+    opacity: 1;
+    margin-left: 0px;
+    margin-top: 0px;
     transform: rotate(0deg);
   }
+
   27% {
-    font-size:0px;
-    opacity:0.5;
-    margin-left:20px;
-    margin-top:100px;
+    font-size: 0px;
+    opacity: 0.5;
+    margin-left: 20px;
+    margin-top: 100px;
   }
+
   100% {
-    font-size:0px;
-    opacity:0;
-    margin-left:-30px;
-    margin-top:0px;
+    font-size: 0px;
+    opacity: 0;
+    margin-left: -30px;
+    margin-top: 0px;
     transform: rotate(15deg);
   }
 }
 
 @keyframes roll2 {
   0% {
-    font-size:0px;
-    opacity:0;
-    margin-left:-30px;
-    margin-top:0px;
+    font-size: 0px;
+    opacity: 0;
+    margin-left: -30px;
+    margin-top: 0px;
     transform: rotate(-25deg);
   }
+
   3% {
-    opacity:1;
+    opacity: 1;
     transform: rotate(0deg);
   }
+
   5% {
-    font-size:inherit;
-    opacity:1;
-    margin-left:0px;
-    margin-top:0px;
+    font-size: inherit;
+    opacity: 1;
+    margin-left: 0px;
+    margin-top: 0px;
   }
+
   30% {
-    font-size:inherit;
-    opacity:1;
-    margin-left:0px;
-    margin-top:0px;
+    font-size: inherit;
+    opacity: 1;
+    margin-left: 0px;
+    margin-top: 0px;
     transform: rotate(0deg);
   }
+
   37% {
-    font-size:1500px;
-    opacity:0;
-    margin-left:-1000px;
-    margin-top:-800px;
+    font-size: 1500px;
+    opacity: 0;
+    margin-left: -1000px;
+    margin-top: -800px;
   }
+
   100% {
-    font-size:0px;
-    opacity:0;
-    margin-left:-30px;
-    margin-top:0px;
+    font-size: 0px;
+    opacity: 0;
+    margin-left: -30px;
+    margin-top: 0px;
     transform: rotate(15deg);
   }
 }
+
 /* intruction-section */
-.working-section{
+.working-section {
   font-size: 32px;
 }
-.svg{
+
+.svg {
   font-size: 1.5rem;
   line-height: 2rem;
 }
-.image-card{
+
+.image-card {
   background: #eb7d2e;
-    padding: 10px;
-    font-weight: 500;
-    color: white;
-    border-radius: 0px 0px 10px 10px;
-    /* border-radius: 20px; */
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
-    /* position: absolute; */
-    text-align: center;
- }
+  padding: 10px;
+  font-weight: 500;
+  color: white;
+  border-radius: 0px 0px 10px 10px;
+  /* border-radius: 20px; */
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  /* position: absolute; */
+  text-align: center;
+}
 
 /* footer section */
 
@@ -140,11 +142,5 @@
   font-size: 2rem;
   line-height: 3rem;
 }
+
 /* =============== */
-
-
-
- 
-
-  
-

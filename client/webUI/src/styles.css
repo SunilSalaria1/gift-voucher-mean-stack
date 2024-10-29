@@ -26,9 +26,17 @@ body {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-.button-mh-56 {
-    min-height: 56px !important;
+/* button */
+.button-mh-60 {
+    min-height: 60px !important;
+    font-size: 18px !important;
 }
+
+/* headings */
+.banner-font {
+    font-size: 4rem;
+    line-height: 1;
+  }
 
 /*snackbar-error*/
 .snackbar-error .mat-mdc-snackbar-surface {
