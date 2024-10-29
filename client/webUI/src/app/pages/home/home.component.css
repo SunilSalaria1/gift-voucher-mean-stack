@@ -1,7 +1,8 @@
+/* header css */
 .logo-font {
   font-size: 2rem;
-
 }
+/* banner-section */
 .heading {
   font-size: 4rem;
   line-height: 1;
@@ -14,20 +15,7 @@
   line-height: 1.75rem;
 }
  
-.working-section{
-    font-size: 32px;
-}
-.svg{
-    font-size: 1.5rem;
-    line-height: 2rem;
-}
-.logo-font2 {
-    font-size: 2rem;
-    line-height: 3rem;
-  }
-  /* for text decoration */
-
-  
+/* gift-image-section */
 .dropping-texts > div {
   font-size:0px;
   opacity:0;
@@ -125,7 +113,15 @@
     transform: rotate(15deg);
   }
 }
- .image-card{
+/* intruction-section */
+.working-section{
+  font-size: 32px;
+}
+.svg{
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+.image-card{
   background: #eb7d2e;
     padding: 10px;
     font-weight: 500;
@@ -136,3 +132,18 @@
     /* position: absolute; */
     text-align: center;
  }
+
+/* footer section */
+
+.logo-font2 {
+  font-size: 2rem;
+  line-height: 3rem;
+}
+/* =============== */
+
+
+
+ 
+
+  
+
