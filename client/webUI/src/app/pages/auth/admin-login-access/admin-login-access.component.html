@@ -1,29 +1,54 @@
-<section class="main-section">
-    <div class="bg-gift-icon"></div>
-    <div>
-        <div class="main-title">
-            <h4 class="title-lg">Welcome, <span>Administrator!</span></h4>
-            <p>Enter your administrator code + key and oversee the system!</p>
+ <!-- container-section -->
+<section
+class="container min-vh-100 d-flex justify-content-center align-items-center"> 
+<!-- main-section -->
+ <div class="row justify-content-center align-items-center">
+    <div class="col-4">
+        <div>
+          <img src="assets/images/gift-selection.png" class="w-100 h-100  pe-4"/>
         </div>
-
-        <h4 class="title-lg">Administrator Code</h4>
-        <form [formGroup]="administratorForm" (ngSubmit)="onSubmit()">
-            <mat-form-field appearance="outline" class="input-lg">
-                <input matInput formControlName="administratorCode">
-                <mat-icon matSuffix>redeem</mat-icon>
-                @if (this.administratorForm.get("administratorCode")?.hasError("required")) {
-                    <mat-error>This is required</mat-error> }
-            </mat-form-field>
-            <h4 class="title-lg">Administrator Key</h4>
-            <mat-form-field appearance="outline" class="input-lg">
-                <input matInput formControlName="administratorKey">
-                <mat-icon matSuffix>vpn_key</mat-icon>
-                @if (this.administratorForm.get("administratorKey")?.hasError("required")) {
-                    <mat-error>This is required</mat-error> }
-            </mat-form-field>
-            <button mat-flat-button class="btn-lg">Submit</button>
-        </form>
-        <a class="admin-access-link" [routerLink]="[ '/employee-code']">
-            <span>Access Your Rewards</span></a>
+      </div>
+  <div class="col-5">
+    <div>
+        <div class="banner-font fw-bold">Welcome,<span class="text-primary"> Administrator!</span></div>
+        <p>Enter your administrator code + key and oversee the system!</p>
+     
     </div>
-</section>
+    <form [formGroup]="administratorForm" (ngSubmit)="onSubmit()" class="mt-5">
+        <h4 class="fw-bold mb-0">Administrator Code</h4>
+        <mat-form-field appearance="outline" class="d-block input-lg input">
+            <input matInput formControlName="administratorCode">
+            <mat-icon matSuffix>redeem</mat-icon>
+            @if (this.administratorForm.get("administratorCode")?.hasError("required")) {
+                <mat-error>This is required</mat-error> }
+        </mat-form-field>
+        <h4 class="fw-bold mb-0">Administrator Key</h4>
+        <mat-form-field appearance="outline" class="d-block input-lg input">
+            <input matInput formControlName="administratorKey">
+            <mat-icon matSuffix>vpn_key</mat-icon>
+            @if (this.administratorForm.get("administratorKey")?.hasError("required")) {
+                <mat-error>This is required</mat-error> }
+        </mat-form-field>
+        <div class="d-flex mt-2">
+            <button
+            mat-flat-button
+            class="button-mh-60 text-white bg-dark shadow-sm w-50 me-2"
+          > 
+             Send Request
+          </button>
+          <a
+            mat-flat-button
+            href="https://www.google.com/"
+            class="button-mh-60 bg-primary shadow-sm w-50"
+            [routerLink]="['/employee-code']"
+            target="_blank"
+            ><span>Employee Panel</span></a
+          >
+        </div>
+    </form>
+   
+  </div>
+  </div>
+  <!-- main-section -->
+ </section>
+ <!-- /container-section -->
