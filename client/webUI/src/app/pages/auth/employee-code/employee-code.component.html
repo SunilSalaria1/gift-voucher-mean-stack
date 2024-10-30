@@ -1,22 +1,58 @@
-<section class="main-section">
-    <div class="bg-gift-icon"></div>
-    <div>
-        <div class="main-title">
-            <h4 class="title-lg">Welcome to Your <span>Rewards!</span> <span class="gif-bg"></span></h4>
-            <p>Enter your employee code and discover your exclusive rewards!</p>
-        </div>
-        <h4 class="title-lg">Employee Code</h4>
-        <form [formGroup]="employeeCodeForm" (ngSubmit)="onSubmit()">
-            <mat-form-field appearance="outline" class="input-lg">
-                <input matInput formControlName="employeeCode">
-                <mat-icon matSuffix>redeem</mat-icon>
-                @if (this.employeeCodeForm.get("employeeCode")?.hasError("required")) {
-                <mat-error>This is required</mat-error> }
-            </mat-form-field>
-            <button mat-flat-button class="btn-lg" type="submit">Submit</button>
-        </form>
-        <a class="admin-access-link" [routerLink]="['/admin-login-access']">
-            <span>Access Administrator Portal</span>
-        </a>
+<!-- container -->
+<section
+  class="container min-vh-100 d-flex justify-content-center align-items-center"
+>
+  <!-- main-section -->
+  <div class="row justify-content-center align-items-center">
+    
+    <!-- image-section -->
+    <div class="col-4 pe-4">
+      <div>
+        <img src="assets/images/gift-selection.png" class="w-100 h-100"/>
+      </div>
     </div>
+    <!-- /image-section -->
+
+    <div class="col-5">
+      <!-- title-section -->
+      <div class="mb-4">
+        <div class="banner-font position-relative fw-bold">
+          Welcome to Your <span class="text-primary">Rewards!</span>
+      </div>
+        <p>
+          Enter your employee code and discover your exclusive rewards!
+        </p>
+      </div>
+      <!-- /title-section -->
+
+      <!-- input-box -->
+      <h4 class="mt-5 mb-1 fw-bold">Employee Code</h4>
+      <form [formGroup]="employeeCodeForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="d-block input-lg">
+          <input matInput formControlName="employeeCode"/>
+          <mat-icon matSuffix>redeem</mat-icon>
+          <mat-error>This is Required</mat-error>
+        </mat-form-field>
+        <div class="d-flex mt-2">
+            <button
+            mat-flat-button
+            class="button-mh-60 text-white bg-dark shadow-sm w-50 me-2"
+          > 
+            Send Code
+          </button>
+          <a
+            mat-flat-button
+            href="https://www.google.com/"
+            class="button-mh-60 bg-primary shadow-sm w-50"
+            [routerLink]="['/admin-login-access']"
+            target="_blank"
+            >Admin Login</a
+          >
+        </div>
+      </form>
+      <!-- /input-box -->
+    </div>
+  </div>
+  <!-- /main-section -->
 </section>
+<!-- /container -->
