@@ -1,11 +1,36 @@
-<section class="main-section">    
-    <div>      
-        <h4 class=""><span>Oops!</span> Page not Found</h4>
-        <p class="">The requested URL was not found on this server. The page you are looking for might
-            have been removed, had its name changed or it's temporarily unavailable.
-        </p>
-        <button mat-flat-button class="btn-lg" (click)="goBack()">
-            <span>Back</span>
+<!-- container-section -->
+<section
+  class="container min-vh-100 d-flex justify-content-center align-items-center"> 
+   <!-- main-section -->
+  <div class="row justify-content-center align-items-center">
+    <div class="col-5">
+      <div class="banner-font fw-bold">
+        <div class="text-primary"><span>Oops!</span></div>
+        <div>Page not Found.</div>
+      </div>
+      <p class="mt-4">
+        The requested URL was not found on this server. The page you are looking
+        for might have been removed, had its name changed or it's temporarily
+        unavailable.
+      </p>
+      <div class="col d-flex justify-content-center mt-4">
+        <button
+          mat-flat-button
+          class="px-5 py-4 button-mh-60 bg-dark shadow-sm"
+          (click)="goBack()"
+        >
+          <mat-icon>keyboard_backspace</mat-icon> <span>Previous Page</span>
         </button>
+      </div>
     </div>
+    <!-- image-section -->
+    <div class="col-4">
+      <div>
+        <img src="assets/images/ballon-icon.png" />
+      </div>
+    </div>
+      <!-- /image-section -->
+  </div>
+  <!-- /main-section -->
 </section>
+<!-- /container-section -->

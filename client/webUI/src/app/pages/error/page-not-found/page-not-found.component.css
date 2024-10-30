@@ -1,18 +1,2 @@
-/* main section */
-.main-section {
-    display: flex;
-    min-height: 100vh;
-    align-items: center;
-    justify-content: center;
-}
 
-/* title lg */
-.title-lg {
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.title-lg span{
-    color: #eb7d2e;
-}
-
+ 
