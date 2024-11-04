@@ -1,57 +1,69 @@
 <!-- container -->
-<section
-  class="container min-vh-100 d-flex justify-content-center align-items-center"
->
+<section class="container-fluid p-0">
+  <!-- header section -->
+  <section class="bg-light shadow-sm">
+    <header
+      class="container d-flex justify-content-between align-items-center py-3"
+    >
+      <div class="logo-font">
+        <span class="text-dark fw-bold">Spark</span>
+        <span class="text-primary">Nest</span>
+      </div>
+      <a
+        mat-flat-button
+        href="https://www.google.com/"
+        class="bg-dark py-3 shadow-sm button-mh-45"
+        [routerLink]="['/admin-login-access']"
+        ><mat-icon>celebration</mat-icon><span>Manage Rewards</span></a
+      >
+    </header>
+  </section>
+  <!-- /header section  -->
+
   <!-- main-section -->
-  <div class="row justify-content-center align-items-center">
-    
-    <!-- image-section -->
-    <div class="col-4 pe-4">
-      <div>
-        <img src="assets/images/gift-selection.png" class="w-100 h-100"/>
-      </div>
-    </div>
-    <!-- /image-section -->
-
-    <div class="col-5">
-      <!-- title-section -->
-      <div class="mb-4">
-        <div class="banner-font position-relative fw-bold">
-          Welcome, to Your <span class="text-primary">Rewards!</span>
-      </div>
-        <p>
-          Enter your employee code and discover your exclusive rewards!
-        </p>
-      </div>
-      <!-- /title-section -->
-
-      <!-- input-box -->
-      <h4 class="mt-5 mb-1 fw-bold">Employee Code</h4>
-      <form [formGroup]="employeeCodeForm" (ngSubmit)="onSubmit()">
-        <mat-form-field appearance="outline" class="d-block input-lg">
-          <input matInput formControlName="employeeCode"/>
-          <mat-icon matSuffix>redeem</mat-icon>
-          <mat-error>This is Required</mat-error>
-        </mat-form-field>
-        <div class="d-flex mt-2">
-            <button
-            mat-flat-button
-            class="button-mh-60 text-white bg-dark shadow-sm w-50 me-2"
-          > 
-            Send Code
-          </button>
-          <a
-            mat-flat-button
-            href="https://www.google.com/"
-            class="button-mh-60 bg-primary shadow-sm w-50"
-            [routerLink]="['/admin-login-access']"
-            >Admin Login</a
-          >
+  <section
+    class="container min-vh-100 d-flex justify-content-center align-items-center"
+  >
+    <div class="row justify-content-center align-items-center">
+      <!-- image-section -->
+      <div class="col-4 pe-4">
+        <div>
+          <img src="assets/images/gift-selection.png" class="w-100 h-100" />
         </div>
-      </form>
-      <!-- /input-box -->
+      </div>
+      <!-- /image-section -->
+
+      <div class="col-5">
+        <!-- title-section -->
+        <div class="mb-4">
+          <div class="banner-font position-relative fw-bold">
+            Welcome, to Your <span class="text-primary">Rewards!</span>
+          </div>
+          <p>Enter your employee code and discover your exclusive rewards!</p>
+        </div>
+        <!-- /title-section -->
+
+        <!-- input-box -->
+        <h4 class="mt-5 mb-1 fw-bold">Employee Code</h4>
+        <form [formGroup]="employeeCodeForm" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="outline" class="d-block input-lg">
+            <input matInput formControlName="employeeCode" />
+            <mat-icon matSuffix>redeem</mat-icon>
+            <mat-error>This is Required</mat-error>
+          </mat-form-field>
+          <div class="mt-2">
+            <button
+              mat-flat-button
+              class="button-mh-60 text-white bg-dark shadow-sm w-100 me-2"
+            >
+              Send Request
+            </button>
+          </div>
+        </form>
+        <!-- /input-box -->
+      </div>
     </div>
-  </div>
+  </section>
   <!-- /main-section -->
 </section>
 <!-- /container -->

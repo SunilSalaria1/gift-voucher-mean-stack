@@ -47,6 +47,12 @@ body {
   font-size: 24px !important;
   font-weight: bold !important;
 }
+
+ /* header-logo font */
+ .logo-font {
+  font-size: 2rem;
+}
+
 /*snackbar-error*/
 .snackbar-error .mat-mdc-snackbar-surface {
   background-color: #ba1a1a !important;
