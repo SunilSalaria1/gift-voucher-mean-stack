@@ -1,53 +1,88 @@
- <!-- container-section -->
-<section
-class="container min-vh-100 d-flex justify-content-center align-items-center"> 
-<!-- main-section -->
- <div class="row justify-content-center align-items-center">
-    <div class="col-4">
+<!-- container-section -->
+<section class="container-fluid p-0">
+  <!-- header section -->
+  <section class="bg-light shadow-sm">
+    <header
+      class="container d-flex justify-content-between align-items-center py-3"
+    >
+      <div class="logo-font">
+        <span class="text-dark fw-bold">Spark</span>
+        <span class="text-primary">Nest</span>
+      </div>
+      <a
+        mat-flat-button
+        href="https://www.google.com/"
+        class="bg-dark py-3 shadow-sm button-mh-45"
+        [routerLink]="['/employee-code']"
+        ><span>Employee Login</span></a
+      >
+    </header>
+  </section>
+  <!-- /header section  -->
+
+  <!-- main-section -->
+  <section
+    class="container min-vh-100 d-flex justify-content-center align-items-center"
+  >
+    <div class="row justify-content-center align-items-center">
+      <!-- image-section -->
+      <div class="col-4">
         <div>
-          <img src="assets/images/gift-selection.png" class="w-100 h-100  pe-4"/>
+          <img
+            src="assets/images/gift-selection.png"
+            class="w-100 h-100 pe-4"
+          />
         </div>
       </div>
-  <div class="col-5">
-    <div>
-        <div class="banner-font fw-bold">Welcome,<span class="text-primary"> Administrator!</span></div>
-        <p>Enter your administrator code + key and oversee the system!</p>
-     
-    </div>
-    <form [formGroup]="administratorForm" (ngSubmit)="onSubmit()" class="mt-5">
-        <h4 class="fw-bold mb-0">Administrator Code</h4>
-        <mat-form-field appearance="outline" class="d-block input-lg input">
-            <input matInput formControlName="administratorCode">
-            <mat-icon matSuffix>redeem</mat-icon>
-            @if (this.administratorForm.get("administratorCode")?.hasError("required")) {
-                <mat-error>This is required</mat-error> }
-        </mat-form-field>
-        <h4 class="fw-bold mb-0">Administrator Key</h4>
-        <mat-form-field appearance="outline" class="d-block input-lg input">
-            <input matInput formControlName="administratorKey">
-            <mat-icon matSuffix>vpn_key</mat-icon>
-            @if (this.administratorForm.get("administratorKey")?.hasError("required")) {
-                <mat-error>This is required</mat-error> }
-        </mat-form-field>
-        <div class="d-flex mt-2">
-            <button
-            mat-flat-button
-            class="button-mh-60 text-white bg-dark shadow-sm w-50 me-2"
-          > 
-             Send Request
-          </button>
-          <a
-            mat-flat-button
-            href="https://www.google.com/"
-            class="button-mh-60 bg-primary shadow-sm w-50"
-            [routerLink]="['/employee-code']"
-            ><span>Employee Panel</span></a
-          >
+      <!-- mage-section -->
+
+      <div class="col-5">
+        <!-- heading-section -->
+        <div>
+          <div class="banner-font fw-bold">
+            Welcome,<span class="text-primary"> Administrator!</span>
+          </div>
+          <p>Enter your administrator code + key and oversee the system!</p>
         </div>
-    </form>
-   
-  </div>
-  </div>
+        <!-- /heading-section -->
+
+        <!-- input-box -->
+        <form
+          [formGroup]="administratorForm"
+          (ngSubmit)="onSubmit()"
+          class="mt-5"
+        >
+          <h4 class="fw-bold mb-0">Administrator Code</h4>
+          <mat-form-field appearance="outline" class="d-block input-lg input">
+            <input matInput formControlName="administratorCode" />
+            <mat-icon matSuffix>redeem</mat-icon>
+            @if
+            (this.administratorForm.get("administratorCode")?.hasError("required"))
+            {
+            <mat-error>This is required</mat-error> }
+          </mat-form-field>
+          <h4 class="fw-bold mb-0">Administrator Key</h4>
+          <mat-form-field appearance="outline" class="d-block input-lg input">
+            <input matInput formControlName="administratorKey" />
+            <mat-icon matSuffix>vpn_key</mat-icon>
+            @if
+            (this.administratorForm.get("administratorKey")?.hasError("required"))
+            {
+            <mat-error>This is required</mat-error> }
+          </mat-form-field>
+          <div class="d-flex mt-2">
+            <button
+              mat-flat-button
+              class="button-mh-60 text-white bg-dark shadow-sm w-100 me-2"
+            >
+              Send Request
+            </button>
+          </div>
+        </form>
+        <!-- input-box -->
+      </div>
+    </div>
+  </section>
   <!-- main-section -->
- </section>
- <!-- /container-section -->
+</section>
+<!-- /container-section -->
