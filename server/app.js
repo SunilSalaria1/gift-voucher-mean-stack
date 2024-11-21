@@ -9,6 +9,7 @@ const mongoose = require("mongoose");
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const uri = "mongodb+srv://sunilsalaria:T6MSABNP5uROukEa@cluster0.rolwxi5.mongodb.net/Gift-Voucher?retryWrites=true&w=majority&appName=Cluster0";
+//mongoose connection  + mongo DB
 mongoose
   .connect(uri)
   .then(() => {
@@ -25,13 +26,17 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
+//json data get/post request manage
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+//configures the app to serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
+//routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+//swagger
 app.use('/api/v1/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
