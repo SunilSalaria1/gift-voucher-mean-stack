@@ -19,7 +19,7 @@ export const routes: Routes = [
     { path: 'employee-code', component: EmployeeCodeComponent },
     { path: 'admin-login-access', component: AdminLoginAccessComponent },
     { path: 'select-gift-voucher', component: SelectGiftVoucherComponent },
-    { path: 'admin-dashboard', component: AdminDashboardComponent,
+    { path: 'admin', component: AdminDashboardComponent,
         children: [
             { path: 'dashboard', component: DashboardComponent },
             { path: 'gift-inventory', component: GiftInventoryComponent },
