@@ -1,3 +1,10 @@
+/* global-css */
+
+.bg-lilac{
+    background-color: #efedfc;
+}
+/* /global-css */
+
 /* gift-section */
 .gift-card{
     border-radius: 3%;
