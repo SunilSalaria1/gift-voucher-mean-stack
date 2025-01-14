@@ -1,33 +1,38 @@
+/* == banner css style == */
+
+.banner-card{
+    border-radius: 20%;
+}
+
 .banner-card-bg-1{
-    background-color: #efedfc;
-    height: 300px;
+    background-color: #efedfc;    
 }
 
 .banner-card-bg-2{
-    background-color: #fff9ee;
-    height: 250px;
+    background-color: #fff9ee;  
     position: relative;
-    top: 40px;
+    top: 10%; 
 }
 
 .banner-card-bg-3{
-    background-color: #feefef;
-    height: 240px;
+    background-color: #feefef;    
 }
 
 .banner-card-bg-4{
-    background-color: #e8f4f1;
-    height: 270px;
+    background-color: #e8f4f1; 
+    position: relative;
+    top: -20%;  
 }
 
 .banner-card-bg-5{
     background-color: #feefd4;
+    position: relative;
+    top: 10%;
 }
 
 .banner-card-bg-6{
     background-color: #e8f4f1;    
-    height: 320px;
     position: relative;
-    top: -60px;
+    top: -20%;       
 }
 
