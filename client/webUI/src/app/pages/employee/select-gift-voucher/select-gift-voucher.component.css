@@ -1,17 +1,23 @@
 .banner-card-bg-1{
     background-color: #efedfc;
+    height: 300px;
 }
 
 .banner-card-bg-2{
     background-color: #fff9ee;
+    height: 250px;
+    position: relative;
+    top: 40px;
 }
 
 .banner-card-bg-3{
     background-color: #feefef;
+    height: 240px;
 }
 
 .banner-card-bg-4{
     background-color: #e8f4f1;
+    height: 270px;
 }
 
 .banner-card-bg-5{
@@ -19,9 +25,9 @@
 }
 
 .banner-card-bg-6{
-    background-color: #e8f4f1;
+    background-color: #e8f4f1;    
+    height: 320px;
+    position: relative;
+    top: -60px;
 }
 
-.banner-card{
-    height: 300px;
-}
