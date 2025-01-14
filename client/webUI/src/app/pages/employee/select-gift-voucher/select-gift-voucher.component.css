@@ -1,12 +1,27 @@
-/* global-css */
-
-.bg-lilac{
+.banner-card-bg-1{
     background-color: #efedfc;
 }
-/* /global-css */
 
-/* gift-section */
-.gift-card{
-    border-radius: 3%;
+.banner-card-bg-2{
+    background-color: #fff9ee;
 }
-/* /gift-section */
+
+.banner-card-bg-3{
+    background-color: #feefef;
+}
+
+.banner-card-bg-4{
+    background-color: #e8f4f1;
+}
+
+.banner-card-bg-5{
+    background-color: #feefd4;
+}
+
+.banner-card-bg-6{
+    background-color: #e8f4f1;
+}
+
+.banner-card{
+    height: 300px;
+}
