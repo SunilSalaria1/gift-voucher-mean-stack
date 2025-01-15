@@ -41,3 +41,11 @@
 .product-reward-card.active-product-card{
     opacity: 0.2;
 }
+
+.product-reward-card{
+    transition: all 0.3s ease-out;
+}
+
+.product-reward-card:hover {
+    transform: scale(1.03);
+  }
