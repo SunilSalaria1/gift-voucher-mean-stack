@@ -9,8 +9,7 @@
 }
 
 .banner-card-bg-2{
-    background-color: #fff9ee;  
-    position: relative;
+    background-color: #fff9ee;
     top: 10%; 
 }
 
@@ -19,20 +18,17 @@
 }
 
 .banner-card-bg-4{
-    background-color: #e8f4f1; 
-    position: relative;
+    background-color: #e8f4f1;
     top: -20%;  
 }
 
 .banner-card-bg-5{
     background-color: #feefd4;
-    position: relative;
     top: 10%;
 }
 
 .banner-card-bg-6{
-    background-color: #e8f4f1;    
-    position: relative;
+    background-color: #e8f4f1;
     top: -20%;       
 }
 
