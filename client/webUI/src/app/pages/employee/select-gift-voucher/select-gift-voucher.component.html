@@ -83,8 +83,8 @@
         </div>
         <div class="row">
             <div class="col-3 mb-4" *ngFor="let item of productList; let i = index">
-                <mat-card class="bg-white shadow-sm product-reward-card p-3" [ngClass]="{'active-product-card': activeIndex === i}"
-                    appearance="outlined">
+                <mat-card class="bg-white shadow-sm product-reward-card p-3"
+                    [ngClass]="{'active-product-card': activeIndex === i}" appearance="outlined">
                     <mat-card-content>
                         <span class="badge shadow-sm bg-dark text-white fs-12">{{ item.code }}</span>
                         <div class="d-flex justify-content-center my-5">
@@ -94,12 +94,12 @@
                             <div>{{ item.name }}</div>
                             <div class="fs-12">{{ item.description }}</div>
                         </div>
-                        <div> 
-                            <button mat-flat-button class="button-mh-60 w-100 bg-dark mt-2 claim-gift-btn" (click)="claimGiftBtn(i)">
+                        <div>
+                            <button mat-flat-button class="button-mh-60 w-100 bg-dark mt-2 claim-gift-btn"
+                             (click)="claimGiftBtn(i)">
                                 <mat-icon>celebration</mat-icon>{{ item.text }}
                             </button>
                         </div>
-                        
                     </mat-card-content>
                 </mat-card>
             </div>
@@ -118,3 +118,4 @@
     </section>
     <!-- /footer section -->
 </section>
+
