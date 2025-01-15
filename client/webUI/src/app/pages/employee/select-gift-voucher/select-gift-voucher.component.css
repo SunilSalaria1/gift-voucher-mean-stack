@@ -37,13 +37,11 @@
 }
 
 /* == reward css style == */
-.badge{
-    background: white;
+.badge{    
     position: absolute;    
     top: 20px;
     left: 20px;
     padding: 2px 10px;
     border-radius: 25px;
-    z-index: 99;   
-    font-size: 12px;
+    z-index: 99;    
 }
