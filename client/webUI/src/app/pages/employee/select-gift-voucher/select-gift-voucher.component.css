@@ -37,3 +37,7 @@
     padding: 7px 14px;
     border-radius: 25px;    
 }
+
+.active-product-card{
+    border: 2px solid red
+}

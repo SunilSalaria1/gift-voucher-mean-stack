@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -7,12 +8,11 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-select-gift-voucher',
   standalone: true,
-  imports: [MatIconModule, RouterLink, MatButtonModule, MatCardModule],
+  imports: [MatIconModule, RouterLink, MatButtonModule, MatCardModule, CommonModule],
   templateUrl: './select-gift-voucher.component.html',
-  styleUrl: './select-gift-voucher.component.css'
+  styleUrls: ['./select-gift-voucher.component.css'] // Correct this line
 })
 export class SelectGiftVoucherComponent {
-
   productList: any[] = [
     { id: 1, code: "CODE98547", image: "assets/images/products/water-bottle.png", name: "Copper bottle", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
     { id: 2, code: "CODE98981", image: "assets/images/products/perfume.png", name: "Engage perfume", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
@@ -24,6 +24,9 @@ export class SelectGiftVoucherComponent {
     { id: 8, code: "CODE76047", image: "assets/images/products/laptop-screen.png", name: "Laptop screen", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
     { id: 9, code: "CODE98264", image: "assets/images/products/bluetooth-speaker.png", name: "Bluetooth speaker", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
     { id: 10, code: "CODE63154", image: "assets/images/products/lunch-box.png", name: "Lunch box", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
-  ]
-
+  ];
+  activeIndex: number | null = null;
+  claimGift(index: number): void {
+    this.activeIndex = index;
+  }
 }

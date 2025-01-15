@@ -7,9 +7,9 @@
                 <span class="text-primary">Chase</span>
             </div>
             <div>
-                <a mat-flat-button [routerLink]="['/employee-code']"
-                    class="bg-dark py-3 shadow-sm button-mh-45"><mat-icon>celebration</mat-icon> <span>Join Us
-                    </span></a>
+                <a mat-flat-button [routerLink]="['/employee-code']" class="bg-dark py-3 shadow-sm button-mh-45">
+                    <mat-icon>celebration</mat-icon> <span>Join Us</span>
+                </a>
             </div>
         </header>
     </section>
@@ -20,15 +20,14 @@
     <div class="row py-5 align-items-center">
         <div class="col-5">
             <div class="banner-font fw-bold">
-                Unlock Your <span class="text-primary">Gift,</span> Embrace the
-                <span class="text-primary">Moment!</span>
+                Unlock Your <span class="text-primary">Gift,</span> Embrace the <span
+                    class="text-primary">Moment!</span>
             </div>
             <div class="mt-4">
-                Discover a world of rewards made just for you! Enter your unique code
-                and browse a curated selection of gifts tailored to bring joy. With
-                every choice, a moment of celebration awaits. Whether it’s a small
-                token or a grand surprise, your perfect gift is only a click away.
-                Choose, click, and celebrate with ease!
+                Discover a world of rewards made just for you! Enter your unique code and browse a curated selection of
+                gifts tailored to bring joy. With every choice, a moment of celebration awaits. Whether it’s a small
+                token or a grand surprise, your perfect gift is only a click away. Choose, click, and celebrate with
+                ease!
             </div>
         </div>
         <div class="col-7">
@@ -36,11 +35,11 @@
                 <div class="col-4 mb-4">
                     <mat-card class="banner-card banner-card-bg-1 shadow-sm p-3" appearance="outlined">
                         <img mat-card-image src="assets/images/banner-1.png" />
-
                     </mat-card>
                 </div>
                 <div class="col-4 mb-4">
-                    <mat-card class="banner-card banner-card-bg-2 position-relative shadow-sm p-3 py-5" appearance="outlined">
+                    <mat-card class="banner-card banner-card-bg-2 position-relative shadow-sm p-3 py-5"
+                        appearance="outlined">
                         <img mat-card-image src="assets/images/banner-5.png" />
                     </mat-card>
                 </div>
@@ -50,17 +49,20 @@
                     </mat-card>
                 </div>
                 <div class="col-4">
-                    <mat-card class="banner-card banner-card-bg-4 position-relative shadow-sm p-3 py-5" appearance="outlined">
+                    <mat-card class="banner-card banner-card-bg-4 position-relative shadow-sm p-3 py-5"
+                        appearance="outlined">
                         <img mat-card-image src="assets/images/banner-4.png" />
                     </mat-card>
                 </div>
                 <div class="col-4">
-                    <mat-card class="banner-card banner-card-bg-5 position-relative shadow-sm p-3" appearance="outlined">
+                    <mat-card class="banner-card banner-card-bg-5 position-relative shadow-sm p-3"
+                        appearance="outlined">
                         <img mat-card-image src="assets/images/banner-2.png" />
                     </mat-card>
                 </div>
                 <div class="col-4">
-                    <mat-card class="banner-card banner-card-bg-6 position-relative shadow-sm p-3 py-5" appearance="outlined">
+                    <mat-card class="banner-card banner-card-bg-6 position-relative shadow-sm p-3 py-5"
+                        appearance="outlined">
                         <img mat-card-image src="assets/images/banner-6.png" />
                     </mat-card>
                 </div>
@@ -80,41 +82,36 @@
             </div>
         </div>
         <div class="row">
-            @for(item of productList;track $index){
-                <div class="col-3 mb-5">
-                    <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined"> 
-                        <mat-card-content>
-                            <span class="badge shadow-sm bg-dark text-white fs-12">{{item.code}}</span>
-                            <div class="d-flex justify-content-center my-5">
-                                <img mat-card-image height="200" width="200" src={{item.image}} />
-                            </div>
-                            <div>
-                                <div>
-                                    <div>{{item.name}}</div>
-                                </div>
-                                <div class="fs-12">{{item.description}}</div>
-                            </div>
-                            <div>
-                                <button mat-flat-button class="button-mh-60 w-100 bg-dark mt-2"><mat-icon>celebration</mat-icon>{{item.text}}</button>
-                            </div>
-                        </mat-card-content>
-                    </mat-card>
-                </div>
-            }
-            
-
+            <div *ngFor="let item of productList; let i = index" class="col-3 mb-5">
+                <mat-card class="bg-white shadow-sm product-reward-card p-3" [ngClass]="{'active-product-card': activeIndex === i}"
+                    appearance="outlined">
+                    <mat-card-content>
+                        <span class="badge shadow-sm bg-dark text-white fs-12">{{ item.code }}</span>
+                        <div class="d-flex justify-content-center my-5">
+                            <img mat-card-image height="200" width="200" [src]="item.image" />
+                        </div>
+                        <div>
+                            <div>{{ item.name }}</div>
+                            <div class="fs-12">{{ item.description }}</div>
+                        </div>
+                        <div>
+                            <button mat-flat-button class="button-mh-60 w-100 bg-dark mt-2" (click)="claimGift(i)">
+                                <mat-icon>celebration</mat-icon>{{ item.text }}
+                            </button>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
         </div>
     </div>
 </section>
 <!-- /gift-section -->
-
 <section class="container-fluid p-0">
     <!-- footer section -->
     <section class="py-4 bg-dark shadow-sm text-white">
         <footer class="container">
             <div class="d-flex justify-content-center align-items-center pt-2">
-                <mat-icon class="me-2">copyright</mat-icon> 2024 All rights are
-                reserved by ChoiceChase.
+                <mat-icon class="me-2">copyright</mat-icon> 2024 All rights are reserved by ChoiceChase.
             </div>
         </footer>
     </section>
