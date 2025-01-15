@@ -38,6 +38,6 @@
     border-radius: 25px;    
 }
 
-.active-product-card{
-    border: 2px solid red
+.product-reward-card.active-product-card{
+    opacity: 0.2;
 }

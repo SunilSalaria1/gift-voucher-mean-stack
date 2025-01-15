@@ -71,7 +71,7 @@
     </div>
 </section>
 <!-- /banner-section -->
-<!-- gift-section -->
+<!-- product-section -->
 <section class="container-fluid py-5 bg-light">
     <div class="container">
         <div class="row">
@@ -82,7 +82,7 @@
             </div>
         </div>
         <div class="row">
-            <div *ngFor="let item of productList; let i = index" class="col-3 mb-5">
+            <div class="col-3 mb-4" *ngFor="let item of productList; let i = index">
                 <mat-card class="bg-white shadow-sm product-reward-card p-3" [ngClass]="{'active-product-card': activeIndex === i}"
                     appearance="outlined">
                     <mat-card-content>
@@ -94,18 +94,19 @@
                             <div>{{ item.name }}</div>
                             <div class="fs-12">{{ item.description }}</div>
                         </div>
-                        <div>
-                            <button mat-flat-button class="button-mh-60 w-100 bg-dark mt-2" (click)="claimGift(i)">
+                        <div> 
+                            <button mat-flat-button class="button-mh-60 w-100 bg-dark mt-2 claim-gift-btn" (click)="claimGiftBtn(i)">
                                 <mat-icon>celebration</mat-icon>{{ item.text }}
                             </button>
                         </div>
+                        
                     </mat-card-content>
                 </mat-card>
             </div>
         </div>
     </div>
 </section>
-<!-- /gift-section -->
+<!-- /product-section -->
 <section class="container-fluid p-0">
     <!-- footer section -->
     <section class="py-4 bg-dark shadow-sm text-white">
