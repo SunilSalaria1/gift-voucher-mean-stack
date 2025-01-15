@@ -7,23 +7,23 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-select-gift-voucher',
   standalone: true,
-  imports: [MatIconModule, RouterLink,MatButtonModule,MatCardModule],
+  imports: [MatIconModule, RouterLink, MatButtonModule, MatCardModule],
   templateUrl: './select-gift-voucher.component.html',
   styleUrl: './select-gift-voucher.component.css'
 })
 export class SelectGiftVoucherComponent {
 
-  productList:any[]=[
-    {id:1,code:"CODE98547",image:"assets/products/water-bottle.png",name:"Copper bottle",description:"This product is most popular and most rated by customers.",text:"Claim Gift"},
-    {id:2,code:"CODE98981",image:"assets/products/perfume.png",name:"Engage perfume",description:"This product is most popular and most rated by customers.",text:"Claim Gift"},
-    {id:3,code:"CODE93457",image:"assets/products/ear-buds.png",name:"Ear buds",description:"This product is most popular and most rated by customers.",text:"Claim Gift"},
-    {id:4,code:"CODE34780",image:"assets/products/chair.png",name:"Office chair",description:"This product is most popular and most rated by customers.",text:"Claim Gift"},
-    {id:5,code:"CODE51547",image:"assets/products/tumbler.png",name:"Tumbler",description:"This product is most popular and most rated by customers.",text:"Claim Gift"},
-    {id:6,code:"CODE78456",image:"assets/products/power-bank.png",name:"Power bank",description:"This product is most popular and most rated by customers.",text:"Claim Gift"},
-    {id:7,code:"CODE90927",image:"assets/products/steel-water-bottle.png",name:"Cello water bottle",description:"This product is most popular and most rated by customers.",text:"Claim Gift"},
-    {id:8,code:"CODE76047",image:"assets/products/laptop-screen.png",name:"Laptop screen",description:"This product is most popular and most rated by customers.",text:"Claim Gift"},
-    {id:9,code:"CODE98264",image:"assets/products/bluetooth-speaker.png",name:"Bluetooth speaker",description:"This product is most popular and most rated by customers.",text:"Claim Gift"},
-    {id:10,code:"CODE63154",image:"assets/products/lunch-box.png",name:"Lunch box",description:"This product is most popular and most rated by customers.",text:"Claim Gift"},
+  productList: any[] = [
+    { id: 1, code: "CODE98547", image: "assets/products/water-bottle.png", name: "Copper bottle", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
+    { id: 2, code: "CODE98981", image: "assets/products/perfume.png", name: "Engage perfume", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
+    { id: 3, code: "CODE93457", image: "assets/products/ear-buds.png", name: "Ear buds", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
+    { id: 4, code: "CODE34780", image: "assets/products/chair.png", name: "Office chair", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
+    { id: 5, code: "CODE51547", image: "assets/products/tumbler.png", name: "Tumbler", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
+    { id: 6, code: "CODE78456", image: "assets/products/power-bank.png", name: "Power bank", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
+    { id: 7, code: "CODE90927", image: "assets/products/steel-water-bottle.png", name: "Cello water bottle", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
+    { id: 8, code: "CODE76047", image: "assets/products/laptop-screen.png", name: "Laptop screen", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
+    { id: 9, code: "CODE98264", image: "assets/products/bluetooth-speaker.png", name: "Bluetooth speaker", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
+    { id: 10, code: "CODE63154", image: "assets/products/lunch-box.png", name: "Lunch box", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
   ]
 
 }
