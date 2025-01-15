@@ -80,25 +80,28 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-3 mb-5">
-                <mat-card class="bg-white shadow-sm gift-card p-3" appearance="outlined">
-                    <mat-card-content>
-                        <span class="badge shadow-sm bg-dark text-white fs-12">CODE98#547</span>
-                        <div class="d-flex justify-content-center my-5">
-                            <img mat-card-image height="200" width="200" src="assets/products/water-bottle.png" />
-                        </div>
-                        <div>
-                            <div>
-                                <div>Copper Bottle</div>
+            @for(item of productList;track $index){
+                <div class="col-3 mb-5">
+                    <mat-card class="bg-white shadow-sm gift-card p-3" appearance="outlined"> 
+                        <mat-card-content>
+                            <span class="badge shadow-sm bg-dark text-white fs-12">{{item.code}}</span>
+                            <div class="d-flex justify-content-center my-5">
+                                <img mat-card-image height="200" width="200" src={{item.image}} />
                             </div>
-                            <div class="fs-12">This product is most popular and most rated by customers.</div>
-                        </div>
-                        <div>
-                            <button mat-flat-button class="button-mh-60 w-100 bg-dark mt-2">Claim Gift</button>
-                        </div>
-                    </mat-card-content>
-                </mat-card>
-            </div>
+                            <div>
+                                <div>
+                                    <div>{{item.name}}</div>
+                                </div>
+                                <div class="fs-12">{{item.description}}</div>
+                            </div>
+                            <div>
+                                <button mat-flat-button class="button-mh-60 w-100 bg-dark mt-2">{{item.text}}</button>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            }
+            
 
         </div>
     </div>
