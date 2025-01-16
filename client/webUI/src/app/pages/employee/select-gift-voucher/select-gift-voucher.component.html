@@ -7,9 +7,8 @@
                 <span class="text-primary">Chase</span>
             </div>
             <div>
-                <a mat-flat-button [routerLink]="['/employee-code']" class="bg-dark py-3 shadow-sm button-mh-45">
-                    <mat-icon>celebration</mat-icon> <span>Log Out</span>
-                </a>
+                <a mat-flat-button [routerLink]="['/employee-code']" class="bg-dark py-3 shadow-sm button-mh-45" (click)="logOut()" >
+                    <mat-icon>logout</mat-icon> <span>Log Out</span></a>
             </div>
         </header>
     </section>
@@ -91,9 +90,9 @@
                             <button mat-flat-button class="button-mh-45 bg-danger mt-2" (click)="notSelected()">
                                 <mat-icon>close</mat-icon>No
                             </button>
-                            <button mat-flat-button class="button-mh-45 bg-success mt-2 ms-2" routerLink="/reward-claimed">
+                            <button mat-flat-button class="button-mh-45 bg-success mt-2 ms-2" routerLink="/reward-claimed" (click)="selected()">
                                 <mat-icon>check</mat-icon>Yes
-                            </button>
+                            </button >
                         </div>
                     </div>
                     }

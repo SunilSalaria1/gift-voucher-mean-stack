@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { RouterLink } from '@angular/router';
 
 
@@ -15,6 +16,8 @@ import { RouterLink } from '@angular/router';
   
 })
 export class SelectGiftVoucherComponent {
+  private _snackBar = inject(MatSnackBar);
+  constructor(private snackBar: MatSnackBar) { }
   //product list array object
   productList: any[] = [
     { id: 1, code: "CODE98547", image: "assets/images/products/water-bottle.png", name: "Copper bottle", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
@@ -32,19 +35,41 @@ export class SelectGiftVoucherComponent {
   //active product card
   activeIndex: number | null = null;
   isConfirmVisible:boolean=false;
-
+  
   
   claimGiftBtn(index: number): void {
     this.activeIndex = index;
-    this.isConfirmVisible=true    
+    this.isConfirmVisible=true        
   }
 
+  // notSelected
   notSelected(){
     console.log("dfdghfgn");
-    this.isConfirmVisible=false
-    
+    this.isConfirmVisible=false 
+    // show success snackbar
+    this.snackBar.open('Gift not selected. You can select another gift', 'close', {
+      duration: 5000,
+      panelClass: ['snackbar-error'],
+      horizontalPosition: "center",
+      verticalPosition: "top",
+    });   
   }
 
+  // selected
+  selected(){
+    // show success snackbar
+    this.snackBar.open('Enjoy your exclusive reward.', 'close', {
+      duration: 5000,
+      panelClass: ['snackbar-success'],
+      horizontalPosition: "center",
+      verticalPosition: "top",
+    });
+  }
+
+  // logout
+  logOut(){
+    localStorage.removeItem('loginUser')
+  }
   
   
 }

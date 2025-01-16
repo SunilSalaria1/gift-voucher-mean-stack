@@ -23,9 +23,9 @@ export const routes: Routes = [
     { path: 'select-gift-voucher', component: SelectGiftVoucherComponent,canActivate:[authGuardGuard ]},
     { path: 'reward-claimed', component: RewardClaimedComponent,canActivate:[authGuardGuard ] },
 
-    { path: 'admin', component: AdminDashboardComponent,
+    { path: 'admin', component: AdminDashboardComponent,canActivate:[authGuardGuard ],
         children: [
-            { path: 'dashboard', component: DashboardComponent },
+            { path: 'dashboard', component: DashboardComponent,canActivate:[authGuardGuard ] },
             { path: 'gift-inventory', component: GiftInventoryComponent },
             { path: 'employee-picks', component: EmployeePicksComponent },
             { path: 'product-reports', component: ProductReportsComponent },
