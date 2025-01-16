@@ -1,12 +1,6 @@
-/* mat-icon */
-
-.mat-icon {
-    height: 50px !important;
-    width: 50px !important;    
+.confirmation-card{
+    position: absolute;      
+    left: 50%;    
+    top: 50%;
+    transform: translate(-50%, -50%); 
 }
-
-mat-icon{
-    font-size: 50px;
-}
-
-/* /mat-icon */
