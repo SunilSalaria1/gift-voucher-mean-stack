@@ -31,14 +31,17 @@ export class SelectGiftVoucherComponent {
   
   //active product card
   activeIndex: number | null = null;
+  isConfirmVisible:boolean=false;
 
   
   claimGiftBtn(index: number): void {
-    this.activeIndex = index;    
+    this.activeIndex = index;
+    this.isConfirmVisible=true    
   }
 
   notSelected(){
     console.log("dfdghfgn");
+    this.isConfirmVisible=false
     
   }
 
