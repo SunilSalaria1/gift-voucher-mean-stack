@@ -34,8 +34,7 @@ export class SelectGiftVoucherComponent {
 
   
   claimGiftBtn(index: number): void {
-    this.activeIndex = index;
-    alert("test")
+    this.activeIndex = index;    
   }
 
   notSelected(){

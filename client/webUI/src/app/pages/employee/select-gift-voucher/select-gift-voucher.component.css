@@ -55,10 +55,13 @@ button.button-mh-60.mat-mdc-button-disabled {
 }
 
 .gift-confirmation-button{
-    position: absolute;
+    position: absolute;        
+    border-radius: 12px;
+    z-index: 99999;
+    left: 50%;
+    width: 90%;
     top: 50%;
-    transform: translate(-8px, 0px);
-    border-radius: 15px;        
+    transform: translate(-50%, -50%); 
 }
 
 .confirm-buttons{
