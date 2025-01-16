@@ -84,18 +84,20 @@
         <div class="row">
             <div class="col-3 mb-4" *ngFor="let item of productList; let i = index">
                 <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
-                  @if(activeIndex === i){
-                    <div class="gift-confirmation-button">                        
+                    @if(activeIndex === i){
+                    <div class="gift-confirmation-button bg-dark text-white p-3">
                         <div>Are you sure want to proceed with this.</div>
-                        <button mat-flat-button class="button-mh-45 bg-danger mt-2">
-                            <mat-icon>close</mat-icon>No
-                        </button>
-                        <button mat-flat-button class="button-mh-45 bg-success mt-2">
-                            <mat-icon>check</mat-icon>Yes
-                        </button>
-                    </div>
-                  }                
+                        <div class="confirm-buttons mt-2">
+                            <button mat-flat-button class="button-mh-45 bg-danger mt-2" (click)="notSelected()">
+                                <mat-icon>close</mat-icon>No
+                            </button>
+                            <button mat-flat-button class="button-mh-45 bg-success mt-2 ms-2">
+                                <mat-icon>check</mat-icon>Yes
+                            </button>
+                        </div>
 
+                    </div>
+                    }
                     <mat-card-content [ngClass]="{'active-product-card': activeIndex === i}">
                         <span class="badge shadow-sm bg-dark text-white fs-12">{{ item.code }}</span>
                         <div class="d-flex justify-content-center my-5">

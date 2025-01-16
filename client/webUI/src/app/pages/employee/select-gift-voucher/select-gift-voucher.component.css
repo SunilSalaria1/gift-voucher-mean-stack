@@ -58,4 +58,9 @@ button.button-mh-60.mat-mdc-button-disabled {
     position: absolute;
     top: 50%;
     transform: translate(-8px, 0px);
+    border-radius: 15px;        
+}
+
+.confirm-buttons{
+    text-align: end;
 }
