@@ -1,3 +1,4 @@
+<!--  -->
 <section class="container-fluid bg-light h-100">
     <div class="container">
         <div class="row">
@@ -9,8 +10,11 @@
                             <div class="banner-font fw-bold">
                                 Congratulations!
                             </div>
-                            <div class="mt-4">Your Reward is confirmed</div>
-                            <div><a href="#" class="text-white">Back to home</a></div>
+                            <div class="mt-4">Your Reward is confirmed...</div>
+                            <div><a mat-flat-button [routerLink]="['/home']"
+                                    class="bg-white text-dark py-3 shadow-sm button-mh-45 mt-4">
+                                    <mat-icon>celebration</mat-icon> <span>Back to Home</span></a>
+                            </div>
                         </div>
                     </mat-card-content>
                 </mat-card>
