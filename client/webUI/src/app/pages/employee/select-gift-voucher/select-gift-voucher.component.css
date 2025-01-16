@@ -1,51 +1,61 @@
 /* == banner css style == */
 
-.banner-card{
+.banner-card {
     border-radius: 20%;
 }
 
-.banner-card-bg-1{
-    background-color: #efedfc;    
+.banner-card-bg-1 {
+    background-color: #efedfc;
 }
 
-.banner-card-bg-2{
+.banner-card-bg-2 {
     background-color: #fff9ee;
-    top: 10%; 
+    top: 10%;
 }
 
-.banner-card-bg-3{
-    background-color: #feefef;    
+.banner-card-bg-3 {
+    background-color: #feefef;
 }
 
-.banner-card-bg-4{
+.banner-card-bg-4 {
     background-color: #e8f4f1;
-    top: -20%;  
+    top: -20%;
 }
 
-.banner-card-bg-5{
+.banner-card-bg-5 {
     background-color: #feefd4;
     top: 10%;
 }
 
-.banner-card-bg-6{
+.banner-card-bg-6 {
     background-color: #e8f4f1;
-    top: -20%;       
+    top: -20%;
 }
 
 /* == reward css style == */
-.badge{        
+.badge {
     padding: 7px 14px;
-    border-radius: 25px;    
+    border-radius: 25px;
 }
 
-.product-reward-card.active-product-card{
-    opacity: 0.2;
+.product-reward-card .active-product-card {
+    opacity: 0.05;
 }
 
-.product-reward-card{
+.product-reward-card {
     transition: all 0.3s ease-out;
 }
 
 .product-reward-card:hover {
     transform: scale(1.03);
-  }
+}
+
+button.button-mh-60.mat-mdc-button-disabled {
+    color: white;
+}
+
+.gift-confirmation-button{
+    position: absolute;
+    top: 50%;
+    transform: translate(-8px, 0px);
+}
