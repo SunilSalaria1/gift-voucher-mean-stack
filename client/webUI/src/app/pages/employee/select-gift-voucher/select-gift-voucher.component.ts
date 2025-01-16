@@ -4,14 +4,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import {
-  MatDialog,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogRef,
-  MatDialogTitle,
-} from '@angular/material/dialog';
 
 
 @Component({
@@ -20,7 +12,7 @@ import {
   imports: [MatIconModule, RouterLink, MatButtonModule, MatCardModule, CommonModule],
   templateUrl: './select-gift-voucher.component.html',
   styleUrls: ['./select-gift-voucher.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  
 })
 export class SelectGiftVoucherComponent {
   //product list array object
