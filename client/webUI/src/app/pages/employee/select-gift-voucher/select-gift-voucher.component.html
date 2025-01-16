@@ -91,11 +91,10 @@
                             <button mat-flat-button class="button-mh-45 bg-danger mt-2" (click)="notSelected()">
                                 <mat-icon>close</mat-icon>No
                             </button>
-                            <button mat-flat-button class="button-mh-45 bg-success mt-2 ms-2">
+                            <button mat-flat-button class="button-mh-45 bg-success mt-2 ms-2" routerLink="/reward-claimed">
                                 <mat-icon>check</mat-icon>Yes
                             </button>
                         </div>
-
                     </div>
                     }
                     <mat-card-content [ngClass]="{'active-product-card': activeIndex === i}">

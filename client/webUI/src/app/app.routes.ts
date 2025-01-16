@@ -11,6 +11,7 @@ import { EmployeePicksComponent } from './pages/admin/employee-picks/employee-pi
 import { ProductReportsComponent } from './pages/admin/product-reports/product-reports.component';
 import { SettingsComponent } from './pages/admin/settings/settings.component';
 import { PageNotFoundComponent } from './pages/error/page-not-found/page-not-found.component';
+import { RewardClaimedComponent } from './pages/employee/reward-claimed/reward-claimed.component';
 
 export const routes: Routes = [
     //auth routes
@@ -19,6 +20,8 @@ export const routes: Routes = [
     { path: 'employee-code', component: EmployeeCodeComponent },
     { path: 'admin-login-access', component: AdminLoginAccessComponent },
     { path: 'select-gift-voucher', component: SelectGiftVoucherComponent },
+    { path: 'reward-claimed', component: RewardClaimedComponent },
+
     { path: 'admin', component: AdminDashboardComponent,
         children: [
             { path: 'dashboard', component: DashboardComponent },
