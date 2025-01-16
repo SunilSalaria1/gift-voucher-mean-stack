@@ -36,6 +36,7 @@ export class EmployeeCodeComponent implements OnInit {
     if (this.employeeCodeForm.valid) {
       //console.log('Employee Code:', this.employeeCodeForm.value.employeeCode);
       if (this.employeeCodeForm.value.employeeCode === 'Lp1234') {
+        localStorage.setItem('loginUser',this.employeeCodeForm.value.employeeCode)
         this.router.navigate(['/select-gift-voucher']);
         // Show success snackbar
         this.snackBar.open('Enjoy your exclusive rewards.', 'close', {

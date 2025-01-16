@@ -12,6 +12,7 @@ import { ProductReportsComponent } from './pages/admin/product-reports/product-r
 import { SettingsComponent } from './pages/admin/settings/settings.component';
 import { PageNotFoundComponent } from './pages/error/page-not-found/page-not-found.component';
 import { RewardClaimedComponent } from './pages/employee/reward-claimed/reward-claimed.component';
+import { authGuardGuard } from './guards/auth-guard.guard';
 
 export const routes: Routes = [
     //auth routes
@@ -19,8 +20,8 @@ export const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'employee-code', component: EmployeeCodeComponent },
     { path: 'admin-login-access', component: AdminLoginAccessComponent },
-    { path: 'select-gift-voucher', component: SelectGiftVoucherComponent },
-    { path: 'reward-claimed', component: RewardClaimedComponent },
+    { path: 'select-gift-voucher', component: SelectGiftVoucherComponent,canActivate:[authGuardGuard ]},
+    { path: 'reward-claimed', component: RewardClaimedComponent,canActivate:[authGuardGuard ] },
 
     { path: 'admin', component: AdminDashboardComponent,
         children: [
