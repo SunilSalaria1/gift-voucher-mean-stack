@@ -84,7 +84,7 @@
         <div class="row">
             <div class="col-3 mb-4" *ngFor="let item of productList; let i = index">
                 <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
-
+                  @if(activeIndex === i){
                     <div class="gift-confirmation-button">                        
                         <div>Are you sure want to proceed with this.</div>
                         <button mat-flat-button class="button-mh-45 bg-danger mt-2">
@@ -94,6 +94,7 @@
                             <mat-icon>check</mat-icon>Yes
                         </button>
                     </div>
+                  }                
 
                     <mat-card-content [ngClass]="{'active-product-card': activeIndex === i}">
                         <span class="badge shadow-sm bg-dark text-white fs-12">{{ item.code }}</span>
