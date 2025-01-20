@@ -1,1 +1,116 @@
-<p>add-gift-item works!</p>
+<!-- container-section -->
+<section
+  class="container-fluid p-0 vh-100 d-flex justify-content-between flex-sm-column"
+>
+  <!-- main-section -->
+  <section
+    class="container d-flex justify-content-center align-items-center my-5"
+  >
+    <div class="row justify-content-center align-items-center">
+
+
+      <div class="col-5">
+        <!-- input-box -->
+        <form
+          [formGroup]="addGiftItemForm"
+          (ngSubmit)="onSubmit()"
+          class="mt-5"
+        >
+          <h4 class="fw-bold mb-1">Product Title</h4>
+          <mat-form-field appearance="outline" class="d-block input-lg input">
+            <input matInput formControlName="productTitle" />
+            <mat-icon matSuffix>redeem</mat-icon>
+            @if (this.addGiftItemForm.get("productTitle")?.hasError("required"))
+            {
+            <mat-error>This is Required</mat-error> }
+          </mat-form-field>
+          <h4 class="fw-bold mb-1">Product Description</h4>
+          <small>(* Maximum Character limit is 200 *)</small>
+          <mat-form-field appearance="outline" class="d-block input-lg input">
+            <textarea matInput formControlName="productDescription"></textarea>
+<!-- 
+            @if
+            (this.addGiftItemForm.controls("productDescription")?.error("maxLength"))
+            {
+              <mat-error>Max-length is 200 character only</mat-error>
+            } -->
+            @if
+            (this.addGiftItemForm.get("productDescription")?.hasError("required"))
+            {
+            <mat-error>This is Required</mat-error> }
+          </mat-form-field>
+          <h4 class="fw-bold mb-1">Coupon Code</h4>
+          <mat-form-field appearance="outline" class="d-block input-lg input">
+            <input matInput formControlName="couponCode" />
+            <mat-icon matSuffix>vpn_key</mat-icon>
+            @if (this.addGiftItemForm.get("couponCode")?.hasError("required")) {
+            <mat-error>This is Required</mat-error> }
+          </mat-form-field>
+
+          <h4 class="fw-bold mb-1">Product Image</h4>
+          <mat-form-field class="d-block input-lg input">
+            <mat-toolbar>
+              <input matInput readonly />
+              <mat-icon fontIcon="upload"></mat-icon>
+            </mat-toolbar>
+            <input
+              formControlName="productImage"
+              type="file"
+              id="fileInput"
+              name="fileInput"
+              accept="image/*"
+              multiple
+              (change)="selectFiles($event)"
+            />
+          </mat-form-field>
+          @if (selectedFiles) {
+
+          <mat-card appearance="outlined">
+            <mat-card-content>
+              <div class="row imageName-row">
+                <div class="col-1"><mat-icon fontIcon="home"></mat-icon></div>
+                <div class="col-10">
+                  <span>{{ selectedFiles?.name }}</span>
+                </div>
+                <div class="col-1">
+                  <mat-icon
+                    (click)="removeImage()"
+                    fontIcon="delete"
+                  ></mat-icon>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+          } @if (this.addGiftItemForm.get("productImage")?.hasError("required")
+          && submitted) {
+          <mat-error>This is Required</mat-error> }
+          <div class="mt-2">
+            <button
+              mat-flat-button
+              class="button-mh-60 text-white bg-dark shadow-sm w-100 me-2"
+            >
+              Send Request
+            </button>
+          </div>
+        </form>
+        <!-- input-box -->
+      </div>
+            <!-- image-section -->
+            <div class="col-6">
+              <div>
+                <div class="banner-font fw-bold">
+                  Design New,<span class="text-primary"> Rewards!</span>
+                </div>
+                <p>Enter your administrator code + key and oversee the system!</p>
+                <img
+                  src="assets/images/gift-selection.png"
+                  class="w-100 h-100 pe-4"
+                />
+              </div>
+            </div>
+            <!-- mage-section -->
+    </div>
+  </section>
+  <!-- main-section -->
+</section>
+<!-- /container-section -->
