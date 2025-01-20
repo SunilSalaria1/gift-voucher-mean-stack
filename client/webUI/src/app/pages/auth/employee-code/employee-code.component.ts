@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UsersService } from '../../../services/users.service';
+import { response } from 'express';
+
 
 
 
@@ -22,6 +25,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class EmployeeCodeComponent implements OnInit {
   employeeCodeForm: any;
   private _snackBar = inject(MatSnackBar);
+  private _usersService = inject(UsersService)
+  userData: any;
   constructor(private formBuilder: FormBuilder, private router: Router, private snackBar: MatSnackBar) { }
 
   // Initialize the form group inside ngOnInit to avoid 'formBuilder' is used before its initialization
@@ -29,14 +34,22 @@ export class EmployeeCodeComponent implements OnInit {
     this.employeeCodeForm = this.formBuilder.group({
       employeeCode: ['', Validators.required]
     });
+    // user data
+    this._usersService.getUsers().subscribe(response=>{
+      this.userData=response;
+    })
   }
 
+   
   //on submit
   onSubmit() {
-    if (this.employeeCodeForm.valid) {
-      //console.log('Employee Code:', this.employeeCodeForm.value.employeeCode);
-      if (this.employeeCodeForm.value.employeeCode === 'Lp1234') {
-        localStorage.setItem('loginUser',this.employeeCodeForm.value.employeeCode)
+    const matchedEmployee = this.userData.employee.find(
+      (emp: { empCode: any }) => emp.empCode === this.employeeCodeForm.value.employeeCode
+    );
+    console.log(matchedEmployee);  
+    
+    if (this.employeeCodeForm.valid && matchedEmployee) {          
+        localStorage.setItem('loginUser',JSON.stringify(matchedEmployee))
         this.router.navigate(['/select-gift-voucher']);
         // Show success snackbar
         this.snackBar.open('Enjoy your exclusive rewards.', 'close', {
@@ -56,7 +69,7 @@ export class EmployeeCodeComponent implements OnInit {
       }
     }
   }
-}
+
 
 
 

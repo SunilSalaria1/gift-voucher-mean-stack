@@ -1,3 +1,4 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,8 +14,27 @@ import { RouterLink } from '@angular/router';
   imports: [MatIconModule, RouterLink, MatButtonModule, MatCardModule, CommonModule],
   templateUrl: './select-gift-voucher.component.html',
   styleUrls: ['./select-gift-voucher.component.css'],
-  
+  animations: [
+    trigger('zoomInOut', [
+      state('void', style({
+        transform: 'scale(0)',  // Initially scale down (for closing)
+        opacity: 0,             // Initially invisible
+      })),
+      state('in', style({
+        transform: 'scale(1)',  // Scale up to normal size (for opening)
+        opacity: 1,             // Fully visible
+      })),
+      transition('void => in', [
+        animate('0.3s ease-out') // Animation for opening (zoom-out)
+      ]),
+      transition('in => void', [
+        animate('0.3s ease-in')  // Animation for closing (zoom-in)
+      ])
+    ])
+  ]
 })
+  
+
 export class SelectGiftVoucherComponent {
   private _snackBar = inject(MatSnackBar);
   constructor(private snackBar: MatSnackBar) { }
@@ -35,18 +55,22 @@ export class SelectGiftVoucherComponent {
   //active product card
   activeIndex: number | null = null;
   isConfirmVisible:boolean=false;
-  
+  zoomState = 'void';
   
   claimGiftBtn(index: number): void {
     this.activeIndex = index;
-    this.isConfirmVisible=true        
+    this.isConfirmVisible=true
+    // Trigger zoom-out animation (for opening)    
+    this.zoomState = 'in';     
   }
 
   // notSelected
   notSelected(){
     console.log("dfdghfgn");
     this.isConfirmVisible=false 
-    // show success snackbar
+    // Close with zoom-in effect
+    this.zoomState = 'void'; 
+    // show error snackbar
     this.snackBar.open('Gift not selected. You can select another gift', 'close', {
       duration: 5000,
       panelClass: ['snackbar-error'],
@@ -69,7 +93,12 @@ export class SelectGiftVoucherComponent {
   // logout
   logOut(){
     localStorage.removeItem('loginUser')
+    // show success snackbar
+    this.snackBar.open('You have successfully logged out.', 'close', {
+      duration: 5000,
+      panelClass: ['snackbar-success'],
+      horizontalPosition: "center",
+      verticalPosition: "top",
+    });
   }
-  
-  
 }

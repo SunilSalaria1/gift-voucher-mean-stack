@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UsersService } from '../../../services/users.service';
 
 @Component({
   selector: 'app-admin-login-access',
@@ -19,7 +20,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AdminLoginAccessComponent {
   administratorForm: any;
+  userData: any;
   private _snackBar = inject(MatSnackBar);
+  private _usersService = inject(UsersService)
   constructor(private formBuilder: FormBuilder, private router: Router, private snackBar: MatSnackBar) { }
 
   // Initialize the form group inside ngOnInit to avoid 'formBuilder' is used before its initialization
@@ -28,6 +31,10 @@ export class AdminLoginAccessComponent {
       administratorCode: ['', Validators.required],
       administratorKey: ["", Validators.required]
     });
+    // admin data
+    this._usersService.getUsers().subscribe(response => {
+      this.userData = response;
+    })
   }
 
   //on submit
@@ -35,12 +42,12 @@ export class AdminLoginAccessComponent {
     if (this.administratorForm.valid) {
       console.log('Employee Code:', this.administratorForm.value.administratorCode);
       console.log('Employee Code:', this.administratorForm.value.administratorKey);
-      if (this.administratorForm.value.administratorCode === 'Ad1234' && this.administratorForm.value.administratorKey === "123123") {
+      if (this.administratorForm.value.administratorCode === this.userData.admin[0].adminCode && this.administratorForm.value.administratorKey === this.userData.admin[0].adminKey) {
         const adminData = {
           code: this.administratorForm.value.administratorCode,
           key: this.administratorForm.value.administratorKey
-      };
-      localStorage.setItem('Admin', JSON.stringify(adminData));
+        };
+        localStorage.setItem('loginUser', JSON.stringify(this.userData.admin));
         this.router.navigate(['/admin/dashboard']);
         // Show success snackbar
         this.snackBar.open('Welcome! now you can oversee the system.', 'close', {
