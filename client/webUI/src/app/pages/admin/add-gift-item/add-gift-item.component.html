@@ -7,8 +7,6 @@
     class="container d-flex justify-content-center align-items-center my-5"
   >
     <div class="row justify-content-center align-items-center">
-
-
       <div class="col-5">
         <!-- input-box -->
         <form
@@ -28,7 +26,7 @@
           <small>(* Maximum Character limit is 200 *)</small>
           <mat-form-field appearance="outline" class="d-block input-lg input">
             <textarea matInput formControlName="productDescription"></textarea>
-<!-- 
+            <!-- 
             @if
             (this.addGiftItemForm.controls("productDescription")?.error("maxLength"))
             {
@@ -95,20 +93,47 @@
         </form>
         <!-- input-box -->
       </div>
-            <!-- image-section -->
-            <div class="col-6">
-              <div>
-                <div class="banner-font fw-bold">
-                  Design New,<span class="text-primary"> Rewards!</span>
-                </div>
-                <p>Enter your administrator code + key and oversee the system!</p>
+      <!-- image-section -->
+      <div class="col-6">
+        <div>
+          <div class="banner-font fw-bold">
+            Design New,<span class="text-primary"> Rewards!</span>
+          </div>
+          <p>Enter your administrator code + key and oversee the system!</p>
+
+          <mat-card
+            class="bg-white shadow-sm product-reward-card p-3"
+            appearance="outlined"
+          >
+            <mat-card-content class="d-block">
+              <span class="badge shadow-sm bg-dark text-white fs-12"
+                >Coupon code</span
+              >
+              <div class="d-flex justify-content-center my-5">
                 <img
-                  src="assets/images/gift-selection.png"
-                  class="w-100 h-100 pe-4"
+                  mat-card-image
+                  height="200"
+                  width="200"
+                  alt="Product Image"
                 />
               </div>
-            </div>
-            <!-- mage-section -->
+              <div>
+                <div>product title</div>
+                <div class="fs-12">product description</div>
+              </div>
+              <div>
+                <button
+                  mat-flat-button
+                  class="button-mh-60 w-100 bg-dark mt-2 claim-gift-btn"
+                >
+                  <mat-icon>celebration</mat-icon>claim goft
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <!-- mage-section -->
     </div>
   </section>
   <!-- main-section -->
