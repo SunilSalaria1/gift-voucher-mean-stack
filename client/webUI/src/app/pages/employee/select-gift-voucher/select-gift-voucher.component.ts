@@ -6,12 +6,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RouterLink } from '@angular/router';
+import { EmployeeFooterComponent } from '../../../shared/employee-footer/employee-footer.component';
+import { EmployeeHeaderComponent } from '../../../shared/employee-header/employee-header.component';
 
 
 @Component({
   selector: 'app-select-gift-voucher',
   standalone: true,
-  imports: [MatIconModule, RouterLink, MatButtonModule, MatCardModule, CommonModule],
+  imports: [MatIconModule, RouterLink, MatButtonModule, MatCardModule, CommonModule,EmployeeFooterComponent,EmployeeHeaderComponent],
   templateUrl: './select-gift-voucher.component.html',
   styleUrls: ['./select-gift-voucher.component.css'],
   animations: [
@@ -91,17 +93,5 @@ export class SelectGiftVoucherComponent {
       horizontalPosition: "center",
       verticalPosition: "top",
     });
-  }
-
-  // logout
-  logOut(){
-    localStorage.removeItem('loginUser')
-    // show success snackbar
-    this.snackBar.open('You have successfully logged out.', 'close', {
-      duration: 5000,
-      panelClass: ['snackbar-success'],
-      horizontalPosition: "center",
-      verticalPosition: "top",
-    });
-  }
+  } 
 }

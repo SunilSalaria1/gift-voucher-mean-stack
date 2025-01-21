@@ -11,6 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UsersService } from '../../../services/users.service';
 import { response } from 'express';
+import { EmployeeFooterComponent } from '../../../shared/employee-footer/employee-footer.component';
+import { EmployeeHeaderComponent } from '../../../shared/employee-header/employee-header.component';
 
 
 
@@ -18,7 +20,7 @@ import { response } from 'express';
 @Component({
   selector: 'app-employee-code',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, FormsModule, MatInputModule, MatFormFieldModule, RouterLink, ReactiveFormsModule],
+  imports: [MatButtonModule, MatIconModule, FormsModule, MatInputModule, MatFormFieldModule, RouterLink, ReactiveFormsModule,EmployeeFooterComponent,EmployeeHeaderComponent ],
   templateUrl: './employee-code.component.html',
   styleUrl: './employee-code.component.css'
 })

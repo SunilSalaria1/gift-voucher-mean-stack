@@ -1,17 +1,6 @@
 <section class="container-fluid p-0">
     <!-- header section -->
-    <section class="bg-light shadow-sm">
-        <header class="container d-flex justify-content-between align-items-center py-3">
-            <div class="logo-font">
-                <span class="text-dark fw-bold">Choice</span>
-                <span class="text-primary">Chase</span>
-            </div>
-            <div>
-                <a mat-flat-button [routerLink]="['/employee-code']" class="bg-dark py-3 shadow-sm button-mh-45" (click)="logOut()" >
-                    <mat-icon>power_settings_new</mat-icon> <span>Log Out</span></a>
-            </div>
-        </header>
-    </section>
+    <app-employee-header></app-employee-header>
     <!-- /header section  -->
 </section>
 <!-- banner-section -->
@@ -118,15 +107,6 @@
         </div>
     </div>
 </section>
-<!-- /product-section -->
-<section class="container-fluid p-0">
-    <!-- footer section -->
-    <section class="py-4 bg-dark shadow-sm text-white">
-        <footer class=" container ">
-            <div class=" d-flex justify-content-center align-items-center pt-2 ">
-                <mat-icon class="me-2">copyright</mat-icon> 2024 All rights are reserved by ChoiceChase.
-            </div>
-        </footer>
-    </section>
-    <!-- /footer section -->
-</section>
+<!-- /product-section --> 
+ <!-- footer -->
+<app-employee-footer></app-employee-footer>
