@@ -31,10 +31,6 @@ export class EmployeeHeaderComponent {
     return this.router.url === '/home';
   }
 
-  isErrorPage(){
-    return this.router.url === '/page-not-found';
-  }
-
   isAdminLoginPage(){
     return this.router.url === '/admin-login-access';
   }
