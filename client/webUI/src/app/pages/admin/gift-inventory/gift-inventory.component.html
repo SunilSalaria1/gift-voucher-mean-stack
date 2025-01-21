@@ -1,2 +1,51 @@
-<p>gift-inventory works!</p>
-<a [routerLink]="['/admin/add-gift-item']">Add Product</a>
+<mat-card
+  class="bg-white shadow-sm product-reward-card p-3"
+  appearance="outlined"
+  ><div class="d-flex justify-content-end mb-3">
+    <a mat-flat-button [routerLink]="['/admin/add-gift-item']" class="bg-dark py-3 shadow-sm button-mh-45  text-white  py-3 px-4"  >
+       <span>Add Product</span> </a>  </div>
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef>No.</th>
+        <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="CouponCode">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.CouponCode }}</td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="productTitle">
+        <th mat-header-cell *matHeaderCellDef>Weight</th>
+        <td mat-cell *matCellDef="let element">{{ element.productTitle }}</td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="productDescription">
+        <th mat-header-cell *matHeaderCellDef>Symbol</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.productDescription }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="productImage">
+        <th mat-header-cell *matHeaderCellDef>Symbol</th>
+        <td mat-cell *matCellDef="let element">{{ element.productImage }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
+  </div>
+</mat-card>
