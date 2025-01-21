@@ -1,5 +1,4 @@
 /* == banner css style == */
-
 .banner-card {
     border-radius: 20%;
 }
@@ -32,7 +31,7 @@
     top: -20%;
 }
 
-/* banner cards animation */
+/* == banner cards animation  ==*/
 .banner-card-odd{
     -webkit-animation: CardmoverOdd 3s infinite  alternate;
     animation: CardmoverOdd 3s infinite  alternate;
@@ -63,7 +62,7 @@
     100% { transform: translateY(10px); }
 }
 
-/* /banner cards animation  */
+/*== /banner cards animation == */
 
 /* == reward css style == */
 .badge {
