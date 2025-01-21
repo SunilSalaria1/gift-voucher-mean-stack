@@ -10,11 +10,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UsersService } from '../../../services/users.service';
+import { EmployeeHeaderComponent } from '../../../shared/employee-header/employee-header.component';
+import { EmployeeFooterComponent } from '../../../shared/employee-footer/employee-footer.component';
 
 @Component({
   selector: 'app-admin-login-access',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, FormsModule, MatInputModule, MatFormFieldModule, RouterLink, ReactiveFormsModule],
+  imports: [MatButtonModule, MatIconModule, FormsModule, MatInputModule, MatFormFieldModule, RouterLink, ReactiveFormsModule,EmployeeHeaderComponent,EmployeeFooterComponent],
   templateUrl: './admin-login-access.component.html',
   styleUrl: './admin-login-access.component.css'
 })

@@ -1,37 +1,16 @@
 <!-- container-section -->
 <section class="container-fluid p-0 vh-100 d-flex justify-content-between flex-sm-column">
   <!-- header section -->
-  <section class="bg-light shadow-sm">
-    <header
-      class="container d-flex justify-content-between align-items-center py-3"
-    >
-      <div class="logo-font">
-        <span class="text-dark fw-bold">Choice</span>
-        <span class="text-primary">Chase</span>
-      </div>
-      <a
-        mat-flat-button
-        href="https://www.google.com/"
-        class="bg-dark py-3 shadow-sm button-mh-45"
-        [routerLink]="['/employee-code']"
-        ><mat-icon>celebration</mat-icon><span>Access your Rewards</span></a
-      >
-    </header>
-  </section>
+  <app-employee-header></app-employee-header>
   <!-- /header section  -->
 
   <!-- main-section -->
-  <section
-    class="container d-flex justify-content-center align-items-center my-5"
-  >
+  <section class="container d-flex justify-content-center align-items-center my-5">
     <div class="row justify-content-center align-items-center">
       <!-- image-section -->
       <div class="col-4">
         <div>
-          <img
-            src="assets/images/gift-selection.png"
-            class="w-100 h-100 pe-4"
-          />
+          <img src="assets/images/gift-selection.png" class="w-100 h-100 pe-4" />
         </div>
       </div>
       <!-- mage-section -->
@@ -47,11 +26,7 @@
         <!-- /heading-section -->
 
         <!-- input-box -->
-        <form
-          [formGroup]="administratorForm"
-          (ngSubmit)="onSubmit()"
-          class="mt-5"
-        >
+        <form [formGroup]="administratorForm" (ngSubmit)="onSubmit()" class="mt-5">
           <h4 class="fw-bold mb-1">Administrator Code</h4>
           <mat-form-field appearance="outline" class="d-block input-lg input">
             <input matInput formControlName="administratorCode" />
@@ -71,10 +46,7 @@
             <mat-error>This is Required</mat-error> }
           </mat-form-field>
           <div class="mt-2">
-            <button
-              mat-flat-button
-              class="button-mh-60 text-white bg-dark shadow-sm w-100 me-2"
-            >
+            <button mat-flat-button class="button-mh-60 text-white bg-dark shadow-sm w-100 me-2">
               Send Request
             </button>
           </div>
@@ -84,16 +56,9 @@
     </div>
   </section>
   <!-- main-section -->
-   
-   <!-- footer section -->
-  <section class="py-4 bg-dark shadow-sm text-white">
-    <footer class="container">
-      <div class="d-flex justify-content-center align-items-center pt-2">
-        <mat-icon class="me-2">copyright</mat-icon> 2024 All rights are
-        reserved by ChoiceChase.
-      </div>
-    </footer>
-  </section>
+
+  <!-- footer section -->
+  <app-employee-footer></app-employee-footer>
   <!-- /footer section -->
 </section>
 <!-- /container-section -->

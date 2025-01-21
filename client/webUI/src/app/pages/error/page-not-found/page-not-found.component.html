@@ -1,65 +1,41 @@
 <!-- container-section -->
-<section
-  class="container-fluid p-0 vh-100 d-flex justify-content-between flex-sm-column"> 
-    <!-- header section -->
-    <section class="bg-light shadow-sm">
-      <header
-        class="container d-flex justify-content-between align-items-center py-3"
-      >
-        <div class="logo-font">
-          <span class="text-dark fw-bold">Choice</span>
-          <span class="text-primary">Chase</span>
+<section class="container-fluid p-0 vh-100 d-flex justify-content-between flex-sm-column">
+  <!-- header section -->
+  <app-employee-header></app-employee-header>
+  <!-- /header section  -->
+  <!-- main-section -->
+  <section class="container  d-flex justify-content-center align-items-center my-5">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-5">
+        <div class="banner-font fw-bold">
+          <div class="text-primary"><span>Oops!</span></div>
+          <div>Page not Found.</div>
         </div>
-        <a mat-flat-button [routerLink]="[ '/']"
-        class="bg-dark py-3 shadow-sm button-mh-45"><mat-icon>celebration</mat-icon> <span>Join Us
-        </span></a>
-      </header>
-    </section>
-    <!-- /header section  -->
-   <!-- main-section -->
-    <section class="container  d-flex justify-content-center align-items-center my-5">
-  <div class="row justify-content-center align-items-center">
-    <div class="col-5">
-      <div class="banner-font fw-bold">
-        <div class="text-primary"><span>Oops!</span></div>
-        <div>Page not Found.</div>
+        <p class="mt-4">
+          The requested URL was not found on this server. The page you are looking
+          for might have been removed, had its name changed or it's temporarily
+          unavailable.
+        </p>
+        <div class="col d-flex justify-content-center mt-4">
+          <button mat-flat-button class="px-5 py-4 button-mh-60 bg-dark shadow-sm" (click)="goBack()">
+            <mat-icon>keyboard_backspace</mat-icon> <span>Previous Page</span>
+          </button>
+        </div>
       </div>
-      <p class="mt-4">
-        The requested URL was not found on this server. The page you are looking
-        for might have been removed, had its name changed or it's temporarily
-        unavailable.
-      </p>
-      <div class="col d-flex justify-content-center mt-4">
-        <button
-          mat-flat-button
-          class="px-5 py-4 button-mh-60 bg-dark shadow-sm"
-          (click)="goBack()"
-        >
-          <mat-icon>keyboard_backspace</mat-icon> <span>Previous Page</span>
-        </button>
+      <!-- image-section -->
+      <div class="col-4">
+        <div>
+          <img src="assets/images/ballon-icon.png" class="w-100 h-100" />
+        </div>
       </div>
-    </div>
-    <!-- image-section -->
-    <div class="col-4">
-      <div>
-        <img src="assets/images/ballon-icon.png" class="w-100 h-100"/>
-      </div>
-    </div>
       <!-- /image-section -->
-  </div>
-</section>
+    </div>
+  </section>
   <!-- /main-section -->
 
   <!-- footer section -->
-  <section class="footer py-4 bg-dark shadow-sm text-white mt-5">
-    <footer class="container">
-      <div class="d-flex justify-content-center align-items-center pt-2">
-        <mat-icon class="me-2">copyright</mat-icon> 2024 All rights are
-        reserved by ChoiceChase.
-      </div>
-    </footer>
-  </section>
- 
+  <app-employee-footer></app-employee-footer>
+
   <!-- /footer section -->
 </section>
 <!-- /container-section -->
