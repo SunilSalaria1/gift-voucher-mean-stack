@@ -1,5 +1,4 @@
-.confirmation-card{
-    position: absolute;      
+.confirmation-card{      
     left: 50%;    
     top: 50%;
     transform: translate(-50%, -50%); 

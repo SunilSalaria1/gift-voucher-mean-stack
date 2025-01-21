@@ -1,5 +1,4 @@
 /* == banner css style == */
-
 .banner-card {
     border-radius: 20%;
 }
@@ -32,6 +31,7 @@
     top: -20%;
 }
 
+/* == banner cards animation  ==*/
 .banner-card-odd{
     -webkit-animation: CardmoverOdd 3s infinite  alternate;
     animation: CardmoverOdd 3s infinite  alternate;
@@ -62,6 +62,8 @@
     100% { transform: translateY(10px); }
 }
 
+/*== /banner cards animation == */
+
 /* == reward css style == */
 .badge {
     padding: 7px 14px;
@@ -85,14 +87,10 @@ button.button-mh-60.mat-mdc-button-disabled {
 }
 
 /* confirmation-box */
-.gift-confirmation-button{
-    position: absolute;        
+.gift-confirmation-button{          
     border-radius: 12px;
     z-index: 99999;    
     width: 90%;
     top: 33%;    
 }
 
-.confirm-buttons{
-    text-align: end;
-}
