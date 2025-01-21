@@ -74,9 +74,9 @@
             <div class="col-3 mb-4" *ngFor="let item of productList; let i = index">
                 <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
                     @if(activeIndex === i && isConfirmVisible){
-                    <div class="gift-confirmation-button bg-dark text-white p-3" [@zoomInOut]="zoomState">
+                    <div class="gift-confirmation-button bg-dark text-white p-3 position-absolute" [@zoomInOut]="zoomState">
                         <div>Are you sure want to proceed with this.</div>
-                        <div class="confirm-buttons mt-2">
+                        <div class="confirm-buttons mt-2 text-end">
                             <button mat-flat-button class="button-mh-45 bg-danger mt-2" (click)="notSelected()">
                                 <mat-icon>close</mat-icon>No
                             </button>
