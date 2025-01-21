@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
+import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-employee-header',
   standalone: true,
-  imports: [MatIcon,RouterLink],
+  imports: [MatIconModule,RouterLink,MatButtonModule],
   templateUrl: './employee-header.component.html',
   styleUrl: './employee-header.component.css'
 })
