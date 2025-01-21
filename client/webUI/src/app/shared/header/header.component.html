@@ -2,8 +2,13 @@
  <header class="header">
     <div class="logo">YourLogo</div>
     <div class="header-links">
-        <a href="#">Profile</a>
-        <a href="#">Notifications</a>        
+        <div class="d-flex align-items-center">
+            <a href="#">Profile</a>
+            <a href="#" class="px-3">Notifications</a>
+            <a mat-flat-button [routerLink]="['/admin-login-access']" class="bg-dark py-3 shadow-sm button-mh-45 text-white d-flex py-3 px-4" (click)="logOut()" >
+                <mat-icon>power_settings_new</mat-icon> <span>Log Out</span></a>  
+        </div>
+              
     </div>
 </header>
  <!-- /Header -->
