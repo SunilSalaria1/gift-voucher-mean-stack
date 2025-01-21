@@ -13,7 +13,7 @@
     "employee":[
         {
             "id": 2,
-            "name": "jyoti",
+            "name": "Jyoti",
             "role": "employee",
             "empCode":"Lp123",
             "email": "jyoti@april.biz"
@@ -21,7 +21,7 @@
         
         {
             "id": 3,
-            "name": "aniket",
+            "name": "Aniket",
             "role": "employee",
             "empCode":"Lp456",
             "email": "aniket@april.biz"
@@ -29,7 +29,7 @@
         
         {
             "id": 4,
-            "name": "sushma",
+            "name": "Sushma",
             "role": "employee",
             "empCode":"Lp789",
             "email": "sushma@april.biz"
@@ -37,7 +37,7 @@
         
         {
             "id":  5,
-            "name": "rahul",
+            "name": "Rahul",
             "role": "employee",
             "empCode":"Lp1011",
             "email": "rahul@april.biz"

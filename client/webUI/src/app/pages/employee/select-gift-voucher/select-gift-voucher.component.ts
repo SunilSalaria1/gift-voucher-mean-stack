@@ -38,6 +38,9 @@ import { RouterLink } from '@angular/router';
 export class SelectGiftVoucherComponent {
   private _snackBar = inject(MatSnackBar);
   constructor(private snackBar: MatSnackBar) { }
+  userData:any=localStorage.getItem('loginUser');
+  user:any=JSON.parse(this.userData);
+
   //product list array object
   productList: any[] = [
     { id: 1, code: "CODE98547", image: "assets/images/products/water-bottle.png", name: "Copper bottle", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
