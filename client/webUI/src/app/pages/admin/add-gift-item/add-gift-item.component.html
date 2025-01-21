@@ -102,57 +102,57 @@
             Design New,<span class="text-primary"> Rewards!</span>
           </div>
           <p>Enter your administrator code + key and oversee the system!</p>
-          @if (this.addGiftItemForm.get("couponCode")?.value ||
-          this.addGiftItemForm.get("productTitle")?.value ||
-          this.addGiftItemForm.get("productDescription")?.value ||
-          this.addGiftItemForm.get("productImage")?.value){
+
           <mat-card
             class="bg-white shadow-sm product-reward-card p-3"
             appearance="outlined"
           >
-            @if (this.addGiftItemForm.get("couponCode")?.value ||
-            this.addGiftItemForm.get("productTitle")?.value ||
-            this.addGiftItemForm.get("productDescription")?.value ||
-            this.addGiftItemForm.get("productImage")?.value){
             <mat-card-content class="d-block">
-              @if (this.addGiftItemForm.get("couponCode")?.value ){
-              <span class="badge shadow-sm bg-dark text-white fs-12">{{
-                this.addGiftItemForm.get("couponCode").value
-              }}</span>
-              } @if (this.addGiftItemForm.get("productImage")?.value ){
+              <span class="badge shadow-sm bg-dark text-white fs-12"
+                >{{
+                  this.addGiftItemForm.get("couponCode").value || "Coupon Code"
+                }}
+              </span>
+
               <div class="d-flex justify-content-center my-5">
                 <img
                   mat-card-image
                   height="200"
                   width="200"
                   alt="Product Image"
-                  src="assets/images/products/{{ selectedFiles?.name }}"
+                  src="assets/images/products/{{
+                    selectedFiles?.name || 'create-magic.png'
+                  }}  "
                 />
               </div>
-              }
 
               <div>
-                @if (this.addGiftItemForm.get("productTitle")?.value ){
-                <div>{{ this.addGiftItemForm.get("productTitle").value }}</div>
-                } @if (this.addGiftItemForm.get("productDescription")?.value ){
-                <div class="fs-12">
-                  {{ this.addGiftItemForm.get("productDescription").value }}
+                <div>
+                  {{
+                    this.addGiftItemForm.get("productTitle").value ||
+                      "Product Title"
+                  }}
                 </div>
-                }
+
+                <div class="fs-12">
+                  {{
+                    this.addGiftItemForm.get("productDescription").value ||
+                      "Product Description"
+                  }}
+                </div>
               </div>
-              @if (this.addGiftItemForm.valid){
+
               <div>
                 <button
+                  readonly
                   mat-flat-button
                   class="button-mh-60 w-100 bg-dark mt-2 claim-gift-btn"
                 >
                   <mat-icon>celebration</mat-icon>claim gift
                 </button>
               </div>
-              } </mat-card-content
-            >}
+            </mat-card-content>
           </mat-card>
-          }
         </div>
       </div>
       <!-- mage-section -->
