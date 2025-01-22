@@ -5644,3 +5644,14 @@ p {
 .border-5 {
   border-width: 5px !important;
 }
+
+
+/* styling for Gift inventory component */
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: white !important;
+}
+
+.mat-mdc-text-field-wrapper:hover .mat-mdc-form-field-focus-overlay {
+  background-color: white;
+}

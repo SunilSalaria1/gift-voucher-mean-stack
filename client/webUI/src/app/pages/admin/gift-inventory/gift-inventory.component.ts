@@ -1,18 +1,23 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
 import { AddGiftItemComponent } from '../add-gift-item/add-gift-item.component';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
- import { MatIconModule } from '@angular/material/icon';
- import { MatFormFieldModule } from '@angular/material/form-field';
- import { MatInputModule } from '@angular/material/input';
- import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+
 @Component({
   selector: 'app-gift-inventory',
   standalone: true,
-  imports: [MatFormFieldModule,MatInputModule,FormsModule,
+  imports: [MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
     MatIconModule,
     RouterLink,
     AddGiftItemComponent,
@@ -24,25 +29,37 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './gift-inventory.component.html',
   styleUrl: './gift-inventory.component.css',
 })
-export class GiftInventoryComponent implements AfterViewInit {
-  constructor() {}
 
+export class GiftInventoryComponent implements AfterViewInit {
+  @ViewChild('content') dialogTemplate!: TemplateRef<any>;
+  constructor() {}
+  readonly dialog = inject(MatDialog);
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
+
+  openDialog(): void {
+    // Use the TemplateRef for the dialog
+    const dialogRef = this.dialog.open(this.dialogTemplate);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
   displayedColumns: string[] = [
     'position',
     'couponCode',
     'productTitle',
     'productDescription',
     'productImage',
-    'Action'
+    'Action',
   ];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
-  search : string ='';
+  search: string = '';
 }
 
 export interface PeriodicElement {
