@@ -7,10 +7,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-add-gift-item',
   standalone: true,
-  imports: [
+  imports: [CommonModule,
     MatButtonModule,
     MatCardModule,    
     MatIconModule,
@@ -24,7 +25,7 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class AddGiftItemComponent {
   submitted: boolean = false;
-  addGiftItemForm: any;
+  addGiftItemForm!: FormGroup;
   constructor(
     private formBuilder: FormBuilder,    
   ) {}
@@ -40,7 +41,9 @@ export class AddGiftItemComponent {
       productImage: ['', Validators.required],
     });
   }
-
+submit(){
+  console.log("addGiftItemForm.controls",this.addGiftItemForm.controls)
+}
   onSubmit() {
     this.submitted = true;
     if (this.addGiftItemForm.valid) {
@@ -55,6 +58,6 @@ export class AddGiftItemComponent {
 
   removeImage() {
     this.selectedFiles = '';
-    this.addGiftItemForm.get('productImage').setValue('');
+    this.addGiftItemForm.get('productImage')?.setValue('');
   }
 }

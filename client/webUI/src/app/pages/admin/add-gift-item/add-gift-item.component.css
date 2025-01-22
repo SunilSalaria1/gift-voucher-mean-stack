@@ -47,7 +47,10 @@
   min-height: 110px;
 }
 
-
+.delete-btn:hover {
+  cursor: pointer !important;
+  color: #ba1a1a;
+}
 
 
 

@@ -3,7 +3,54 @@
   <!-- main-section -->
   <section class="container d-flex justify-content-center align-items-center my-5">
     <div class="row justify-content-center align-items-center">
-      <div class="col-5">
+      <!-- image-section -->
+      <div class="col-6">
+        <div>
+          <div class="banner-font fw-bold">
+            Design New,<span class="text-primary"> Rewards!</span>
+          </div>
+          <p>Enter your administrator code + key and oversee the system!</p>
+
+          <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
+            <mat-card-content class="d-block">
+              <span class="badge shadow-sm bg-dark text-white fs-12">{{
+                this.addGiftItemForm.get("couponCode")?.value || "Coupon Code"
+                }}
+              </span>
+
+              <div class="d-flex justify-content-center my-5">
+                <img mat-card-image height="200" width="200" alt="Product Image" src="assets/images/products/{{
+                    selectedFiles?.name || 'create-magic.png'
+                  }}  " />
+              </div>
+
+              <div>
+                <div>
+                  {{
+                  this.addGiftItemForm.get("productTitle")?.value ||
+                  "Product Title"
+                  }}
+                </div>
+
+                <div class="fs-12">
+                  {{
+                  this.addGiftItemForm.get("productDescription")?.value ||
+                  "Product Description"
+                  }}
+                </div>
+              </div>
+
+              <div>
+                <button [disabled]="true" mat-flat-button class="button-mh-60 w-100 bg-dark mt-2 claim-gift-btn">
+                  <mat-icon>celebration</mat-icon>claim gift
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <!-- image-section -->
+      <div class="col-6">
         <!-- input-box -->
         <form [formGroup]="addGiftItemForm" (ngSubmit)="onSubmit()" class="mt-5">
           <h4 class="fw-bold mb-1">Coupon Code</h4>
@@ -16,7 +63,7 @@
           <mat-form-field appearance="outline" class="d-block input-lg input">
             <div class="d-flex"><input readonly matInput formControlName="productImage" [value]="selectedFiles?.name || ''"/>
               @if (selectedFiles?.name) {                          
-              <mat-icon (click)="removeImage()" >delete</mat-icon>}
+              <mat-icon (click)="removeImage()" class="delete-btn">delete</mat-icon>}
             </div>
               <mat-error>This is Required</mat-error>
               @if (!selectedFiles?.name) {     
@@ -33,18 +80,18 @@
             <mat-error>This is Required</mat-error> 
           </mat-form-field>
 
-          <h4 class="fw-bold mb-1">Product Description</h4>
-          <small>(* Maximum Character limit is 200 *)</small>
+          <div class="d-flex"><h4 class="fw-bold mb-1">Product Description</h4><small class="pt-3 ps-2 text-danger">max character limit 200</small></div>
+          
           <mat-form-field appearance="outline" class="d-block input-lg input">
             <textarea matInput formControlName="productDescription"></textarea>
-            <!-- 
-            @if
-            (this.addGiftItemForm.controls("productDescription")?.error("maxLength"))
-            {
-              <mat-error>Max-length is 200 character only</mat-error>
-            } -->           
-            <mat-error>This is Required</mat-error> 
+            <mat-error *ngIf="addGiftItemForm.get('productDescription')?.hasError('required')">
+              This is Required
+            </mat-error>
+            <mat-error *ngIf="addGiftItemForm.get('productDescription')?.hasError('maxlength')">
+              Maximum 200 characters allowed.
+            </mat-error>
           </mat-form-field>
+         
           <div class="mt-2">
             <button mat-flat-button class="button-mh-60 text-white bg-dark shadow-sm w-100 me-2">
               <mat-icon>celebration</mat-icon>Create Reward
@@ -53,53 +100,7 @@
         </form>
         <!-- input-box -->
       </div>
-      <!-- image-section -->
-      <div class="col-6">
-        <div>
-          <div class="banner-font fw-bold">
-            Design New,<span class="text-primary"> Rewards!</span>
-          </div>
-          <p>Enter your administrator code + key and oversee the system!</p>
-
-          <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
-            <mat-card-content class="d-block">
-              <span class="badge shadow-sm bg-dark text-white fs-12">{{
-                this.addGiftItemForm.get("couponCode").value || "Coupon Code"
-                }}
-              </span>
-
-              <div class="d-flex justify-content-center my-5">
-                <img mat-card-image height="200" width="200" alt="Product Image" src="assets/images/products/{{
-                    selectedFiles?.name || 'create-magic.png'
-                  }}  " />
-              </div>
-
-              <div>
-                <div>
-                  {{
-                  this.addGiftItemForm.get("productTitle").value ||
-                  "Product Title"
-                  }}
-                </div>
-
-                <div class="fs-12">
-                  {{
-                  this.addGiftItemForm.get("productDescription").value ||
-                  "Product Description"
-                  }}
-                </div>
-              </div>
-
-              <div>
-                <button [disabled]="true" mat-flat-button class="button-mh-60 w-100 bg-dark mt-2 claim-gift-btn">
-                  <mat-icon>celebration</mat-icon>claim gift
-                </button>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </div>
-      <!-- mage-section -->
+      
     </div>
   </section>
   <!-- main-section -->
