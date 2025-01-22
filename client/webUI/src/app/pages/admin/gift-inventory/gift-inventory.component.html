@@ -1,9 +1,32 @@
+<div class="banner-font fw-bold mb-3">
+  Gift<span class="text-primary"> Inventory!</span>
+</div>
 <mat-card
   class="bg-white shadow-sm product-reward-card p-3"
   appearance="outlined"
-  ><div class="d-flex justify-content-end mb-3">
-    <a mat-flat-button [routerLink]="['/admin/add-gift-item']" class="bg-dark py-3 shadow-sm button-mh-45  text-white  py-3 px-4"  >
-       <span>Add Product</span> </a>  </div>
+>
+  <div class="d-flex justify-content-between">
+    <mat-form-field>
+      <!-- <mat-label>Search</mat-label> -->
+      <input
+        matInput
+        type="text"
+        placeholder="Search"
+        name="search"
+        [(ngModel)]="search"
+      />
+      <button matSuffix mat-icon-button aria-label="Search">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+    <a
+      mat-flat-button
+      [routerLink]="['/admin/add-gift-item']"
+      class="bg-dark py-3 shadow-sm button-mh-45 text-white py-3 px-4"
+    >
+      <span>Add Product</span>
+    </a>
+  </div>
 
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
@@ -14,27 +37,34 @@
       </ng-container>
 
       <!-- Name Column -->
-      <ng-container matColumnDef="CouponCode">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
-        <td mat-cell *matCellDef="let element">{{ element.CouponCode }}</td>
+      <ng-container matColumnDef="couponCode">
+        <th mat-header-cell *matHeaderCellDef>Coupon Code</th>
+        <td mat-cell *matCellDef="let element">{{ element.couponCode }}</td>
       </ng-container>
 
       <!-- Weight Column -->
       <ng-container matColumnDef="productTitle">
-        <th mat-header-cell *matHeaderCellDef>Weight</th>
+        <th mat-header-cell *matHeaderCellDef>Product Title</th>
         <td mat-cell *matCellDef="let element">{{ element.productTitle }}</td>
       </ng-container>
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="productDescription">
-        <th mat-header-cell *matHeaderCellDef>Symbol</th>
+        <th mat-header-cell *matHeaderCellDef>Product Description</th>
         <td mat-cell *matCellDef="let element">
           {{ element.productDescription }}
         </td>
       </ng-container>
       <ng-container matColumnDef="productImage">
-        <th mat-header-cell *matHeaderCellDef>Symbol</th>
-        <td mat-cell *matCellDef="let element">{{ element.productImage }}</td>
+        <th mat-header-cell *matHeaderCellDef>Product Image</th>
+        <td mat-cell *matCellDef="let element"> <div class="p-3">  <img style="height: 50px;" src="{{element.productImage}}"  alt="image"> </div></td>
+      </ng-container>
+      <ng-container matColumnDef="Action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon >edit</mat-icon
+          ><mat-icon>delete</mat-icon>
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

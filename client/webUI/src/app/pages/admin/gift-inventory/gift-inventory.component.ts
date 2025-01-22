@@ -5,10 +5,15 @@ import { RouterLink } from '@angular/router';
 import { AddGiftItemComponent } from '../add-gift-item/add-gift-item.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+ import { MatIconModule } from '@angular/material/icon';
+ import { MatFormFieldModule } from '@angular/material/form-field';
+ import { MatInputModule } from '@angular/material/input';
+ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-gift-inventory',
   standalone: true,
-  imports: [
+  imports: [MatFormFieldModule,MatInputModule,FormsModule,
+    MatIconModule,
     RouterLink,
     AddGiftItemComponent,
     MatTableModule,
@@ -27,20 +32,22 @@ export class GiftInventoryComponent implements AfterViewInit {
   }
   displayedColumns: string[] = [
     'position',
-    'CouponCode',
+    'couponCode',
     'productTitle',
     'productDescription',
     'productImage',
+    'Action'
   ];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
+  search : string ='';
 }
 
 export interface PeriodicElement {
   position: number;
-  CouponCode: string;
+  couponCode: string;
   productTitle: string;
   productDescription: string;
   productImage: string;
@@ -49,142 +56,142 @@ export interface PeriodicElement {
 const ELEMENT_DATA: PeriodicElement[] = [
   {
     position: 1,
-    CouponCode: 'Hydrogen',
+    couponCode: 'Hydrogen',
     productTitle: 'tile2345',
     productDescription: 'cvbHdfgdg dfgdfg dfgdfgfdg dfgdfgdfg gfhfgh',
-    productImage: './/assets.//sg.//df./.dfdf',
+    productImage: '/assets/images/banner-1.png',
   },
   {
     position: 2,
-    CouponCode: 'Helium',
+    couponCode: 'Helium',
     productTitle: 'tile2345',
     productDescription: 'Hedfgdg dfgdfg dfgdfgfdg dfgdfgdfg gfhfgh',
-    productImage: './/assets.//sg.//df./.dfdf',
+    productImage: '/assets/images/banner-1.png',
   },
   {
     position: 3,
-    CouponCode: 'Lithium',
+    couponCode: 'Lithium',
     productTitle: 'tile2345',
     productDescription: 'Lidfgdg dfgdfg dfgdfgfdg dfgdfgdfg gfhfgh',
-    productImage: './/assets.//sg.//df./.dfdf',
+    productImage: '/assets/images/banner-1.png',
   },
   {
     position: 4,
-    CouponCode: 'Beryllium',
+    couponCode: 'Beryllium',
     productTitle: 'tile2345',
     productDescription: 'Bdfgdg dfgdfg dfgdfgfdg dfgdfgdfg gfhfghe',
-    productImage: './/assets.//sg.//df./.dfdf',
+    productImage: '/assets/images/banner-1.png',
   },
   {
     position: 5,
-    CouponCode: 'Boron',
+    couponCode: 'Boron',
     productTitle: 'tile2345',
     productDescription: 'Bdfgdg dfgdfg dfgdfgfdg dfgdfgdfg gfhfgh',
-    productImage: './/assets.//sg.//df./.dfdf',
+    productImage: '/assets/images/banner-1.png',
   },
   {
     position: 6,
-    CouponCode: 'Carbon',
+    couponCode: 'Carbon',
     productTitle: 'tile2345',
     productDescription: 'Cdfgdg dfgdfg dfgdfgfdg dfgdfgdfg gfhfgh',
-    productImage: './/assets.//sg.//df./.dfdf',
+    productImage: '/assets/images/banner-1.png',
   },
   {
     position: 7,
-    CouponCode: 'Nitrogen',
+    couponCode: 'Nitrogen',
     productTitle: 'tile2345',
     productDescription: 'dfgdg dfgdfg dfgdfgfdg dfgdfgdfg gfhfghN',
-    productImage: './/assets.//sg.//df./.dfdf',
+    productImage: '/assets/images/banner-1.png',
   },
   {
     position: 8,
-    CouponCode: 'Oxygen',
+    couponCode: 'Oxygen',
     productTitle: 'tile2345',
     productDescription: 'Odfgdg dfgdfg dfgdfgfdg dfgdfgdfg gfhfgh',
-    productImage: './/assets.//sg.//df./.dfdf',
+    productImage: '/assets/images/banner-1.png',
   },
   {
     position: 9,
-    CouponCode: 'Fluorine',
+    couponCode: 'Fluorine',
     productTitle: 'tile2345',
     productDescription: 'dfgdg dfgdfg dfgdfgfdg dfgdfgdfg gfhfghF',
-    productImage: './/assets.//sg.//df./.dfdf',
+    productImage: '/assets/images/banner-1.png',
   },
   {
     position: 10,
-    CouponCode: 'Neon',
+    couponCode: 'Neon',
     productTitle: 'tile2345',
     productDescription: 'Ndfgdg dfgdfg dfgdfgfdg dfgdfgdfg gfhfghe',
-    productImage: './/assets.//sg.//df./.dfdf',
+    productImage: '/assets/images/banner-1.png',
   },
   {
     position: 11,
-    CouponCode: 'Sodium',
+    couponCode: 'Sodium',
     productTitle: 'tile2345',
     productDescription: 'Ndfgdg dfgdfg dfgdfgfdg dfgdfgdfg gfhfgha',
-    productImage: './/assets.//sg.//df./.dfdf',
+    productImage: '/assets/images/banner-1.png',
   },
   {
     position: 12,
-    CouponCode: 'Magnesium',
+    couponCode: 'Magnesium',
     productTitle: 'tile2345',
     productDescription: 'Mdfgdg dfgdfg dfgdfgfdg dfgdfgdfg gfhfghg',
-    productImage: './/assets.//sg.//df./.dfdf',
+    productImage: '/assets/images/banner-1.png',
   },
   {
     position: 13,
-    CouponCode: 'Aluminum',
+    couponCode: 'Aluminum',
     productTitle: 'tile2345',
     productDescription: 'Aldfgdg dfgdfg dfgdfgfdg dfgdfgdfg gfhfgh',
-    productImage: './/assets.//sg.//df./.dfdf',
+    productImage: '/assets/images/banner-1.png',
   },
   {
     position: 14,
-    CouponCode: 'Silicon',
+    couponCode: 'Silicon',
     productTitle: 'tile2345',
     productDescription: 'Sdfgdg dfgdfg dfgdfgfdg dfgdfgdfg gfhfghi',
-    productImage: './/assets.//sg.//df./.dfdf',
+    productImage: '/assets/images/banner-1.png',
   },
   {
     position: 15,
-    CouponCode: 'Phosphorus',
+    couponCode: 'Phosphorus',
     productTitle: 'tile2345',
     productDescription: 'dfgdg dfgdfg dfgdfgfdg dfgdfgdfg gfhfghP',
-    productImage: './/assets.//sg.//df./.dfdf',
+    productImage: '/assets/images/banner-1.png',
   },
   {
     position: 16,
-    CouponCode: 'Sulfur',
+    couponCode: 'Sulfur',
     productTitle: 'tile2345',
     productDescription: 'Sdfgdg dfgdfg dfgdfgfdg dfgdfgdfg gfhfgh',
-    productImage: './/assets.//sg.//df./.dfdf',
+    productImage: '/assets/images/banner-1.png',
   },
   {
     position: 17,
-    CouponCode: 'Chlorine',
+    couponCode: 'Chlorine',
     productTitle: 'tile2345',
     productDescription: 'Cdfgdg dfgdfg dfgdfgfdg dfgdfgdfg gfhfghl',
-    productImage: './/assets.//sg.//df./.dfdf',
+    productImage: '/assets/images/banner-1.png',
   },
   {
     position: 18,
-    CouponCode: 'Argon',
+    couponCode: 'Argon',
     productTitle: 'tile2345',
     productDescription: 'Adfgdg dfgdfg dfgdfgfdg dfgdfgdfg gfhfghr',
-    productImage: './/assets.//sg.//df./.dfdf',
+    productImage: '/assets/images/banner-1.png',
   },
   {
     position: 19,
-    CouponCode: 'Potassium',
+    couponCode: 'Potassium',
     productTitle: 'tile2345',
     productDescription: 'Kdfgdg dfgdfg dfgdfgfdg dfgdfgdfg gfhfgh',
-    productImage: './/assets.//sg.//df./.dfdf',
+    productImage: '/assets/images/banner-1.png',
   },
   {
     position: 20,
-    CouponCode: 'Calcium',
+    couponCode: 'Calcium',
     productTitle: 'tile2345',
     productDescription: 'Cdfgdg dfgdfg dfgdfgfdg dfgdfgdfg gfhfgha',
-    productImage: './/assets.//sg.//df./.dfdf',
+    productImage: '/assets/images/banner-1.png',
   },
 ];
