@@ -13,6 +13,7 @@ import { SettingsComponent } from './pages/admin/settings/settings.component';
 import { PageNotFoundComponent } from './pages/error/page-not-found/page-not-found.component';
 import { RewardClaimedComponent } from './pages/employee/reward-claimed/reward-claimed.component';
 import { authGuardGuard } from './guards/auth-guard.guard';
+import { EditGiftItemComponent } from './pages/admin/edit-gift-item/edit-gift-item.component';
 
 export const routes: Routes = [
     //auth routes
@@ -31,6 +32,7 @@ export const routes: Routes = [
             { path: 'product-reports', component: ProductReportsComponent },
             { path: 'settings', component: SettingsComponent },
             { path: 'add-gift-item', component: AddGiftItemComponent },
+            { path: 'edit-gift-item/:id', component: EditGiftItemComponent },
         ]
      },
     { path: '**', component: PageNotFoundComponent }
