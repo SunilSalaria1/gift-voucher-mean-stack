@@ -6,8 +6,8 @@
 <!-- banner-section -->
 <section class="container">
     <div class="row py-5 align-items-center">
-        <div class="col-5"> 
-            <div class="text-primary">Welcome {{user.name}}</div>           
+        <div class="col-5">
+            <div class="text-primary">Welcome {{user.name}}</div>
             <div class="banner-font fw-bold">
                 Unlock Your <span class="text-primary">Gift,</span> Embrace the <span
                     class="text-primary">Moment!</span>
@@ -61,7 +61,7 @@
 </section>
 <!-- /banner-section -->
 <!-- product-section -->
-<section class="container-fluid py-5 bg-light">
+<section class="container-fluid py-5 bg-light border-top border-bottom border-light">
     <div class="container">
         <div class="row">
             <div class="col-12 mb-5">
@@ -74,15 +74,18 @@
             <div class="col-3 mb-4" *ngFor="let item of productList; let i = index">
                 <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
                     @if(activeIndex === i && isConfirmVisible){
-                    <div class="gift-confirmation-button bg-dark text-white p-3 position-absolute" [@zoomInOut]="zoomState">
+                    <div class="gift-confirmation-button bg-dark text-white p-3 position-absolute shadow-sm"
+                        [@zoomInOut]="zoomState">
                         <div>Are you sure want to proceed with this.</div>
                         <div class="confirm-buttons mt-2 text-end">
-                            <button mat-flat-button class="button-mh-45 bg-danger mt-2" (click)="notSelected()">
+                            <button mat-flat-button class="button-mh-45 shadow-sm py-3 bg-danger mt-2"
+                                (click)="notSelected()">
                                 <mat-icon>close</mat-icon>No
                             </button>
-                            <button mat-flat-button class="button-mh-45 bg-success mt-2 ms-2" routerLink="/reward-claimed" (click)="selected()">
+                            <button mat-flat-button class="button-mh-45 shadow-sm py-3 bg-success mt-2 ms-2"
+                                routerLink="/reward-claimed" (click)="selected()">
                                 <mat-icon>check</mat-icon>Yes
-                            </button >
+                            </button>
                         </div>
                     </div>
                     }
@@ -96,7 +99,7 @@
                             <div class="fs-12">{{ item.description }}</div>
                         </div>
                         <div>
-                            <button mat-flat-button class="button-mh-60 w-100 bg-dark mt-2 claim-gift-btn"
+                            <button mat-flat-button class="button-mh-60 py-4 shadow-sm w-100 bg-dark mt-2 claim-gift-btn"
                                 (click)="claimGiftBtn(i)" [disabled]="activeIndex === i">
                                 <mat-icon>celebration</mat-icon>{{ item.text }}
                             </button>
@@ -107,7 +110,7 @@
         </div>
     </div>
 </section>
-<!-- /product-section --> 
- <!-- footer -->
+<!-- /product-section -->
+<!-- footer -->
 <app-employee-footer></app-employee-footer>
 <!-- /footer -->

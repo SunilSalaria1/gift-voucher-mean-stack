@@ -31,39 +31,6 @@
     top: -20%;
 }
 
-/* == banner cards animation  ==*/
-.banner-card-odd{
-    -webkit-animation: CardmoverOdd 3s infinite  alternate;
-    animation: CardmoverOdd 3s infinite  alternate;
-}
-
-@-webkit-keyframes CardmoverOdd {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-10px); }
-}
- 
-@keyframes CardmoverOdd {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-10px); }
-}
-
-.banner-card-even{
-    -webkit-animation: CardmoverEven 3s infinite  alternate;
-    animation: CardmoverEven 3s infinite  alternate;
-}
-
-@-webkit-keyframes CardmoverEven {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(10px); }
-}
- 
-@keyframes CardmoverEven {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(10px); }
-}
-
-/*== /banner cards animation == */
-
 /* == reward css style == */
 .badge {
     padding: 7px 14px;
@@ -94,3 +61,33 @@ button.button-mh-60.mat-mdc-button-disabled {
     top: 33%;    
 }
 
+/* == banner cards animation  ==*/
+.banner-card-odd{
+    -webkit-animation: CardmoverOdd 3s infinite  alternate;
+    animation: CardmoverOdd 3s infinite  alternate;
+}
+
+@-webkit-keyframes CardmoverOdd {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+ 
+@keyframes CardmoverOdd {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+
+.banner-card-even{
+    -webkit-animation: CardmoverEven 3s infinite  alternate;
+    animation: CardmoverEven 3s infinite  alternate;
+}
+
+@-webkit-keyframes CardmoverEven {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(10px); }
+}
+ 
+@keyframes CardmoverEven {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(10px); }
+}

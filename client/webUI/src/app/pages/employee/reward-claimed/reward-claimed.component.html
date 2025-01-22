@@ -1,23 +1,23 @@
-<section class="container-fluid p-0">
-<!-- header -->
-<app-employee-header></app-employee-header>
- <!-- /header -->
-</section>
 <!-- main content -->
-<section class="container-fluid bg-light h-100">
+<section class="container-fluid h-100">
     <div class="container">
         <div class="row">
             <div class="col-6">
-                <mat-card class="bg-white shadow-sm p-3 confirmation-card position-absolute" appearance="outlined">
+                <mat-card class="border-0 bg-white p-3 confirmation-card position-absolute" appearance="outlined">
                     <mat-card-content class="text-center">
                         <img mat-card-image src="assets/images/success-message.png" />
-                        <div class="bg-dark text-white mt-3 p-3 shadow-sm" style="border-radius: 12px;">
+                        <div class="text-dark mt-3">
                             <div class="banner-font fw-bold">
                                 Congratulations!
                             </div>
-                            <div class="mt-4">Your Reward is confirmed...</div>
+                            <div class="mt-4">
+                                <div>"Thank you for visiting! We're thrilled to let you know that your reward
+                                    has been confirmed. </div>
+                                <div>Get ready to enjoy your special treat—it's our way of saying
+                                    thanks!"</div>
+                            </div>
                             <div><a mat-flat-button [routerLink]="['/home']"
-                                    class="bg-white text-dark py-3 shadow-sm button-mh-45 mt-4">
+                                    class="bg-dark text-white py-4 px-5 shadow-sm button-mh-60 mt-4">
                                     <mat-icon>celebration</mat-icon> <span>Back to Home</span></a>
                             </div>
                         </div>
@@ -28,6 +28,3 @@
     </div>
 </section>
 <!-- /main content -->
-<!-- footer -->
-<app-employee-footer></app-employee-footer>
-<!-- /footer -->
