@@ -1,26 +1,33 @@
-import { AfterViewInit, Component, inject, TemplateRef, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  inject,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
-import { AddGiftItemComponent } from '../add-gift-item/add-gift-item.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-gift-inventory',
   standalone: true,
-  imports: [MatDialogModule,
+  imports: [
+    CommonModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
     MatIconModule,
     RouterLink,
-    AddGiftItemComponent,
     MatTableModule,
     MatPaginatorModule,
     MatCardModule,
@@ -29,7 +36,6 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
   templateUrl: './gift-inventory.component.html',
   styleUrl: './gift-inventory.component.css',
 })
-
 export class GiftInventoryComponent implements AfterViewInit {
   @ViewChild('content') dialogTemplate!: TemplateRef<any>;
   constructor() {}
@@ -46,6 +52,11 @@ export class GiftInventoryComponent implements AfterViewInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+  // this is for the filter the table data
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
   displayedColumns: string[] = [
     'position',
@@ -55,11 +66,11 @@ export class GiftInventoryComponent implements AfterViewInit {
     'productImage',
     'Action',
   ];
+
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
-  search: string = '';
 }
 
 export interface PeriodicElement {
