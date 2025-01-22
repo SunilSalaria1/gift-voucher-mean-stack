@@ -53,6 +53,10 @@ button.button-mh-60.mat-mdc-button-disabled {
     color: white;
 }
 
+.mat-mdc-card > .gift-confirmation-button + .active-product-card {
+    padding-top: 15px;
+}
+
 /* confirmation-box */
 .gift-confirmation-button{          
     border-radius: 12px;
