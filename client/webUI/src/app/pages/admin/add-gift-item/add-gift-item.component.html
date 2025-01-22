@@ -1,42 +1,24 @@
 <!-- container-section -->
-<section
-  class="container-fluid p-0 vh-100 d-flex justify-content-between flex-sm-column"
->
+<section class="container-fluid p-0 vh-100 d-flex justify-content-between flex-sm-column">
   <!-- main-section -->
-  <section
-    class="container d-flex justify-content-center align-items-center my-5"
-  >
+  <section class="container d-flex justify-content-center align-items-center my-5">
     <div class="row justify-content-center align-items-center">
       <div class="col-5">
         <!-- input-box -->
-        <form
-          [formGroup]="addGiftItemForm"
-          (ngSubmit)="onSubmit()"
-          class="mt-5"
-        >
+        <form [formGroup]="addGiftItemForm" (ngSubmit)="onSubmit()" class="mt-5">
           <h4 class="fw-bold mb-1">Coupon Code</h4>
           <mat-form-field appearance="outline" class="d-block input-lg input">
             <input matInput formControlName="couponCode" />
-            <mat-icon matSuffix>vpn_key</mat-icon>
-            @if (this.addGiftItemForm.get("couponCode")?.hasError("required")) {
-            <mat-error>This is Required</mat-error> }
+            <mat-icon matSuffix>vpn_key</mat-icon>           
+            <mat-error>This is Required</mat-error> 
           </mat-form-field>
 
           <h4 class="fw-bold mb-1">Product Image</h4>
-          <mat-form-field appearance="outline"  class="d-block input-lg input">
-            <mat-toolbar>
+          <mat-form-field appearance="outline" class="d-block input-lg input">           
               <input matInput readonly />
-              <mat-icon matSuffix>cloud_upload</mat-icon>
-            </mat-toolbar>
-            <input
-              formControlName="productImage"
-              type="file"
-              id="fileInput"
-              name="fileInput"
-              accept="image/*"
-              multiple
-              (change)="selectFiles($event)"
-            />
+              <mat-icon matSuffix>cloud_upload</mat-icon>                          
+            <input formControlName="productImage" type="file" id="fileInput" name="fileInput" accept="image/*" multiple
+              (change)="selectFiles($event)" />
           </mat-form-field>
           @if (this.addGiftItemForm.get("productImage")?.hasError("required") &&
           submitted) {
@@ -49,10 +31,7 @@
                   <span>{{ selectedFiles?.name }}</span>
                 </div>
                 <div class="col-1">
-                  <mat-icon
-                    (click)="removeImage()"
-                    fontIcon="delete"
-                  ></mat-icon>
+                  <mat-icon (click)="removeImage()" fontIcon="delete"></mat-icon>
                 </div>
               </div>
             </mat-card-content>
@@ -62,10 +41,8 @@
           <h4 class="fw-bold mb-1">Product Title</h4>
           <mat-form-field appearance="outline" class="d-block input-lg input">
             <input matInput formControlName="productTitle" />
-            <mat-icon matSuffix>redeem</mat-icon>
-            @if (this.addGiftItemForm.get("productTitle")?.hasError("required"))
-            {
-            <mat-error>This is Required</mat-error> }
+            <mat-icon matSuffix>redeem</mat-icon>           
+            <mat-error>This is Required</mat-error> 
           </mat-form-field>
 
           <h4 class="fw-bold mb-1">Product Description</h4>
@@ -77,19 +54,12 @@
             (this.addGiftItemForm.controls("productDescription")?.error("maxLength"))
             {
               <mat-error>Max-length is 200 character only</mat-error>
-            } -->
-            @if
-            (this.addGiftItemForm.get("productDescription")?.hasError("required"))
-            {
-            <mat-error>This is Required</mat-error> }
+            } -->           
+            <mat-error>This is Required</mat-error> 
           </mat-form-field>
-
           <div class="mt-2">
-            <button
-              mat-flat-button
-              class="button-mh-60 text-white bg-dark shadow-sm w-100 me-2"
-            >
-            <mat-icon>celebration</mat-icon>Create Reward
+            <button mat-flat-button class="button-mh-60 text-white bg-dark shadow-sm w-100 me-2">
+              <mat-icon>celebration</mat-icon>Create Reward
             </button>
           </div>
         </form>
@@ -103,51 +73,37 @@
           </div>
           <p>Enter your administrator code + key and oversee the system!</p>
 
-          <mat-card
-            class="bg-white shadow-sm product-reward-card p-3"
-            appearance="outlined"
-          >
+          <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
             <mat-card-content class="d-block">
-              <span class="badge shadow-sm bg-dark text-white fs-12"
-                >{{
-                  this.addGiftItemForm.get("couponCode").value || "Coupon Code"
+              <span class="badge shadow-sm bg-dark text-white fs-12">{{
+                this.addGiftItemForm.get("couponCode").value || "Coupon Code"
                 }}
               </span>
 
               <div class="d-flex justify-content-center my-5">
-                <img
-                  mat-card-image
-                  height="200"
-                  width="200"
-                  alt="Product Image"
-                  src="assets/images/products/{{
+                <img mat-card-image height="200" width="200" alt="Product Image" src="assets/images/products/{{
                     selectedFiles?.name || 'create-magic.png'
-                  }}  "
-                />
+                  }}  " />
               </div>
 
               <div>
                 <div>
                   {{
-                    this.addGiftItemForm.get("productTitle").value ||
-                      "Product Title"
+                  this.addGiftItemForm.get("productTitle").value ||
+                  "Product Title"
                   }}
                 </div>
 
                 <div class="fs-12">
                   {{
-                    this.addGiftItemForm.get("productDescription").value ||
-                      "Product Description"
+                  this.addGiftItemForm.get("productDescription").value ||
+                  "Product Description"
                   }}
                 </div>
               </div>
 
               <div>
-                <button
-                [disabled]="true"
-                  mat-flat-button
-                  class="button-mh-60 w-100 bg-dark mt-2 claim-gift-btn"
-                >
+                <button [disabled]="true" mat-flat-button class="button-mh-60 w-100 bg-dark mt-2 claim-gift-btn">
                   <mat-icon>celebration</mat-icon>claim gift
                 </button>
               </div>

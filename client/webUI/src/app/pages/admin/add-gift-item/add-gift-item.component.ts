@@ -4,26 +4,19 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { RouterLink } from '@angular/router';
-import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { UsersService } from '../../../services/users.service';
 import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'app-add-gift-item',
   standalone: true,
   imports: [
     MatButtonModule,
-    MatCardModule,
-    MatToolbarModule,
+    MatCardModule,    
     MatIconModule,
     FormsModule,
     MatInputModule,
-    MatFormFieldModule,
-    RouterLink,
+    MatFormFieldModule,    
     ReactiveFormsModule,
   ],
   templateUrl: './add-gift-item.component.html',
@@ -33,9 +26,7 @@ export class AddGiftItemComponent {
   submitted: boolean = false;
   addGiftItemForm: any;
   constructor(
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private snackBar: MatSnackBar
+    private formBuilder: FormBuilder,    
   ) {}
 
   ngOnInit(): void {
