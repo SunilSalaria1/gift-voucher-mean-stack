@@ -23,10 +23,10 @@
           </mat-form-field>
 
           <h4 class="fw-bold mb-1">Product Image</h4>
-          <mat-form-field class="d-block input-lg input">
+          <mat-form-field appearance="outline"  class="d-block input-lg input">
             <mat-toolbar>
               <input matInput readonly />
-              <mat-icon fontIcon="upload"></mat-icon>
+              <mat-icon matSuffix>cloud_upload</mat-icon>
             </mat-toolbar>
             <input
               formControlName="productImage"
@@ -89,7 +89,7 @@
               mat-flat-button
               class="button-mh-60 text-white bg-dark shadow-sm w-100 me-2"
             >
-              Send Request
+            <mat-icon>celebration</mat-icon>Create Reward
             </button>
           </div>
         </form>
