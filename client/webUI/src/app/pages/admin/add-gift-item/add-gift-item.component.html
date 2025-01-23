@@ -9,9 +9,9 @@
           <div class="banner-font fw-bold">
             Design New,<span class="text-primary"> Rewards!</span>
           </div>
-          <p>Enter your administrator code + key and oversee the system!</p>
-
-          <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
+          <p>Create unique and exciting rewards!Design engaging, tailored perks that make every experience
+            unforgettable.Create something fresh to engage and delight your audience.</p>
+          <mat-card class="bg-white shadow-sm product-reward-card p-3 mt-3" appearance="outlined">
             <mat-card-content class="d-block">
               <span class="badge shadow-sm bg-dark text-white fs-12">{{
                 this.addGiftItemForm.get("couponCode")?.value || "Coupon Code"
@@ -51,6 +51,8 @@
       </div>
       <!-- image-section -->
       <div class="col-6">
+        <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
+          <mat-card-content class="d-block">
         <!-- input-box -->
         <form [formGroup]="addGiftItemForm" (ngSubmit)="onSubmit()" class="mt-5">
           <h4 class="fw-bold mb-1">Coupon Code</h4>
@@ -86,7 +88,7 @@
               200</small>
           </div>
           <mat-form-field appearance="outline" class="d-block input-lg input">
-            <textarea matInput formControlName="productDescription" rows="5" ></textarea>
+            <textarea matInput formControlName="productDescription" rows="5"></textarea>
             <mat-error *ngIf="addGiftItemForm.get('productDescription')?.hasError('required')">
               This is Required
             </mat-error>
@@ -102,6 +104,8 @@
           </div>
         </form>
         <!-- input-box -->
+      </mat-card-content>
+      </mat-card>
       </div>
     </div>
   </section>
