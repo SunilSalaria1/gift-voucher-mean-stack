@@ -16,7 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-gift-inventory',
   standalone: true,
@@ -38,7 +38,7 @@ import { CommonModule } from '@angular/common';
 })
 export class GiftInventoryComponent implements AfterViewInit {
   @ViewChild('content') dialogTemplate!: TemplateRef<any>;
-  constructor() {}
+  constructor(private snackBar: MatSnackBar) {}
   readonly dialog = inject(MatDialog);
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -50,6 +50,15 @@ export class GiftInventoryComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
+    });
+  }
+  matDelete(){
+    // Show success snackbar
+    this.snackBar.open('You have successfully deleted the reward!.', 'close', {
+      duration: 5000,
+      panelClass: ['snackbar-success'],
+      horizontalPosition: "center",
+      verticalPosition: "top",
     });
   }
   // this is for the filter the table data
