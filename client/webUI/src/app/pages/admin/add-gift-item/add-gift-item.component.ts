@@ -13,11 +13,11 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule,
     MatButtonModule,
-    MatCardModule,    
+    MatCardModule,
     MatIconModule,
     FormsModule,
     MatInputModule,
-    MatFormFieldModule,    
+    MatFormFieldModule,
     ReactiveFormsModule,
   ],
   templateUrl: './add-gift-item.component.html',
@@ -27,10 +27,11 @@ export class AddGiftItemComponent {
   submitted: boolean = false;
   addGiftItemForm!: FormGroup;
   constructor(
-    private formBuilder: FormBuilder,    
-  ) {}
+    private formBuilder: FormBuilder,
+  ) { }
 
   ngOnInit(): void {
+    // form
     this.addGiftItemForm = this.formBuilder.group({
       productTitle: ['', Validators.required],
       productDescription: [
@@ -41,9 +42,8 @@ export class AddGiftItemComponent {
       productImage: ['', Validators.required],
     });
   }
-submit(){
-  console.log("addGiftItemForm.controls",this.addGiftItemForm.controls)
-}
+
+  // create reward button
   onSubmit() {
     this.submitted = true;
     if (this.addGiftItemForm.valid) {
@@ -51,11 +51,13 @@ submit(){
     }
   }
 
+  // selecting image
   selectedFiles: any;
   selectFiles(event: any): void {
     this.selectedFiles = event.target.files[0];
   }
 
+  // deleting image
   removeImage() {
     this.selectedFiles = '';
     this.addGiftItemForm.get('productImage')?.setValue('');
