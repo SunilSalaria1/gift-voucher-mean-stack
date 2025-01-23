@@ -1,4 +1,23 @@
+/* == table == */
 .mat-mdc-table {
+    background-color: white;
+}
+
+table{
+    border:1px solid gray;
+}
+
+td, th {
+    border-right: 1px solid gray; /* Add vertical dividers */
+}
+
+td:last-child, th:last-child {
+    border-right: none; /* Remove the divider from the last column */
+}
+
+/* == /table == */
+
+.mat-mdc-paginator{
     background-color: white;
 }
 
