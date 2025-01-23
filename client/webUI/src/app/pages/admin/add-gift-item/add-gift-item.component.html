@@ -50,10 +50,10 @@
       </div>
       <!-- /image-section -->
       <div class="col-5 position-relative">
-        <img class="curve-image" alt="curve Image" src="assets/images/curved-arrow.png" />
+        <img class="curve-image position-absolute" alt="curve Image" src="assets/images/curved-arrow.png" />
         <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
           <mat-card-content class="d-block">
-        <!-- input-box -->
+        <!-- form -->
         <form [formGroup]="addGiftItemForm" (ngSubmit)="onSubmit()">
           <h4 class="fw-bold mb-1">Coupon Code</h4>
           <mat-form-field appearance="outline" class="d-block input-lg input">
@@ -73,7 +73,7 @@
             <mat-icon matSuffix>cloud_upload</mat-icon>
             }
             @if (!selectedFiles?.name) {
-            <input formControlName="productImage" type="file" id="fileInput" name="fileInput" accept="image/*" multiple
+            <input formControlName="productImage" type="file" id="fileInput" class="position-absolute cursor-pointer" name="fileInput" accept="image/*" multiple
               (change)="selectFiles($event)" />}
           </mat-form-field>
           <h4 class="fw-bold mb-1">Product Title</h4>
@@ -82,7 +82,6 @@
             <mat-icon matSuffix>redeem</mat-icon>
             <mat-error>This is Required</mat-error>
           </mat-form-field>
-
           <div class="d-flex">
             <h4 class="fw-bold mb-1">Product Description</h4><small class="pt-3 ps-1 text-danger">(max char
               200)</small>
@@ -96,14 +95,13 @@
               Maximum 200 characters allowed.
             </mat-error>
           </mat-form-field>
-
           <div class="mt-2">
             <button mat-flat-button class="button-mh-60 text-white bg-dark shadow-sm w-100 me-2">
               <mat-icon>celebration</mat-icon>Create Reward
             </button>
           </div>
         </form>
-        <!-- input-box -->
+        <!-- /form -->
       </mat-card-content>
       </mat-card>
       </div>

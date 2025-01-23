@@ -1,54 +1,16 @@
 .curve-image{
-  transform: rotate(122deg);
-    position: absolute;
+  transform: rotate(122deg);    
     z-index: 9;
     left: -140px;
     top: -65px;
 }
 
-.mat-input-element {
-  font-size: medium;
-  font-weight: 200;
-}
-
-#fileInput {
-  position: absolute;
-  cursor: pointer;
+#fileInput {  
   z-index: 10;
   opacity: 0;
   height: 100%;
   left: 0px;
   top: 0px;
-}
-
-.mat-toolbar-single-row {
-  height: auto !important;
-  background: transparent;
-  padding: 0;
-}
-
-.mat-toolbar-single-row button {
-  width: 100px;
-}
-
-.mat-form-field {
-  width: 100%;
-}
-
-.mdc-text-field--filled:not(.mdc-text-field--disabled) {
-  background-color: rgb(255, 255, 255) !important;
-}
-
-.mat-mdc-card-outlined {
-  background-color: rgb(214, 214, 214);
-}
-
-.mat-mdc-card-content:last-child {
-  display: flex;
-}
-
-.imageName-row {
-  width: 100%;
 }
 
 .delete-btn:hover {
@@ -60,14 +22,6 @@
 .badge {
   padding: 7px 14px;
   border-radius: 25px;
-}
-
-.product-reward-card .active-product-card {
-  opacity: 0.05;
-}
-
-.product-reward-card {
-  transition: all 0.3s ease-out;
 }
 
 button.button-mh-60.mat-mdc-button-disabled {
