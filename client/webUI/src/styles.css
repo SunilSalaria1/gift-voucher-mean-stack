@@ -91,6 +91,12 @@ td, th{
 td:last-child, th:last-child {
   border-right: none !important;
 } 
+
+.table-action-buttons{
+  border-radius: 5px;
+  height: 34px;
+  width: 34px;
+}
 /*/table*/
 
 /*================================================================================================
