@@ -1,3 +1,11 @@
+.curve-image{
+  transform: rotate(122deg);
+    position: absolute;
+    z-index: 9;
+    left: -140px;
+    top: -65px;
+}
+
 .mat-input-element {
   font-size: medium;
   font-weight: 200;
