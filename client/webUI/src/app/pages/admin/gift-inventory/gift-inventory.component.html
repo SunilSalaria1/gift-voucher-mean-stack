@@ -5,7 +5,7 @@
   <div class="d-flex justify-content-between">
     <!-- searchbar -->
     <mat-form-field appearance="outline">
-      <input matInput (keyup)="applyFilter($event)" type="text" name="search" placeholder="Search..." />
+      <input matInput (keyup)="applyFilter($event)" type="text" name="search" placeholder="Search..."/>
       <button matSuffix mat-icon-button aria-label="Search">
         <mat-icon>search</mat-icon>
       </button>
@@ -18,7 +18,6 @@
     </a>
     <!-- /add product button -->
   </div>
-
   <!-- table reference with search and pagination -->
   <div>
     <!-- table -->
@@ -28,7 +27,6 @@
         <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">No.</th>
         <td mat-cell *matCellDef="let element">{{ element.position }}</td>
       </ng-container>
-
       <!-- Name Column -->
       <ng-container matColumnDef="couponCode">
         <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Coupon Code</th>
@@ -36,13 +34,11 @@
           {{ element.couponCode }}
         </td>
       </ng-container>
-
       <!-- Weight Column -->
       <ng-container matColumnDef="productTitle">
         <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Product Title</th>
         <td mat-cell *matCellDef="let element">{{ element.productTitle }}</td>
       </ng-container>
-
       <!-- Symbol Column -->
       <ng-container matColumnDef="productDescription">
         <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Product Description</th>
@@ -62,7 +58,8 @@
         <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Action</th>
         <td mat-cell *matCellDef="let element">
           <div class="d-flex">
-            <span routerLink="/admin/edit-gift-item/{{ element.position }}" class="me-2 border border-light p-2 shadow-sm table-action-buttons cursor-pointer">
+            <span routerLink="/admin/edit-gift-item/{{ element.position }}"
+              class="me-2 border border-light p-2 shadow-sm table-action-buttons cursor-pointer">
               <svg width="16" height="16" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M1.287 8.208a.247.247 0 0 1 .348 0l2.111 2.106a.246.246 0 0 1-.099.408L.485 11.773a.245.245 0 0 1-.311-.311l1.054-3.156a.25.25 0 0 1 .06-.098zm6.498-6.49a.253.253 0 0 1 .348 0l2.109 2.105a.245.245 0 0 1 0 .348L4.619 9.78a.247.247 0 0 1-.349 0L2.16 7.677a.246.246 0 0 1 0-.348zM9.017.49a1.782 1.782 0 0 1 2.457 0 1.733 1.733 0 0 1 0 2.45l-.352.353a.247.247 0 0 1-.348 0L8.666 1.189a.246.246 0 0 1 0-.347z"
