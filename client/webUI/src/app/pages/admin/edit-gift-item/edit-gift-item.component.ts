@@ -8,6 +8,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-edit-gift-item',
   standalone: true,
@@ -27,7 +29,7 @@ export class EditGiftItemComponent {
   submitted: boolean = false;
     addGiftItemForm!: FormGroup;
     constructor(
-      private formBuilder: FormBuilder,
+      private formBuilder: FormBuilder,private snackBar: MatSnackBar,private router: Router
     ) { }
   
     ngOnInit(): void {
@@ -43,11 +45,19 @@ export class EditGiftItemComponent {
       });
     }
   
-    // create reward button
+    // update reward button
     onSubmit() {
       this.submitted = true;
       if (this.addGiftItemForm.valid) {
         console.log('@@@@@', this.addGiftItemForm?.value);
+        this.router.navigate(['/admin/gift-inventory']);
+      // Show success snackbar
+      this.snackBar.open('You have successfully updated the reward!.', 'close', {
+        duration: 5000,
+        panelClass: ['snackbar-success'],
+        horizontalPosition: "center",
+        verticalPosition: "top",
+      });
       }
     }
   
