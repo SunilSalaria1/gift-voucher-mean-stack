@@ -1,1 +1,62 @@
-
+<!-- container-section -->
+<section class="container-fluid p-0 vh-100 d-flex justify-content-between flex-sm-column">
+    <!-- main-section -->
+    <section class="container d-flex justify-content-center align-items-center my-5">
+        <div class="row justify-content-center align-items-center">
+            <!-- image-section -->
+            <div class="col-5 pe-4">
+                <div>
+                    <div class="banner-font fw-bold">
+                        Create,<span class="text-primary"> EmpCode!</span>
+                    </div>
+                    <p>Quickly craft unique employee codes!</p>
+                    <div>
+                        <img src="assets/images/gift-selection.png" class="w-100 h-100" />
+                    </div>
+                </div>
+            </div>
+            <!-- /image-section -->
+            <div class="col-5 position-relative">
+                <img class="curve-image position-absolute" alt="curve Image" src="assets/images/curved-arrow.png" />
+                <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
+                    <mat-card-content class="d-block">
+                        <!-- form -->
+                        <form [formGroup]="addGiftItemForm" (ngSubmit)="onSubmit()">
+                            <h4 class="fw-bold mb-1">Employee Name</h4>
+                            <mat-form-field appearance="outline" class="d-block input-lg input">
+                                <input matInput formControlName="employeeName" />
+                                <mat-icon matSuffix>vpn_key</mat-icon>
+                                <mat-error>This is Required</mat-error>
+                            </mat-form-field>
+                            <h4 class="fw-bold mb-1">Department</h4>
+                            <mat-form-field appearance="outline" class="d-block input-lg input">
+                                <mat-select formControlName="department">
+                                    @for(department of departments;track $index){
+                                    <mat-option [value]="department">{{department}}</mat-option>
+                                    }
+                                </mat-select>
+                                <mat-error>This is Required</mat-error>
+                            </mat-form-field>
+                            <h4 class="fw-bold mb-1">DOB</h4>
+                            <mat-form-field appearance="outline" class="d-block input-lg input">                                
+                                <input matInput [matDatepicker]="picker" formControlName="dob">
+                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                                <mat-error>This is Required</mat-error>
+                            </mat-form-field>
+                            <div class="mt-2">
+                                <button mat-flat-button class="button-mh-60 text-white bg-dark shadow-sm w-100 me-2">
+                                    <mat-icon>celebration</mat-icon>Create Reward
+                                </button>
+                            </div>
+                        </form>
+                        <!-- /form -->
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </section>
+    <!-- /main-section -->
+</section>
+<!-- /container-section -->
