@@ -19,7 +19,7 @@ import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-code-vault',
+  selector: 'app-generate-emp-code',
   standalone: true,
   imports: [CommonModule,
     MatDialogModule,
@@ -32,10 +32,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatPaginatorModule,
     MatCardModule,
     MatButtonModule,],
-  templateUrl: './code-vault.component.html',
-  styleUrl: './code-vault.component.css'
+  templateUrl: './generate-emp-code.component.html',
+  styleUrl: './generate-emp-code.component.css'
 })
-export class CodeVaultComponent implements AfterViewInit {
+export class GenerateEmpCodeComponent implements AfterViewInit {
  @ViewChild('content') dialogTemplate!: TemplateRef<any>;
   constructor(private snackBar: MatSnackBar) {}
   readonly dialog = inject(MatDialog);

@@ -6,12 +6,12 @@ import { GiftInventoryComponent } from '../../pages/admin/gift-inventory/gift-in
 import { EmployeePicksComponent } from '../../pages/admin/employee-picks/employee-picks.component';
 import { ProductReportsComponent } from '../../pages/admin/product-reports/product-reports.component';
 import { SettingsComponent } from '../../pages/admin/settings/settings.component';
-import { CodeVaultComponent } from '../../pages/admin/code-vault/code-vault.component';
+import {GenerateEmpCodeComponent } from '../../pages/admin/generate-emp-code/generate-emp-code.component';
 
 @Component({
   selector: 'app-aside',
   standalone: true,
-  imports: [RouterLink,DashboardComponent,GiftInventoryComponent,EmployeePicksComponent,ProductReportsComponent,SettingsComponent,CodeVaultComponent],
+  imports: [RouterLink,DashboardComponent,GiftInventoryComponent,EmployeePicksComponent,ProductReportsComponent,SettingsComponent,GenerateEmpCodeComponent],
   templateUrl: './aside.component.html',
   styleUrl: './aside.component.css'
 })

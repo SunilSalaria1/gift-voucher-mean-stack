@@ -1,5 +1,5 @@
 <div>
-    <h5 class="fw-bold mb-4">Code Vault</h5>
+    <h5 class="fw-bold mb-4">Generate EmpCode</h5>
   </div>
   <mat-card class="bg-white border-light product-reward-card p-3" appearance="outlined">
     <div class="d-flex justify-content-between">
@@ -12,7 +12,7 @@
       </mat-form-field>
       <!-- /searchbar -->
       <!-- add product button -->
-      <a mat-flat-button [routerLink]="['/admin/add-gift-item']"
+      <a mat-flat-button [routerLink]="['/admin/add-emp-code']"
         class="bg-dark shadow-sm button-mh-60 text-white px-5 py-4"><mat-icon>add</mat-icon>
         <span>Add Employee Code</span>
       </a>
@@ -57,15 +57,7 @@
         <ng-container matColumnDef="Action">
           <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Action</th>
           <td mat-cell *matCellDef="let element">
-            <div class="d-flex">
-              <span routerLink="/admin/edit-gift-item/{{ element.position }}"
-                class="me-2 border border-light p-2 shadow-sm table-action-buttons cursor-pointer">
-                <svg width="16" height="16" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M1.287 8.208a.247.247 0 0 1 .348 0l2.111 2.106a.246.246 0 0 1-.099.408L.485 11.773a.245.245 0 0 1-.311-.311l1.054-3.156a.25.25 0 0 1 .06-.098zm6.498-6.49a.253.253 0 0 1 .348 0l2.109 2.105a.245.245 0 0 1 0 .348L4.619 9.78a.247.247 0 0 1-.349 0L2.16 7.677a.246.246 0 0 1 0-.348zM9.017.49a1.782 1.782 0 0 1 2.457 0 1.733 1.733 0 0 1 0 2.45l-.352.353a.247.247 0 0 1-.348 0L8.666 1.189a.246.246 0 0 1 0-.347z"
-                    fill="#FCA500" fill-rule="evenodd" />
-                </svg>
-              </span>
+            <div class="d-flex">              
               <span (click)="openDialog()" class="border border-light p-2 shadow-sm table-action-buttons cursor-pointer">
                 <svg width="16" height="16" viewBox="0 0 12.375 13.75" xmlns="http://www.w3.org/2000/svg">
                   <path
