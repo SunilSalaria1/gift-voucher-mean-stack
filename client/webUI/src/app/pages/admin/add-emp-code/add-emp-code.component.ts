@@ -45,6 +45,7 @@ departments = ['HR', 'Frontend', 'Backend', 'Audit', 'Bidding'];
       employeeName: ['', Validators.required],      
       department: ['', Validators.required],
       dob: ['', Validators.required],
+      joiningDate: ['', Validators.required],
     });
   }
 

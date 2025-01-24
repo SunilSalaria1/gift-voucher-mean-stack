@@ -45,9 +45,17 @@
                                 <mat-datepicker #picker></mat-datepicker>
                                 <mat-error>This is Required</mat-error>
                             </mat-form-field>
+                            <h4 class="fw-bold mb-1">Joining Date</h4>
+                            <mat-form-field appearance="outline" class="d-block input-lg input">                                
+                                <input matInput [matDatepicker]="datepicker" formControlName="joiningDate">
+                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+                                <mat-datepicker #datepicker></mat-datepicker>
+                                <mat-error>This is Required</mat-error>
+                            </mat-form-field>
                             <div class="mt-2">
                                 <button mat-flat-button class="button-mh-60 text-white bg-dark shadow-sm w-100 me-2">
-                                    <mat-icon>celebration</mat-icon>Create Reward
+                                    <mat-icon>celebration</mat-icon>Generate employee Code
                                 </button>
                             </div>
                         </form>
