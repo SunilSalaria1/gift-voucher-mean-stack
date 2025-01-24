@@ -14,6 +14,7 @@ import { PageNotFoundComponent } from './pages/error/page-not-found/page-not-fou
 import { RewardClaimedComponent } from './pages/employee/reward-claimed/reward-claimed.component';
 import { authGuardGuard } from './guards/auth-guard.guard';
 import { EditGiftItemComponent } from './pages/admin/edit-gift-item/edit-gift-item.component';
+import { CodeVaultComponent} from './pages/admin/code-vault/code-vault.component';
 
 export const routes: Routes = [
     //auth routes
@@ -33,6 +34,8 @@ export const routes: Routes = [
             { path: 'settings', component: SettingsComponent },
             { path: 'add-gift-item', component: AddGiftItemComponent },
             { path: 'edit-gift-item/:id', component: EditGiftItemComponent },
+            { path: 'code-vault', component: CodeVaultComponent },
+            
         ]
      },
     { path: '**', component: PageNotFoundComponent }
