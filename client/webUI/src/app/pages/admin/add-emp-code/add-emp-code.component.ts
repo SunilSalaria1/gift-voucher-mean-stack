@@ -12,6 +12,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { RouterLink } from '@angular/router';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import {
+  AfterViewInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 @Component({
   selector: 'app-add-emp-code',
   standalone: true,
@@ -25,22 +31,29 @@ import { RouterLink } from '@angular/router';
     ReactiveFormsModule,
     MatSelectModule,
     MatDatepickerModule,
-    RouterLink
+    RouterLink,
+    MatDialogModule
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './add-emp-code.component.html',
   styleUrl: './add-emp-code.component.css'
 })
 export class AddEmpCodeComponent {
+  @ViewChild('content') dialogTemplate!: TemplateRef<any>;
+  readonly dialog = inject(MatDialog);
   submitted: boolean = false;
   departments = ['HR', 'Frontend', 'Backend', 'Audit', 'Bidding'];
   generatedCode: string | null = null;
   // Array to store all existing codes to avoid duplicates
   existingCodes: Set<string> = new Set();
   addEmployeeCodeForm!: FormGroup;
+  dialogEmployeeName: string = "";
   constructor(
     private formBuilder: FormBuilder
   ) { }
+  // ngAfterViewInit(): void {
+  //   throw new Error('Method not implemented.');
+  // }
 
   ngOnInit(): void {
     // form
@@ -52,10 +65,18 @@ export class AddEmpCodeComponent {
     });
   }
 
+  
+  get employeeNameValue(): string {
+    return this.addEmployeeCodeForm.get('employeeName')?.value || "";
+  }
+
   generateCode() {
     if (!this.addEmployeeCodeForm.valid) {
-     console.log("fill out the fields");
-      return;      
+      console.log("Fill out the fields.");      
+      return;
+    }else if(this.addEmployeeCodeForm.valid){
+      this.dialogEmployeeName = this.employeeNameValue;
+      console.log(this.dialogEmployeeName);
     }
 
     let newCode: string;
@@ -115,13 +136,29 @@ export class AddEmpCodeComponent {
   }
 
   // decline button
-  decline(){
-    if(this.addEmployeeCodeForm.valid){
-      this.addEmployeeCodeForm.reset()
-      this.generatedCode=""
+  decline() {
+    if (this.addEmployeeCodeForm.valid) {      
+      this.generatedCode = ""
+      this.dialogEmployeeName=""
     }
   }
 
+  
+  openDialog(): void {
+    // Use the TemplateRef for the dialog
+    const dialogRef = this.dialog.open(this.dialogTemplate,{
+      height: '800px',
+      width: '1200px',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+
+  }
+
+  
+   
+  
 }
 
 
