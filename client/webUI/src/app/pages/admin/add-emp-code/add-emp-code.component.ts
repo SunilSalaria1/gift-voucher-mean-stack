@@ -14,6 +14,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { RouterLink } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 import {
   AfterViewInit,
   TemplateRef,
@@ -33,7 +34,8 @@ import {
     MatSelectModule,
     MatDatepickerModule,
     RouterLink,
-    MatDialogModule
+    MatDialogModule,
+    ClipboardModule
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './add-emp-code.component.html',
@@ -151,6 +153,7 @@ export class AddEmpCodeComponent {
     if (this.addEmployeeCodeForm.valid) {      
       this.generatedCode = ""
       this.dialogEmployeeName=""
+      // error snackbar
       this.snackBar.open('You have successfully deleted the generated employee code!.', 'close', {
         duration: 5000,
         panelClass: ['snackbar-error'],
