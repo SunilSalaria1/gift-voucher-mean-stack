@@ -92,21 +92,22 @@
                         dialogEmployeeName|| "xxxxx xxxx"}}
                     </div>
                 </div>
-                <div class="border-bottom border-light mb-4">
+                <div class="border-bottom border-light mb-4 position-relative">
                     <div class="emp-code-label fs-12">Employee Code</div>
                     <span class="emp-code-data fw-bold text-primary">
                         {{ generatedCode|| "xxxxxxxxxx"}}
                     </span>
-                    <span><mat-icon matSuffix cdkCopyToClipboard={{generatedCode}}
+                    <span class="ms-2"><mat-icon matSuffix cdkCopyToClipboard={{generatedCode}}
                             (click)="copied()">content_copy</mat-icon></span>
+                            <div *ngIf="isCopied" class="copy-text">
+                                <div>Copied</div>
+                            </div>
                 </div>
-                <div *ngIf="isCopied" class="copy-text">
-                    <p>copied to clipboard!</p>
-                </div>
+                
             </div>
         </div>
     </mat-dialog-content>
-    <mat-dialog-actions class="d-flex">
+    <mat-dialog-actions class="d-flex border-top border-light">
         <a mat-flat-button (click)="decline()" class="bg-danger py-3 shadow-sm button-mh-45 me-2"
             [mat-dialog-close]="true"><mat-icon>close</mat-icon>
             <span>Decline
