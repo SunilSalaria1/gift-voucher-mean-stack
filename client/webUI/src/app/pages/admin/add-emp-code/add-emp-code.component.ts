@@ -188,8 +188,7 @@ export class AddEmpCodeComponent {
   // dialog
   openDialog(): void {
     // Use the TemplateRef for the dialog
-    const dialogRef = this.dialog.open(this.dialogTemplate, {
-      height: '800px',
+    const dialogRef = this.dialog.open(this.dialogTemplate, {     
       width: '1200px',
     });
     dialogRef.afterClosed().subscribe((result) => {

@@ -80,21 +80,21 @@
 <!-- dialog -->
 <ng-template #content>
     <mat-dialog-content>
-        <div>
-            <div class="position-absolute gift-man">
-                <img src="assets/images/gift-man.png" alt="" height="325px" width="325px">
+        <div class="d-flex align-items-end">
+            <div class="gift-img">
+                <img src="assets/images/gift-man.png" alt="">
             </div>
-            <div class="emp-details">
+            <div class="emp-details w-100">
                 <div class="border-bottom border-light mb-4">
-                    <div class="emp-code-label">Employee Name</div>
+                    <div class="emp-code-label fs-12">Employee Name</div>
                     <div class="emp-code-data fw-bold text-primary">
                         {{
                         dialogEmployeeName|| "xxxxx xxxx"}}
                     </div>
                 </div>
                 <div class="border-bottom border-light mb-4">
-                    <div class="emp-code-label">Employee Code</div>
-                    <span class="emp-code-data fw-bold text-primary fs-12">
+                    <div class="emp-code-label fs-12">Employee Code</div>
+                    <span class="emp-code-data fw-bold text-primary">
                         {{ generatedCode|| "xxxxxxxxxx"}}
                     </span>
                     <span><mat-icon matSuffix cdkCopyToClipboard={{generatedCode}}
@@ -106,13 +106,13 @@
             </div>
         </div>
     </mat-dialog-content>
-    <mat-dialog-actions>
-        <a mat-flat-button (click)="decline()" class="bg-danger py-3 shadow-sm button-mh-45 me-2 w-50"
+    <mat-dialog-actions class="d-flex">
+        <a mat-flat-button (click)="decline()" class="bg-danger py-3 shadow-sm button-mh-45 me-2"
             [mat-dialog-close]="true"><mat-icon>close</mat-icon>
             <span>Decline
             </span></a>
         <a mat-flat-button [routerLink]="['/admin/generate-emp-code']" (click)="approve()"
-            class="bg-success py-3 shadow-sm button-mh-45 w-50" mat-dialog-close><mat-icon>check</mat-icon>
+            class="bg-success py-3 shadow-sm button-mh-45" mat-dialog-close><mat-icon>check</mat-icon>
             <span>Approve
             </span></a>
     </mat-dialog-actions>

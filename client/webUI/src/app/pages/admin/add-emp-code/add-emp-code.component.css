@@ -5,20 +5,7 @@
       top: -65px;
   }
 
-  /* dialog-box */
-  .gift-man{
-    bottom: -15px;
-    left: -170px;
-  }
-
-  .emp-code-card{
-    margin-top: 150px;
-  }
-
-  .emp-details{
-    margin-left: 125px;
-  }
-  
+  /* dialog-box */ 
   .emp-code-label{
     font-size: 12px;
   font-weight: 500;
@@ -35,4 +22,7 @@
     font-size: 20px;
   }
 
-  
+  .gift-img{
+    position: relative;
+    left: -20px;
+  }
