@@ -21,13 +21,13 @@
                                         <div class="emp-code-label">Employee Name</div>
                                         <div class="emp-code-data fw-bold text-primary">
                                             {{
-                                            this.addEmployeeCodeForm.get("employeeName")?.value}}
+                                            this.addEmployeeCodeForm.get("employeeName")?.value|| "gfdggh dfgh"}}
                                         </div>
                                     </div>
                                     <div class="border-bottom border-light mb-4">
                                         <div class="emp-code-label">Employee Code</div>
                                         <div class="emp-code-data fw-bold text-primary">
-                                            {{ generatedCode}}
+                                            {{ generatedCode|| "EMPAXUV200271"}}
                                         </div>
                                     </div>
                                     <a mat-flat-button [routerLink]="['/admin/generate-emp-code']"
