@@ -16,6 +16,7 @@ import { authGuardGuard } from './guards/auth-guard.guard';
 import { EditGiftItemComponent } from './pages/admin/edit-gift-item/edit-gift-item.component';
 import {GenerateEmpCodeComponent} from './pages/admin/generate-emp-code/generate-emp-code.component';
 import { AddEmpCodeComponent } from './pages/admin/add-emp-code/add-emp-code.component';
+import { EditEmpCodeComponent } from './pages/admin/edit-emp-code/edit-emp-code.component';
 
 export const routes: Routes = [
     //auth routes
@@ -37,6 +38,7 @@ export const routes: Routes = [
             { path: 'edit-gift-item/:id', component: EditGiftItemComponent },
             { path: 'generate-emp-code', component: GenerateEmpCodeComponent },
             { path: 'add-emp-code', component: AddEmpCodeComponent },
+            { path: 'edit-emp-code/:id', component:EditEmpCodeComponent }
             
         ]
      },

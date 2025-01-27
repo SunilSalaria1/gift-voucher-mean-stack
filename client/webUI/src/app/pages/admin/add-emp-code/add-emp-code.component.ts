@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-add-emp-code',
   standalone: true,
@@ -24,6 +25,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     ReactiveFormsModule,
     MatSelectModule,
     MatDatepickerModule,
+    RouterLink
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './add-emp-code.component.html',
@@ -52,7 +54,7 @@ export class AddEmpCodeComponent {
 
   generateCode() {
     if (!this.addEmployeeCodeForm.valid) {
-      alert('Please fill out all fields.');
+     console.log("fill out the fields");
       return;
     }
 

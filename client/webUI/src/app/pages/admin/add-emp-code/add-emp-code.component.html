@@ -10,9 +10,25 @@
                         Create,<span class="text-primary"> EmpCode!</span>
                     </div>
                     <p>Quickly craft unique employee codes!</p>
-                    <div>
-                        <img src="assets/images/gift-selection.png" class="w-100 h-100" />
-                    </div>
+                    <mat-card class="bg-white shadow-sm emp-code-card p-3  position-relative" appearance="outlined">
+                        <mat-card-content class="d-block">
+                            <div>
+                                <div class="position-absolute gift-man">
+                                    <img src="assets/images/gift-man.png" alt="">
+                                </div>
+                                <div class="emp-details">
+                                    <div>{{
+                                        this.addEmployeeCodeForm.get("employeeName")?.value|| "Name"}}</div>
+                                    <div>
+                                        {{ generatedCode|| "Emp code"}}
+                                    </div>
+                                    <a mat-flat-button [routerLink]="['/admin/generate-emp-code']"
+          class="bg-dark py-3 shadow-sm button-mh-45"><mat-icon>celebration</mat-icon> <span>Approve
+          </span></a>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
                 </div>
             </div>
             <!-- /image-section -->
@@ -30,7 +46,7 @@
                             </mat-form-field>
                             <h4 class="fw-bold mb-1">Department</h4>
                             <mat-form-field appearance="outline" class="d-block input-lg input">
-                                <mat-select formControlName="department">
+                                <mat-select formControlName="department" placeholder="Select your department">
                                     @for(department of departments;track $index){
                                     <mat-option [value]="department">{{department}}</mat-option>
                                     }
@@ -38,7 +54,7 @@
                                 <mat-error>This is Required</mat-error>
                             </mat-form-field>
                             <h4 class="fw-bold mb-1">DOB</h4>
-                            <mat-form-field appearance="outline" class="d-block input-lg input">                                
+                            <mat-form-field appearance="outline" class="d-block input-lg input">
                                 <input matInput [matDatepicker]="picker" formControlName="dob">
                                 <mat-hint>MM/DD/YYYY</mat-hint>
                                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -46,7 +62,7 @@
                                 <mat-error>This is Required</mat-error>
                             </mat-form-field>
                             <h4 class="fw-bold mb-1">Joining Date</h4>
-                            <mat-form-field appearance="outline" class="d-block input-lg input">                                
+                            <mat-form-field appearance="outline" class="d-block input-lg input">
                                 <input matInput [matDatepicker]="datepicker" formControlName="joiningDate">
                                 <mat-hint>MM/DD/YYYY</mat-hint>
                                 <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
@@ -54,15 +70,19 @@
                                 <mat-error>This is Required</mat-error>
                             </mat-form-field>
                             <div class="mt-2">
-                                <button mat-flat-button class="button-mh-60 text-white bg-dark shadow-sm w-100 me-2" (click)="generateCode()">
+                                <button mat-flat-button class="button-mh-60 text-white bg-dark shadow-sm w-100 me-2"
+                                    (click)="generateCode()">
                                     <mat-icon>celebration</mat-icon>Generate employee Code
                                 </button>
                             </div>
 
-                            <div *ngIf="generatedCode" >
+                            <div *ngIf="generatedCode">
                                 <h3>Generated Employee Code:</h3>
                                 <p>{{ generatedCode }}</p>
-                              </div>
+                            </div>
+                            <div class="mt-4">
+                                Note: You can regenerate the employee code upto 10 times only.
+                            </div>
                         </form>
                         <!-- /form -->
                     </mat-card-content>
