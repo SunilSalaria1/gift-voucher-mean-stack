@@ -13,6 +13,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { RouterLink } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   AfterViewInit,
   TemplateRef,
@@ -49,7 +50,7 @@ export class AddEmpCodeComponent {
   addEmployeeCodeForm!: FormGroup;
   dialogEmployeeName: string = "";
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,private snackBar: MatSnackBar
   ) { }
   // ngAfterViewInit(): void {
   //   throw new Error('Method not implemented.');
@@ -135,15 +136,31 @@ export class AddEmpCodeComponent {
     return `${joinYear}${dobDay}`;
   }
 
+  // approve
+  approve(){
+    // success snackbar
+    this.snackBar.open('You have successfully generated the employee code!.', 'close', {
+      duration: 5000,
+      panelClass: ['snackbar-success'],
+      horizontalPosition: "center",
+      verticalPosition: "top",
+    });
+  }
   // decline button
   decline() {
     if (this.addEmployeeCodeForm.valid) {      
       this.generatedCode = ""
       this.dialogEmployeeName=""
+      this.snackBar.open('You have successfully deleted the generated employee code!.', 'close', {
+        duration: 5000,
+        panelClass: ['snackbar-error'],
+        horizontalPosition: "center",
+        verticalPosition: "top",
+      });
     }
   }
 
-  
+  // dialog
   openDialog(): void {
     // Use the TemplateRef for the dialog
     const dialogRef = this.dialog.open(this.dialogTemplate,{

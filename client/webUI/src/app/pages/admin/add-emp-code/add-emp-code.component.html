@@ -140,8 +140,8 @@
         class="bg-danger py-3 shadow-sm button-mh-45 me-2 w-50" [mat-dialog-close]="true"><mat-icon>close</mat-icon>
         <span>Decline
         </span></a>
-    <a mat-flat-button [routerLink]="['/admin/generate-emp-code']"
-        class="bg-success py-3 shadow-sm button-mh-45 w-50"><mat-icon>check</mat-icon>
+    <a mat-flat-button [routerLink]="['/admin/generate-emp-code']" (click)="approve()"
+        class="bg-success py-3 shadow-sm button-mh-45 w-50" mat-dialog-close><mat-icon>check</mat-icon >
         <span>Approve
         </span></a>
     </mat-dialog-actions>
