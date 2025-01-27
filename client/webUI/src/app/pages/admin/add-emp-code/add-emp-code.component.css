@@ -5,6 +5,7 @@
       top: -65px;
   }
 
+  /* dialog-box */
   .gift-man{
     bottom: -15px;
     left: -170px;
@@ -25,6 +26,13 @@
   font-style: normal;
   line-height: 1.6;
   text-transform: uppercase;
+  }
+
+  /* dialog-box */
+
+  /* copy */
+  .copy-text{
+    font-size: 20px;
   }
 
   

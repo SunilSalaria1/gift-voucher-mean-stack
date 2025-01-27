@@ -100,7 +100,7 @@
                     <span><mat-icon matSuffix cdkCopyToClipboard={{generatedCode}}
                             (click)="copied()">content_copy</mat-icon></span>
                 </div>
-                <div *ngIf="isCopied">
+                <div *ngIf="isCopied" class="copy-text">
                     <p>copied to clipboard!</p>
                 </div>
             </div>

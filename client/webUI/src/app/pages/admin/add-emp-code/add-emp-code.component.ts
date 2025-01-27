@@ -178,8 +178,7 @@ export class AddEmpCodeComponent {
   }
 
   // copy
-  copied() {
-    console.log("copied to clipboard");
+  copied() {    
     this.isCopied = true;
     setTimeout(() => {
       this.isCopied = false;
