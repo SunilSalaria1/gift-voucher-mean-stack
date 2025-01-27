@@ -97,7 +97,11 @@
                     <span class="emp-code-data fw-bold text-primary fs-12">
                         {{ generatedCode|| "xxxxxxxxxx"}}
                     </span>
-                    <span><mat-icon matSuffix cdkCopyToClipboard={{generatedCode}}>content_copy</mat-icon></span>
+                    <span><mat-icon matSuffix cdkCopyToClipboard={{generatedCode}}
+                            (click)="copied()">content_copy</mat-icon></span>
+                </div>
+                <div *ngIf="isCopied">
+                    <p>copied to clipboard!</p>
                 </div>
             </div>
         </div>

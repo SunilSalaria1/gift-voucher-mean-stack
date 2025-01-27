@@ -15,6 +15,8 @@ import { RouterLink } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { trigger, style, animate, transition } from '@angular/animations';
+
 import {
   AfterViewInit,
   TemplateRef,
@@ -39,7 +41,18 @@ import {
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './add-emp-code.component.html',
-  styleUrl: './add-emp-code.component.css'
+  styleUrl: './add-emp-code.component.css',
+  animations: [
+    trigger('fadeOut', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-5px)' }),
+        animate('200ms ease-in', style({ opacity: 1, transform: 'translateY(0)' }))
+      ]),
+      transition(':leave', [
+        animate('200ms ease-out', style({ opacity: 0, transform: 'translateY(-5px)' }))
+      ])
+    ])
+  ]
 })
 export class AddEmpCodeComponent {
   @ViewChild('content') dialogTemplate!: TemplateRef<any>;
@@ -51,8 +64,9 @@ export class AddEmpCodeComponent {
   existingCodes: Set<string> = new Set();
   addEmployeeCodeForm!: FormGroup;
   dialogEmployeeName: string = "";
+  isCopied = false;
   constructor(
-    private formBuilder: FormBuilder,private snackBar: MatSnackBar
+    private formBuilder: FormBuilder, private snackBar: MatSnackBar
   ) { }
   // ngAfterViewInit(): void {
   //   throw new Error('Method not implemented.');
@@ -68,16 +82,16 @@ export class AddEmpCodeComponent {
     });
   }
 
-  
+
   get employeeNameValue(): string {
     return this.addEmployeeCodeForm.get('employeeName')?.value || "";
   }
 
   generateCode() {
     if (!this.addEmployeeCodeForm.valid) {
-      console.log("Fill out the fields.");      
+      console.log("Fill out the fields.");
       return;
-    }else if(this.addEmployeeCodeForm.valid){
+    } else if (this.addEmployeeCodeForm.valid) {
       this.dialogEmployeeName = this.employeeNameValue;
       console.log(this.dialogEmployeeName);
     }
@@ -139,7 +153,7 @@ export class AddEmpCodeComponent {
   }
 
   // approve
-  approve(){
+  approve() {
     // success snackbar
     this.snackBar.open('You have successfully generated the employee code!.', 'close', {
       duration: 5000,
@@ -150,9 +164,9 @@ export class AddEmpCodeComponent {
   }
   // decline button
   decline() {
-    if (this.addEmployeeCodeForm.valid) {      
+    if (this.addEmployeeCodeForm.valid) {
       this.generatedCode = ""
-      this.dialogEmployeeName=""
+      this.dialogEmployeeName = ""
       // error snackbar
       this.snackBar.open('You have successfully deleted the generated employee code!.', 'close', {
         duration: 5000,
@@ -163,22 +177,26 @@ export class AddEmpCodeComponent {
     }
   }
 
+  // copy
+  copied() {
+    console.log("copied to clipboard");
+    this.isCopied = true;
+    setTimeout(() => {
+      this.isCopied = false;
+    }, 1500);
+  }
+
   // dialog
   openDialog(): void {
     // Use the TemplateRef for the dialog
-    const dialogRef = this.dialog.open(this.dialogTemplate,{
+    const dialogRef = this.dialog.open(this.dialogTemplate, {
       height: '800px',
       width: '1200px',
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
-
   }
-
-  
-   
-  
 }
 
 
