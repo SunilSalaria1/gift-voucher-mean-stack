@@ -14,16 +14,16 @@
                         <mat-card-content class="d-block">
                             <div>
                                 <div class="position-absolute gift-man">
-                                    <img src="assets/images/gift-man.png" alt="">
+                                    <img src="assets/images/gift-man.png" width="200" height="200" alt="">
                                 </div>
                                 <div class="emp-details">
-                                    <div>{{
+                                    <div class="fw-bold">{{
                                         this.addEmployeeCodeForm.get("employeeName")?.value|| "Name"}}</div>
-                                    <div>
+                                    <div class="fw-bold">
                                         {{ generatedCode|| "Emp code"}}
                                     </div>
                                     <a mat-flat-button [routerLink]="['/admin/generate-emp-code']"
-          class="bg-dark py-3 shadow-sm button-mh-45"><mat-icon>celebration</mat-icon> <span>Approve
+          class="bg-success py-3 shadow-sm button-mh-45"><mat-icon>check</mat-icon> <span>Approve
           </span></a>
                                 </div>
                             </div>
