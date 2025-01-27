@@ -55,7 +55,7 @@ export class AddEmpCodeComponent {
   generateCode() {
     if (!this.addEmployeeCodeForm.valid) {
      console.log("fill out the fields");
-      return;
+      return;      
     }
 
     let newCode: string;
@@ -112,6 +112,14 @@ export class AddEmpCodeComponent {
     const joinYear = new Date(joinDate).getFullYear().toString().slice(-2); // Last 2 digits of year
     const dobDay = new Date(dob).getDate().toString().padStart(2, '0'); // Day as 2 digits
     return `${joinYear}${dobDay}`;
+  }
+
+  // decline button
+  decline(){
+    if(this.addEmployeeCodeForm.valid){
+      this.addEmployeeCodeForm.reset()
+      this.generatedCode=""
+    }
   }
 
 }
