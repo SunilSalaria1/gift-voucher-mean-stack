@@ -195,6 +195,13 @@ export class AddEmpCodeComponent {
       console.log(`Dialog result: ${result}`);
     });
   }
+
+  // Call the openDialog method conditionally
+  submitForm(): void {
+    if (this.addEmployeeCodeForm.valid) {
+      this.openDialog(); 
+    }
+}
 }
 
 
