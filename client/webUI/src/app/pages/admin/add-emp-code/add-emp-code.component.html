@@ -14,17 +14,26 @@
                         <mat-card-content class="d-block">
                             <div>
                                 <div class="position-absolute gift-man">
-                                    <img src="assets/images/gift-man.png"  alt="">
+                                    <img src="assets/images/gift-man.png" alt="" height="325px" width="325px">
                                 </div>
                                 <div class="emp-details">
-                                    <div class="fw-bold">{{
-                                        this.addEmployeeCodeForm.get("employeeName")?.value|| "Name"}}</div>
-                                    <div class="fw-bold">
-                                        {{ generatedCode|| "Emp code"}}
+                                    <div class="border-bottom border-light mb-4">
+                                        <div class="emp-code-label">Employee Name</div>
+                                        <div class="emp-code-data fw-bold text-primary">
+                                            {{
+                                            this.addEmployeeCodeForm.get("employeeName")?.value}}
+                                        </div>
+                                    </div>
+                                    <div class="border-bottom border-light mb-4">
+                                        <div class="emp-code-label">Employee Code</div>
+                                        <div class="emp-code-data fw-bold text-primary">
+                                            {{ generatedCode}}
+                                        </div>
                                     </div>
                                     <a mat-flat-button [routerLink]="['/admin/generate-emp-code']"
-          class="bg-success py-3 shadow-sm button-mh-45"><mat-icon>check</mat-icon> <span>Approve
-          </span></a>
+                                        class="bg-success py-3 shadow-sm button-mh-45 w-100"><mat-icon>check</mat-icon>
+                                        <span>Approve
+                                        </span></a>
                                 </div>
                             </div>
                         </mat-card-content>

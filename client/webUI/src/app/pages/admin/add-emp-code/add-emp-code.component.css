@@ -6,8 +6,8 @@
   }
 
   .gift-man{
-    bottom: -20px;
-    left: -100px;
+    bottom: -15px;
+    left: -170px;
   }
 
   .emp-code-card{
@@ -15,6 +15,18 @@
   }
 
   .emp-details{
-    margin-left: 250px;
+    margin-left: 140px;
   }
   
+  .emp-code-label{
+    font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.6;
+  text-transform: uppercase;
+  }
+
+  .emp-code-data{
+
+  }
