@@ -62,10 +62,7 @@
                             <!-- <div *ngIf="generatedCode">
                                 <h3>Generated Employee Code:</h3>
                                 <p>{{ generatedCode }}</p>
-                            </div> -->
-                            <div class="mt-4">
-                                Note: You can regenerate the employee code upto 10 times only.
-                            </div>
+                            </div> -->                           
                         </form>
                         <!-- /form -->
                     </mat-card-content>
@@ -100,7 +97,7 @@
                     <span class="ms-2"><mat-icon matSuffix cdkCopyToClipboard={{generatedCode}}
                             (click)="copied()">content_copy</mat-icon></span>
                             <div *ngIf="isCopied" class="copy-text">
-                                <div>Copied</div>
+                               copied
                             </div>
                 </div>
                 
