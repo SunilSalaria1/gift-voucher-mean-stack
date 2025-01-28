@@ -1,0 +1,8 @@
+.mat-mdc-form-field{
+    min-width: 300px !important;
+}
+
+.badge{
+    border-radius: 5px;  
+    padding: 3px 7px;
+}
