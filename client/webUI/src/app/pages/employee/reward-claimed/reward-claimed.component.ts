@@ -1,18 +1,93 @@
-import { Component } from '@angular/core';
+import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { EmployeeFooterComponent } from '../../../shared/employee-footer/employee-footer.component';
 import { EmployeeHeaderComponent } from '../../../shared/employee-header/employee-header.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-reward-claimed',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, MatCardModule,RouterLink,EmployeeFooterComponent,EmployeeHeaderComponent],
+  imports: [MatIconModule, ReactiveFormsModule, MatButtonModule, MatCardModule, RouterLink, EmployeeFooterComponent, EmployeeHeaderComponent, MatDialogModule, MatFormFieldModule, CommonModule],
   templateUrl: './reward-claimed.component.html',
   styleUrl: './reward-claimed.component.css'
 })
 export class RewardClaimedComponent {
+  constructor(private snackBar: MatSnackBar, private formBuilder: FormBuilder, private cdr: ChangeDetectorRef) { }
+  submitted: boolean = false;
+  numbers = [1, 2, 3, 4, 5];
+  feedbackForm!: FormGroup;
+  @ViewChild('content') dialogTemplate!: TemplateRef<any>;
+  readonly dialog = inject(MatDialog);
 
+  ngOnInit(): void {
+    // form
+    this.feedbackForm = this.formBuilder.group({
+      productDescription: [
+        '',
+        [Validators.required, Validators.maxLength(200)],
+      ],
+    });
+  }
+
+
+
+  // back to home
+  logOut() {
+    localStorage.removeItem('loginUser')
+    // show success snackbar
+    this.snackBar.open('You have successfully logged out.', 'close', {
+      duration: 5000,
+      panelClass: ['snackbar-success'],
+      horizontalPosition: "center",
+      verticalPosition: "top",
+    });
+  }
+
+
+  selectedNumber: number = 1; // Track the selected number
+
+  setActive(num: number): void {
+    this.selectedNumber = num; // Update the selected number
+  }
+  // send
+  
+
+  
+  // dialog
+  openDialog(): void {
+    this.feedbackForm.reset();
+    this.selectedNumber = 1;
+    this.submitted = false;
+    // Use the TemplateRef for the dialog
+    const dialogRef = this.dialog.open(this.dialogTemplate, {
+      width: '1200px',
+    });
+    // Detect changes to ensure validations work
+    this.cdr.detectChanges();
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  } 
+  
+  // Method to handle Send button click (when form is valid)
+  send(): void {
+    if (this.feedbackForm.valid) {
+      // Log the form values to the console
+      console.log(this.feedbackForm.value);
+      // Close the dialog
+      this.dialog.closeAll();
+    } else {
+      // If the form is invalid, mark it as submitted
+      this.submitted = true;
+    }
+  }
 }

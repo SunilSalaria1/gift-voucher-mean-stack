@@ -8,7 +8,6 @@ import { AddGiftItemComponent } from './pages/admin/add-gift-item/add-gift-item.
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { GiftInventoryComponent } from './pages/admin/gift-inventory/gift-inventory.component';
 import { EmployeePicksComponent } from './pages/admin/employee-picks/employee-picks.component';
-import { ProductReportsComponent } from './pages/admin/product-reports/product-reports.component';
 import { SettingsComponent } from './pages/admin/settings/settings.component';
 import { PageNotFoundComponent } from './pages/error/page-not-found/page-not-found.component';
 import { RewardClaimedComponent } from './pages/employee/reward-claimed/reward-claimed.component';
@@ -17,6 +16,7 @@ import { EditGiftItemComponent } from './pages/admin/edit-gift-item/edit-gift-it
 import {GenerateEmpCodeComponent} from './pages/admin/generate-emp-code/generate-emp-code.component';
 import { AddEmpCodeComponent } from './pages/admin/add-emp-code/add-emp-code.component';
 import { EditEmpCodeComponent } from './pages/admin/edit-emp-code/edit-emp-code.component';
+import { FeedbackComponent } from './pages/admin/feedback/feedback.component';
 
 export const routes: Routes = [
     //auth routes
@@ -32,7 +32,7 @@ export const routes: Routes = [
             { path: 'dashboard', component: DashboardComponent},
             { path: 'gift-inventory', component: GiftInventoryComponent },
             { path: 'employee-picks', component: EmployeePicksComponent },
-            { path: 'product-reports', component: ProductReportsComponent },
+            { path: 'feedback', component: FeedbackComponent},
             { path: 'settings', component: SettingsComponent },
             { path: 'add-gift-item', component: AddGiftItemComponent },
             { path: 'edit-gift-item/:id', component: EditGiftItemComponent },

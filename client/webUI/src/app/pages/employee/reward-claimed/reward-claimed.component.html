@@ -15,11 +15,21 @@
                                     has been confirmed. </div>
                                 <div>Get ready to enjoy your special treat—it's our way of saying
                                     thanks!"</div>
+                                <div>We'd love to hear your thoughts to make this experience even better.</div>
                             </div>
-                            <div><a mat-flat-button [routerLink]="['/home']"
-                                    class="bg-dark text-white py-4 px-5 shadow-sm button-mh-60 mt-4">
-                                    <mat-icon>celebration</mat-icon> <span>Back to Home</span></a>
+                            <div class="d-flex justify-content-center">
+                                <div><a mat-flat-button [routerLink]="['/home']"
+                                        class="bg-dark text-white py-4 px-5 shadow-sm button-mh-60 mt-4"
+                                        (click)="logOut()">
+                                        <mat-icon>celebration</mat-icon> <span>Back to Home</span></a>
+                                </div>
+                                <div><a mat-flat-button
+                                        class="bg-dark text-white py-4 px-5 shadow-sm button-mh-60 mt-4 ms-3"
+                                        (click)="openDialog()">
+                                        <mat-icon>celebration</mat-icon> <span>Share Feedback</span></a>
+                                </div>
                             </div>
+
                         </div>
                     </mat-card-content>
                 </mat-card>
@@ -28,3 +38,47 @@
     </div>
 </section>
 <!-- /main content -->
+
+<!-- dialog -->
+<ng-template #content>
+    <form [formGroup]="feedbackForm" (ngSubmit)="send()">
+        <mat-dialog-content>
+            <div class="text-center">
+                <div>
+                    <h4 class="mb-0">Give Feedback</h4>
+                </div>
+                <div>What do you think of the gifts?</div>
+                <div class="mt-4">
+                    <span *ngFor="let num of numbers; let i = index" class="badge mx-2 fw-bold"
+                        [ngClass]="{ 'active': selectedNumber === num }" (click)="setActive(num)">
+                        {{ num }}
+                    </span>
+                </div>
+            </div>
+            <div class="mt-5 px-3">Do you have any thoughts you'd like to share?</div>
+            <mat-form-field appearance="outline" class="d-block input-lg input">
+                <textarea matInput formControlName="productDescription" rows="5" class="w-100"></textarea>
+                <mat-error *ngIf="feedbackForm.get('productDescription')?.hasError('required')">
+                    This is Required
+                </mat-error>
+                <mat-error *ngIf="feedbackForm.get('productDescription')?.hasError('maxlength')">
+                    Maximum 200 characters allowed.
+                </mat-error>
+            </mat-form-field>
+
+            <!-- /form -->
+        </mat-dialog-content>
+        <mat-dialog-actions class="d-flex border-top border-light">
+            <button mat-flat-button class="bg-danger py-3 shadow-sm button-mh-45 me-2"
+                [mat-dialog-close]="true"><mat-icon>close</mat-icon>
+                <span>Decline
+                </span></button>
+            <button mat-flat-button class="bg-success py-3 shadow-sm button-mh-45" [disabled]="!feedbackForm.valid" (click)="send()"
+                mat-dialog-close><mat-icon>check</mat-icon>
+                <span>Send
+                </span></button>
+        </mat-dialog-actions>
+    </form>
+</ng-template>
+
+<!-- /dialog -->
