@@ -1,0 +1,20 @@
+/* copy */
+.copy-text{
+    font-size: 20px;    
+    right: 10px;  
+    border-radius: 5px;  
+    padding: 3px 7px;
+    font-weight: 500;
+  }
+
+  mat-icon.copy-icon:hover{
+    cursor: pointer;
+  }
+
+  mat-icon.copy-icon{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+  /* /copy */
+  

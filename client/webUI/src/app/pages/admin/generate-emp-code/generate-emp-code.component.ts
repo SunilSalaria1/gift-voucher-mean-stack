@@ -17,6 +17,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { trigger, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-generate-emp-code',
@@ -31,14 +33,28 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatTableModule,
     MatPaginatorModule,
     MatCardModule,
-    MatButtonModule,],
+    MatButtonModule,
+    ClipboardModule],
   templateUrl: './generate-emp-code.component.html',
-  styleUrl: './generate-emp-code.component.css'
+  styleUrl: './generate-emp-code.component.css',
+  animations: [
+    trigger('fadeOut', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(-5px)' }),
+        animate('200ms ease-in', style({ opacity: 1, transform: 'translateY(0)' }))
+      ]),
+      transition(':leave', [
+        animate('200ms ease-out', style({ opacity: 0, transform: 'translateY(-5px)' }))
+      ])
+    ])
+  ]
 })
 export class GenerateEmpCodeComponent implements AfterViewInit {
  @ViewChild('content') dialogTemplate!: TemplateRef<any>;
   constructor(private snackBar: MatSnackBar) {}
   readonly dialog = inject(MatDialog);
+  // Create a map to store copied state for each coupon code
+  copiedMap = new Map<string, boolean>();
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
@@ -80,6 +96,17 @@ export class GenerateEmpCodeComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
+
+  // copy
+  // Method to handle copying
+  copied(couponCode: string) {
+    // Set copied state to true for this couponCode
+    this.copiedMap.set(couponCode, true);
+    setTimeout(() => {
+      this.copiedMap.set(couponCode, false);
+    }, 1500);
+  }
+
 }
 
 export interface PeriodicElement {
