@@ -95,12 +95,7 @@
                     <div class="emp-code-label fs-12 text-uppercase">Employee Code</div>
                     <span class="emp-code-data fw-bold text-primary">
                         {{ generatedCode|| "xxxxxxxxxx"}}
-                    </span>
-                    <span class="ms-2"><mat-icon matSuffix cdkCopyToClipboard={{generatedCode}}
-                            (click)="copied()" class="copy-icon">content_copy</mat-icon></span>
-                    <div *ngIf="isCopied" class="copy-text fs-12 position-absolute bg-dark text-white">
-                        copied
-                    </div>
+                    </span>                    
                 </div>
             </div>
         </div>

@@ -14,9 +14,6 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { RouterLink } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ClipboardModule } from '@angular/cdk/clipboard';
-import { trigger, style, animate, transition } from '@angular/animations';
-
 import {
   AfterViewInit,
   TemplateRef,
@@ -36,23 +33,11 @@ import {
     MatSelectModule,
     MatDatepickerModule,
     RouterLink,
-    MatDialogModule,
-    ClipboardModule
+    MatDialogModule,    
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './add-emp-code.component.html',
-  styleUrl: './add-emp-code.component.css',
-  animations: [
-    trigger('fadeOut', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(-5px)' }),
-        animate('200ms ease-in', style({ opacity: 1, transform: 'translateY(0)' }))
-      ]),
-      transition(':leave', [
-        animate('200ms ease-out', style({ opacity: 0, transform: 'translateY(-5px)' }))
-      ])
-    ])
-  ]
+  styleUrl: './add-emp-code.component.css',  
 })
 export class AddEmpCodeComponent {
   @ViewChild('content') dialogTemplate!: TemplateRef<any>;
@@ -63,8 +48,7 @@ export class AddEmpCodeComponent {
   // Array to store all existing codes to avoid duplicates
   existingCodes: Set<string> = new Set();
   addEmployeeCodeForm!: FormGroup;
-  dialogEmployeeName: string = "";
-  isCopied = false;
+  dialogEmployeeName: string = "";  
   constructor(
     private formBuilder: FormBuilder, private snackBar: MatSnackBar
   ) { }
@@ -175,15 +159,7 @@ export class AddEmpCodeComponent {
       });
     }
   }
-
-  // copy
-  copied() {    
-    this.isCopied = true;
-    setTimeout(() => {
-      this.isCopied = false;
-    }, 1500);
-  }
-
+  
   // dialog
   openDialog(): void {
     // Use the TemplateRef for the dialog
