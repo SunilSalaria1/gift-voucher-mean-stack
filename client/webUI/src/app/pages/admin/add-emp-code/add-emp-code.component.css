@@ -6,13 +6,11 @@
   }
 
   /* dialog-box */ 
-  .emp-code-label{
-    font-size: 12px;
+  .emp-code-label{   
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
-  line-height: 1.6;
-  text-transform: uppercase;
+  line-height: 1.6;  
   }
 
   /* dialog-box */
@@ -22,8 +20,7 @@
     font-size: 20px;
   }
 
-  .gift-img{
-    position: relative;
+  .gift-img{    
     left: -20px;
   }
 
@@ -31,19 +28,11 @@
     font-size: 20px;
   }
 
-.copy-text{
-    position: absolute;
+.copy-text{   
     bottom: -24px;
-    right: 30px;
-    font-size: 12px;
-    background: black;
-    color: white;
+    right: 30px;    
     border-radius: 5px;  
     padding: 3px 7px;
     font-weight: 500;
   }
-
-  /* .mat-icon.check {
-    width: 16px !important;
-    height: 16px !important;
-  } */
+  

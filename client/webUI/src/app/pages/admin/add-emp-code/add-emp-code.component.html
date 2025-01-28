@@ -62,7 +62,7 @@
                             <!-- <div *ngIf="generatedCode">
                                 <h3>Generated Employee Code:</h3>
                                 <p>{{ generatedCode }}</p>
-                            </div> -->                           
+                            </div> -->
                         </form>
                         <!-- /form -->
                     </mat-card-content>
@@ -78,29 +78,28 @@
 <ng-template #content>
     <mat-dialog-content>
         <div class="d-flex align-items-end">
-            <div class="gift-img">
+            <div class="gift-img position-relative">
                 <img src="assets/images/gift-man.png" alt="">
             </div>
             <div class="emp-details w-100">
                 <div class="border-bottom border-light mb-4">
-                    <div class="emp-code-label fs-12 pb-2">Employee Name</div>
+                    <div class="emp-code-label fs-12 pb-2 text-uppercase">Employee Name</div>
                     <div class="emp-code-data fw-bold text-primary">
                         {{
                         dialogEmployeeName|| "xxxxx xxxx"}}
                     </div>
                 </div>
                 <div class="border-bottom border-light mb-4 position-relative">
-                    <div class="emp-code-label fs-12">Employee Code</div>
+                    <div class="emp-code-label fs-12 text-uppercase">Employee Code</div>
                     <span class="emp-code-data fw-bold text-primary">
                         {{ generatedCode|| "xxxxxxxxxx"}}
                     </span>
                     <span class="ms-2"><mat-icon matSuffix cdkCopyToClipboard={{generatedCode}}
                             (click)="copied()">content_copy</mat-icon></span>
-                            <div *ngIf="isCopied" class="copy-text">
-                               copied
-                            </div>
+                    <div *ngIf="isCopied" class="copy-text fs-12 position-absolute bg-dark text-white">
+                        copied
+                    </div>
                 </div>
-                
             </div>
         </div>
     </mat-dialog-content>

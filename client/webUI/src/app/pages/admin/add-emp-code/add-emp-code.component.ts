@@ -82,7 +82,6 @@ export class AddEmpCodeComponent {
     });
   }
 
-
   get employeeNameValue(): string {
     return this.addEmployeeCodeForm.get('employeeName')?.value || "";
   }
