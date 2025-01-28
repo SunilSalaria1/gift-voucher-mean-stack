@@ -6,21 +6,21 @@ import { RouterLink } from '@angular/router';
 import { EmployeeFooterComponent } from '../../../shared/employee-footer/employee-footer.component';
 import { EmployeeHeaderComponent } from '../../../shared/employee-header/employee-header.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef } from '@angular/core';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-reward-claimed',
   standalone: true,
-  imports: [MatIconModule, ReactiveFormsModule, MatButtonModule, MatCardModule, RouterLink, EmployeeFooterComponent, EmployeeHeaderComponent, MatDialogModule, MatFormFieldModule, CommonModule],
+  imports: [MatIconModule, ReactiveFormsModule, MatButtonModule, MatCardModule, RouterLink, EmployeeFooterComponent, EmployeeHeaderComponent, MatDialogModule, MatFormFieldModule, CommonModule, MatInputModule],
   templateUrl: './reward-claimed.component.html',
   styleUrl: './reward-claimed.component.css'
 })
 export class RewardClaimedComponent {
-  constructor(private snackBar: MatSnackBar, private formBuilder: FormBuilder, private cdr: ChangeDetectorRef) { }
+  constructor(private snackBar: MatSnackBar, private formBuilder: FormBuilder,) { }
   submitted: boolean = false;
   numbers = [1, 2, 3, 4, 5];
   feedbackForm!: FormGroup;
@@ -35,9 +35,8 @@ export class RewardClaimedComponent {
         [Validators.required, Validators.maxLength(200)],
       ],
     });
+    console.log('Form Initialized:', this.feedbackForm);
   }
-
-
 
   // back to home
   logOut() {
@@ -53,16 +52,13 @@ export class RewardClaimedComponent {
 
 
   selectedNumber: number = 1; // Track the selected number
-
   setActive(num: number): void {
     this.selectedNumber = num; // Update the selected number
   }
-  // send
-  
-
   
   // dialog
   openDialog(): void {
+    
     this.feedbackForm.reset();
     this.selectedNumber = 1;
     this.submitted = false;
@@ -70,8 +66,7 @@ export class RewardClaimedComponent {
     const dialogRef = this.dialog.open(this.dialogTemplate, {
       width: '1200px',
     });
-    // Detect changes to ensure validations work
-    this.cdr.detectChanges();
+   
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
@@ -81,12 +76,10 @@ export class RewardClaimedComponent {
   // Method to handle Send button click (when form is valid)
   send(): void {
     if (this.feedbackForm.valid) {
-      // Log the form values to the console
-      console.log(this.feedbackForm.value);
-      // Close the dialog
-      this.dialog.closeAll();
+      console.log(this.feedbackForm.value); // Log form values
+      // this.dialog.closeAll(); // Close dialog
     } else {
-      // If the form is invalid, mark it as submitted
+      // this.feedbackForm.markAllAsTouched(); // Trigger validation messages
       this.submitted = true;
     }
   }

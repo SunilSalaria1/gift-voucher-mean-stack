@@ -29,7 +29,6 @@
                                         <mat-icon>celebration</mat-icon> <span>Share Feedback</span></a>
                                 </div>
                             </div>
-
                         </div>
                     </mat-card-content>
                 </mat-card>
@@ -59,11 +58,11 @@
             <mat-form-field appearance="outline" class="d-block input-lg input">
                 <textarea matInput formControlName="productDescription" rows="5" class="w-100"></textarea>
                 <mat-error *ngIf="feedbackForm.get('productDescription')?.hasError('required')">
-                    This is Required
-                </mat-error>
-                <mat-error *ngIf="feedbackForm.get('productDescription')?.hasError('maxlength')">
+                    This is required.
+                  </mat-error>
+                  <mat-error *ngIf="feedbackForm.get('productDescription')?.hasError('maxlength')">
                     Maximum 200 characters allowed.
-                </mat-error>
+                  </mat-error>
             </mat-form-field>
 
             <!-- /form -->
@@ -73,8 +72,8 @@
                 [mat-dialog-close]="true"><mat-icon>close</mat-icon>
                 <span>Decline
                 </span></button>
-            <button mat-flat-button class="bg-success py-3 shadow-sm button-mh-45" [disabled]="!feedbackForm.valid" (click)="send()"
-                mat-dialog-close><mat-icon>check</mat-icon>
+            <button mat-flat-button class="bg-success py-3 shadow-sm button-mh-45"  (click)="send()"
+            ><mat-icon>check</mat-icon>
                 <span>Send
                 </span></button>
         </mat-dialog-actions>
