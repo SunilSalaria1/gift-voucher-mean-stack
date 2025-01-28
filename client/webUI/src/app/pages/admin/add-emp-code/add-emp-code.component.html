@@ -95,7 +95,7 @@
                         {{ generatedCode|| "xxxxxxxxxx"}}
                     </span>
                     <span class="ms-2"><mat-icon matSuffix cdkCopyToClipboard={{generatedCode}}
-                            (click)="copied()">content_copy</mat-icon></span>
+                            (click)="copied()" class="copy-icon">content_copy</mat-icon></span>
                     <div *ngIf="isCopied" class="copy-text fs-12 position-absolute bg-dark text-white">
                         copied
                     </div>

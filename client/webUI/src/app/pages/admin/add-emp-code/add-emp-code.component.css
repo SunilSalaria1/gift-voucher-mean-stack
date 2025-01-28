@@ -12,14 +12,23 @@
   font-style: normal;
   line-height: 1.6;  
   }
-
-  /* dialog-box */
-
   /* copy */
   .copy-text{
     font-size: 20px;
   }
 
+  mat-icon.copy-icon:hover{
+    cursor: pointer;
+  }
+
+  .copy-text{   
+    bottom: -24px;
+    right: 30px;    
+    border-radius: 5px;  
+    padding: 3px 7px;
+    font-weight: 500;
+  }
+  /* copy */
   .gift-img{    
     left: -20px;
   }
@@ -27,12 +36,7 @@
   .emp-code-data{
     font-size: 20px;
   }
+  /* /dialog box */
 
-.copy-text{   
-    bottom: -24px;
-    right: 30px;    
-    border-radius: 5px;  
-    padding: 3px 7px;
-    font-weight: 500;
-  }
+
   
