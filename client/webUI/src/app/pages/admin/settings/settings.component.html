@@ -2,41 +2,41 @@
 <mat-card class="bg-white border-light product-reward-card p-3 mb-4" appearance="outlined">
   <mat-card-content>
     <!-- form -->
-    <form [formGroup]="addAdminForm" class="d-flex align-items-center justify-content-between">
-      <div class="d-flex">
-        <span>
+    <form [formGroup]="addAdminForm">
+      <div class="row align-items-center">
+        <div class="col-3">
           <h4 class="fw-bold mb-1">Name</h4>
           <mat-form-field appearance="outline" class="d-block input-lg input w-100">
             <input matInput formControlName="adminName" />
             <mat-icon matSuffix>person</mat-icon>
             <mat-error>This is Required</mat-error>
           </mat-form-field>
-        </span>
-        <span class="mx-4">
+        </div>
+        <div class="col-3">
           <h4 class="fw-bold mb-1">Code</h4>
           <mat-form-field appearance="outline" class="d-block input-lg input w-100">
             <input matInput formControlName="adminKey" />
             <mat-icon matSuffix>redeem</mat-icon>
             <mat-error>This is Required</mat-error>
           </mat-form-field>
-        </span>
-        <span>
+        </div>
+        <div class="col-3">
           <h4 class="fw-bold mb-1">Key</h4>
           <mat-form-field appearance="outline" class="d-block input-lg input w-100">
             <input matInput formControlName="adminCode" />
             <mat-icon matSuffix>vpn_key</mat-icon>
             <mat-error>This is Required</mat-error>
           </mat-form-field>
-        </span>
+        </div>
+        <!-- button -->
+        <div class="col-3 pt-3">
+          <button mat-flat-button
+            class="bg-dark shadow-sm button-mh-60 text-white px-5 py-4 mx-4"><mat-icon>person_add</mat-icon>
+            <span>Add Admin</span>
+          </button>
+        </div>
+        <!-- /button -->
       </div>
-      <!-- button -->
-      <div class="pt-3">
-        <button mat-flat-button
-          class="bg-dark shadow-sm button-mh-60 text-white px-5 py-4 mx-4"><mat-icon>person_add</mat-icon>
-          <span>Add Admin</span>
-        </button>
-      </div>
-      <!-- /button -->
     </form>
     <!-- /form -->
   </mat-card-content>
@@ -63,7 +63,7 @@
       <ng-container matColumnDef="position">
         <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">No.</th>
         <td mat-cell *matCellDef="let element">{{ element.position }}</td>
-      </ng-container>      
+      </ng-container>
       <!--name -->
       <ng-container matColumnDef="productTitle">
         <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Administrator Name</th>
@@ -78,14 +78,14 @@
         </td>
       </ng-container>
       <!-- /code -->
-       <!-- key -->
+      <!-- key -->
       <ng-container matColumnDef="joiningDate">
         <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Administrator Key</th>
         <td mat-cell *matCellDef="let element">
           {{ element.joiningDate}}
         </td>
       </ng-container>
-<!-- /key -->      
+      <!-- /key -->
       <ng-container matColumnDef="Action">
         <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Action</th>
         <td mat-cell *matCellDef="let element">
