@@ -7,11 +7,13 @@
         <div class="header-links d-flex">
             <div class="d-flex align-items-center">
                 <mat-icon class="notifications">notifications</mat-icon>
-                <div class="mx-3">Piyush</div>
+                <!-- admin name -->
+                <div [matMenuTriggerFor]="menu" class="mx-3 admin d-flex">
+                    Piyush<mat-icon>person</mat-icon>
+                </div>
+                <!-- /admin name -->
+                <!-- mat menu -->
                 <div>
-                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                        <mat-icon>person</mat-icon>
-                    </button>
                     <mat-menu #menu="matMenu">
                         <button mat-menu-item>
                             <mat-icon>power_settings_new</mat-icon>
@@ -26,7 +28,8 @@
                             <span>Disable alerts</span>
                         </button>
                     </mat-menu>
-                </div>                
+                </div>
+                <!-- /mat menu -->
             </div>
         </div>
     </header>
