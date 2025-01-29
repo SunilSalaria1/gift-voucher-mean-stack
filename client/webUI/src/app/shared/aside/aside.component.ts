@@ -7,11 +7,12 @@ import { EmployeePicksComponent } from '../../pages/admin/employee-picks/employe
 import { SettingsComponent } from '../../pages/admin/settings/settings.component';
 import {GenerateEmpCodeComponent } from '../../pages/admin/generate-emp-code/generate-emp-code.component';
 import { FeedbackComponent } from '../../pages/admin/feedback/feedback.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-aside',
   standalone: true,
-  imports: [RouterLink,DashboardComponent,GiftInventoryComponent,EmployeePicksComponent,SettingsComponent,GenerateEmpCodeComponent,FeedbackComponent],
+  imports: [RouterLink,DashboardComponent,GiftInventoryComponent,EmployeePicksComponent,SettingsComponent,GenerateEmpCodeComponent,FeedbackComponent,MatIconModule],
   templateUrl: './aside.component.html',
   styleUrl: './aside.component.css'
 })
