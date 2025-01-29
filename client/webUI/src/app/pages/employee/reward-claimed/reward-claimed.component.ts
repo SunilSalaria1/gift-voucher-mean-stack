@@ -77,7 +77,7 @@ export class RewardClaimedComponent {
   send(): void {
     if (this.feedbackForm.valid) {
       console.log(this.feedbackForm.value); // Log form values
-      // this.dialog.closeAll(); // Close dialog
+      this.dialog.closeAll(); // Close dialog
     } else {
       // this.feedbackForm.markAllAsTouched(); // Trigger validation messages
       this.submitted = true;
