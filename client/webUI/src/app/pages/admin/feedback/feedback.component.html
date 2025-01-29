@@ -1,7 +1,7 @@
 <section>
     <div class="row">
         <div class="col-3" *ngFor="let card of cards">
-            <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
+            <mat-card class="bg-white shadow-sm product-reward-card p-3 h-100 justify-content-between" appearance="outlined">
                 <mat-card-content>
                     <!-- Star Ratings -->
                     <div>
@@ -10,13 +10,18 @@
                         </ng-container>
                     </div>
                     <!-- Description -->
-                    <p class="description fs-12">{{ card.description }}</p>
-                    <!-- User Image and Name -->
-                    <div class="user-info">
-                        <img [src]="card.image" alt="User Image" class="user-image shadow-sm">
-                        <span class="user-name fs-14">{{ card.name }}</span>
-                    </div>
+                    <p class="description fs-12">{{ card.description }}</p>                   
                 </mat-card-content>
+                <mat-card-actions class="border-top border-light">
+                    <!-- User Image and Name -->
+                    <div>
+                        <div class="user-info">
+                            <img [src]="card.image" alt="User Image" class="user-image shadow-sm">
+                            <span class="user-name fs-14">{{ card.name }}</span>
+                        </div>
+                        <div class="emp-code fs-14 ps-5">{{ card.empCode }}</div>
+                    </div>
+                    </mat-card-actions>
             </mat-card>
         </div>
     </div>
