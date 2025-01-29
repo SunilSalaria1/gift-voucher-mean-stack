@@ -1,1 +1,44 @@
-<p>settings works!</p>
+<!-- add admin -->
+<mat-card class="bg-white border-light product-reward-card p-3" appearance="outlined">
+  <mat-card-content>
+    <!-- form -->
+    <form [formGroup]="addAdminForm" class="d-flex align-items-center justify-content-between">
+      <div class="d-flex">
+        <span>
+          <h4 class="fw-bold mb-1">Name</h4>
+          <mat-form-field appearance="outline" class="d-block input-lg input w-100">
+            <input matInput formControlName="adminName" />
+            <mat-icon matSuffix>vpn_key</mat-icon>
+            <mat-error>This is Required</mat-error>
+          </mat-form-field>
+        </span>
+        <span class="mx-4">
+          <h4 class="fw-bold mb-1">Code</h4>
+          <mat-form-field appearance="outline" class="d-block input-lg input w-100">
+            <input matInput formControlName="adminKey" />
+            <mat-icon matSuffix>vpn_key</mat-icon>
+            <mat-error>This is Required</mat-error>
+          </mat-form-field>
+        </span>
+        <span>
+          <h4 class="fw-bold mb-1">Key</h4>
+          <mat-form-field appearance="outline" class="d-block input-lg input w-100">
+            <input matInput formControlName="adminCode" />
+            <mat-icon matSuffix>vpn_key</mat-icon>
+            <mat-error>This is Required</mat-error>
+          </mat-form-field>
+        </span>
+      </div>
+      <!-- button -->
+      <div class="pt-3">
+        <button mat-flat-button
+          class="bg-dark shadow-sm button-mh-60 text-white px-5 py-4 mx-4"><mat-icon>add</mat-icon>
+          <span>Add Admin</span>
+        </button>
+      </div>
+      <!-- /button -->
+    </form>
+    <!-- /form -->
+  </mat-card-content>
+</mat-card>
+<!-- /add admin -->
