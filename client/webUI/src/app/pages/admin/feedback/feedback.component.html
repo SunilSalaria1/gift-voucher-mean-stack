@@ -1,1 +1,23 @@
-<p>feedback works!</p>
+<section class="container">
+    <div class="row">
+        <div class="col-3" *ngFor="let card of cards">
+            <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
+                <mat-card-content>
+                    <!-- Star Ratings -->
+                    <div>
+                        <ng-container *ngFor="let star of getStars(card.rating)">
+                            <mat-icon>{{ star }}</mat-icon>
+                        </ng-container>
+                    </div>
+                    <!-- Description -->
+                    <p class="description">{{ card.description }}</p>
+                    <!-- User Image and Name -->
+                    <div class="user-info">
+                        <img [src]="card.image" alt="User Image" class="user-image">
+                        <span class="user-name">{{ card.name }}</span>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</section>
