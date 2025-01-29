@@ -1,4 +1,4 @@
-<section class="container">
+<section>
     <div class="row">
         <div class="col-3" *ngFor="let card of cards">
             <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
@@ -10,11 +10,11 @@
                         </ng-container>
                     </div>
                     <!-- Description -->
-                    <p class="description">{{ card.description }}</p>
+                    <p class="description fs-12">{{ card.description }}</p>
                     <!-- User Image and Name -->
                     <div class="user-info">
                         <img [src]="card.image" alt="User Image" class="user-image shadow-sm">
-                        <span class="user-name">{{ card.name }}</span>
+                        <span class="user-name fs-14">{{ card.name }}</span>
                     </div>
                 </mat-card-content>
             </mat-card>

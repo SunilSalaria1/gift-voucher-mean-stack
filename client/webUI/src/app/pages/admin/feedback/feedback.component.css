@@ -1,3 +1,4 @@
+/* user */
 .user-info {
     display: flex;
     align-items: center;
@@ -13,13 +14,7 @@
     object-fit: cover;
     margin-right: 10px;
 }
-
-.user-name {
-    font-weight: bold;
-}
-
-.description {
-    font-size: 14px;
+.description {   
     color: #555;
     margin: 10px 0;
 }
