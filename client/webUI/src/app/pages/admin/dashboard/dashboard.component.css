@@ -18,3 +18,10 @@
     border-radius: 5px;  
     padding: 10px 12px;
 }
+
+.grid-pie ngx-charts-pie-grid{
+    text-align: -webkit-right;
+}
+.pie-chart ngx-charts-pie-chart{
+    text-align: -webkit-center;
+}
