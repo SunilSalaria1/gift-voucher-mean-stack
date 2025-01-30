@@ -13,30 +13,7 @@ import { Color, LegendPosition, NgxChartsModule, ScaleType } from '@swimlane/ngx
 })
 export class DashboardComponent {
   // pie chart
-  view: [number, number] = [700, 400];
-
-
-  // grid pie chart
-  gridPieChartData=[
-    {
-      "name": "Germany",
-      "value": 20
-    },
-  ]
-
-  gridPieChartColorScheme:Color = {
-    name: 'custom',
-    selectable: true,
-    group:ScaleType.Ordinal,
-    domain: ['#5AA454'],
-  };
-
-  onSelectGridPie(data:any): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
-  }
-  
-
-  // pie chart
+  view: [number, number] = [700, 400];  
 
   pieChartData = [
     {
@@ -72,7 +49,7 @@ export class DashboardComponent {
   };
 
   constructor() {
-    Object.assign(this, { pieChartData: this.pieChartData, gridPieChartData: this.gridPieChartData });
+    Object.assign(this, { pieChartData: this.pieChartData});
   }
 
   onSelect(data:any): void {

@@ -9,11 +9,12 @@ import {GenerateEmpCodeComponent } from '../../pages/admin/generate-emp-code/gen
 import { FeedbackComponent } from '../../pages/admin/feedback/feedback.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-aside',
   standalone: true,
-  imports: [RouterLink,DashboardComponent,GiftInventoryComponent,EmployeePicksComponent,SettingsComponent,GenerateEmpCodeComponent,FeedbackComponent,MatIconModule,CommonModule],
+  imports: [RouterLink,DashboardComponent,GiftInventoryComponent,EmployeePicksComponent,SettingsComponent,GenerateEmpCodeComponent,FeedbackComponent,MatIconModule,CommonModule,RouterModule],
   templateUrl: './aside.component.html',
   styleUrl: './aside.component.css'
 })

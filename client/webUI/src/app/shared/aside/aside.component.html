@@ -4,10 +4,22 @@
         <span class="text-white fw-bold">Choice</span>
         <span class="text-primary">Chase</span>
     </div>
-    <a [routerLink]="['/admin/dashboard']" class="d-flex text-white p-3 text-decoration-none"><mat-icon class="me-4">home</mat-icon>Dashboard</a>
-    <a [routerLink]="['/admin/generate-emp-code']" class="d-flex text-white p-3 text-decoration-none"><mat-icon class="me-4">person_add</mat-icon>Generate EmpCode</a>
-    <a [routerLink]="['/admin/gift-inventory']" class="d-flex text-white p-3 text-decoration-none"><mat-icon class="me-4">redeem</mat-icon>Gift Inventory</a>
-    <a [routerLink]="['/admin/employee-picks']" class="d-flex text-white p-3 text-decoration-none"><mat-icon class="me-4">widgets</mat-icon>Employee Picks</a>   
-    <a [routerLink]="['/admin/feedback']" class="d-flex text-white p-3 text-decoration-none"><mat-icon class="me-4">chat</mat-icon>Feedbacks</a>
-    <a [routerLink]="['/admin/settings']" class="d-flex text-white p-3 text-decoration-none"><mat-icon class="me-4">settings</mat-icon>Settings</a>
+    <a [routerLink]="['/admin/dashboard']" routerLinkActive="active" class="d-flex text-white p-3 text-decoration-none">
+        <mat-icon class="me-4">home</mat-icon>Dashboard
+    </a>
+    <a [routerLink]="['/admin/generate-emp-code']" routerLinkActive="active" class="d-flex text-white p-3 text-decoration-none">
+        <mat-icon class="me-4">person_add</mat-icon>Generate EmpCode
+    </a>
+    <a [routerLink]="['/admin/gift-inventory']" routerLinkActive="active" class="d-flex text-white p-3 text-decoration-none">
+        <mat-icon class="me-4">redeem</mat-icon>Gift Inventory
+    </a>
+    <a [routerLink]="['/admin/employee-picks']" routerLinkActive="active" class="d-flex text-white p-3 text-decoration-none">
+        <mat-icon class="me-4">widgets</mat-icon>Employee Picks
+    </a>
+    <a [routerLink]="['/admin/feedback']" routerLinkActive="active" class="d-flex text-white p-3 text-decoration-none">
+        <mat-icon class="me-4">chat</mat-icon>Feedbacks
+    </a>
+    <a [routerLink]="['/admin/settings']" routerLinkActive="active" class="d-flex text-white p-3 text-decoration-none">
+        <mat-icon class="me-4">settings</mat-icon>Settings
+    </a>
 </nav>

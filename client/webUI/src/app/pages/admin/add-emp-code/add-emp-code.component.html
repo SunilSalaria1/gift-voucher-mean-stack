@@ -39,6 +39,17 @@
                                 </mat-select>
                                 <mat-error>This is Required</mat-error>
                             </mat-form-field>
+                            <h4 class="fw-bold mb-1">Email</h4>
+                            <mat-form-field appearance="outline" class="d-block input-lg input">
+                                <input matInput formControlName="email"/>
+                                <mat-icon matSuffix>person</mat-icon>
+                                <mat-error *ngIf="addEmployeeCodeForm.get('email')?.hasError('required')">
+                                    This is Required
+                                  </mat-error>
+                                  <mat-error *ngIf="addEmployeeCodeForm.get('email')?.hasError('email')">
+                                    Enter a valid email.
+                                  </mat-error>
+                            </mat-form-field>
                             <h4 class="fw-bold mb-1">DOB</h4>
                             <mat-form-field appearance="outline" class="d-block input-lg input">
                                 <input matInput [matDatepicker]="picker" formControlName="dob">

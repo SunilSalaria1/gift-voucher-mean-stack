@@ -63,6 +63,7 @@ export class AddEmpCodeComponent {
       department: ['', Validators.required],
       dob: ['', Validators.required],
       joiningDate: ['', Validators.required],
+      email:['',[Validators.required, Validators.email]]
     });
   }
 
