@@ -62,15 +62,34 @@
             <!-- /employees products employees -->
             <!-- upgrade data analytics -->
             <div class="row">
+                <!-- data analytics -->
+                <div class="col-12">
+                    <mat-card class="bg-white shadow-sm product-reward-card p-3 mb-4" appearance="outlined">
+                        <mat-card-content>
+                            <div>
+                                <h5>Data Analytics Overview</h5>
+                            </div>
+                            <div>From predictive modeling to real-time analysis, data analytics empowers
+                                businesses to stay ahead of the competition.""With the right data analytics
+                                tools, organizations can enhance efficiency, reduce risks, and improve customer
+                                experiences.</div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <!-- /data analytics -->
                 <!-- upgrade -->
-                <div class="col-6">
+                <div class="col-12">
                     <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
                         <mat-card-content>
                             <div>
                                 <h5>Upgrade to Pro</h5>
                             </div>
                             <div>
-                                <img src="assets/images/products/tumbler.png" width="200" height="200" alt="">
+                                <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="single"
+                                    [gradient]="gradient" [legend]="showLegend" [legendPosition]="legendPosition"
+                                    [labels]="showLabels" [doughnut]="isDoughnut" (select)="onSelect($event)"
+                                    (activate)="onActivate($event)" (deactivate)="onDeactivate($event)">
+                                </ngx-charts-pie-chart>
                             </div>
                             <div>
                                 From predictive modeling to real-time analysis, data analytics empowers
@@ -81,38 +100,7 @@
                     </mat-card>
                 </div>
                 <!-- /upgrade -->
-                <!-- data analytics -->
-                <div class="col-6">
-                    <div class="row">
-                        <div class="col-12">
-                            <mat-card class="bg-white shadow-sm product-reward-card p-3 mb-4" appearance="outlined">
-                                <mat-card-content>
-                                    <div>
-                                        <h5>Data Analytics Overview</h5>
-                                    </div>
-                                    <div>From predictive modeling to real-time analysis, data analytics empowers
-                                        businesses to stay ahead of the competition.""With the right data analytics
-                                        tools, organizations can enhance efficiency, reduce risks, and improve customer
-                                        experiences.</div>
-                                </mat-card-content>
-                            </mat-card>
-                        </div>
-                        <div class="col-12">
-                            <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
-                                <mat-card-content>
-                                    <div>
-                                        <h5>Data Analytics Overview</h5>
-                                    </div>
-                                    <div>From predictive modeling to real-time analysis, data analytics empowers
-                                        businesses to stay ahead of the competition.""With the right data analytics
-                                        tools, organizations can enhance efficiency, reduce risks, and improve customer
-                                        experiences.</div>
-                                </mat-card-content>
-                            </mat-card>
-                        </div>
-                    </div>
-                </div>
-                <!-- /data analytics -->
+
             </div>
             <!-- /upgrade data analytics -->
         </div>
