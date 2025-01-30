@@ -1,6 +1,12 @@
 /* Sidebar */
 .sidebar {
-    width: 250px;    
+    width: 250px;
+    transition: width 0.3s ease-in-out;
+    overflow: hidden;    
+}
+
+.sidebar.collapsed {
+    width: 0px; /* Collapsed width */
 }
 
 .sidebar a:hover {

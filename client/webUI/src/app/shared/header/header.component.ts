@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
@@ -18,5 +18,11 @@ export class HeaderComponent {
 
   logOut() {
     localStorage.removeItem('loginUser')
+  }
+
+  @Output() menuClicked = new EventEmitter<void>();
+
+  toggleMenu() {
+    this.menuClicked.emit();
   }
 }

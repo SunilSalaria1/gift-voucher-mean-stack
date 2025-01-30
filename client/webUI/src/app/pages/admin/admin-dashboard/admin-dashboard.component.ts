@@ -14,5 +14,9 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './admin-dashboard.component.css'
 })
 export class AdminDashboardComponent {
+  isSidebarOpen = true; // Initially open
 
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
 }

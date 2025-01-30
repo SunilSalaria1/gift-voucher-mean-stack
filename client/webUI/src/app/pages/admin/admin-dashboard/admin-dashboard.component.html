@@ -2,11 +2,11 @@
     <!-- Main Layout -->
     <div class="main-layout d-flex flex-grow-1">
         <!-- Sidebar -->
-        <app-aside></app-aside>
+        <app-aside [isSidebarOpen]="isSidebarOpen"></app-aside>
         <!-- Main Content -->
         <div class="main-content bg-light flex-grow-1">
             <!-- Header -->
-            <app-header></app-header>
+            <app-header (menuClicked)="toggleSidebar()"></app-header>
             <div class="p-3">
                 <router-outlet></router-outlet>
             </div>
