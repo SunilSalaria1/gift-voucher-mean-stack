@@ -4,6 +4,9 @@
     transition:  0.3s ease-in-out;
     overflow: hidden;    
 }
+nav a {
+    white-space: nowrap;
+}
 
 .sidebar.collapsed {
     width: 0px; /* Collapsed width */
