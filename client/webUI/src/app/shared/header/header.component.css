@@ -1,3 +1,7 @@
 .admin:hover{
     cursor: pointer;
 }
+
+.notifications:hover{
+    cursor: pointer;
+}
