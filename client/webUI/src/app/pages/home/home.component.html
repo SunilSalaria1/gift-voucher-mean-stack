@@ -58,76 +58,92 @@
       </div>
     </div>
     <div class="row text-center pt-5">
+      <!-- login with code -->
       <div class="col-4">
-        <img src="assets/images/svg-number-one.svg" />
-        <div class="h5">Login with Code</div>
-        <div>
-          Log in with your employee code to unlock a world of gifts. Simply enter your unique code to browse and
-          choose the gift that suits you..
-        </div>
+        <mat-card class="bg-white shadow-sm product-reward-card p-3 h-100" appearance="outlined">
+          <mat-card-header>
+            <mat-card-title>
+              <img src="assets/images/svg-number-one.svg" />
+            </mat-card-title>
+            <mat-card-subtitle>
+              <div class="h5">Login with Code</div>
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div>
+              <img src="assets/images/login-image.jpg" alt="">
+            </div>            
+          </mat-card-content>
+          <mat-card-footer>
+            <div>
+              Log in with your employee code to unlock a world of gifts. Simply enter your unique code to browse and
+              choose the gift that suits you..
+            </div>
+          </mat-card-footer>
+        </mat-card>
       </div>
+      <!-- /login with code -->
+      <!-- choose your gift -->
       <div class="col-4">
-        <img src="assets/images/svg-number-two.svg" />
-        <div class="h5">Choose your Gift</div>
-        <div>
-          Browse through a curated selection of gifts and pick the one that suits you best. Your perfect gift is just a
-          click away—make your choice today..
-        </div>
+        <mat-card class="bg-white shadow-sm product-reward-card p-3 h-100" appearance="outlined">
+          <mat-card-header>
+            <mat-card-title>
+              <img src="assets/images/svg-number-two.svg" />
+            </mat-card-title>
+            <mat-card-subtitle>
+              <div class="h5">Choose your Gift</div>
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div>
+              <img src="assets/images/gift-selection.png" width="256" height="256" alt="">
+            </div>            
+          </mat-card-content>
+          <mat-card-footer>
+            <div>
+              Browse through a curated selection of gifts and pick the one that suits you best. Your perfect gift is
+              just
+              a
+              click away—make your choice today..
+            </div>
+          </mat-card-footer>
+        </mat-card>
       </div>
+      <!-- /choose your gift -->
+      <!-- celebrate your gift -->
       <div class="col-4">
-        <img src="assets/images/svg-number-three.svg" />
-        <div class="h5">Celebrate your Gift</div>
-        <div>
-          A gift to cherish! Celebrate the joy and excitement that comes with your special gift. It’s your moment to
-          enjoy something meaningful and unforgettable..
+        <mat-card class="bg-white shadow-sm product-reward-card p-3 h-100" appearance="outlined">
+          <mat-card-header>
+            <mat-card-title>
+              <img src="assets/images/svg-number-three.svg" />
+            </mat-card-title>
+            <mat-card-subtitle>
+              <div class="h5">Celebrate your Gift</div>
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div>
+              <img src="assets/images/gift-announcement.png" width="256" height="256" alt="">
+            </div>            
+          </mat-card-content> 
+          <mat-card-footer>
+            <div>
+              A gift to cherish! Celebrate the joy and excitement that comes with your special gift. It’s your moment to
+              enjoy something meaningful...
+            </div>
+          </mat-card-footer>         
+        </mat-card>
+      </div>
+      <!-- /celebrate your gift -->
+      <div class="col-12 mt-4">
+        <div class="text-center">
+          <a mat-flat-button [routerLink]="[ '/employee-code']" class="px-5 py-4 button-mh-60 bg-dark shadow-sm">
+            <span>Get Started</span><mat-icon>celebration</mat-icon></a>
         </div>
       </div>
     </div>
   </section>
-  <section class="border-top border-light border-bottom">
-    <div class="container py-5">
-      <div class="row justify-content-between align-items-center">
-        <div class="col-12">
-          <div class="row justify-content-center">
-            <div class="col-3">
-              <mat-card class="example-card p-3 bg-dark" appearance="outlined">
-                <img mat-card-image src="assets/images/login-image.jpg" />
-                <div
-                  class="bg-primary text-white fw-normal text-center shadow-sm py-2 d-flex justify-content-center border-radius-10">
-                  <span>Login with Code</span> <mat-icon class="ms-1">celebration</mat-icon>
-                </div>
-              </mat-card>
-            </div>
-            <div class="col-3">
-              <mat-card class="example-card p-3 bg-dark" appearance="outlined">
-                <img mat-card-image src="assets/images/gift-selection.png" class="bg-light" />
-                <div
-                  class="bg-primary text-white fw-normal text-center shadow-sm py-2 d-flex justify-content-center border-radius-10">
-                  <span>Choose your Gift</span> <mat-icon class="ms-1">celebration</mat-icon>
-                </div>
-              </mat-card>
-            </div>            
-            <div class="col-3">
-              <mat-card class="example-card p-3 bg-dark" appearance="outlined">
-                <img mat-card-image src="assets/images/gift-announcement.png" class="bg-light" />
-                <div
-                  class="bg-primary text-white fw-normal text-center shadow-sm py-2 d-flex justify-content-center border-radius-10">
-                  <span>Celebrate your Gift</span> <mat-icon class="ms-1">celebration</mat-icon>
-                </div>
-              </mat-card>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <div class="text-center pt-5">
-            <a mat-flat-button [routerLink]="[ '/employee-code']" class="px-5 py-4 button-mh-60 bg-dark shadow-sm">
-              <span>Get Started</span><mat-icon>celebration</mat-icon></a>
-          </div>
-        </div>
-      </div>
-    </div>
+  <section>    
   </section>
   <!-- /how it works section -->
   <!-- footer section -->
