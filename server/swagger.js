@@ -1,17 +1,40 @@
 const swaggerAutogen = require('swagger-autogen')();
+const fs = require("fs");
+const { register } = require('module');
+const { updateUser } = require('./src/controllers/user.controller');
 
 const doc = {
   info: {
     title: 'My API',
     description: 'Description'
   },
-  host: 'localhost:3000'
+  host: 'localhost:3000',
+  tags: [                   // by default: empty Array
+    {
+      name: 'Users',             // Tag name
+      description: 'User Routes'       // Tag description
+    },
+    // { ... }
+  ],
+  definitions: {
+    registerUser: {
+      empCode: "LP1234343",
+      dob: new Date().toString(),
+      joiningDate: new Date().toString(),
+      email: "aniket98578@gmail.com",
+      name: "Aniket Sharma",
+      department: "Front End"
+    },
+    updateUser: {
+      name: "Aniket Sharma",
+      department: "Front End"
+    },
+    loginUser: {
+      empCode: "LP12121212"
+    },
+  }
 };
 
 const outputFile = './swagger-output.json';
-const routes = ['./app.js'];
-
-/* NOTE: If you are using the express Router, you must pass in the 'routes' only the 
-root file where the route starts, such as index.js, app.js, routes.js, etc ... */
-
-swaggerAutogen(outputFile, routes, doc);
+const routes = ['./src/routes/index.js'];
+if (fs.existsSync("./swagger-output.json")) { swaggerAutogen(outputFile, routes, doc); }

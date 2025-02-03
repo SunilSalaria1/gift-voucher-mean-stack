@@ -1,33 +1,253 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "SparkNest",
+    "title": "My API",
     "description": "Description",
     "version": "1.0.0"
   },
   "host": "localhost:3000",
   "basePath": "/",
+  "tags": [
+    {
+      "name": "Users",
+      "description": "User Routes"
+    }
+  ],
   "schemes": [
     "http"
   ],
   "paths": {
-    "/": {
-      "get": {
-        "description": "",
+    "/api/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Register user",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User registration details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/registerUser"
+            }
+          }
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "201": {
+            "description": "User Created successfully"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Invalid credentials"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/users/": {
+    "/api/users": {
       "get": {
-        "description": "",
+        "tags": [
+          "Users"
+        ],
+        "description": "Get all users.",
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
+        }
+      }
+    },
+    "/api/getUser/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Get User with Id .",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/updateUser/{id}": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Delete User with Id .",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User registration details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/updateUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "User Created successfully"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Invalid credentials"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/deleteUser/{id}": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Delete User with Id .",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/loginUser": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Register user",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User registration details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/loginUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "User Created successfully"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Invalid credentials"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "registerUser": {
+      "type": "object",
+      "properties": {
+        "empCode": {
+          "type": "string",
+          "example": "LP1234343"
+        },
+        "dob": {
+          "type": "string",
+          "example": "Fri Jan 31 2025 18:42:08 GMT+0530 (India Standard Time)"
+        },
+        "joiningDate": {
+          "type": "string",
+          "example": "Fri Jan 31 2025 18:42:08 GMT+0530 (India Standard Time)"
+        },
+        "email": {
+          "type": "string",
+          "example": "aniket98578@gmail.com"
+        },
+        "name": {
+          "type": "string",
+          "example": "Aniket Sharma"
+        },
+        "department": {
+          "type": "string",
+          "example": "Front End"
+        }
+      }
+    },
+    "updateUser": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Aniket Sharma"
+        },
+        "department": {
+          "type": "string",
+          "example": "Front End"
+        }
+      }
+    },
+    "loginUser": {
+      "type": "object",
+      "properties": {
+        "empCode": {
+          "type": "string",
+          "example": "LP12121212"
         }
       }
     }
