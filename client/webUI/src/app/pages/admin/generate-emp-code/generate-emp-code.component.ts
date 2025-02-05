@@ -84,8 +84,9 @@ export class GenerateEmpCodeComponent implements AfterViewInit {
 
   displayedColumns: string[] = [
     'position',
-    'couponCode',
     'productTitle',
+    'couponCode',
+    'employeeKey',    
     'department',
     'productImage',
     'joiningDate',
@@ -112,6 +113,7 @@ export class GenerateEmpCodeComponent implements AfterViewInit {
 export interface PeriodicElement {
   position: number;
   couponCode: string;
+  employeeKey:string;
   productTitle: string;
   department: string;
   productImage: string;
@@ -122,6 +124,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {
     position: 1,
     couponCode: 'Hydrogen',
+    employeeKey:'adssfdff',
     productTitle: 'tile2345',
     department: 'Frontend',
     productImage: '/assets/images/banner-1.png',
@@ -130,6 +133,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {
     position: 2,
     couponCode: 'Helium',
+    employeeKey:'adssfdff',
     productTitle: 'tile2345',
     department: 'Backend',
     productImage: '/assets/images/banner-1.png',
@@ -138,6 +142,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {
     position: 3,
     couponCode: 'Lithium',
+    employeeKey:'adssfdff',
     productTitle: 'tile2345',
     department: 'HR',
     productImage: '/assets/images/banner-1.png',
@@ -146,6 +151,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {
     position: 4,
     couponCode: 'Beryllium',
+    employeeKey:'adssfdff',
     productTitle: 'tile2345',
     department: 'Audit',
     productImage: '/assets/images/banner-1.png',
@@ -154,6 +160,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {
     position: 5,
     couponCode: 'Boron',
+    employeeKey:'adssfdff',
     productTitle: 'tile2345',
     department: 'Bidding',
     productImage: '/assets/images/banner-1.png',
@@ -162,6 +169,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {
     position: 6,
     couponCode: 'Carbon',
+    employeeKey:'adssfdff',
     productTitle: 'tile2345',
     department: 'Audit',
     productImage: '/assets/images/banner-1.png',
@@ -170,6 +178,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {
     position: 7,
     couponCode: 'Nitrogen',
+    employeeKey:'adssfdff',
     productTitle: 'tile2345',
     department: 'HR',
     productImage: '/assets/images/banner-1.png',
@@ -178,6 +187,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {
     position: 8,
     couponCode: 'Oxygen',
+    employeeKey:'adssfdff',
     productTitle: 'tile2345',
     department: 'Frontend',
     productImage: '/assets/images/banner-1.png',
@@ -186,6 +196,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {
     position: 9,
     couponCode: 'Fluorine',
+    employeeKey:'adssfdff',
     productTitle: 'tile2345',
     department: 'Backend',
     productImage: '/assets/images/banner-1.png',
@@ -194,6 +205,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {
     position: 10,
     couponCode: 'Neon',
+    employeeKey:'adssfdff',
     productTitle: 'tile2345',
     department: 'Frontend',
     productImage: '/assets/images/banner-1.png',
@@ -202,6 +214,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {
     position: 11,
     couponCode: 'Sodium',
+    employeeKey:'adssfdff',
     productTitle: 'tile2345',
     department: 'Frontend',
     productImage: '/assets/images/banner-1.png',
@@ -210,6 +223,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {
     position: 12,
     couponCode: 'Magnesium',
+    employeeKey:'adssfdff',
     productTitle: 'tile2345',
     department: 'Audit',
     productImage: '/assets/images/banner-1.png',
@@ -218,6 +232,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {
     position: 13,
     couponCode: 'Aluminum',
+    employeeKey:'adssfdff',
     productTitle: 'tile2345',
     department: 'Audit',
     productImage: '/assets/images/banner-1.png',
@@ -226,6 +241,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {
     position: 14,
     couponCode: 'Silicon',
+    employeeKey:'adssfdff',
     productTitle: 'tile2345',
     department: 'Audit',
     productImage: '/assets/images/banner-1.png',
@@ -234,6 +250,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {
     position: 15,
     couponCode: 'Phosphorus',
+    employeeKey:'adssfdff',
     productTitle: 'tile2345',
     department: 'Bidding',
     productImage: '/assets/images/banner-1.png',
@@ -242,6 +259,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {
     position: 16,
     couponCode: 'Sulfur',
+    employeeKey:'adssfdff',
     productTitle: 'tile2345',
     department: 'Bidding',
     productImage: '/assets/images/banner-1.png',
@@ -250,6 +268,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {
     position: 17,
     couponCode: 'Chlorine',
+    employeeKey:'adssfdff',
     productTitle: 'tile2345',
     department: 'Bidding',
     productImage: '/assets/images/banner-1.png',
@@ -258,6 +277,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {
     position: 18,
     couponCode: 'Argon',
+    employeeKey:'adssfdff',
     productTitle: 'tile2345',
     department: 'HR',
     productImage: '/assets/images/banner-1.png',
@@ -266,6 +286,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {
     position: 19,
     couponCode: 'Potassium',
+    employeeKey:'adssfdff',
     productTitle: 'tile2345',
     department: 'HR',
     productImage: '/assets/images/banner-1.png',
@@ -274,6 +295,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {
     position: 20,
     couponCode: 'Calcium',
+    employeeKey:'adssfdff',
     productTitle: 'tile2345',
     department: 'HR',
     productImage: '/assets/images/banner-1.png',
