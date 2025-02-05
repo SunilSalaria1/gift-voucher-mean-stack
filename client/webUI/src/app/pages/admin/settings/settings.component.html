@@ -2,54 +2,9 @@
   <div>
     <h5 class="fw-bold mb-4">Settings</h5>
   </div>
-  <!-- add admin -->
-  <mat-card class="bg-white border-light product-reward-card p-3 mb-4" appearance="outlined">
-    <mat-card-content>
-      <!-- form -->
-      <form [formGroup]="addAdminForm">
-        <div class="row align-items-center">
-          <div class="col-3">
-            <h4 class="fw-bold mb-1">Name</h4>
-            <mat-form-field appearance="outline" class="d-block input-lg input w-100">
-              <input matInput formControlName="adminName" />
-              <mat-icon matSuffix>person</mat-icon>
-              <mat-error>This is Required</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col-3">
-            <h4 class="fw-bold mb-1">Code</h4>
-            <mat-form-field appearance="outline" class="d-block input-lg input w-100">
-              <input matInput formControlName="adminKey" />
-              <mat-icon matSuffix>redeem</mat-icon>
-              <mat-error>This is Required</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col-3">
-            <h4 class="fw-bold mb-1">Key</h4>
-            <mat-form-field appearance="outline" class="d-block input-lg input w-100">
-              <input matInput formControlName="adminCode" />
-              <mat-icon matSuffix>vpn_key</mat-icon>
-              <mat-error>This is Required</mat-error>
-            </mat-form-field>
-          </div>
-          <!-- button -->
-          <div class="col-3 pt-3">
-            <button mat-flat-button
-              class="bg-dark shadow-sm button-mh-60 text-white px-5 py-4 mx-4"><mat-icon>person_add</mat-icon>
-              <span>Add Admin</span>
-            </button>
-          </div>
-          <!-- /button -->
-        </div>
-      </form>
-      <!-- /form -->
-    </mat-card-content>
-  </mat-card>
-  <!-- /add admin -->
-
   <!-- admin -->
   <mat-card class="bg-white border-light product-reward-card p-3" appearance="outlined">
-    <div>
+    <div class="d-flex align-items-baseline">
       <!-- searchbar -->
       <mat-form-field appearance="outline">
         <input matInput (keyup)="applyFilter($event)" type="text" name="search" placeholder="Search..." />
@@ -58,6 +13,11 @@
         </button>
       </mat-form-field>
       <!-- /searchbar -->
+      <!-- note -->
+      <div class="ms-5">
+        Note : Employee key comprises of first 3 letters of employee name and dob respectively.
+      </div>
+      <!-- /note -->
     </div>
     <!-- table reference with search and pagination -->
     <div>
