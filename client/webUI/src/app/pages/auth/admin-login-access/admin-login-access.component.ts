@@ -48,8 +48,13 @@ export class AdminLoginAccessComponent {
       //   const adminData = {
       //     code: this.administratorForm.value.administratorCode,
       //     key: this.administratorForm.value.administratorKey
-      //   };     
-      this._usersService.login(this.administratorForm.value).subscribe(
+      //   };    
+      const data = {
+        empCode: this.administratorForm.value.administratorCode,
+        password: this.administratorForm.value.administratorKey
+      } 
+      console.log(data)
+      this._usersService.login(data).subscribe(
          (response) => {
           console.log(response)
           // localStorage.setItem('loginUser', JSON.stringify(this.userData.admin));
