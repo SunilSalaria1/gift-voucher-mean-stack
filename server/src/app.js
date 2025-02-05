@@ -7,7 +7,11 @@ const swaggerFile = require('../swagger-output.json');
 const userRouter = require("./routes/user.router");
 const app = express();
 const globalRouter = require("./routes/index");
-
+const cors = require('cors')
+let corsOptions = {
+  origin: '*'
+}
+app.use(cors(corsOptions))
 
 //json data get/post request manage
 app.use(express.json());
