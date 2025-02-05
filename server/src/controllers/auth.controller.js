@@ -24,35 +24,49 @@ const loginUser = async (req, res) => {
     // console.log("11111111111started//////////")
     try {
         await connectDB();
-        if (!req.body.empCode || !req.body.password) {
-            return res.status(400).json({ message: "Missing required fields: Employee Code or Password" });
+        if (!req.body.empCode) {
+            return res.status(400).json({ message: "Missing required fields: Employee Code" });
         }
-
         // Find the user by empCode
         const result = await usersCollection.findOne({ empCode: req.body.empCode });
         if (!result) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({ message: "User not found12" });
         }
-
-        // Compare the provided password with the hashed password in the database
-        const isPasswordValid = await bcrypt.compare(req.body.password, result.password);
-        if (isPasswordValid) {
-            console.log("Before JWT Sign");
+        if (result.isAdmin === false) {
             const token = await jwt.sign({ userId: result._id.toString() }, SECRET_KEY, { expiresIn: "1h" });
             const updatedDataToken = await usersCollection.updateOne(
                 { _id: result._id },
                 { $push: { tokens: token } }, { returnDocument: 'after' } // Add the token to the tokens array
             );
             console.log("After JWT Sign", token);
-            res.header( "authorizaton", token )
+            res.header("authorizaton", token)
             res.status(200).json({
-                message: "Login successful",
+                message: "Employee Login  successful",
                 userId: result._id, // Returning user ID
                 token, updatedDataToken
             });
         } else {
-            return res.status(401).json({ message: "Invalid credentials" });
+            // Compare the provided password with the hashed password in the database
+            const isPasswordValid = await bcrypt.compare(req.body.password, result.password);
+            if (isPasswordValid) {
+                console.log("Before JWT Sign");
+                const token = await jwt.sign({ userId: result._id.toString() }, SECRET_KEY, { expiresIn: "1h" });
+                const updatedDataToken = await usersCollection.updateOne(
+                    { _id: result._id },
+                    { $push: { tokens: token } }, { returnDocument: 'after' } // Add the token to the tokens array
+                );
+                console.log("After JWT Sign", token);
+                res.header("authorizaton", token)
+                res.status(200).json({
+                    message: "Admin Login successful",
+                    userId: result._id, // Returning user ID
+                    token, updatedDataToken
+                });
+            } else {
+                return res.status(401).json({ message: "Invalid credentials" });
+            }
         }
+
     } catch (e) {
         console.log(e);
         res.status(500).json({
@@ -93,4 +107,4 @@ const logoutUser = async (req, res) => {
 
 
 
-module.exports = { loginUser,logoutUser }
+module.exports = { loginUser, logoutUser }
