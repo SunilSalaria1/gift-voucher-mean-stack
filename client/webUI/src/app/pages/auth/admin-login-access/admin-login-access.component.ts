@@ -16,7 +16,7 @@ import { EmployeeFooterComponent } from '../../../shared/employee-footer/employe
 @Component({
   selector: 'app-admin-login-access',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, FormsModule, MatInputModule, MatFormFieldModule, RouterLink, ReactiveFormsModule,EmployeeHeaderComponent,EmployeeFooterComponent],
+  imports: [MatButtonModule, MatIconModule, FormsModule, MatInputModule, MatFormFieldModule, RouterLink, ReactiveFormsModule, EmployeeHeaderComponent, EmployeeFooterComponent],
   templateUrl: './admin-login-access.component.html',
   styleUrl: './admin-login-access.component.css'
 })
@@ -42,31 +42,35 @@ export class AdminLoginAccessComponent {
   //on submit
   onSubmit() {
     if (this.administratorForm.valid) {
-      console.log('Employee Code:', this.administratorForm.value.administratorCode);
+      console.log('Employee Code:', this.administratorForm.value);
       console.log('Employee Code:', this.administratorForm.value.administratorKey);
-      if (this.administratorForm.value.administratorCode === this.userData.admin[0].adminCode && this.administratorForm.value.administratorKey === this.userData.admin[0].adminKey) {
-        const adminData = {
-          code: this.administratorForm.value.administratorCode,
-          key: this.administratorForm.value.administratorKey
-        };
-        localStorage.setItem('loginUser', JSON.stringify(this.userData.admin));
-        this.router.navigate(['/admin/dashboard']);
-        // Show success snackbar
-        this.snackBar.open('Welcome! now you can oversee the system.', 'close', {
-          duration: 5000,
-          panelClass: ['snackbar-success'],
-          horizontalPosition: "center",
-          verticalPosition: "top",
-        });
-      } else {
-        // Show error snackbar
-        this.snackBar.open('Invalid administrator code + key, try again.', 'close', {
-          duration: 5000,
-          panelClass: ['snackbar-error'],
-          horizontalPosition: "center",
-          verticalPosition: "top",
-        });
-      }
+      // if (this.administratorForm.value.administratorCode === this.userData.admin[0].adminCode && this.administratorForm.value.administratorKey === this.userData.admin[0].adminKey) {
+      //   const adminData = {
+      //     code: this.administratorForm.value.administratorCode,
+      //     key: this.administratorForm.value.administratorKey
+      //   };     
+      this._usersService.login(this.administratorForm.value).subscribe({
+        next: (response) => {
+          localStorage.setItem('loginUser', JSON.stringify(this.userData.admin));
+          this.router.navigate(['/admin/dashboard']);
+          // Show success snackbar
+          this.snackBar.open('Welcome! now you can oversee the system.', 'close', {
+            duration: 5000,
+            panelClass: ['snackbar-success'],
+            horizontalPosition: "center",
+            verticalPosition: "top",
+          });
+        }
+        // else {
+        //   // Show error snackbar
+        //   this.snackBar.open('Invalid administrator code + key, try again.', 'close', {
+        //     duration: 5000,
+        //     panelClass: ['snackbar-error'],
+        //     horizontalPosition: "center",
+        //     verticalPosition: "top",
+        //   });
+        // }
+      })
     }
   }
-}
+  }
