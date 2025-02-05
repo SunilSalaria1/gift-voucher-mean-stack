@@ -14,7 +14,6 @@
         </div>
       </div>
       <!-- /image-section -->
-
       <div class="col-5">
         <!-- title-section -->
         <div class="mb-4">
@@ -24,13 +23,19 @@
           <p>Enter your employee code and discover your exclusive rewards!</p>
         </div>
         <!-- /title-section -->
-
         <!-- input-box -->
-        <h4 class="mt-5 mb-1 fw-bold">Employee Code</h4>
+        
         <form [formGroup]="employeeCodeForm" (ngSubmit)="onSubmit()">
+          <h4 class="mt-5 mb-1 fw-bold">Employee Code</h4>
           <mat-form-field appearance="outline" class="d-block input-lg">
             <input matInput formControlName="employeeCode" />
             <mat-icon matSuffix>redeem</mat-icon>
+            <mat-error>This is Required</mat-error>
+          </mat-form-field>
+          <h4 class="mb-1 fw-bold">Employee Key</h4>
+          <mat-form-field appearance="outline" class="d-block input-lg">
+            <input matInput formControlName="employeeKey" />
+            <mat-icon matSuffix>vpn_key</mat-icon>
             <mat-error>This is Required</mat-error>
           </mat-form-field>
           <div class="mt-2">

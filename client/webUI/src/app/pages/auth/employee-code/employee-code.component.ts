@@ -30,7 +30,8 @@ export class EmployeeCodeComponent implements OnInit {
   // Initialize the form group inside ngOnInit to avoid 'formBuilder' is used before its initialization
   ngOnInit(): void {
     this.employeeCodeForm = this.formBuilder.group({
-      employeeCode: ['', Validators.required]
+      employeeCode: ['', Validators.required],
+      employeeKey: ['', Validators.required]
     });
     // user data
     this._usersService.getUsers().subscribe(response=>{
