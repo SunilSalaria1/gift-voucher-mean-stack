@@ -1,5 +1,5 @@
 const { MongoClient } = require('mongodb');
-const url = 'mongodb://localhost:27017';
+const url = 'mongodb+srv://aniketsharma:UxFmcjc3eNBaMWve@cluster0.xv0iu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 const client = new MongoClient(url);
 const dbName = 'blog';
 async function connectDB() {
@@ -8,10 +8,10 @@ async function connectDB() {
     console.log('Connected successfully to server')
     return 'done.';
 }
+
 connectDB()
     .then(console.log)
     .catch(console.error)
     .finally(() => client.close());
 const db = client.db(dbName);
-
 module.exports = { client, db, connectDB };

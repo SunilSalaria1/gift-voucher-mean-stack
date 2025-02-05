@@ -203,23 +203,52 @@
           }
         }
       }
+    },
+    "/api/logoutUser": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   },
   "definitions": {
     "registerUser": {
       "type": "object",
       "properties": {
-        "empCode": {
-          "type": "string",
-          "example": "LP1234343"
-        },
         "dob": {
           "type": "string",
-          "example": "Mon Feb 03 2025 18:50:12 GMT+0530 (India Standard Time)"
+          "example": "Wed Feb 05 2025 16:02:12 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Mon Feb 03 2025 18:50:12 GMT+0530 (India Standard Time)"
+          "example": "Wed Feb 05 2025 16:02:12 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
@@ -231,7 +260,7 @@
         },
         "department": {
           "type": "string",
-          "example": "Front End"
+          "example": "Frontend"
         }
       }
     },
