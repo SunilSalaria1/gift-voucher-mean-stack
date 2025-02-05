@@ -2,7 +2,7 @@
   <h5 class="fw-bold mb-4">Generate EmpCode</h5>
 </div>
 <mat-card class="bg-white border-light product-reward-card p-3" appearance="outlined">
-  <div class="d-flex justify-content-between align-items-center">
+  <div class="d-flex justify-content-between align-items-baseline ">
     <!-- searchbar -->
     <mat-form-field appearance="outline">
       <input matInput (keyup)="applyFilter($event)" type="text" name="search" placeholder="Search..." />
@@ -11,9 +11,11 @@
       </button>
     </mat-form-field>
     <!-- /searchbar -->
+     <!-- note -->
      <div>
-    Note : Employee key comprises of first 3 digit of employee name and dob respectively.
+    Note : Employee key comprises of first 3 letters of employee name and dob respectively.
      </div>
+     <!-- /note -->
     <!-- add product button -->
     <a mat-flat-button [routerLink]="['/admin/add-emp-code']"
       class="bg-dark shadow-sm button-mh-60 text-white px-5 py-4"><mat-icon>person_add</mat-icon>
