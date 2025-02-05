@@ -43,7 +43,7 @@ const loginUser = async (req, res) => {
             res.status(200).json({
                 message: "Employee Login  successful",
                 userId: result._id, // Returning user ID
-                token, updatedDataToken
+                token: token,
             });
         } else {
             // Compare the provided password with the hashed password in the database
