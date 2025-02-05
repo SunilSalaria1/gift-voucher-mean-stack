@@ -49,9 +49,10 @@ export class AdminLoginAccessComponent {
       //     code: this.administratorForm.value.administratorCode,
       //     key: this.administratorForm.value.administratorKey
       //   };     
-      this._usersService.login(this.administratorForm.value).subscribe({
-        next: (response) => {
-          localStorage.setItem('loginUser', JSON.stringify(this.userData.admin));
+      this._usersService.login(this.administratorForm.value).subscribe(
+         (response) => {
+          console.log(response)
+          // localStorage.setItem('loginUser', JSON.stringify(this.userData.admin));
           this.router.navigate(['/admin/dashboard']);
           // Show success snackbar
           this.snackBar.open('Welcome! now you can oversee the system.', 'close', {
@@ -70,7 +71,7 @@ export class AdminLoginAccessComponent {
         //     verticalPosition: "top",
         //   });
         // }
-      })
+      )
     }
   }
   }
