@@ -42,7 +42,7 @@
                             <h4 class="fw-bold mb-1">Email</h4>
                             <mat-form-field appearance="outline" class="d-block input-lg input">
                                 <input matInput formControlName="email"/>
-                                <mat-icon matSuffix>person</mat-icon>
+                                <mat-icon matSuffix>mail</mat-icon>
                                 <mat-error *ngIf="addEmployeeCodeForm.get('email')?.hasError('required')">
                                     This is Required
                                   </mat-error>
@@ -103,9 +103,15 @@
                     </div>
                 </div>
                 <div class="border-bottom border-light mb-4 position-relative">
-                    <div class="emp-code-label fs-12 text-uppercase">Employee Code</div>
+                    <div class="emp-code-label fs-12 pb-2 text-uppercase">Employee Code</div>
                     <span class="emp-code-data fw-bold text-primary">
                         {{ generatedCode|| "xxxxxxxxxx"}}
+                    </span>                    
+                </div>
+                <div class="border-bottom border-light mb-4">
+                    <div class="emp-code-label fs-12 pb-2 text-uppercase">Employee Key</div>
+                    <span class="emp-code-data fw-bold text-primary">
+                        'sdfdfgg'
                     </span>                    
                 </div>
             </div>
