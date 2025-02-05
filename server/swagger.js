@@ -18,19 +18,19 @@ const doc = {
   ],
   definitions: {
     registerUser: {
-      empCode: "LP1234343",
       dob: new Date().toString(),
       joiningDate: new Date().toString(),
       email: "aniket98578@gmail.com",
       name: "Aniket Sharma",
-      department: "Front End"
+      department: "Frontend"
     },
     updateUser: {
       name: "Aniket Sharma",
       department: "Front End"
     },
     loginUser: {
-      empCode: "LP12121212"
+      empCode: "LP12121212",
+      password: "ani04082000"
     },
   }
 };

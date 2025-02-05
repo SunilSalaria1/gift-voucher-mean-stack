@@ -7,27 +7,36 @@ const { ObjectId } = require('mongodb');
 const usersCollection = db.collection('users');
 const crypto = require('crypto');
 
-const generateEmpCode = async (name, email, department, usersCollection) => {
-    // Create a base string using name, email, department, and current timestamp for uniqueness
+const bcrypt = require("bcryptjs");
+
+const generateEmpCodeAndPassword = async (name, email, department, dob, usersCollection) => {
+    // Generate Employee Code
     const baseString = `${name}${email}${department}${Date.now()}`;
-    // Generate a hash of the base string using SHA-256
-    const hash = crypto.createHash('sha256');
+    const hash = crypto.createHash("sha256");
     hash.update(baseString);
-    // Convert the hash to a hex string, then take the first 8 characters (numeric part)
-    let numericPart = hash.digest('hex').slice(0, 8); // Take first 8 characters of the hash
-    // Ensure numeric part is a valid number (use hex digits only)
-    numericPart = parseInt(numericPart, 16).toString().slice(0, 8); // Convert to number, keep the first 8 digits
-    // Final employee code with 'Lp' prefix (Total 10 characters: 'Lp' + 8 digits)
+    let numericPart = hash.digest("hex").slice(0, 8);
+    numericPart = parseInt(numericPart, 16).toString().slice(0, 8);
     let empCode = `LPIT${numericPart}`;
-    // Step 2: Ensure the code is unique by checking if it already exists in the database
+
+    // Ensure uniqueness in DB
     const existingEmpCode = await usersCollection.findOne({ empCode });
     if (existingEmpCode) {
-        // If code exists, regenerate with new timestamp or random number
-        return generateEmpCode(name, email, department, usersCollection);
+        return generateEmpCodeAndPassword(name, email, department, dob, usersCollection);
     }
-    return empCode;
-};
 
+    // Generate Default Password
+    const namePart = name.slice(0, 3).toLowerCase(); // First 3 letters of name
+    const dobPart = new Date(dob).toLocaleDateString("en-GB").split("/").join(""); // DDMMYY format
+    const defaultPassword = `${namePart}${dobPart}`;
+    console.log(defaultPassword)
+
+    // 🔹 Hash the password using bcryptjs
+    const salt = await bcrypt.genSalt(10); // Generate salt
+    const hashedPassword = await bcrypt.hash(defaultPassword, salt); // Hash password
+    // console.log("###################################", hashedPassword)
+    // console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$", empCode)
+    return { empCode, hashedPassword };
+};
 
 const register = async (req, res) => {
     /*  #swagger.tags = ['Auth']
@@ -48,11 +57,13 @@ const register = async (req, res) => {
     try {
         await connectDB();
         // Step 1: Generate empCode
-        const { name, email, department } = req.body;
-        const empCode = await generateEmpCode(name, email, department, usersCollection);
+        const { name, email, department, dob } = req.body;
+        const { empCode, hashedPassword } = await generateEmpCodeAndPassword(name, email, department, dob, usersCollection);
+
 
         // Step 2: Add generated empCode to req.body
         req.body.empCode = empCode;
+        req.body.password = hashedPassword;
         // Convert `dob` and `joiningDate` from string to Date
         const parsedBody = {
             ...req.body,

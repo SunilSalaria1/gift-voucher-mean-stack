@@ -192,8 +192,14 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
           "404": {
             "description": "Invalid credentials"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -209,11 +215,11 @@
         },
         "dob": {
           "type": "string",
-          "example": "Fri Jan 31 2025 18:42:08 GMT+0530 (India Standard Time)"
+          "example": "Mon Feb 03 2025 18:50:12 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Fri Jan 31 2025 18:42:08 GMT+0530 (India Standard Time)"
+          "example": "Mon Feb 03 2025 18:50:12 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
@@ -248,6 +254,10 @@
         "empCode": {
           "type": "string",
           "example": "LP12121212"
+        },
+        "password": {
+          "type": "string",
+          "example": "ani04082000"
         }
       }
     }

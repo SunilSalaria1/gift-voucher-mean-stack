@@ -24,9 +24,11 @@ const userSchema = z.object({
 
     mobile: z.string()
         .regex(/^\d{10,15}$/, { message: "Phone number must be 10-15 digits" }).nullish(),
-
+    password: z.string()
+        .min(6, { message: "Password is required & must greater than 6 digits" }),
     isAdmin: z.boolean().default(false),
-    isDeleted: z.boolean().default(false)
+    isDeleted: z.boolean().default(false),
+    tokens: z.array(z.string()).optional()
 }).strict(); // 🔹 This will reject extra fields
 
 
