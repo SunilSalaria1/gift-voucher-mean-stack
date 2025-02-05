@@ -67,74 +67,74 @@ export class AddEmpCodeComponent {
     });
   }
 
-  get employeeNameValue(): string {
-    return this.addEmployeeCodeForm.get('employeeName')?.value || "";
-  }
+  // get employeeNameValue(): string {
+  //   return this.addEmployeeCodeForm.get('employeeName')?.value || "";
+  // }
 
-  generateCode() {
-    if (!this.addEmployeeCodeForm.valid) {
-      console.log("Fill out the fields.");
-      return;
-    } else if (this.addEmployeeCodeForm.valid) {
-      this.dialogEmployeeName = this.employeeNameValue;
-      console.log(this.dialogEmployeeName);
-    }
+  // generateCode() {
+  //   if (!this.addEmployeeCodeForm.valid) {
+  //     console.log("Fill out the fields.");
+  //     return;
+  //   } else if (this.addEmployeeCodeForm.valid) {
+  //     this.dialogEmployeeName = this.employeeNameValue;
+  //     console.log(this.dialogEmployeeName);
+  //   }
 
-    let newCode: string;
-    const maxAttempts = 10; // Limit attempts to prevent infinite loops
-    let attempts = 0;
+  //   let newCode: string;
+  //   const maxAttempts = 10; // Limit attempts to prevent infinite loops
+  //   let attempts = 0;
 
-    const employeeName = this.addEmployeeCodeForm.get('employeeName')?.value;
-    const department = this.addEmployeeCodeForm.get('department')?.value;
-    const dob = this.addEmployeeCodeForm.get('dob')?.value;
-    const joiningDate = this.addEmployeeCodeForm.get('joiningDate')?.value;
+  //   const employeeName = this.addEmployeeCodeForm.get('employeeName')?.value;
+  //   const department = this.addEmployeeCodeForm.get('department')?.value;
+  //   const dob = this.addEmployeeCodeForm.get('dob')?.value;
+  //   const joiningDate = this.addEmployeeCodeForm.get('joiningDate')?.value;
 
-    do {
-      // Generate a new code
-      const prefix = 'EMP'; // Hardcoded prefix
-      const nameInitials = this.getInitials(employeeName);
-      const departmentCode = this.getDepartmentCode(department);
-      const datePart = this.getDatePart(joiningDate, dob);
-      const randomDigit = Math.floor(Math.random() * 90) + 10; // Random 2-digit number
+  //   do {
+  //     // Generate a new code
+  //     const prefix = 'EMP'; // Hardcoded prefix
+  //     const nameInitials = this.getInitials(employeeName);
+  //     const departmentCode = this.getDepartmentCode(department);
+  //     const datePart = this.getDatePart(joiningDate, dob);
+  //     const randomDigit = Math.floor(Math.random() * 90) + 10; // Random 2-digit number
 
-      // Combine parts to create the code
-      newCode = `${prefix}${nameInitials}${departmentCode}${datePart}${randomDigit}`;
-      attempts++;
-    } while (this.existingCodes.has(newCode) && attempts < maxAttempts);
+  //     // Combine parts to create the code
+  //     newCode = `${prefix}${nameInitials}${departmentCode}${datePart}${randomDigit}`;
+  //     attempts++;
+  //   } while (this.existingCodes.has(newCode) && attempts < maxAttempts);
 
-    // If a unique code is found, add it to the record
-    if (!this.existingCodes.has(newCode)) {
-      this.generatedCode = newCode;
-      this.existingCodes.add(newCode);
-    } else {
-      alert('Could not generate a unique code. Please try again.');
-    }
-  }
-  // Helper: Extract initials from name
-  private getInitials(name: string): string {
-    return name
-      .split(' ')
-      .map((word) => word[0].toUpperCase())
-      .join('')
-      .slice(0, 2); // Ensure max 2 initials
-  }
-  // Helper: Map department to a short code
-  private getDepartmentCode(department: string): string {
-    const departmentMap: { [key: string]: string } = {
-      HR: 'HR',
-      Frontend: 'FR',
-      Backend: 'BCK',
-      bidding: 'BID',
-      Audit: 'AUD',
-    };
-    return departmentMap[department] || 'GEN'; // Default to 'GEN' if department is unknown
-  }
-  // Helper: Combine year from join date and day from DOB
-  private getDatePart(joinDate: string, dob: string): string {
-    const joinYear = new Date(joinDate).getFullYear().toString().slice(-2); // Last 2 digits of year
-    const dobDay = new Date(dob).getDate().toString().padStart(2, '0'); // Day as 2 digits
-    return `${joinYear}${dobDay}`;
-  }
+  //   // If a unique code is found, add it to the record
+  //   if (!this.existingCodes.has(newCode)) {
+  //     this.generatedCode = newCode;
+  //     this.existingCodes.add(newCode);
+  //   } else {
+  //     alert('Could not generate a unique code. Please try again.');
+  //   }
+  // }
+  // // Helper: Extract initials from name
+  // private getInitials(name: string): string {
+  //   return name
+  //     .split(' ')
+  //     .map((word) => word[0].toUpperCase())
+  //     .join('')
+  //     .slice(0, 2); // Ensure max 2 initials
+  // }
+  // // Helper: Map department to a short code
+  // private getDepartmentCode(department: string): string {
+  //   const departmentMap: { [key: string]: string } = {
+  //     HR: 'HR',
+  //     Frontend: 'FR',
+  //     Backend: 'BCK',
+  //     bidding: 'BID',
+  //     Audit: 'AUD',
+  //   };
+  //   return departmentMap[department] || 'GEN'; // Default to 'GEN' if department is unknown
+  // }
+  // // Helper: Combine year from join date and day from DOB
+  // private getDatePart(joinDate: string, dob: string): string {
+  //   const joinYear = new Date(joinDate).getFullYear().toString().slice(-2); // Last 2 digits of year
+  //   const dobDay = new Date(dob).getDate().toString().padStart(2, '0'); // Day as 2 digits
+  //   return `${joinYear}${dobDay}`;
+  // }
 
   // approve
   approve() {

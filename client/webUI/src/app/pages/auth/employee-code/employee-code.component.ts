@@ -30,8 +30,7 @@ export class EmployeeCodeComponent implements OnInit {
   // Initialize the form group inside ngOnInit to avoid 'formBuilder' is used before its initialization
   ngOnInit(): void {
     this.employeeCodeForm = this.formBuilder.group({
-      employeeCode: ['', Validators.required],
-      employeeKey: ['', Validators.required]
+      employeeCode: ['', Validators.required],     
     });
     // user data
     this._usersService.getUsers().subscribe(response=>{
@@ -45,8 +44,7 @@ export class EmployeeCodeComponent implements OnInit {
     const matchedEmployee = this.userData.employee.find(
       (emp: { empCode: any }) => emp.empCode === this.employeeCodeForm.value.employeeCode
     );
-    console.log(matchedEmployee);  
-    
+    console.log(matchedEmployee);
     if (this.employeeCodeForm.valid && matchedEmployee) {          
         localStorage.setItem('loginUser',JSON.stringify(matchedEmployee))
         this.router.navigate(['/select-gift-voucher']);

@@ -85,8 +85,7 @@ export class GenerateEmpCodeComponent implements AfterViewInit {
   displayedColumns: string[] = [
     'position',
     'productTitle',
-    'couponCode',
-    'employeeKey',    
+    'couponCode',        
     'department',
     'productImage',
     'joiningDate',
