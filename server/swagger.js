@@ -16,6 +16,14 @@ const doc = {
     },
     // { ... }
   ],
+  securityDefinitions: {
+    Bearer: {
+      type: "apiKey",
+      name: "Authorization",
+      in: "header",
+      description: "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\""
+    }
+  },
   definitions: {
     registerUser: {
       dob: new Date().toString(),

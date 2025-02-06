@@ -65,6 +65,17 @@ const register = async (req, res) => {
         req.body.empCode = empCode;
         req.body.password = hashedPassword;
         // Convert `dob` and `joiningDate` from string to Date
+        const requiredFields = ["name", "department", "email", "dob", "joiningDate"];
+        const receivedFields = Object.keys(req.body);
+
+        // Check for missing fields
+        const missingFields = requiredFields.filter(field => !receivedFields.includes(field));
+
+        if (missingFields.length > 0) {
+            return res.status(400).json({
+                message: `Missing required fields: ${missingFields.join(", ")}`
+            });
+        }
         const parsedBody = {
             ...req.body,
             dob: req.body.dob ? new Date(req.body.dob) : undefined,
@@ -82,7 +93,15 @@ const register = async (req, res) => {
         }
         // Insert user into MongoDB
         const result = await usersCollection.insertOne(validation.data);
-        return res.status(201).json({ message: "User registered successfully", userId: result.insertedId });
+        const insertedDocument = await usersCollection.findOne({ _id: result.insertedId });
+        return res.status(201).json({
+            message: "User registered successfully", user: {
+                _id: insertedDocument._id,
+                name: insertedDocument.name,
+                empCode: insertedDocument.empCode,
+                password: insertedDocument.password
+            }
+        });
 
     } catch (e) {
         return res.status(500).json({ message: "Internal server error", error: e.message });

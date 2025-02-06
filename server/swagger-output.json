@@ -16,6 +16,14 @@
   "schemes": [
     "http"
   ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\""
+    }
+  },
   "paths": {
     "/api/register": {
       "post": {
@@ -244,11 +252,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Thu Feb 06 2025 10:03:53 GMT+0530 (India Standard Time)"
+          "example": "Thu Feb 06 2025 12:19:07 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Thu Feb 06 2025 10:03:53 GMT+0530 (India Standard Time)"
+          "example": "Thu Feb 06 2025 12:19:07 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
