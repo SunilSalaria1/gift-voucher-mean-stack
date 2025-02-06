@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClipboardModule } from '@angular/cdk/clipboard';
@@ -64,14 +64,20 @@ export class EditEmpCodeComponent {
     dialogEmployee:any;
     isEmailAlreadyExist:boolean=false;
     private _usersService = inject(UsersService)
+  currentUserId:any;
     constructor(
-      private formBuilder: FormBuilder, private snackBar: MatSnackBar, private router: Router
+      private formBuilder: FormBuilder, private snackBar: MatSnackBar, private router: Router,private route: ActivatedRoute
     ) { }
     // ngAfterViewInit(): void {
     //   throw new Error('Method not implemented.');
     // }
   
     ngOnInit(): void {
+      this.route.params.subscribe(
+        (params: Params) => {
+          console.log(params['id']);
+          this.currentUserId = params['id']
+        })
       // form
       this.addEmployeeCodeForm = this.formBuilder.group({
         name: ['', Validators.required],
@@ -79,6 +85,8 @@ export class EditEmpCodeComponent {
         dob: ['', Validators.required],
         joiningDate: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]]
+
+
       });
     }
     // approve

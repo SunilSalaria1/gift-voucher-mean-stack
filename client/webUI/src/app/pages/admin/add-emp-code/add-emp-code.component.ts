@@ -12,7 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { RouterLink } from '@angular/router';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import {
@@ -45,6 +45,7 @@ import { UsersService } from '../../../services/users.service';
 export class AddEmpCodeComponent {
   @ViewChild('content') dialogTemplate!: TemplateRef<any>;
   readonly dialog = inject(MatDialog);
+  dialogRef: MatDialogRef<any> | null = null;
   submitted: boolean = false;
   departments = ['HR', 'Frontend', 'Backend', 'Audit', 'Bidding'];
   generatedCode: string | null = null;
@@ -71,7 +72,12 @@ export class AddEmpCodeComponent {
   }
   // approve
   approve() {
-    this.router.navigate(['/admin/generate-emp-code']);
+    debugger;
+    if (this.dialogRef) {
+      this.dialogRef.close(); // This closes the dialog
+      this.router.navigate(['/admin/generate-emp-code']);
+    }
+    
     // success snackbar
     this.snackBar.open('You have successfully generated the employee code!.', 'close', {
       duration: 5000,
@@ -82,31 +88,37 @@ export class AddEmpCodeComponent {
   }
   // decline button
   decline() {
+    debugger;
     if (this.addEmployeeCodeForm.valid) {
-      this. dialogEmployee = ""     
-      // error snackbar
+      this. dialogEmployee = ""
+      if (this.dialogRef) {
+        this.dialogRef.close(); // This closes the dialog
+        // error snackbar
       this.snackBar.open('You have successfully deleted the generated employee code!.', 'close', {
         duration: 5000,
         panelClass: ['snackbar-error'],
         horizontalPosition: "center",
         verticalPosition: "top",
       });
+      }     
+      
     }
   }
 
   // dialog
   openDialog(): void {
-    // Use the TemplateRef for the dialog
-    const dialogRef = this.dialog.open(this.dialogTemplate, {
+    this.dialogRef = this.dialog.open(this.dialogTemplate, {
       width: '1200px',
     });
-    dialogRef.afterClosed().subscribe((result) => {
+
+    this.dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
   }
 
   // Call the openDialog method conditionally
   submitForm(): void {
+    this.isEmailAlreadyExist=false;
     if (this.addEmployeeCodeForm.valid) {
       const newPost = this.addEmployeeCodeForm.value;
   

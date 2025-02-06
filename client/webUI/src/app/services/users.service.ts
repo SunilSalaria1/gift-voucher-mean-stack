@@ -23,6 +23,14 @@ export class UsersService {
     return this.http.get(`${this.apiUrl}/api/users`);
   }
 
+  //get user by id
+  getUserById(data:any): Observable<any>{
+    return this.http.get(`${this.apiUrl}/api/getUser/{id}`,data);
+  }
+
+
+
+
   public getUsers() {
     return this.http.get<any>('assets/data/user.json')
   }
