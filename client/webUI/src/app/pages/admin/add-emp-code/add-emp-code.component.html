@@ -26,7 +26,7 @@
                         <form [formGroup]="addEmployeeCodeForm" (ngSubmit)="submitForm()">
                             <h4 class="fw-bold mb-1">Employee Name</h4>
                             <mat-form-field appearance="outline" class="d-block input-lg input">
-                                <input matInput formControlName="employeeName" />
+                                <input matInput formControlName="name" />
                                 <mat-icon matSuffix>person</mat-icon>
                                 <mat-error>This is Required</mat-error>
                             </mat-form-field>
@@ -116,7 +116,7 @@
             [mat-dialog-close]="true"><mat-icon>close</mat-icon>
             <span>Decline
             </span></a>
-        <a mat-flat-button [routerLink]="['/admin/generate-emp-code']" (click)="approve()"
+        <a mat-flat-button (click)="approve()"
             class="bg-success py-3 shadow-sm button-mh-45" mat-dialog-close><mat-icon>check</mat-icon>
             <span>Approve
             </span></a>

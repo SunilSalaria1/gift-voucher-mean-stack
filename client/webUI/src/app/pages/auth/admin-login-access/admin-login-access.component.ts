@@ -33,10 +33,10 @@ export class AdminLoginAccessComponent {
       administratorCode: ['', Validators.required],
       administratorKey: ["", Validators.required]
     });
-    // admin data
-    this._usersService.getUsers().subscribe(response => {
-      this.userData = response;
-    })
+    // // admin data
+    // this._usersService.getUsers().subscribe(response => {
+    //   this.userData = response;
+    // })
   }
 
   //on submit
@@ -53,6 +53,7 @@ export class AdminLoginAccessComponent {
         (response) => {
           console.log(response);
           localStorage.setItem('loginUser', JSON.stringify(response.userDetails));
+          localStorage.setItem('token', JSON.stringify(response.token));
           this.router.navigate(['/admin/dashboard']);
           this.snackBar.open('Welcome! Now you can oversee the system.', 'Close', {
             duration: 5000,

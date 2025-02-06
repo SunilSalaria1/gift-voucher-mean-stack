@@ -9,9 +9,14 @@ export class UsersService {
   private apiUrl = 'http://localhost:3000'
 
   constructor(private http: HttpClient) { }
-
+  // login
   login(data:any): Observable<any> {
     return this.http.post(`${this.apiUrl}/api/loginUser`, data);
+  }
+
+  // POST request
+  createPost(postData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/api/register`, postData);
   }
 
   public getUsers() {
