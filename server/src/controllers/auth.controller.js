@@ -42,7 +42,13 @@ const loginUser = async (req, res) => {
             res.header("authorizaton", token)
             res.status(200).json({
                 message: "Employee Login  successful",
-                userDetails: result, // Returning user ID
+                userDetails: {
+                    _id: result._id,
+                    name: result.name,
+                    email: result.email,
+                    isAdmin: result.isAdmin,
+                    department: result.department
+                }, // Returning user ID
                 token: token,
             });
         } else {
@@ -59,7 +65,13 @@ const loginUser = async (req, res) => {
                 res.header("authorizaton", token)
                 res.status(200).json({
                     message: "Admin Login successful",
-                    userDetails: result, // Returning user ID
+                    userDetails: {
+                        _id: result._id,
+                        name: result.name,
+                        email: result.email,
+                        isAdmin: result.isAdmin,
+                        department: result.department
+                    }, // Returning user ID
                     token: token
                 });
             } else {
