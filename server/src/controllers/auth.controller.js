@@ -42,7 +42,7 @@ const loginUser = async (req, res) => {
             res.header("authorizaton", token)
             res.status(200).json({
                 message: "Employee Login  successful",
-                userId: result._id, // Returning user ID
+                userDetails: result, // Returning user ID
                 token: token,
             });
         } else {
@@ -59,8 +59,8 @@ const loginUser = async (req, res) => {
                 res.header("authorizaton", token)
                 res.status(200).json({
                     message: "Admin Login successful",
-                    userId: result._id, // Returning user ID
-                    token, updatedDataToken
+                    userDetails: result, // Returning user ID
+                    token: token
                 });
             } else {
                 return res.status(401).json({ message: "Invalid credentials" });
