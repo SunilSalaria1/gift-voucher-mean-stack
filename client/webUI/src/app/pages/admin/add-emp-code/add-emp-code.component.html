@@ -48,8 +48,12 @@
                                   </mat-error>
                                   <mat-error *ngIf="addEmployeeCodeForm.get('email')?.hasError('email')">
                                     Enter a valid email.
-                                  </mat-error>
+                                  </mat-error>                                  
                             </mat-form-field>
+                            <div *ngIf = isEmailAlreadyExist class="text-danger">
+                                this  email aready exists
+                            </div>
+                            
                             <h4 class="fw-bold mb-1">DOB</h4>
                             <mat-form-field appearance="outline" class="d-block input-lg input">
                                 <input matInput [matDatepicker]="picker" formControlName="dob">
@@ -98,14 +102,19 @@
                 <div class="border-bottom border-light mb-4">
                     <div class="emp-code-label fs-12 pb-2 text-uppercase">Employee Name</div>
                     <div class="emp-code-data fw-bold text-primary">
-                        {{
-                        dialogEmployeeName|| "xxxxx xxxx"}}
+                        {{dialogEmployee.name}}                        
                     </div>
                 </div>
                 <div class="border-bottom border-light mb-4 position-relative">
                     <div class="emp-code-label fs-12 pb-2 text-uppercase">Employee Code</div>
                     <span class="emp-code-data fw-bold text-primary">
-                        {{ generatedCode|| "xxxxxxxxxx"}}
+                        {{dialogEmployee.empCode}}
+                    </span>                    
+                </div>                
+                <div class="border-bottom border-light mb-4 position-relative">
+                    <div class="emp-code-label fs-12 pb-2 text-uppercase">Employee Key</div>
+                    <span class="emp-code-data fw-bold text-primary">
+                        {{dialogEmployee.password}}
                     </span>                    
                 </div>                
             </div>

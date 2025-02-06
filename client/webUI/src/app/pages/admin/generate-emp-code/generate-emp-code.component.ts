@@ -1,9 +1,10 @@
-import {
-  AfterViewInit,
+import { 
   Component,
   inject,
   TemplateRef,
   ViewChild,
+  OnInit,
+  AfterViewInit,
 } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -19,6 +20,7 @@ import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { UsersService } from '../../../services/users.service';
 
 @Component({
   selector: 'app-generate-emp-code',
@@ -34,7 +36,8 @@ import { trigger, style, animate, transition } from '@angular/animations';
     MatPaginatorModule,
     MatCardModule,
     MatButtonModule,
-    ClipboardModule],
+    ClipboardModule,
+ ],
   templateUrl: './generate-emp-code.component.html',
   styleUrl: './generate-emp-code.component.css',
   animations: [
@@ -49,16 +52,34 @@ import { trigger, style, animate, transition } from '@angular/animations';
     ])
   ]
 })
-export class GenerateEmpCodeComponent implements AfterViewInit {
+export class GenerateEmpCodeComponent implements AfterViewInit{
  @ViewChild('content') dialogTemplate!: TemplateRef<any>;
   constructor(private snackBar: MatSnackBar) {}
-  readonly dialog = inject(MatDialog);
-  // Create a map to store copied state for each coupon code
-  copiedMap = new Map<string, boolean>();
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
-
+  readonly dialog = inject(MatDialog);
+  private _usersService = inject(UsersService)
+  tableData: any[] = [];
+  // Create a map to store copied state for each coupon code
+  copiedMap = new Map<string, boolean>();
+  
+// ngOnInIt
+ngOnInit() {
+  this.dataSource = new MatTableDataSource<any>([]); // Initialize with an empty array
+  this._usersService.getPosts().subscribe(
+    (data) => {
+      this.tableData = data; // Set data here
+      console.log(this.tableData)
+      this.dataSource.data = this.tableData;
+    },
+    (error) => {
+      console.error('Error fetching posts', error);
+    }
+  );
+} 
+  
+// dialog box
   openDialog(): void {
     // Use the TemplateRef for the dialog
     const dialogRef = this.dialog.open(this.dialogTemplate);
@@ -82,222 +103,41 @@ export class GenerateEmpCodeComponent implements AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  // displaying table headings
   displayedColumns: string[] = [
     'position',
-    'productTitle',
-    'couponCode',        
+    'name',
+    'empCode',
+    'email',        
     'department',
-    'productImage',
+    'dob',
     'joiningDate',
     'Action',
   ];
 
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<any>([]);
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
   // copy
   // Method to handle copying
-  copied(couponCode: string) {
+  copied(empCode: string) {
     // Set copied state to true for this couponCode
-    this.copiedMap.set(couponCode, true);
+    this.copiedMap.set(empCode, true);
     setTimeout(() => {
-      this.copiedMap.set(couponCode, false);
+      this.copiedMap.set(empCode, false);
     }, 1500);
   }
 
 }
-
 export interface PeriodicElement {
   position: number;
-  couponCode: string;
-  employeeKey:string;
-  productTitle: string;
+  empCode: string;  
+  name: string;
   department: string;
-  productImage: string;
+  dob: string;
   joiningDate:string;
+  email:string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {
-    position: 1,
-    couponCode: 'Hydrogen',
-    employeeKey:'adssfdff',
-    productTitle: 'tile2345',
-    department: 'Frontend',
-    productImage: '/assets/images/banner-1.png',
-    joiningDate:'25/11/2021',
-  },
-  {
-    position: 2,
-    couponCode: 'Helium',
-    employeeKey:'adssfdff',
-    productTitle: 'tile2345',
-    department: 'Backend',
-    productImage: '/assets/images/banner-1.png',
-    joiningDate:'26/12/2023',
-  },
-  {
-    position: 3,
-    couponCode: 'Lithium',
-    employeeKey:'adssfdff',
-    productTitle: 'tile2345',
-    department: 'HR',
-    productImage: '/assets/images/banner-1.png',
-    joiningDate:'28/12/2023',
-  },
-  {
-    position: 4,
-    couponCode: 'Beryllium',
-    employeeKey:'adssfdff',
-    productTitle: 'tile2345',
-    department: 'Audit',
-    productImage: '/assets/images/banner-1.png',
-    joiningDate:'26/12/2023',
-  },
-  {
-    position: 5,
-    couponCode: 'Boron',
-    employeeKey:'adssfdff',
-    productTitle: 'tile2345',
-    department: 'Bidding',
-    productImage: '/assets/images/banner-1.png',
-    joiningDate:'26/12/2023',
-  },
-  {
-    position: 6,
-    couponCode: 'Carbon',
-    employeeKey:'adssfdff',
-    productTitle: 'tile2345',
-    department: 'Audit',
-    productImage: '/assets/images/banner-1.png',
-    joiningDate:'26/12/2023',
-  },
-  {
-    position: 7,
-    couponCode: 'Nitrogen',
-    employeeKey:'adssfdff',
-    productTitle: 'tile2345',
-    department: 'HR',
-    productImage: '/assets/images/banner-1.png',
-    joiningDate:'26/12/2023',
-  },
-  {
-    position: 8,
-    couponCode: 'Oxygen',
-    employeeKey:'adssfdff',
-    productTitle: 'tile2345',
-    department: 'Frontend',
-    productImage: '/assets/images/banner-1.png',
-    joiningDate:'26/12/2023',
-  },
-  {
-    position: 9,
-    couponCode: 'Fluorine',
-    employeeKey:'adssfdff',
-    productTitle: 'tile2345',
-    department: 'Backend',
-    productImage: '/assets/images/banner-1.png',
-    joiningDate:'26/12/2023',
-  },
-  {
-    position: 10,
-    couponCode: 'Neon',
-    employeeKey:'adssfdff',
-    productTitle: 'tile2345',
-    department: 'Frontend',
-    productImage: '/assets/images/banner-1.png',
-    joiningDate:'26/12/2023',
-  },
-  {
-    position: 11,
-    couponCode: 'Sodium',
-    employeeKey:'adssfdff',
-    productTitle: 'tile2345',
-    department: 'Frontend',
-    productImage: '/assets/images/banner-1.png',
-    joiningDate:'26/12/2023',
-  },
-  {
-    position: 12,
-    couponCode: 'Magnesium',
-    employeeKey:'adssfdff',
-    productTitle: 'tile2345',
-    department: 'Audit',
-    productImage: '/assets/images/banner-1.png',
-    joiningDate:'26/12/2023',
-  },
-  {
-    position: 13,
-    couponCode: 'Aluminum',
-    employeeKey:'adssfdff',
-    productTitle: 'tile2345',
-    department: 'Audit',
-    productImage: '/assets/images/banner-1.png',
-    joiningDate:'26/12/2023',
-  },
-  {
-    position: 14,
-    couponCode: 'Silicon',
-    employeeKey:'adssfdff',
-    productTitle: 'tile2345',
-    department: 'Audit',
-    productImage: '/assets/images/banner-1.png',
-    joiningDate:'26/12/2023',
-  },
-  {
-    position: 15,
-    couponCode: 'Phosphorus',
-    employeeKey:'adssfdff',
-    productTitle: 'tile2345',
-    department: 'Bidding',
-    productImage: '/assets/images/banner-1.png',
-    joiningDate:'26/12/2023',
-  },
-  {
-    position: 16,
-    couponCode: 'Sulfur',
-    employeeKey:'adssfdff',
-    productTitle: 'tile2345',
-    department: 'Bidding',
-    productImage: '/assets/images/banner-1.png',
-    joiningDate:'26/12/2023',
-  },
-  {
-    position: 17,
-    couponCode: 'Chlorine',
-    employeeKey:'adssfdff',
-    productTitle: 'tile2345',
-    department: 'Bidding',
-    productImage: '/assets/images/banner-1.png',
-    joiningDate:'26/12/2023',
-  },
-  {
-    position: 18,
-    couponCode: 'Argon',
-    employeeKey:'adssfdff',
-    productTitle: 'tile2345',
-    department: 'HR',
-    productImage: '/assets/images/banner-1.png',
-    joiningDate:'26/12/2023',
-  },
-  {
-    position: 19,
-    couponCode: 'Potassium',
-    employeeKey:'adssfdff',
-    productTitle: 'tile2345',
-    department: 'HR',
-    productImage: '/assets/images/banner-1.png',
-    joiningDate:'26/12/2023',
-  },
-  {
-    position: 20,
-    couponCode: 'Calcium',
-    employeeKey:'adssfdff',
-    productTitle: 'tile2345',
-    department: 'HR',
-    productImage: '/assets/images/banner-1.png',
-    joiningDate:'26/12/2023',
-  },
-];

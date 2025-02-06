@@ -49,7 +49,8 @@ export class AddEmpCodeComponent {
   departments = ['HR', 'Frontend', 'Backend', 'Audit', 'Bidding'];
   generatedCode: string | null = null;
   addEmployeeCodeForm!: FormGroup;
-  dialogEmployeeName: string = "";
+  dialogEmployee:any;
+  isEmailAlreadyExist:boolean=false;
   private _usersService = inject(UsersService)
   constructor(
     private formBuilder: FormBuilder, private snackBar: MatSnackBar, private router: Router
@@ -82,8 +83,7 @@ export class AddEmpCodeComponent {
   // decline button
   decline() {
     if (this.addEmployeeCodeForm.valid) {
-      this.generatedCode = ""
-      this.dialogEmployeeName = ""
+      this. dialogEmployee = ""     
       // error snackbar
       this.snackBar.open('You have successfully deleted the generated employee code!.', 'close', {
         duration: 5000,
@@ -113,10 +113,15 @@ export class AddEmpCodeComponent {
       this._usersService.createPost(newPost).subscribe(
         (response) => {
           console.log('Post created:', response);
+          this.dialogEmployee=response.user;
+          console.log(this.dialogEmployee)
           this.openDialog(); 
         },
         (error) => {         
             let errorMessage =error.error.error;
+            if(errorMessage=="Email already exists"){
+              this.isEmailAlreadyExist=true;
+            }
             this.snackBar.open(errorMessage, 'Close', {
               duration: 5000,
               panelClass: ['snackbar-error'],

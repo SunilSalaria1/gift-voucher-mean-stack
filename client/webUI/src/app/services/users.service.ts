@@ -18,6 +18,10 @@ export class UsersService {
   createPost(postData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/api/register`, postData);
   }
+// Get request
+  getPosts(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/users`);
+  }
 
   public getUsers() {
     return this.http.get<any>('assets/data/user.json')
