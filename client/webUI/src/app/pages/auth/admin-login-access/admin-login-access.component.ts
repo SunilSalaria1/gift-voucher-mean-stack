@@ -43,18 +43,16 @@ export class AdminLoginAccessComponent {
   onSubmit() {
     if (this.administratorForm.valid) {
       console.log('Employee Code:', this.administratorForm.value);
-      console.log('Employee Key:', this.administratorForm.value.administratorKey);
-  
+      console.log('Employee Key:', this.administratorForm.value.administratorKey);  
       const data = {
         empCode: this.administratorForm.value.administratorCode,
         password: this.administratorForm.value.administratorKey
-      };
-  
-      console.log(data);
-      
+      };  
+      console.log(data);      
       this._usersService.login(data).subscribe(
         (response) => {
           console.log(response);
+          localStorage.setItem('loginUser', JSON.stringify(response.userDetails));
           this.router.navigate(['/admin/dashboard']);
           this.snackBar.open('Welcome! Now you can oversee the system.', 'Close', {
             duration: 5000,
