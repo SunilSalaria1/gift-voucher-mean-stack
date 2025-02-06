@@ -38,7 +38,7 @@ export const authGuardGuard: CanActivateFn = (route, state) => {
         router.navigateByUrl('admin-login-access');
         return false;
       }
-    } else if (user.role === 'admin') {
+    } else if (user.isAdmin === true) {
       // If the user is an admin
       // If the route is for admin pages, allow access
       if (
