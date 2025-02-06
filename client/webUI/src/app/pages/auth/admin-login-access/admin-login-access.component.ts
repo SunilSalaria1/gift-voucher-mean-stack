@@ -43,40 +43,36 @@ export class AdminLoginAccessComponent {
   onSubmit() {
     if (this.administratorForm.valid) {
       console.log('Employee Code:', this.administratorForm.value);
-      console.log('Employee Code:', this.administratorForm.value.administratorKey);
-      // if (this.administratorForm.value.administratorCode === this.userData.admin[0].adminCode && this.administratorForm.value.administratorKey === this.userData.admin[0].adminKey) {
-      //   const adminData = {
-      //     code: this.administratorForm.value.administratorCode,
-      //     key: this.administratorForm.value.administratorKey
-      //   };    
+      console.log('Employee Key:', this.administratorForm.value.administratorKey);
+  
       const data = {
         empCode: this.administratorForm.value.administratorCode,
         password: this.administratorForm.value.administratorKey
-      } 
-      console.log(data)
+      };
+  
+      console.log(data);
+      
       this._usersService.login(data).subscribe(
-         (response) => {
-          console.log(response)
-          // localStorage.setItem('loginUser', JSON.stringify(this.userData.admin));
+        (response) => {
+          console.log(response);
           this.router.navigate(['/admin/dashboard']);
-          // Show success snackbar
-          this.snackBar.open('Welcome! now you can oversee the system.', 'close', {
+          this.snackBar.open('Welcome! Now you can oversee the system.', 'Close', {
             duration: 5000,
             panelClass: ['snackbar-success'],
             horizontalPosition: "center",
             verticalPosition: "top",
           });
+        },
+        (error) => {
+          console.error('Login failed:', error);
+          this.snackBar.open('Invalid administrator code or key, try again.', 'Close', {
+            duration: 5000,
+            panelClass: ['snackbar-error'],
+            horizontalPosition: "center",
+            verticalPosition: "top",
+          });
         }
-        // else {
-        //   // Show error snackbar
-        //   this.snackBar.open('Invalid administrator code + key, try again.', 'close', {
-        //     duration: 5000,
-        //     panelClass: ['snackbar-error'],
-        //     horizontalPosition: "center",
-        //     verticalPosition: "top",
-        //   });
-        // }
-      )
+      );
     }
   }
   }

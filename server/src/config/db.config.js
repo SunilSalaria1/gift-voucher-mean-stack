@@ -3,10 +3,15 @@ const url = 'mongodb+srv://aniketsharma:UxFmcjc3eNBaMWve@cluster0.xv0iu.mongodb.
 const client = new MongoClient(url);
 const dbName = 'blog';
 async function connectDB() {
+    try{
     // Use connect method to connect to the server
     await client.connect();
     console.log('Connected successfully to server')
     return 'done.';
+    }catch(e){
+        console.log(e)
+    }
+
 }
 
 connectDB()
