@@ -23,7 +23,7 @@
                 <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
                     <mat-card-content class="d-block">
                         <!-- form -->
-                        <form [formGroup]="addEmployeeCodeForm">
+                        <form [formGroup]="editEmployeeCodeForm">
                             <h4 class="fw-bold mb-1">Employee Name</h4>
                             <mat-form-field appearance="outline" class="d-block input-lg input">
                                 <input matInput formControlName="name" />
@@ -43,10 +43,10 @@
                             <mat-form-field appearance="outline" class="d-block input-lg input">
                                 <input matInput formControlName="email" readonly/>
                                 <mat-icon matSuffix>mail</mat-icon>
-                                <mat-error *ngIf="addEmployeeCodeForm.get('email')?.hasError('required')">
+                                <mat-error *ngIf="editEmployeeCodeForm.get('email')?.hasError('required')">
                                     This is Required
                                   </mat-error>
-                                  <mat-error *ngIf="addEmployeeCodeForm.get('email')?.hasError('email')">
+                                  <mat-error *ngIf="editEmployeeCodeForm.get('email')?.hasError('email')">
                                     Enter a valid email.
                                   </mat-error>                                  
                             </mat-form-field>

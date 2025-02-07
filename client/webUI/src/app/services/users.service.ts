@@ -29,7 +29,9 @@ export class UsersService {
   }
 
   // put request
-
+updatePost(userId:any,postData:any): Observable<any>{
+  return this.http.put(`${this.apiUrl}/api/updateUser/${userId}`,postData)
+}
 
 
 

@@ -60,7 +60,7 @@ export class EditEmpCodeComponent {
   submitted: boolean = false;
   departments = ['HR', 'Frontend', 'Backend', 'Audit', 'Bidding'];
   generatedCode: string | null = null;
-  addEmployeeCodeForm!: FormGroup;
+  editEmployeeCodeForm!: FormGroup;
   dialogEmployee: any;
   userData: any;
   private _usersService = inject(UsersService)
@@ -80,7 +80,7 @@ export class EditEmpCodeComponent {
         this.currentUserId = params['id']
       })
     // form
-    this.addEmployeeCodeForm = this.formBuilder.group({
+    this.editEmployeeCodeForm = this.formBuilder.group({
       name: ['', Validators.required],
       department: ['', Validators.required],
       dob: ['', Validators.required],
@@ -96,7 +96,7 @@ export class EditEmpCodeComponent {
       (data: any) => {
         console.log('get request is successfull', data)
         this.userData = data;
-        this.addEmployeeCodeForm.patchValue({
+        this.editEmployeeCodeForm.patchValue({
           name: this.userData.name,
           department: this.userData.department,
           dob: this.userData.dob,
@@ -120,7 +120,7 @@ export class EditEmpCodeComponent {
   }
   // decline button
   decline() {
-    if (this.addEmployeeCodeForm.valid) {
+    if (this.editEmployeeCodeForm.valid) {
       this.dialogEmployee = ""
       // error snackbar
       this.snackBar.open('You have successfully deleted the generated employee code!.', 'close', {
@@ -143,11 +143,11 @@ export class EditEmpCodeComponent {
   }
   // Call the openDialog method conditionally
   submitForm(): void {
-    if (this.addEmployeeCodeForm.valid) {
-      const newPost = this.addEmployeeCodeForm.value;
-      this._usersService.createPost(newPost).subscribe(
+    if (this.editEmployeeCodeForm.valid) {
+      const postData = this.editEmployeeCodeForm.value;
+      this._usersService.updatePost(this.currentUserId,postData).subscribe(
         (response) => {
-          console.log('Post created:', response);
+          console.log('Post updated:', response);
           this.dialogEmployee = response.user;
           console.log(this.dialogEmployee)
           this.openDialog();
