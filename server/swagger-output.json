@@ -109,7 +109,7 @@
         "tags": [
           "Auth"
         ],
-        "description": "Delete User with Id .",
+        "description": "Update User with Id.",
         "parameters": [
           {
             "name": "id",
@@ -120,7 +120,7 @@
           {
             "name": "body",
             "in": "body",
-            "description": "User registration details",
+            "description": "User update details",
             "required": true,
             "schema": {
               "$ref": "#/definitions/updateUser"
@@ -129,19 +129,16 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
-          },
-          "201": {
-            "description": "User Created successfully"
+            "description": "User updated successfully"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Invalid input"
           },
           "404": {
-            "description": "Invalid credentials"
+            "description": "User not found"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal server error"
           }
         }
       }
@@ -252,11 +249,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Thu Feb 06 2025 12:19:07 GMT+0530 (India Standard Time)"
+          "example": "Fri Feb 07 2025 20:13:20 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Thu Feb 06 2025 12:19:07 GMT+0530 (India Standard Time)"
+          "example": "Fri Feb 07 2025 20:13:20 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",

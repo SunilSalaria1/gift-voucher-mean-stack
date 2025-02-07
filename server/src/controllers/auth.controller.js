@@ -39,7 +39,7 @@ const loginUser = async (req, res) => {
                 { $push: { tokens: token } }, { returnDocument: 'after' } // Add the token to the tokens array
             );
             console.log("After JWT Sign", token);
-            res.header("authorizaton", token)
+            // res.header("authorizaton", token)
             res.status(200).json({
                 message: "Employee Login  successful",
                 userDetails: {
@@ -62,7 +62,7 @@ const loginUser = async (req, res) => {
                     { $push: { tokens: token } }, { returnDocument: 'after' } // Add the token to the tokens array
                 );
                 console.log("After JWT Sign", token);
-                res.header("authorizaton", token)
+                // res.header("authorizaton", token)
                 res.status(200).json({
                     message: "Admin Login successful",
                     userDetails: {

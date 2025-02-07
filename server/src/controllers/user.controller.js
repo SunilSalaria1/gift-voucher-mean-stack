@@ -132,56 +132,66 @@ const getUserWithId = async (req, res) => {
 
 const updateUser = async (req, res) => {
     /*  #swagger.tags = ['Auth']
-               #swagger.description = 'Delete User with Id .' 
-               #swagger.parameters['body'] = {
-                in: 'body',
-                description: 'User registration details',
-                required: true,
-                schema: { $ref: '#/definitions/updateUser' }
-                }
-                #swagger.responses[201] = {
-                description: 'User Created successfully',
-                }
-                #swagger.responses[404] = {
-                description: 'Invalid credentials'
-                }
-                */
+        #swagger.description = 'Update User with Id.' 
+        #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'User update details',
+            required: true,
+            schema: { $ref: '#/definitions/updateUser' }
+        }
+        #swagger.responses[200] = { description: 'User updated successfully' }
+        #swagger.responses[400] = { description: 'Invalid input' }
+        #swagger.responses[404] = { description: 'User not found' }
+        #swagger.responses[500] = { description: 'Internal server error' }
+    */
+
     try {
         await connectDB();
-        // Check if userId is present and valid
+        // Validate user ID
         const userId = req.params.id;
-        if (!ObjectId.isValid(userId) || !userId) {
-            return res.status(400).json({ message: "Invalid user ID" });
+        if (!ObjectId.isValid(userId)) {
+            return res.status(400).json({ message: "Invalid user ID format" });
         }
-        // Validate only `name` and `department` fields
-        const updateUserSchema = userSchema.pick({
-            name: true,
-            department: true,
-        });
-        if (!req.body.name || !req.body.department) {
-            return res.status(400).json({ message: "Missing required fields: name and department" });
-        }
-        // Validate request body using Zod (if applicable)
-        const validation = updateUserSchema.safeParse(req.body);
-        if (!validation.success) {
-            return res.status(400).json({ errors: validation.error.format() });
-        }
-        // Update user in MongoDB
-        const result = await usersCollection.findOneAndUpdate(
-            { _id: new ObjectId(userId) },
-            { $set: { name: req.body.name, department: req.body.department } },
-            { returnDocument: 'after' }
-        );
-        if (!result) {
+        // Fetch user details
+        const userDetails = await usersCollection.findOne({ _id: new ObjectId(userId) });
+        if (!userDetails) {
             return res.status(404).json({ message: "User not found" });
         }
-        return res.status(200).json({ message: "User updated successfully", updateUser: result });
+        // Validate request body
+        console.log("@@@@@@@@@@@@@@@", req.body)
+        console.log("@@@@@@@@@@@@@@@", userDetails)
+        const { name, department, email, dob } = req.body;
+        if (!name || !department) {
+            return res.status(400).json({ message: "Missing required fields: name and department" });
+        }
 
-    } catch (e) {
-        console.error("MongoDB Error:", e);
-        return res.status(500).json({ message: "Internal server error", error: e.message });
+        // Ensure email and dob match existing user data
+        // if (email != userDetails.email || dob != userDetails.dob) {
+        //     return res.status(400).json({ message: "Email or DOB does not match our records" });
+        // }
+
+        // Generate new employee code and hashed password if necessary
+        const { empCode, hashedPassword } = await generateEmpCodeAndPassword(name, email, department, dob, usersCollection);
+
+        // Update user in MongoDB
+        const updatedUser = await usersCollection.findOneAndUpdate(
+            { _id: new ObjectId(userId) },
+            { $set: { name, department, empCode, password: hashedPassword } },
+            { returnDocument: "after" }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: "Failed to update user" });
+        }
+
+        return res.status(200).json({ message: "User updated successfully", updatedUser });
+
+    } catch (error) {
+        console.error("MongoDB Error:", error);
+        return res.status(500).json({ message: "Internal server error", error: error.message });
     }
 };
+
 
 
 
@@ -190,7 +200,7 @@ const getAllUsers = async (req, res) => {
            #swagger.description = 'Get all users.' */
     try {
         await connectDB();
-        const users = await usersCollection.find().toArray();;
+        const users = await usersCollection.find({ isAdmin: false, isDeleted: false }).toArray();
 
         res.send(users)
     } catch (e) {
