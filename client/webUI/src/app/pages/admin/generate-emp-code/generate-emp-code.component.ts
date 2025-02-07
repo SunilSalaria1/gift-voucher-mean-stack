@@ -1,4 +1,4 @@
-import { 
+import {
   Component,
   inject,
   TemplateRef,
@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Params, RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -37,7 +37,7 @@ import { UsersService } from '../../../services/users.service';
     MatCardModule,
     MatButtonModule,
     ClipboardModule,
- ],
+  ],
   templateUrl: './generate-emp-code.component.html',
   styleUrl: './generate-emp-code.component.css',
   animations: [
@@ -52,35 +52,37 @@ import { UsersService } from '../../../services/users.service';
     ])
   ]
 })
-export class GenerateEmpCodeComponent implements AfterViewInit{
- @ViewChild('content') dialogTemplate!: TemplateRef<any>;
-  constructor(private snackBar: MatSnackBar) {}
+export class GenerateEmpCodeComponent implements AfterViewInit {
+  @ViewChild('content') dialogTemplate!: TemplateRef<any>;
+  constructor(private snackBar: MatSnackBar, private route: ActivatedRoute) { }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
   readonly dialog = inject(MatDialog);
   private _usersService = inject(UsersService)
-  tableData: any[] = [];
+  userData: any[] = [];
+  selectedEmpId: string | null = null;
   // Create a map to store copied state for each coupon code
   copiedMap = new Map<string, boolean>();
-  
-// ngOnInIt
-ngOnInit() {
-  this.dataSource = new MatTableDataSource<any>([]); // Initialize with an empty array
-  this._usersService.getPosts().subscribe(
-    (data) => {
-      this.tableData = data; // Set data here
-      console.log(this.tableData)
-      this.dataSource.data = this.tableData;
-    },
-    (error) => {
-      console.error('Error fetching posts', error);
-    }
-  );
-} 
-  
-// dialog box
-  openDialog(): void {
+
+  // ngOnInIt
+  ngOnInit() {
+    this.dataSource = new MatTableDataSource<any>([]); // Initialize with an empty array
+    this._usersService.getPosts().subscribe(
+      (data) => {
+        this.userData = data; // Set data here
+        console.log(this.userData)
+        this.dataSource.data = this.userData;
+      },
+      (error) => {
+        console.error('Error fetching posts', error);
+      }
+    );
+  }
+
+  // dialog box
+  openDialog(id:string): void {
+    this.selectedEmpId=id;
     // Use the TemplateRef for the dialog
     const dialogRef = this.dialog.open(this.dialogTemplate);
 
@@ -88,7 +90,15 @@ ngOnInit() {
       console.log(`Dialog result: ${result}`);
     });
   }
-  matDelete(){
+  matDelete() {
+    this._usersService.deletePost(this.selectedEmpId).subscribe(
+      (data: any) => {
+        console.log('delete request is successfull', data)
+      })
+    // Remove the deleted user from the table
+    this.userData = this.userData.filter(user => user._id !== this.selectedEmpId);
+    this.dataSource.data = [...this.userData];
+
     // Show success snackbar
     this.snackBar.open('You have successfully deleted the reward!.', 'close', {
       duration: 5000,
@@ -108,7 +118,7 @@ ngOnInit() {
     'position',
     'name',
     'empCode',
-    'email',        
+    'email',
     'department',
     'dob',
     'joiningDate',
@@ -133,11 +143,11 @@ ngOnInit() {
 }
 export interface PeriodicElement {
   position: number;
-  empCode: string;  
+  empCode: string;
   name: string;
   department: string;
   dob: string;
-  joiningDate:string;
-  email:string;
+  joiningDate: string;
+  email: string;
 }
 

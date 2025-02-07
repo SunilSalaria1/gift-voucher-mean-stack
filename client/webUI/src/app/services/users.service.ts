@@ -33,11 +33,15 @@ updatePost(userId:any,postData:any): Observable<any>{
   return this.http.put(`${this.apiUrl}/api/updateUser/${userId}`,postData)
 }
 
+// delete request (delete user by id)
+deletePost(userId:any): Observable<any>{
+  return this.http.get(`${this.apiUrl}/api/deleteUser/${userId}`);
+}
+
 
 
 // local file data
   public getUsers() {
     return this.http.get<any>('assets/data/user.json')
   }
-
 }
