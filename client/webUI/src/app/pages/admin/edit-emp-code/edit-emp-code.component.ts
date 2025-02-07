@@ -63,6 +63,7 @@ export class EditEmpCodeComponent {
     addEmployeeCodeForm!: FormGroup;
     dialogEmployee:any;
     isEmailAlreadyExist:boolean=false;
+    userData:any;
     private _usersService = inject(UsersService)
   currentUserId:any;
     constructor(
@@ -71,7 +72,8 @@ export class EditEmpCodeComponent {
     // ngAfterViewInit(): void {
     //   throw new Error('Method not implemented.');
     // }
-  
+
+    // ngOnInIt  
     ngOnInit(): void {
       this.route.params.subscribe(
         (params: Params) => {
@@ -85,9 +87,26 @@ export class EditEmpCodeComponent {
         dob: ['', Validators.required],
         joiningDate: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]]
-
-
       });
+      // calling getUser method
+      this.getUser()
+    }
+    // get user
+    getUser(){
+      this. _usersService. getUserById( this.currentUserId).subscribe(
+        (data:any)=>{
+          console.log('get request is successfull',data)
+          this.userData=data;
+          this.addEmployeeCodeForm.patchValue({
+          name:this.userData.name,
+          department:this.userData.department,
+          dob:this.userData.dob,
+          joiningDate:this.userData.joiningDate,
+          email:this.userData.email,
+          })
+
+        }
+      )
     }
     // approve
     approve() {
