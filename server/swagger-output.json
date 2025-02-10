@@ -105,7 +105,7 @@
       }
     },
     "/api/updateUser/{id}": {
-      "post": {
+      "put": {
         "tags": [
           "Auth"
         ],
@@ -170,6 +170,58 @@
         }
       }
     },
+    "/api/createAdmin": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "description": "Update User with Id.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Admin Creation details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createAdmin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Admin Created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/getAllAdmins": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "description": "Get all Admins.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/loginUser": {
       "post": {
         "tags": [
@@ -211,27 +263,38 @@
     },
     "/api/logoutUser": {
       "post": {
-        "description": "",
+        "tags": [
+          "Auth"
+        ],
+        "description": "Logout user",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "User logout credentials",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/logoutUser"
             }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
           },
+          "201": {
+            "description": "Logout successful"
+          },
           "400": {
-            "description": "Bad Request"
+            "description": "Missing token or Invalid token"
+          },
+          "401": {
+            "description": "Invalid token"
           },
           "404": {
             "description": "Not Found"
@@ -249,11 +312,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Mon Feb 10 2025 10:19:32 GMT+0530 (India Standard Time)"
+          "example": "Mon Feb 10 2025 21:41:05 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Mon Feb 10 2025 10:19:32 GMT+0530 (India Standard Time)"
+          "example": "Mon Feb 10 2025 21:41:05 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
@@ -287,11 +350,37 @@
       "properties": {
         "empCode": {
           "type": "string",
-          "example": "LP12121212"
+          "example": "LPIT30281076"
         },
         "password": {
           "type": "string",
-          "example": "ani04082000"
+          "example": "jyo04122001"
+        }
+      }
+    },
+    "createAdmin": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "67a4af8cf19f72c03d3d4547"
+        },
+        "isAdmin": {
+          "type": "string",
+          "example": "true"
+        }
+      }
+    },
+    "logoutUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "67a4af8cf19f72c03d3d4547"
+        },
+        "isAdmin": {
+          "type": "boolean",
+          "example": true
         }
       }
     }

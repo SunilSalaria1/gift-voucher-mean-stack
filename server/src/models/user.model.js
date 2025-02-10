@@ -9,11 +9,7 @@ const userSchema = z.object({
         .email({ message: "Invalid email address" }),
 
 
-    dob: z.date()
-        .refine((date) => {
-            const age = new Date().getFullYear() - date.getFullYear();
-            return age >= 18;
-        }, { message: "Must be at least 18 years old" }),
+    dob: z.date({ required_error: "Date of birth is required" }),
 
     joiningDate: z.date({ required_error: "Joining date is required" }),
 

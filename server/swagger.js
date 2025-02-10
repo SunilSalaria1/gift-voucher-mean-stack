@@ -37,9 +37,17 @@ const doc = {
       department: "Front End"
     },
     loginUser: {
-      empCode: "LP12121212",
-      password: "ani04082000"
+      empCode: "LPIT30281076",
+      password: "jyo04122001"
     },
+    createAdmin: {
+      id: "67a4af8cf19f72c03d3d4547",
+      isAdmin: "true"
+    },
+    logoutUser: {
+      id: "67a4af8cf19f72c03d3d4547",
+      isAdmin: "true"
+    }
   }
 };
 

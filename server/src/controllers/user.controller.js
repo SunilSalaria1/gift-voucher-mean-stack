@@ -201,6 +201,24 @@ const getAllUsers = async (req, res) => {
     try {
         await connectDB();
         const users = await usersCollection.find({ isAdmin: false, isDeleted: false }).toArray();
+        // const users = await usersCollection.find().toArray();
+
+        res.send(users)
+    } catch (e) {
+        console.log(e)
+        if (e instanceof ZodError) {
+            res.status(400).json({ message: e.message })
+        }
+        res.status(500).json({ message: e.message })
+    }
+}
+const getAllAdmins = async (req, res) => {
+    /*  #swagger.tags = ['Admin']
+           #swagger.description = 'Get all Admins.' */
+    try {
+        await connectDB();
+        const users = await usersCollection.find({ isAdmin: true, isDeleted: false }).toArray();
+        // const users = await usersCollection.find().toArray();
 
         res.send(users)
     } catch (e) {
@@ -218,7 +236,7 @@ const deleteUserWithId = async (req, res) => {
            #swagger.description = 'Delete User with Id .' */
     try {
         await connectDB();
-        const userId = req.params.id  
+        const userId = req.params.id
         if (!ObjectId.isValid(userId)) {
             return res.status(400).json({ message: "Invalid User Id" });
         }
@@ -237,4 +255,53 @@ const deleteUserWithId = async (req, res) => {
     }
 }
 
-module.exports = { register, getAllUsers, updateUser, deleteUserWithId, getUserWithId }
+const createAdmin = async (req, res) => {
+    /*  #swagger.tags = ['Admin']
+        #swagger.description = 'Update User with Id.' 
+        #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Admin Creation details',
+            required: true,
+            schema: { $ref: '#/definitions/createAdmin' }
+        }
+        #swagger.responses[200] = { description: 'Admin Created successfully' }
+        #swagger.responses[400] = { description: 'Invalid input' }
+        #swagger.responses[404] = { description: 'User not found' }
+        #swagger.responses[500] = { description: 'Internal server error' }
+    */
+
+    try {
+        await connectDB();
+
+        const { id, isAdmin } = req.body;
+
+        if (!id || isAdmin != "true") {
+            return res.status(400).json({ message: "Id or isAdmin is missing or not true" });
+        }
+
+        if (!ObjectId.isValid(id)) {
+            return res.status(400).json({ message: "Invalid User Id" });
+        }
+
+        const result = await usersCollection.findOneAndUpdate(
+            { _id: new ObjectId(id) },
+            { $set: { isAdmin: true } },
+            { returnDocument: "after" }
+        );
+
+        if (!result) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        return res.status(200).json({ message: "Admin Created successfully", admin: result });
+    } catch (e) {
+        console.log(e);
+        if (e instanceof ZodError) {
+            return res.status(400).json({ message: e.message });
+        }
+        return res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+
+module.exports = { register, getAllUsers, updateUser, deleteUserWithId, getUserWithId, createAdmin, getAllAdmins }

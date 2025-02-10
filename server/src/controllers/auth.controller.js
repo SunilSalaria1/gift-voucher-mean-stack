@@ -99,15 +99,63 @@ const loginUser = async (req, res) => {
             message: e.message
         });
     }
-}; 
+};
 
+
+// const logoutUser = async (req, res) => {
+//     try {
+//         const { token } = req.body; // Get the token from the request body
+//         if (!token) {
+//             return res.status(400).json({ message: "Token is required for logout" });
+//         }
+
+//         // Find the user by token
+//         const result = await usersCollection.findOne({ tokens: token });
+//         if (!result) {
+//             return res.status(404).json({ message: "User not found" });
+//         }
+
+//         // Remove the token from the user's tokens array
+//         await usersCollection.updateOne(
+//             { _id: result._id },
+//             { $pull: { tokens: token } } // Removes the specific token from the array
+//         );
+
+//         return res.status(200).json({ message: "Logout successful" });
+//     } catch (e) {
+//         console.log(e);
+//         res.status(500).json({
+//             message: e.message
+//         });
+//     }
+// };
 
 const logoutUser = async (req, res) => {
+    /*  #swagger.tags = ['Auth']
+       #swagger.description = 'Logout user'
+       #swagger.parameters['body'] = {
+           in: 'body',
+           description: 'User logout credentials',
+           required: true,
+           schema: { $ref: '#/definitions/logoutUser' }
+       }
+       #swagger.responses[201] = {
+           description: 'Logout successful',
+       }
+       #swagger.responses[400] = {
+           description: 'Missing token or Invalid token'
+       }
+       #swagger.responses[401] = {
+           description: 'Invalid token'
+       }
+   */
     try {
-        const { token } = req.body; // Get the token from the request body
-        if (!token) {
+        const authHeader = req.headers.authorization;
+        if (!authHeader || !authHeader.startsWith("Bearer ")) {
             return res.status(400).json({ message: "Token is required for logout" });
         }
+
+        const token = authHeader.split(" ")[1]; // Extract token
 
         // Find the user by token
         const result = await usersCollection.findOne({ tokens: token });
@@ -118,7 +166,7 @@ const logoutUser = async (req, res) => {
         // Remove the token from the user's tokens array
         await usersCollection.updateOne(
             { _id: result._id },
-            { $pull: { tokens: token } } // Removes the specific token from the array
+            { $pull: { tokens: token } }
         );
 
         return res.status(200).json({ message: "Logout successful" });
@@ -129,8 +177,6 @@ const logoutUser = async (req, res) => {
         });
     }
 };
-
-
 
 
 module.exports = { loginUser, logoutUser }
