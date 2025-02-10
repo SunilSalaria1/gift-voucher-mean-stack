@@ -40,7 +40,7 @@
                                 <mat-error>This is Required</mat-error>
                             </mat-form-field>
                             <h4 class="fw-bold mb-1">Email</h4>
-                            <mat-form-field appearance="outline" class="d-block input-lg input">
+                            <mat-form-field appearance="outline" class="d-block input-lg input bg-light">
                                 <input matInput formControlName="email" readonly/>
                                 <mat-icon matSuffix>mail</mat-icon>
                                 <mat-error *ngIf="editEmployeeCodeForm.get('email')?.hasError('required')">
@@ -51,7 +51,7 @@
                                   </mat-error>                                  
                             </mat-form-field>
                             <h4 class="fw-bold mb-1">DOB</h4>
-                            <mat-form-field appearance="outline" class="d-block input-lg input">
+                            <mat-form-field appearance="outline" class="d-block input-lg input bg-light">
                                 <input matInput [matDatepicker]="picker" formControlName="dob" readonly>
                                 <mat-hint>MM/DD/YYYY</mat-hint>
                                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -59,7 +59,7 @@
                                 <mat-error>This is Required</mat-error>
                             </mat-form-field>
                             <h4 class="fw-bold mb-1">Joining Date</h4>
-                            <mat-form-field appearance="outline" class="d-block input-lg input">
+                            <mat-form-field appearance="outline" class="d-block input-lg input bg-light">
                                 <input matInput [matDatepicker]="datepicker" formControlName="joiningDate" readonly>
                                 <mat-hint>MM/DD/YYYY</mat-hint>
                                 <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
