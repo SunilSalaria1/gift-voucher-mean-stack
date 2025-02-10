@@ -78,6 +78,7 @@ export class EditEmpCodeComponent {
       (params: Params) => {
         console.log(params['id']);
         this.currentUserId = params['id']
+        console.log("@@@@@@@@@@@@@@@",typeof(this.currentUserId))
       })
     // form
     this.editEmployeeCodeForm = this.formBuilder.group({
@@ -144,11 +145,16 @@ export class EditEmpCodeComponent {
   // Call the openDialog method conditionally
   submitForm(): void {
     if (this.editEmployeeCodeForm.valid) {
-      const postData = this.editEmployeeCodeForm.value;
+      const postData = {
+        name: this.editEmployeeCodeForm.value.name,
+        department: this.editEmployeeCodeForm.value.department
+      };
+      console.log(this.currentUserId)
+      console.log(postData)
       this._usersService.updatePost(this.currentUserId,postData).subscribe(
         (response) => {
           console.log('Post updated:', response);
-          this.dialogEmployee = response.user;
+          // this.dialogEmployee = response.user;
           console.log(this.dialogEmployee)
           this.openDialog();
         },
@@ -162,6 +168,7 @@ export class EditEmpCodeComponent {
           });
         }
       );
+      
     }
   }
 }

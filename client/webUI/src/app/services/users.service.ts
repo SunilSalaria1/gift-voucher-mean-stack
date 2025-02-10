@@ -35,7 +35,7 @@ updatePost(userId:any,postData:any): Observable<any>{
 
 // delete request (delete user by id)
 deletePost(userId:any): Observable<any>{
-  return this.http.get(`${this.apiUrl}/api/deleteUser/${userId}`);
+  return this.http.delete(`${this.apiUrl}/api/deleteUser/${userId}`);
 }
 
 

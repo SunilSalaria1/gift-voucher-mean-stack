@@ -5,7 +5,7 @@ const { register, getAllUsers, getUserWithId, updateUser, deleteUserWithId } = r
 userRouter.post('/register', register);
 userRouter.get("/users", getAllUsers)
 userRouter.get("/getUser/:id", getUserWithId)
-userRouter.post("/updateUser/:id", updateUser)
+userRouter.put("/updateUser/:id", updateUser)
 userRouter.post("/deleteUser/:id", deleteUserWithId)
 
 module.exports = userRouter;
