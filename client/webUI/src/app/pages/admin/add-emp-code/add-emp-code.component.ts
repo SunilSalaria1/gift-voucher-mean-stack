@@ -91,6 +91,7 @@ export class AddEmpCodeComponent {
     debugger;
     if (this.addEmployeeCodeForm.valid) {
       this. dialogEmployee = ""
+      this.addEmployeeCodeForm.reset()
       if (this.dialogRef) {
         this.dialogRef.close(); // This closes the dialog
         // error snackbar
@@ -100,8 +101,7 @@ export class AddEmpCodeComponent {
         horizontalPosition: "center",
         verticalPosition: "top",
       });
-      }     
-      
+      }
     }
   }
 
@@ -120,8 +120,7 @@ export class AddEmpCodeComponent {
   submitForm(): void {
     this.isEmailAlreadyExist=false;
     if (this.addEmployeeCodeForm.valid) {
-      const newPost = this.addEmployeeCodeForm.value;
-  
+      const newPost = this.addEmployeeCodeForm.value;  
       this._usersService.createPost(newPost).subscribe(
         (response) => {
           console.log('Post created:', response);
