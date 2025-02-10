@@ -175,12 +175,12 @@
         "tags": [
           "Auth"
         ],
-        "description": "Register user",
+        "description": "Login user",
         "parameters": [
           {
             "name": "body",
             "in": "body",
-            "description": "User registration details",
+            "description": "User login credentials",
             "required": true,
             "schema": {
               "$ref": "#/definitions/loginUser"
@@ -192,16 +192,16 @@
             "description": "OK"
           },
           "201": {
-            "description": "User Created successfully"
+            "description": "Login successful"
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Missing required fields or Invalid credentials"
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Invalid credentials"
           },
           "404": {
-            "description": "Invalid credentials"
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -249,11 +249,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Fri Feb 07 2025 20:13:20 GMT+0530 (India Standard Time)"
+          "example": "Mon Feb 10 2025 10:19:32 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Fri Feb 07 2025 20:13:20 GMT+0530 (India Standard Time)"
+          "example": "Mon Feb 10 2025 10:19:32 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",

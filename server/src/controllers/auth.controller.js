@@ -7,76 +7,90 @@ const SECRET_KEY = "Aniwer32432@#^%&^#!%@&#%&%!@#!&%@#!&@2153"
 const bcrypt = require("bcryptjs");
 const loginUser = async (req, res) => {
     /*  #swagger.tags = ['Auth']
-                #swagger.description = 'Register user'
-                #swagger.parameters['body'] = {
-                in: 'body',
-                description: 'User registration details',
-                required: true,
-                schema: { $ref: '#/definitions/loginUser' }
-                }
-                #swagger.responses[201] = {
-                description: 'User Created successfully',
-                }
-                #swagger.responses[404] = {
-                description: 'Invalid credentials'
-                }
-                */
-    // console.log("11111111111started//////////")
+        #swagger.description = 'Login user'
+        #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'User login credentials',
+            required: true,
+            schema: { $ref: '#/definitions/loginUser' }
+        }
+        #swagger.responses[201] = {
+            description: 'Login successful',
+        }
+        #swagger.responses[400] = {
+            description: 'Missing required fields or Invalid credentials'
+        }
+        #swagger.responses[401] = {
+            description: 'Invalid credentials'
+        }
+    */
     try {
         await connectDB();
+
+        // 1. Check for the required empCode field in request body
         if (!req.body.empCode) {
             return res.status(400).json({ message: "Missing required fields: Employee Code" });
         }
+
         // Find the user by empCode
         const result = await usersCollection.findOne({ empCode: req.body.empCode });
+
         if (!result) {
-            return res.status(404).json({ message: "User not found12" });
+            return res.status(404).json({ message: "User not found" });
         }
+
+        // 2. If the user is not an admin, proceed with login (admin check can be handled differently)
         if (result.isAdmin === false) {
+            // Generate JWT token for non-admin user
             const token = await jwt.sign({ userId: result._id.toString() }, SECRET_KEY, { expiresIn: "1h" });
             const updatedDataToken = await usersCollection.updateOne(
                 { _id: result._id },
-                { $push: { tokens: token } }, { returnDocument: 'after' } // Add the token to the tokens array
+                { $push: { tokens: token } },
+                { returnDocument: 'after' } // Add the token to the tokens array
             );
-            console.log("After JWT Sign", token);
-            // res.header("authorizaton", token)
-            res.status(200).json({
-                message: "Employee Login  successful",
+            return res.status(200).json({
+                message: "Employee Login successful",
                 userDetails: {
                     _id: result._id,
                     name: result.name,
                     email: result.email,
                     isAdmin: result.isAdmin,
                     department: result.department
-                }, // Returning user ID
+                },
+                token: token,
+            });
+        }
+
+        // 3. Check for missing password
+        if (!req.body.password) {
+            return res.status(400).json({ message: "Missing required fields: Password" });
+        }
+
+        // 4. Compare the provided password with the hashed password in the database
+        const isPasswordValid = await bcrypt.compare(req.body.password, result.password);
+
+        if (isPasswordValid) {
+            // Generate JWT token for the admin user
+            const token = await jwt.sign({ userId: result._id.toString() }, SECRET_KEY, { expiresIn: "1h" });
+            await usersCollection.updateOne(
+                { _id: result._id },
+                { $push: { tokens: token } },
+                { returnDocument: 'after' } // Add the token to the tokens array
+            );
+            return res.status(200).json({
+                message: "Admin Login successful",
+                userDetails: {
+                    _id: result._id,
+                    name: result.name,
+                    email: result.email,
+                    isAdmin: result.isAdmin,
+                    department: result.department
+                },
                 token: token,
             });
         } else {
-            // Compare the provided password with the hashed password in the database
-            const isPasswordValid = await bcrypt.compare(req.body.password, result.password);
-            if (isPasswordValid) {
-                console.log("Before JWT Sign");
-                const token = await jwt.sign({ userId: result._id.toString() }, SECRET_KEY, { expiresIn: "1h" });
-                const updatedDataToken = await usersCollection.updateOne(
-                    { _id: result._id },
-                    { $push: { tokens: token } }, { returnDocument: 'after' } // Add the token to the tokens array
-                );
-                console.log("After JWT Sign", token);
-                // res.header("authorizaton", token)
-                res.status(200).json({
-                    message: "Admin Login successful",
-                    userDetails: {
-                        _id: result._id,
-                        name: result.name,
-                        email: result.email,
-                        isAdmin: result.isAdmin,
-                        department: result.department
-                    }, // Returning user ID
-                    token: token
-                });
-            } else {
-                return res.status(401).json({ message: "Invalid credentials" });
-            }
+            // 5. If password is invalid, return an error message
+            return res.status(401).json({ message: "Invalid credentials" });
         }
 
     } catch (e) {
@@ -85,7 +99,7 @@ const loginUser = async (req, res) => {
             message: e.message
         });
     }
-};
+}; 
 
 
 const logoutUser = async (req, res) => {
