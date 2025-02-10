@@ -68,7 +68,7 @@ export class GenerateEmpCodeComponent implements AfterViewInit {
   // ngOnInIt
   ngOnInit() {
     this.dataSource = new MatTableDataSource<any>([]); // Initialize with an empty array
-    this._usersService.getPosts().subscribe(
+    this._usersService.getUser().subscribe(
       (data) => {
         this.userData = data; // Set data here
         console.log(this.userData)
@@ -91,7 +91,7 @@ export class GenerateEmpCodeComponent implements AfterViewInit {
     });
   }
   matDelete() {
-    this._usersService.deletePost(this.selectedEmpId).subscribe(
+    this._usersService.deleteUser(this.selectedEmpId).subscribe(
       (data: any) => {
         console.log('delete request is successfull', data)
       })

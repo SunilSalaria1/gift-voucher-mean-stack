@@ -151,10 +151,10 @@ export class EditEmpCodeComponent {
       };
       console.log(this.currentUserId)
       console.log(postData)
-      this._usersService.updatePost(this.currentUserId,postData).subscribe(
+      this._usersService.updateUser(this.currentUserId,postData).subscribe(
         (response) => {
           console.log('Post updated:', response);
-          // this.dialogEmployee = response.user;
+          this.dialogEmployee = response.updatedUser;
           console.log(this.dialogEmployee)
           this.openDialog();
         },

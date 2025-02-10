@@ -15,11 +15,11 @@ export class UsersService {
   }
 
   // POST request
-  createPost(postData: any): Observable<any> {
+  registerUser(postData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/api/register`, postData);
   }
 // Get request
-  getPosts(): Observable<any> {
+  getUser(): Observable<any> {
     return this.http.get(`${this.apiUrl}/api/users`);
   }
 
@@ -29,13 +29,13 @@ export class UsersService {
   }
 
   // put request
-updatePost(userId:any,postData:any): Observable<any>{
+updateUser(userId:any,postData:any): Observable<any>{
   return this.http.put(`${this.apiUrl}/api/updateUser/${userId}`,postData)
 }
 
 // delete request (delete user by id)
-deletePost(userId:any): Observable<any>{
-  return this.http.delete(`${this.apiUrl}/api/deleteUser/${userId}`);
+deleteUser(userId:any): Observable<any>{
+  return this.http.post(`${this.apiUrl}/api/deleteUser/${userId}`,userId);
 }
 
 

@@ -218,7 +218,7 @@ const deleteUserWithId = async (req, res) => {
            #swagger.description = 'Delete User with Id .' */
     try {
         await connectDB();
-        const userId = req.params.id
+        const userId = req.params.id  
         if (!ObjectId.isValid(userId)) {
             return res.status(400).json({ message: "Invalid User Id" });
         }

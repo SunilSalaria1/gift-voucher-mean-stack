@@ -113,7 +113,7 @@ export class AddEmpCodeComponent {
     this.isEmailAlreadyExist = false;
     if (this.addEmployeeCodeForm.valid) {
       const newPost = this.addEmployeeCodeForm.value;
-      this._usersService.createPost(newPost).subscribe(
+      this._usersService.registerUser(newPost).subscribe(
         (response) => {
           console.log('Post created:', response);
           this.dialogEmployee = response.user;
