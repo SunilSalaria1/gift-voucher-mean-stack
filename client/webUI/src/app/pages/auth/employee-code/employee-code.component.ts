@@ -46,7 +46,7 @@ export class EmployeeCodeComponent implements OnInit {
     );
     console.log(matchedEmployee);
     if (this.employeeCodeForm.valid && matchedEmployee) {          
-        localStorage.setItem('loginUser',JSON.stringify(matchedEmployee))
+        localStorage.setItem('loginUser',JSON.stringify(matchedEmployee))        
         this.router.navigate(['/select-gift-voucher']);
         // Show success snackbar
         this.snackBar.open('Enjoy your exclusive rewards.', 'close', {

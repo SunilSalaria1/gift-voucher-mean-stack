@@ -13,6 +13,15 @@ export class UsersService {
   login(data:any): Observable<any> {
     return this.http.post(`${this.apiUrl}/api/loginUser`, data);
   }
+  // Store token
+  saveToken(token: string): void {
+    localStorage.setItem('authToken', token);
+  }
+  // Get stored token
+  getToken(): string | null {
+    return localStorage.getItem('authToken');
+  }
+
 
   // POST request
   registerUser(postData: any): Observable<any> {
@@ -38,6 +47,19 @@ deleteUser(userId:any): Observable<any>{
   return this.http.post(`${this.apiUrl}/api/deleteUser/${userId}`,userId);
 }
 
+
+// logOut request
+logout(): void {
+  this.http.post(`${this.apiUrl}/api/logoutUser`, {}).subscribe({
+    next: () => {
+      localStorage.removeItem("authToken");
+      localStorage.removeItem('loginUser') // Remove token      
+    },
+    error: (err) => {
+      console.error('Logout failed', err);
+    }
+  });
+}
 
 
 // local file data

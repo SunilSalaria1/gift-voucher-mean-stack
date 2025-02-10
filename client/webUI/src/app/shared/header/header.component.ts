@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import {MatMenuModule} from '@angular/material/menu';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-header',
@@ -15,9 +16,10 @@ import {MatMenuModule} from '@angular/material/menu';
 export class HeaderComponent {
   userData:any=localStorage.getItem('loginUser');
   user:any=JSON.parse(this.userData);
+  private _usersService = inject(UsersService)
 
-  logOut() {
-    localStorage.removeItem('loginUser')
+  logOut() {    
+    this._usersService.logout();
   }
 
   @Output() menuClicked = new EventEmitter<void>();

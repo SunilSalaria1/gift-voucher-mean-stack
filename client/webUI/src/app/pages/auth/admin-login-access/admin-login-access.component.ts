@@ -53,7 +53,7 @@ export class AdminLoginAccessComponent {
         (response) => {
           console.log(response);
           localStorage.setItem('loginUser', JSON.stringify(response.userDetails));
-          localStorage.setItem('token', JSON.stringify(response.token));
+          this._usersService.saveToken(response.token); // Store token
           this.router.navigate(['/admin/dashboard']);
           this.snackBar.open('Welcome! Now you can oversee the system.', 'Close', {
             duration: 5000,
