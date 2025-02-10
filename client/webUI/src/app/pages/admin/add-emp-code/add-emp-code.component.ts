@@ -50,8 +50,8 @@ export class AddEmpCodeComponent {
   departments = ['HR', 'Frontend', 'Backend', 'Audit', 'Bidding'];
   generatedCode: string | null = null;
   addEmployeeCodeForm!: FormGroup;
-  dialogEmployee:any;
-  isEmailAlreadyExist:boolean=false;
+  dialogEmployee: any;
+  isEmailAlreadyExist: boolean = false;
   private _usersService = inject(UsersService)
   constructor(
     private formBuilder: FormBuilder, private snackBar: MatSnackBar, private router: Router
@@ -77,30 +77,22 @@ export class AddEmpCodeComponent {
       this.dialogRef.close(); // This closes the dialog
       this.router.navigate(['/admin/generate-emp-code']);
     }
-    
-    // success snackbar
-    this.snackBar.open('You have successfully generated the employee code!.', 'close', {
-      duration: 5000,
-      panelClass: ['snackbar-success'],
-      horizontalPosition: "center",
-      verticalPosition: "top",
-    });
   }
   // decline button
   decline() {
     debugger;
     if (this.addEmployeeCodeForm.valid) {
-      this. dialogEmployee = ""
+      this.dialogEmployee = ""
       this.addEmployeeCodeForm.reset()
       if (this.dialogRef) {
         this.dialogRef.close(); // This closes the dialog
         // error snackbar
-      this.snackBar.open('You have successfully deleted the generated employee code!.', 'close', {
-        duration: 5000,
-        panelClass: ['snackbar-error'],
-        horizontalPosition: "center",
-        verticalPosition: "top",
-      });
+        // this.snackBar.open('You have successfully deleted the generated employee code!.', 'close', {
+        //   duration: 5000,
+        //   panelClass: ['snackbar-error'],
+        //   horizontalPosition: "center",
+        //   verticalPosition: "top",
+        // });
       }
     }
   }
@@ -118,32 +110,39 @@ export class AddEmpCodeComponent {
 
   // Call the openDialog method conditionally
   submitForm(): void {
-    this.isEmailAlreadyExist=false;
+    this.isEmailAlreadyExist = false;
     if (this.addEmployeeCodeForm.valid) {
-      const newPost = this.addEmployeeCodeForm.value;  
+      const newPost = this.addEmployeeCodeForm.value;
       this._usersService.createPost(newPost).subscribe(
         (response) => {
           console.log('Post created:', response);
-          this.dialogEmployee=response.user;
+          this.dialogEmployee = response.user;
           console.log(this.dialogEmployee)
-          this.openDialog(); 
+          this.openDialog();
+          // success snackbar
+          this.snackBar.open('You have successfully generated the employee code!.', 'close', {
+            duration: 5000,
+            panelClass: ['snackbar-success'],
+            horizontalPosition: "center",
+            verticalPosition: "top",
+          });
         },
-        (error) => {         
-            let errorMessage =error.error.error;
-            if(errorMessage=="Email already exists"){
-              this.isEmailAlreadyExist=true;
-            }
-            this.snackBar.open(errorMessage, 'Close', {
-              duration: 5000,
-              panelClass: ['snackbar-error'],
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-            }); 
+        (error) => {
+          let errorMessage = error.error.error;
+          if (errorMessage == "Email already exists") {
+            this.isEmailAlreadyExist = true;
+          }
+          this.snackBar.open(errorMessage, 'Close', {
+            duration: 5000,
+            panelClass: ['snackbar-error'],
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          });
         }
       );
     }
   }
-  
+
 }
 
 
