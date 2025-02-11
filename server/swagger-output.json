@@ -204,7 +204,7 @@
       }
     },
     "/api/getAllAdmins": {
-      "post": {
+      "get": {
         "tags": [
           "Admin"
         ],
@@ -312,11 +312,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Mon Feb 10 2025 21:41:05 GMT+0530 (India Standard Time)"
+          "example": "Tue Feb 11 2025 14:52:54 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Mon Feb 10 2025 21:41:05 GMT+0530 (India Standard Time)"
+          "example": "Tue Feb 11 2025 14:52:54 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
@@ -379,8 +379,8 @@
           "example": "67a4af8cf19f72c03d3d4547"
         },
         "isAdmin": {
-          "type": "boolean",
-          "example": true
+          "type": "string",
+          "example": "true"
         }
       }
     }
