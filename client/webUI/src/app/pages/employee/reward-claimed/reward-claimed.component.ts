@@ -2,7 +2,7 @@ import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { EmployeeFooterComponent } from '../../../shared/employee-footer/employee-footer.component';
 import { EmployeeHeaderComponent } from '../../../shared/employee-header/employee-header.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -20,7 +20,7 @@ import { UsersService } from '../../../services/users.service';
   styleUrl: './reward-claimed.component.css'
 })
 export class RewardClaimedComponent {
-  constructor( private formBuilder: FormBuilder,) { }
+  constructor( private formBuilder: FormBuilder,private router: Router) { }
    private _usersService = inject(UsersService)
   submitted: boolean = false;
   numbers = [1, 2, 3, 4, 5];
@@ -72,6 +72,8 @@ export class RewardClaimedComponent {
     if (this.feedbackForm.valid) {
       console.log(this.feedbackForm.value); // Log form values
       this.dialog.closeAll(); // Close dialog
+      this._usersService.logout();
+      this.router.navigateByUrl('/home');      
     } else {
       // this.feedbackForm.markAllAsTouched(); // Trigger validation messages
       this.submitted = true;
