@@ -12,7 +12,7 @@ userRouter.get("/users", getAllUsers)
 userRouter.get("/getUser/:id", getUserWithId)
 userRouter.put("/updateUser/:id", updateUser)
 userRouter.post("/deleteUser/:id", deleteUserWithId)
-userRouter.post("/createAdmin", createAdmin)
+userRouter.post("/createAdminRemoveAdmin", createAdmin)
 userRouter.get("/getAllAdmins", getAllAdmins)
 
 module.exports = userRouter;

@@ -275,25 +275,38 @@ const createAdmin = async (req, res) => {
 
         const { id, isAdmin } = req.body;
 
-        if (!id || isAdmin != "true") {
-            return res.status(400).json({ message: "Id or isAdmin is missing or not true" });
+        if (!id || !isAdmin) {
+            return res.status(400).json({ message: "Id or isAdmin is missing" });
         }
 
         if (!ObjectId.isValid(id)) {
             return res.status(400).json({ message: "Invalid User Id" });
         }
+        if (isAdmin == 'true') {
+            const result = await usersCollection.findOneAndUpdate(
+                { _id: new ObjectId(id) },
+                { $set: { isAdmin: true } },
+                { returnDocument: "after" }
+            );
 
-        const result = await usersCollection.findOneAndUpdate(
-            { _id: new ObjectId(id) },
-            { $set: { isAdmin: true } },
-            { returnDocument: "after" }
-        );
+            if (!result) {
+                return res.status(404).json({ message: "User not found" });
+            }
 
-        if (!result) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(200).json({ message: "Admin Created successfully", admin: result });
+        } else {
+            const result = await usersCollection.findOneAndUpdate(
+                { _id: new ObjectId(id) },
+                { $set: { isAdmin: false } },
+                { returnDocument: "after" }
+            );
+
+            if (!result) {
+                return res.status(404).json({ message: "User not found" });
+            }
+
+            return res.status(200).json({ message: "Admin deleted successfully" });
         }
-
-        return res.status(200).json({ message: "Admin Created successfully", admin: result });
     } catch (e) {
         console.log(e);
         if (e instanceof ZodError) {
