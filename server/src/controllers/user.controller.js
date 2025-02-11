@@ -200,7 +200,7 @@ const getAllUsers = async (req, res) => {
            #swagger.description = 'Get all users.' */
     try {
         await connectDB();
-        const users = await usersCollection.find({ isAdmin: false, isDeleted: false }).toArray();
+        const users = await usersCollection.find({ isDeleted: false }).toArray();
         // const users = await usersCollection.find().toArray();
 
         res.send(users)
