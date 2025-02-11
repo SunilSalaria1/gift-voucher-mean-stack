@@ -21,6 +21,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { UsersService } from '../../../services/users.service';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @Component({
   selector: 'app-generate-emp-code',
@@ -37,6 +38,7 @@ import { UsersService } from '../../../services/users.service';
     MatCardModule,
     MatButtonModule,
     ClipboardModule,
+    MatButtonToggleModule,
   ],
   templateUrl: './generate-emp-code.component.html',
   styleUrl: './generate-emp-code.component.css',
@@ -80,9 +82,35 @@ export class GenerateEmpCodeComponent implements AfterViewInit {
     );
   }
 
+  // Admin toggle
+  onAdminToggleChange(selectedValue: string, employeeId: any) {
+    let payload: any;
+    if (selectedValue === 'yes') {
+      payload = {
+        id: employeeId,
+        isAdmin: "true"
+      }
+    }else if(selectedValue === 'no'){
+      payload = {
+        id: employeeId,
+        isAdmin: "false"
+      }
+    }    
+    console.log(payload)
+    this._usersService.createAdmin(payload).subscribe({
+      next: (response) => {
+        console.log("access granted :", response)
+      },
+      error: (error) => {
+        console.error('error while granting admin access:', error);
+      }
+    }
+    )
+  }
+
   // dialog box
-  openDialog(id:string): void {
-    this.selectedEmpId=id;
+  openDialog(id: string): void {
+    this.selectedEmpId = id;
     // Use the TemplateRef for the dialog
     const dialogRef = this.dialog.open(this.dialogTemplate);
 
@@ -122,6 +150,7 @@ export class GenerateEmpCodeComponent implements AfterViewInit {
     'department',
     'dob',
     'joiningDate',
+    'isAdmin',
     'Action',
   ];
 

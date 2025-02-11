@@ -16,7 +16,7 @@ import { EmployeeHeaderComponent } from '../../../shared/employee-header/employe
 @Component({
   selector: 'app-employee-code',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, FormsModule, MatInputModule, MatFormFieldModule, RouterLink, ReactiveFormsModule,EmployeeFooterComponent,EmployeeHeaderComponent ],
+  imports: [MatButtonModule, MatIconModule, FormsModule, MatInputModule, MatFormFieldModule, RouterLink, ReactiveFormsModule, EmployeeFooterComponent, EmployeeHeaderComponent],
   templateUrl: './employee-code.component.html',
   styleUrl: './employee-code.component.css'
 })
@@ -30,42 +30,52 @@ export class EmployeeCodeComponent implements OnInit {
   // Initialize the form group inside ngOnInit to avoid 'formBuilder' is used before its initialization
   ngOnInit(): void {
     this.employeeCodeForm = this.formBuilder.group({
-      employeeCode: ['', Validators.required],     
+      employeeCode: ['', Validators.required],
     });
     // user data
-    this._usersService.getUsers().subscribe(response=>{
-      this.userData=response;
+    this._usersService.getUsers().subscribe(response => {
+      this.userData = response;
     })
   }
 
-   
+
   //on submit
   onSubmit() {
-    const matchedEmployee = this.userData.employee.find(
-      (emp: { empCode: any }) => emp.empCode === this.employeeCodeForm.value.employeeCode
-    );
-    console.log(matchedEmployee);
-    if (this.employeeCodeForm.valid && matchedEmployee) {          
-        localStorage.setItem('loginUser',JSON.stringify(matchedEmployee))        
-        this.router.navigate(['/select-gift-voucher']);
-        // Show success snackbar
-        this.snackBar.open('Enjoy your exclusive rewards.', 'close', {
-          duration: 5000,
-          panelClass: ['snackbar-success'],
-          horizontalPosition: "center",
-          verticalPosition: "top",
-        });
-      } else {
-        // Show error snackbar
-        this.snackBar.open('Invalid employee code, try again.', 'close', {
-          duration: 5000,
-          panelClass: ['snackbar-error'],
-          horizontalPosition: "center",
-          verticalPosition: "top",
-        });
-      }
+    // const matchedEmployee = this.userData.employee.find(
+    //   (emp: { empCode: any }) => emp.empCode === this.employeeCodeForm.value.employeeCode
+    // );
+    // console.log(matchedEmployee);
+    if (this.employeeCodeForm.valid) {
+      const data = {
+        empCode: this.employeeCodeForm.value.employeeCode,
+      };
+
+      this._usersService.login(data).subscribe(
+        (response) => {
+          console.log(response);
+          localStorage.setItem('loginUser', JSON.stringify(response.userDetails));
+          this._usersService.saveToken(response.token); // Store token
+          this.router.navigate(['/select-gift-voucher']);
+          this.snackBar.open('Welcome! Now you can access your rewards.', 'Close', {
+            duration: 5000,
+            panelClass: ['snackbar-success'],
+            horizontalPosition: "center",
+            verticalPosition: "top",
+          });
+        },
+        (error) => {
+          console.error('Login failed:', error);
+          this.snackBar.open('Invalid employee code, try again.', 'Close', {
+            duration: 5000,
+            panelClass: ['snackbar-error'],
+            horizontalPosition: "center",
+            verticalPosition: "top",
+          });
+        }
+      );
     }
   }
+}
 
 
 

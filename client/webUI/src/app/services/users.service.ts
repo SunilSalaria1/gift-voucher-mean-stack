@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService {
+export class UsersService {  
   private apiUrl = 'http://localhost:3000'
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private snackBar: MatSnackBar) { }
   // login
   login(data:any): Observable<any> {
     return this.http.post(`${this.apiUrl}/api/loginUser`, data);
@@ -47,13 +48,30 @@ deleteUser(userId:any): Observable<any>{
   return this.http.post(`${this.apiUrl}/api/deleteUser/${userId}`,userId);
 }
 
+// create admin
+createAdmin(data:any):Observable<any>{
+  return this.http.post(`${this.apiUrl}/api/createAdmin`,data)
+}
+
+// create admin
+getAllAdmins():Observable<any>{
+  return this.http.get(`${this.apiUrl}/api/getAllAdmins`)
+}
+
 
 // logOut request
 logout(): void {
   this.http.post(`${this.apiUrl}/api/logoutUser`, {}).subscribe({
     next: () => {
       localStorage.removeItem("authToken");
-      localStorage.removeItem('loginUser') // Remove token      
+      localStorage.removeItem('loginUser') // Remove token
+      //success snackbar
+      this.snackBar.open('You have successfully logged out.', 'close', {
+        duration: 5000,
+        panelClass: ['snackbar-success'],
+        horizontalPosition: "center",
+        verticalPosition: "top",
+      });      
     },
     error: (err) => {
       console.error('Logout failed', err);

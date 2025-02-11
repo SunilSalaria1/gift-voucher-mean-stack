@@ -5,12 +5,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { EmployeeFooterComponent } from '../../../shared/employee-footer/employee-footer.component';
 import { EmployeeHeaderComponent } from '../../../shared/employee-header/employee-header.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
+import { UsersService } from '../../../services/users.service';
 
 @Component({
   selector: 'app-reward-claimed',
@@ -20,7 +20,8 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './reward-claimed.component.css'
 })
 export class RewardClaimedComponent {
-  constructor(private snackBar: MatSnackBar, private formBuilder: FormBuilder,) { }
+  constructor( private formBuilder: FormBuilder,) { }
+   private _usersService = inject(UsersService)
   submitted: boolean = false;
   numbers = [1, 2, 3, 4, 5];
   feedbackForm!: FormGroup;
@@ -40,14 +41,7 @@ export class RewardClaimedComponent {
 
   // back to home
   logOut() {
-    localStorage.removeItem('loginUser')
-    // show success snackbar
-    this.snackBar.open('You have successfully logged out.', 'close', {
-      duration: 5000,
-      panelClass: ['snackbar-success'],
-      horizontalPosition: "center",
-      verticalPosition: "top",
-    });
+    this._usersService.logout();    
   }
 
 
