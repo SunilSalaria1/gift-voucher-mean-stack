@@ -17,6 +17,18 @@ export class HeaderComponent {
   userData:any=localStorage.getItem('loginUser');
   user:any=JSON.parse(this.userData);
   private _usersService = inject(UsersService)
+  loginUser=localStorage.getItem("loginUser")
+  loggedUser: any;
+
+ngOnInit() {
+  const storedUser = this.loginUser;
+  if (storedUser) {
+    this.loggedUser = JSON.parse(storedUser);
+  } else {
+    this.loggedUser = {}; // or provide default values
+  }
+}
+
 
   logOut() {    
     this._usersService.logout();
