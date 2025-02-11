@@ -37,14 +37,14 @@
                 <!-- mat menu -->
                 <div>
                     <mat-menu #menu="matMenu">
+                        <button mat-menu-item >
+                            <mat-icon>person</mat-icon>
+                            <span [routerLink]="['/admin/settings']">Profile</span>
+                        </button>  
                         <button mat-menu-item>
                             <mat-icon>power_settings_new</mat-icon>
                             <span [routerLink]="['/admin-login-access']" (click)="logOut()">Logout</span>
-                        </button>
-                        <button mat-menu-item >
-                            <mat-icon>person</mat-icon>
-                            <span [routerLink]="['/admin/settings']">Admin Profile</span>
-                        </button>                        
+                        </button>                                              
                     </mat-menu>
                 </div>
                 <!-- /mat menu -->
