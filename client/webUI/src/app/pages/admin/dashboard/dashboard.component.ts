@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
 import { Color, LegendPosition, NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
+import { UsersService } from '../../../services/users.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,6 +13,19 @@ import { Color, LegendPosition, NgxChartsModule, ScaleType } from '@swimlane/ngx
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent {
+ private _usersService = inject(UsersService)
+ totalEmployees:any;
+  ngOnInit() {
+    this._usersService.getUser().subscribe(
+      (employees) => {
+        this.totalEmployees = employees.length; // Set data here
+        console.log(this.totalEmployees)        
+      },
+      (error) => {
+        console.error('Error fetching employees', error);
+      }
+    );
+  }
   // pie chart
   view: [number, number] = [700, 400];  
 
