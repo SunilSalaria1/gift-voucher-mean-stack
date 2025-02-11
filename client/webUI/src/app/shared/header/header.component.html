@@ -6,7 +6,7 @@
         </div>
         <!-- /menu button -->
         <div class="header-links d-flex">
-            <div class="d-flex align-items-center">
+            <div class="d-flex align-items-baseline">
                 <!-- notifications -->
                 <div [matMenuTriggerFor]="notify" class="notifications">
                     <mat-icon class="notifications">notifications</mat-icon>
@@ -41,14 +41,10 @@
                             <mat-icon>power_settings_new</mat-icon>
                             <span [routerLink]="['/admin-login-access']" (click)="logOut()">Logout</span>
                         </button>
-                        <button mat-menu-item disabled>
-                            <mat-icon>voicemail</mat-icon>
-                            <span>Check voice mail</span>
-                        </button>
-                        <button mat-menu-item>
-                            <mat-icon>notifications_off</mat-icon>
-                            <span>Disable alerts</span>
-                        </button>
+                        <button mat-menu-item >
+                            <mat-icon>person</mat-icon>
+                            <span [routerLink]="['/admin/settings']">Admin Profile</span>
+                        </button>                        
                     </mat-menu>
                 </div>
                 <!-- /mat menu -->

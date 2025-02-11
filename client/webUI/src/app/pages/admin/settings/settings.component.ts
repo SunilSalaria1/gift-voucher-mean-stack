@@ -45,7 +45,6 @@ export class SettingsComponent {
   selectedEmpId: string | null = null;
   // Create a map to store copied state for each coupon code
   copiedMap = new Map<string, boolean>();
-
   // ngOnInIt
   ngOnInit() {
     this.dataSource = new MatTableDataSource<any>([]); // Initialize with an empty array
@@ -60,7 +59,6 @@ export class SettingsComponent {
       }
     );
   }
-
   // Admin toggle
   onAdminToggleChange(selectedValue: string, employeeId: any) {
     let payload: any;
@@ -86,13 +84,11 @@ export class SettingsComponent {
     }
     )
   }
-
   // dialog box
   openDialog(id: string): void {
     this.selectedEmpId = id;
     // Use the TemplateRef for the dialog
     const dialogRef = this.dialog.open(this.dialogTemplate);
-
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
