@@ -59,31 +59,7 @@ export class SettingsComponent {
       }
     );
   }
-  // Admin toggle
-  onAdminToggleChange(selectedValue: string, employeeId: any) {
-    let payload: any;
-    if (selectedValue === 'yes') {
-      payload = {
-        id: employeeId,
-        isAdmin: "true"
-      }
-    } else if (selectedValue === 'no') {
-      payload = {
-        id: employeeId,
-        isAdmin: "false"
-      }
-    }
-    console.log(payload)
-    this._usersService.createAdmin(payload).subscribe({
-      next: (response) => {
-        console.log("access granted :", response)
-      },
-      error: (error) => {
-        console.error('error while granting admin access:', error);
-      }
-    }
-    )
-  }
+  
   // dialog box
   openDialog(id: string): void {
     this.selectedEmpId = id;
@@ -93,23 +69,27 @@ export class SettingsComponent {
       console.log(`Dialog result: ${result}`);
     });
   }
-  // matDelete() {
-  //   this._usersService.deleteUser(this.selectedEmpId).subscribe(
-  //     (data: any) => {
-  //       console.log('delete request is successfull', data)
-  //     })
-  //   // Remove the deleted user from the table
-  //   this.userData = this.userData.filter(user => user._id !== this.selectedEmpId);
-  //   this.dataSource.data = [...this.userData];
-
-  //   // Show success snackbar
-  //   this.snackBar.open('You have successfully deleted the reward!.', 'close', {
-  //     duration: 5000,
-  //     panelClass: ['snackbar-success'],
-  //     horizontalPosition: "center",
-  //     verticalPosition: "top",
-  //   });
-  // }
+  matDelete() {
+    let payload:any;
+    payload={
+      id:this.selectedEmpId,
+      isAdmin:'false',
+    }
+    this._usersService.createAdminRemoveAdmin(payload).subscribe(
+      (data: any) => {
+        console.log('delete request is successfull', data)
+      })
+    // Remove the deleted user from the table
+    this.userData = this.userData.filter(user => user._id !== this.selectedEmpId);
+    this.dataSource.data = [...this.userData];
+    // Show success snackbar
+    this.snackBar.open('You have successfully deleted the reward!.', 'close', {
+      duration: 5000,
+      panelClass: ['snackbar-success'],
+      horizontalPosition: "center",
+      verticalPosition: "top",
+    });
+  }
   // this is for the filter the table data
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

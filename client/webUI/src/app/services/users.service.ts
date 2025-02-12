@@ -49,8 +49,8 @@ deleteUser(userId:any): Observable<any>{
 }
 
 // create admin
-createAdmin(data:any):Observable<any>{
-  return this.http.post(`${this.apiUrl}/api/createAdmin`,data)
+createAdminRemoveAdmin(data:any):Observable<any>{
+  return this.http.post(`${this.apiUrl}/api/createAdminRemoveAdmin`,data)
 }
 
 // create admin

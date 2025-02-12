@@ -97,14 +97,13 @@ export class GenerateEmpCodeComponent implements AfterViewInit {
       }
     }    
     console.log(payload)
-    this._usersService.createAdmin(payload).subscribe({
-      next: (response) => {
+    this._usersService.createAdminRemoveAdmin(payload).subscribe(
+     (response) => {
         console.log("access granted :", response)
       },
-      error: (error) => {
+      (error) => {
         console.error('error while granting admin access:', error);
-      }
-    }
+      }    
     )
   }
 
@@ -113,7 +112,6 @@ export class GenerateEmpCodeComponent implements AfterViewInit {
     this.selectedEmpId = id;
     // Use the TemplateRef for the dialog
     const dialogRef = this.dialog.open(this.dialogTemplate);
-
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
