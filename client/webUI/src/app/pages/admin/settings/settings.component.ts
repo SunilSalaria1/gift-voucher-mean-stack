@@ -94,7 +94,7 @@ export class SettingsComponent {
     this.userData = this.userData.filter(user => user._id !== this.selectedEmpId);
     this.dataSource.data = [...this.userData];
     // Show success snackbar
-    this.snackBar.open('You have successfully deleted the reward!.', 'close', {
+    this.snackBar.open('You have successfully deleted the admin!.', 'close', {
       duration: 5000,
       panelClass: ['snackbar-success'],
       horizontalPosition: "center",
