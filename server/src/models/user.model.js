@@ -24,7 +24,8 @@ const userSchema = z.object({
         .min(6, { message: "Password is required & must greater than 6 digits" }),
     isAdmin: z.boolean().default(false),
     isDeleted: z.boolean().default(false),
-    tokens: z.array(z.string()).optional()
+    tokens: z.array(z.string()).optional(),
+    isPrimaryAdmin: z.boolean().default(false)
 }).strict(); // 🔹 This will reject extra fields
 
 

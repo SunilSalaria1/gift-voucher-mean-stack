@@ -54,6 +54,20 @@ const register = async (req, res) => {
                 description: 'Invalid credentials'
                 }
                 */
+    //     try {
+    //         await connectDB();
+    //         // const db = client.db("your_database_name"); // Replace with your database name
+    //         // const collection = db.collection("your_collection_name"); // Replace with your collection name
+
+
+
+    //         console.log(`${result.modifiedCount} documents updated`);
+    //     } catch (err) {
+    //         console.error("Error updating documents:", err);
+    //     } finally {
+    //         await client.close();
+    //     }
+    // }
     try {
         await connectDB();
         // Step 1: Generate empCode
@@ -91,7 +105,7 @@ const register = async (req, res) => {
         if (existingUser) {
             return res.status(400).json({ error: "Email already exists" }); // 🔹 Added return
         }
-        // Insert user into MongoDB
+
         const result = await usersCollection.insertOne(validation.data);
         const insertedDocument = await usersCollection.findOne({ _id: result.insertedId });
         return res.status(201).json({
@@ -281,6 +295,11 @@ const createAdmin = async (req, res) => {
 
         if (!ObjectId.isValid(id)) {
             return res.status(400).json({ message: "Invalid User Id" });
+        }
+        const user = await usersCollection.findOne(
+            { _id: new ObjectId(id) })
+        if (user.isPrimaryAdmin == true) {
+            return res.status(401).json({ message: "Unauthorised Access" });
         }
         if (isAdmin == 'true') {
             const result = await usersCollection.findOneAndUpdate(

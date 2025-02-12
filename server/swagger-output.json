@@ -170,7 +170,7 @@
         }
       }
     },
-    "/api/createAdmin": {
+    "/api/createAdminRemoveAdmin": {
       "post": {
         "tags": [
           "Admin"
@@ -193,6 +193,9 @@
           },
           "400": {
             "description": "Invalid input"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "404": {
             "description": "User not found"
@@ -312,11 +315,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Tue Feb 11 2025 15:26:47 GMT+0530 (India Standard Time)"
+          "example": "Wed Feb 12 2025 15:59:50 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Tue Feb 11 2025 15:26:47 GMT+0530 (India Standard Time)"
+          "example": "Wed Feb 12 2025 15:59:50 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
