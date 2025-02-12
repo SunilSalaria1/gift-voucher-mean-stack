@@ -38,12 +38,17 @@
                 <div>
                     <mat-menu #menu="matMenu">
                         <button mat-menu-item >
-                            <mat-icon>person</mat-icon>
-                            <span [routerLink]="['/admin/settings']">Profile</span>
+                            <div [routerLink]="['/admin/settings']" class="d-flex align-items-center">
+                                <mat-icon>person</mat-icon>
+                                <span >Profile</span>
+                            </div>
+                            
                         </button>  
                         <button mat-menu-item>
-                            <mat-icon>power_settings_new</mat-icon>
-                            <span [routerLink]="['/admin-login-access']" (click)="logOut()">Logout</span>
+                            <div [routerLink]="['/admin-login-access']" (click)="logOut()" class="d-flex align-items-center">
+                                <mat-icon>power_settings_new</mat-icon>
+                                <span >Logout</span>
+                            </div>                            
                         </button>                                              
                     </mat-menu>
                 </div>
