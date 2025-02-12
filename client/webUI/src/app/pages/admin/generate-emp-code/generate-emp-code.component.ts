@@ -83,16 +83,27 @@ export class GenerateEmpCodeComponent implements AfterViewInit {
   }
 
   // Admin toggle
-  onAdminToggleChange(selectedValue: string, employeeId: any) {
+  onAdminToggleChange(selectedValue: string, employee: any) {
+    // Check if the employee is a Primary Admin
+  if (employee.isPrimaryAdmin && selectedValue === 'no') {
+    // Show a warning message and prevent downgrade
+    this.snackBar.open("Primary Admin cannot be removed!", 'Close', {
+      duration: 3000,
+      panelClass: ['snackbar-warning'],
+      horizontalPosition: "center",
+      verticalPosition: "top",
+    });
+    return; // Stop execution
+  }
     let payload: any;
     if (selectedValue === 'yes') {
       payload = {
-        id: employeeId,
+        id: employee._id,
         isAdmin: "true"
       }
     }else if(selectedValue === 'no'){
       payload = {
-        id: employeeId,
+        id: employee._id,
         isAdmin: "false"
       }
     }    

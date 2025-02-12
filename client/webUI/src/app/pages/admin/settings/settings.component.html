@@ -83,7 +83,7 @@
           <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Action</th>
           <td mat-cell *matCellDef="let element">
             <div class="d-flex">
-              <span (click)="openDialog(element._id)"
+              <span (click)="openDialog(element)"  [ngClass]="{'disabled': element.isPrimaryAdmin === true}"
                 class="border border-light p-2 shadow-sm table-action-buttons cursor-pointer">
                 <svg width="16" height="16" viewBox="0 0 12.375 13.75" xmlns="http://www.w3.org/2000/svg">
                   <path

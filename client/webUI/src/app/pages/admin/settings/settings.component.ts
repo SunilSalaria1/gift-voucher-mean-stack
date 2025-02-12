@@ -50,6 +50,10 @@ export class SettingsComponent {
     this.dataSource = new MatTableDataSource<any>([]); // Initialize with an empty array
     this._usersService.getAllAdmins().subscribe(
       (data) => {
+        // Sort users so that Primary Admins are always at the top
+      this.userData = data.sort((a, b) => {
+        return b.isPrimaryAdmin - a.isPrimaryAdmin; // True (1) comes before False (0)
+      });
         this.userData = data; // Set data here
         console.log(this.userData)
         this.dataSource.data = this.userData;
@@ -61,14 +65,21 @@ export class SettingsComponent {
   }
   
   // dialog box
-  openDialog(id: string): void {
-    this.selectedEmpId = id;
+  openDialog(element:any): void {
+    // Check if the user is a primary admin
+  if (element.isPrimaryAdmin === true) {
+    console.log('Primary admin cannot be deleted');
+    return;
+  }
+    this.selectedEmpId = element._id;
     // Use the TemplateRef for the dialog
     const dialogRef = this.dialog.open(this.dialogTemplate);
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
   }
+
+ 
   matDelete() {
     let payload:any;
     payload={
