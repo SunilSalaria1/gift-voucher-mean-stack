@@ -5,13 +5,25 @@
     margin-top: 10px;
 }
 
-.user-image {
-    width: 40px;
+.user-initials {
+    /* width: 40px;
     height: 40px;
     border: 1px solid white;
     background: antiquewhite;
     border-radius: 50%;
     object-fit: cover;
+    margin-right: 10px; */
+    width: 40px;
+    height: 40px;
+    border: 1px solid white;
+    background: antiquewhite;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 8px;
     margin-right: 10px;
 }
 .description {   

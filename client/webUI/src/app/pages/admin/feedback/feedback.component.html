@@ -9,7 +9,7 @@
                     <!-- Star Ratings -->
                     <div>
                         <ng-container *ngFor="let star of getStars(card.rating)">
-                            <mat-icon>{{ star }}</mat-icon>
+                            <mat-icon [ngClass]="{ 'active-star': star === 'star' }">{{ star }}</mat-icon>
                         </ng-container>
                     </div>
                     <!-- Description -->
@@ -19,7 +19,7 @@
                     <!-- User Image and Name -->
                     <div>
                         <div class="user-info">
-                            <img [src]="card.image" alt="User Image" class="user-image shadow-sm">
+                            <div class="user-initials  shadow-sm">{{ getInitials(card.name) }}</div>
                             <span class="user-name fs-14">{{ card.name }}</span>
                         </div>
                         <div class="emp-code fs-14 ps-5">{{ card.empCode }}</div>

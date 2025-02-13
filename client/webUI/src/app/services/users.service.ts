@@ -63,6 +63,11 @@ addFeedback(data:any):Observable<any>{
   return this.http.post(`${this.apiUrl}/api/addFeedback`,data)
 }
 
+// get feedbacks
+getFeedbacks():Observable<any>{
+  return this.http.get(`${this.apiUrl}/api/getFeedbacks`)
+}
+
 
 // logOut request
 logout(): void {
