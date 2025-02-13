@@ -48,14 +48,19 @@ deleteUser(userId:any): Observable<any>{
   return this.http.post(`${this.apiUrl}/api/deleteUser/${userId}`,userId);
 }
 
-// create admin
+// create and remove admin
 createAdminRemoveAdmin(data:any):Observable<any>{
   return this.http.post(`${this.apiUrl}/api/createAdminRemoveAdmin`,data)
 }
 
-// create admin
+// get all admins
 getAllAdmins():Observable<any>{
   return this.http.get(`${this.apiUrl}/api/getAllAdmins`)
+}
+
+// add feedback
+addFeedback(data:any):Observable<any>{
+  return this.http.post(`${this.apiUrl}/api/addFeedback`,data)
 }
 
 

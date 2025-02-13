@@ -48,6 +48,7 @@ export class EmployeeCodeComponent implements OnInit {
     if (this.employeeCodeForm.valid) {
       const data = {
         empCode: this.employeeCodeForm.value.employeeCode,
+        role:"employee"
       };
 
       this._usersService.login(data).subscribe(

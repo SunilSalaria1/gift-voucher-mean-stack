@@ -46,7 +46,8 @@ export class AdminLoginAccessComponent {
       console.log('Employee Key:', this.administratorForm.value.administratorKey);  
       const data = {
         empCode: this.administratorForm.value.administratorCode,
-        password: this.administratorForm.value.administratorKey
+        password: this.administratorForm.value.administratorKey,
+        role:"admin"
       };  
       console.log(data);      
       this._usersService.login(data).subscribe(

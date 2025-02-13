@@ -27,6 +27,7 @@ export class RewardClaimedComponent {
   feedbackForm!: FormGroup;
   @ViewChild('content') dialogTemplate!: TemplateRef<any>;
   readonly dialog = inject(MatDialog);
+  loggedUser= JSON.parse(localStorage.getItem('loginUser') || '{}');  
 
   ngOnInit(): void {
     // form
@@ -70,6 +71,21 @@ export class RewardClaimedComponent {
   // Method to handle Send button click (when form is valid)
   send(): void {
     if (this.feedbackForm.valid) {
+      // add feedback
+      let payload:any;
+      payload={
+        userId:this.loggedUser._id,
+        rating:JSON.stringify(this.selectedNumber),
+        description:this.feedbackForm.value.productDescription,        
+      }
+      this._usersService.addFeedback(payload).subscribe(
+        (response:any)=>{
+console.log("add feedback successfull:",response)
+        },
+        (error)=>{
+          console.error('error in adding feedback:',error)
+        }
+      )
       console.log(this.feedbackForm.value); // Log form values
       this.dialog.closeAll(); // Close dialog
       this._usersService.logout();
