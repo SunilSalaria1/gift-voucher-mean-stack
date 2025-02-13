@@ -424,6 +424,22 @@
           }
         }
       }
+    },
+    "/api/getFeedbacks": {
+      "get": {
+        "tags": [
+          "Feedback section"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -432,11 +448,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Thu Feb 13 2025 10:20:45 GMT+0530 (India Standard Time)"
+          "example": "Thu Feb 13 2025 16:44:12 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Thu Feb 13 2025 10:20:45 GMT+0530 (India Standard Time)"
+          "example": "Thu Feb 13 2025 16:44:12 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
