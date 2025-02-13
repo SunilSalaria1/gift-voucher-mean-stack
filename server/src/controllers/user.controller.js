@@ -5,6 +5,7 @@ const { connectDB, db } = require('../config/db.config'); // Import db from db.j
 const { ObjectId } = require('mongodb');
 
 const usersCollection = db.collection('users');
+
 const crypto = require('crypto');
 
 const bcrypt = require("bcryptjs");
@@ -54,20 +55,6 @@ const register = async (req, res) => {
                 description: 'Invalid credentials'
                 }
                 */
-    //     try {
-    //         await connectDB();
-    //         // const db = client.db("your_database_name"); // Replace with your database name
-    //         // const collection = db.collection("your_collection_name"); // Replace with your collection name
-
-
-
-    //         console.log(`${result.modifiedCount} documents updated`);
-    //     } catch (err) {
-    //         console.error("Error updating documents:", err);
-    //     } finally {
-    //         await client.close();
-    //     }
-    // }
     try {
         await connectDB();
         // Step 1: Generate empCode
@@ -121,7 +108,6 @@ const register = async (req, res) => {
         return res.status(500).json({ message: "Internal server error", error: e.message });
     }
 };
-
 
 const getUserWithId = async (req, res) => {
     /*  #swagger.tags = ['Users']
@@ -206,9 +192,6 @@ const updateUser = async (req, res) => {
     }
 };
 
-
-
-
 const getAllUsers = async (req, res) => {
     /*  #swagger.tags = ['Users']
            #swagger.description = 'Get all users.' */
@@ -226,6 +209,7 @@ const getAllUsers = async (req, res) => {
         res.status(500).json({ message: e.message })
     }
 }
+
 const getAllAdmins = async (req, res) => {
     /*  #swagger.tags = ['Admin']
            #swagger.description = 'Get all Admins.' */
@@ -243,7 +227,6 @@ const getAllAdmins = async (req, res) => {
         res.status(500).json({ message: e.message })
     }
 }
-
 
 const deleteUserWithId = async (req, res) => {
     /*  #swagger.tags = ['Auth']

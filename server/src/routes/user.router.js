@@ -9,6 +9,7 @@ userRouter.put("/updateUser/:id", authenticateToken, updateUser)
 userRouter.post("/deleteUser/:id", authenticateToken, deleteUserWithId)
 userRouter.post("/createAdminRemoveAdmin", authenticateToken, createAdmin)
 userRouter.get("/getAllAdmins", authenticateToken, getAllAdmins)
+
 // userRouter.post('/register', register);
 // userRouter.get("/users", getAllUsers)
 // userRouter.get("/getUser/:id", getUserWithId)
