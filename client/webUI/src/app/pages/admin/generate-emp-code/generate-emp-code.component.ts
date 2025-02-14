@@ -13,7 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
@@ -39,6 +39,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatButtonModule,
     ClipboardModule,
     MatButtonToggleModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './generate-emp-code.component.html',
   styleUrl: './generate-emp-code.component.css',
@@ -56,7 +57,11 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 })
 export class GenerateEmpCodeComponent implements AfterViewInit {
   @ViewChild('content') dialogTemplate!: TemplateRef<any>;
-  constructor(private snackBar: MatSnackBar, private route: ActivatedRoute) { }
+  constructor(private snackBar: MatSnackBar, private route: ActivatedRoute,private formBuilder: FormBuilder) {
+    this.searchForm = this.formBuilder.group({
+      searchTerm: ['']
+    });
+   }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
@@ -64,6 +69,7 @@ export class GenerateEmpCodeComponent implements AfterViewInit {
   private _usersService = inject(UsersService)
   userData: any[] = [];
   selectedEmpId: string | null = null;
+  searchForm: FormGroup;
   // Create a map to store copied state for each coupon code
   copiedMap = new Map<string, boolean>();
 
@@ -72,7 +78,7 @@ export class GenerateEmpCodeComponent implements AfterViewInit {
     this.dataSource = new MatTableDataSource<any>([]); // Initialize with an empty array
     this._usersService.getUser().subscribe(
       (data) => {
-        this.userData = data; // Set data here
+        this.userData = data.users; // Set data here
         console.log(this.userData)
         this.dataSource.data = this.userData;
       },

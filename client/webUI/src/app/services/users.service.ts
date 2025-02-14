@@ -50,7 +50,7 @@ deleteUser(userId:any): Observable<any>{
 
 // create and remove admin
 createAdminRemoveAdmin(data:any):Observable<any>{
-  return this.http.put(`${this.apiUrl}/api/role`,data)
+  return this.http.put(`${this.apiUrl}/api/users/${data.id}/role`,data)
 }
 
 // get all admins

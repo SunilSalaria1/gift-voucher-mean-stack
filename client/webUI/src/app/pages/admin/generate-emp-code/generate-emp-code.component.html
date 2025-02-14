@@ -4,12 +4,14 @@
 <mat-card class="bg-white border-light product-reward-card p-3" appearance="outlined">
   <div class="d-flex justify-content-between align-items-baseline ">
     <!-- searchbar -->
-    <mat-form-field appearance="outline">
-      <input matInput (keyup)="applyFilter($event)" type="text" name="search" placeholder="Search..." />
-      <button matSuffix mat-icon-button aria-label="Search">
-        <mat-icon>search</mat-icon>
-      </button>
-    </mat-form-field>
+     <form [formGroup]="searchForm" action="">
+      <mat-form-field appearance="outline">
+        <input matInput  type="text" formControlName="searchTerm" class="form-control" name="search" placeholder="Search..." />
+        <button matSuffix mat-icon-button aria-label="Search">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+     </form>    
     <!-- /searchbar -->
     <!-- add product button -->
     <a mat-flat-button [routerLink]="['/admin/add-emp-code']"
@@ -116,9 +118,9 @@
     <div class="d-flex justify-content-center mt-2 fw-bold bg-light" *ngIf="dataSource.filteredData.length === 0">
       No result found.
     </div>
-    <mat-paginator class="bg-white" [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons
-      aria-label="Select page of periodic elements">
-    </mat-paginator>
+    <!-- paginator -->
+     
+     <!-- /paginator -->
   </div>
   <!-- /table reference with search and pagination -->
 </mat-card>
