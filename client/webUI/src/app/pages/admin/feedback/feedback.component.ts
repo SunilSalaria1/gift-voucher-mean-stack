@@ -3,10 +3,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { UsersService } from '../../../services/users.service';
+import { TruncatePipe } from '../../../shared/pipes/truncate.pipe';
 @Component({
   selector: 'app-feedback',
   standalone: true,
-  imports: [MatCardModule, MatIconModule, CommonModule],
+  imports: [MatCardModule, MatIconModule, CommonModule,TruncatePipe],
   templateUrl: './feedback.component.html',
   styleUrl: './feedback.component.css'
 })
@@ -21,12 +22,16 @@ export class FeedbackComponent {
           description: feedback.description,
           rating: parseInt(feedback.rating, 10), // Convert rating to number
           name: feedback.userDetails.name,
-          empCode: feedback.userDetails.empCode || 'N/A',          
+          empCode: feedback.userDetails.empCode || 'N/A',
+          expanded: false // Initialize expanded state          
         }));
-        console.log(this.cards);
+        console.log(this.cards);        
       }
     )
   } 
+  toggleReadMore(card: Feedback) {
+    card.expanded = !card.expanded;
+  }
   // Generate stars for each card
   getStars(rating: number): string[] {
     return Array.from({ length: this.totalStars }, (_, i) =>
@@ -45,5 +50,6 @@ interface Feedback {
   description: string;
   rating: number;
   name: string;
-  empCode: string;  
+  empCode: string; 
+  expanded:boolean; 
 }

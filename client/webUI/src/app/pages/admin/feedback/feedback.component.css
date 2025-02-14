@@ -34,3 +34,15 @@
 .row{
     row-gap: 25px;
 }
+
+.read-more-less {
+     /* Angular Material primary color */
+    cursor: pointer;
+    font-weight: 500;
+    margin-left: 5px;
+  }
+  
+  .read-more-less:hover {
+    text-decoration: underline;
+  }
+  
