@@ -25,7 +25,7 @@
     }
   },
   "paths": {
-    "/api/register": {
+    "/api/user": {
       "post": {
         "tags": [
           "Auth"
@@ -101,7 +101,7 @@
         }
       }
     },
-    "/api/getUser/{id}": {
+    "/api/user/{id}": {
       "get": {
         "tags": [
           "Users"
@@ -137,9 +137,7 @@
             "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/api/updateUser/{id}": {
+      },
       "put": {
         "tags": [
           "Auth"
@@ -187,10 +185,8 @@
             "description": "Internal server error"
           }
         }
-      }
-    },
-    "/api/deleteUser/{id}": {
-      "post": {
+      },
+      "delete": {
         "tags": [
           "Auth"
         ],
@@ -227,8 +223,8 @@
         }
       }
     },
-    "/api/createAdminRemoveAdmin": {
-      "post": {
+    "/api/role": {
+      "put": {
         "tags": [
           "Admin"
         ],
@@ -271,39 +267,7 @@
         }
       }
     },
-    "/api/getAllAdmins": {
-      "get": {
-        "tags": [
-          "Admin"
-        ],
-        "description": "Get all Admins.",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/loginUser": {
+    "/api/login": {
       "post": {
         "tags": [
           "Auth"
@@ -342,7 +306,7 @@
         }
       }
     },
-    "/api/logoutUser": {
+    "/api/logout": {
       "post": {
         "tags": [
           "Auth"
@@ -386,7 +350,7 @@
         }
       }
     },
-    "/api/addFeedback": {
+    "/api/feedback": {
       "post": {
         "tags": [
           "Feedback section"
@@ -425,7 +389,7 @@
         }
       }
     },
-    "/api/getFeedbacks": {
+    "/api/feedbacks": {
       "get": {
         "tags": [
           "Feedback section"
@@ -448,11 +412,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Thu Feb 13 2025 16:44:12 GMT+0530 (India Standard Time)"
+          "example": "Fri Feb 14 2025 11:32:09 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Thu Feb 13 2025 16:44:12 GMT+0530 (India Standard Time)"
+          "example": "Fri Feb 14 2025 11:32:09 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
