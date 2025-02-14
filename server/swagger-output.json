@@ -25,7 +25,7 @@
     }
   },
   "paths": {
-    "/api/user": {
+    "/api/users": {
       "post": {
         "tags": [
           "Auth"
@@ -67,9 +67,7 @@
             "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/api/users": {
+      },
       "get": {
         "tags": [
           "Users"
@@ -79,6 +77,31 @@
           {
             "name": "Authorization",
             "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "searchItem",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
             "type": "string"
           }
         ],
@@ -101,7 +124,7 @@
         }
       }
     },
-    "/api/user/{id}": {
+    "/api/users/{id}": {
       "get": {
         "tags": [
           "Users"
@@ -223,13 +246,19 @@
         }
       }
     },
-    "/api/role": {
+    "/api/users/{id}/role": {
       "put": {
         "tags": [
           "Admin"
         ],
         "description": "Update User with Id.",
         "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "Authorization",
             "in": "header",
@@ -387,9 +416,7 @@
             "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/api/feedbacks": {
+      },
       "get": {
         "tags": [
           "Feedback section"
@@ -412,11 +439,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Fri Feb 14 2025 11:32:09 GMT+0530 (India Standard Time)"
+          "example": "Fri Feb 14 2025 13:40:52 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Fri Feb 14 2025 11:32:09 GMT+0530 (India Standard Time)"
+          "example": "Fri Feb 14 2025 13:40:52 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
@@ -455,6 +482,10 @@
         "password": {
           "type": "string",
           "example": "jyo04122001"
+        },
+        "role": {
+          "type": "string",
+          "example": "employee"
         }
       }
     },

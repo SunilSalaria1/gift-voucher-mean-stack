@@ -38,7 +38,8 @@ const doc = {
     },
     loginUser: {
       empCode: "LPIT30281076",
-      password: "jyo04122001"
+      password: "jyo04122001",
+      role: "employee"
     },
     createAdmin: {
       id: "67a4af8cf19f72c03d3d4547",

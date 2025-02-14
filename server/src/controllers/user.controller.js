@@ -57,6 +57,7 @@ const register = async (req, res) => {
                 */
     try {
         await connectDB();
+
         // Step 1: Generate empCode
         const { name, email, department, dob } = req.body;
         const { empCode, hashedPassword } = await generateEmpCodeAndPassword(name, email, department, dob, usersCollection);
@@ -197,10 +198,61 @@ const getAllUsers = async (req, res) => {
            #swagger.description = 'Get all users.' */
     try {
         await connectDB();
-        const users = await usersCollection.find({ isDeleted: false }).toArray();
-        // const users = await usersCollection.find().toArray();
+        // pagination 
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skip = (page - 1) * limit;
 
-        res.send(users)
+
+
+        // flitering
+        const filter = { isDeleted: false };
+        console.log("req.query.rolereq.query.role", typeof (req.query.role))
+        if (req.query.role === "admin") {
+            filter.isAdmin = true;
+        }
+
+        if (req.query.searchItem) {
+            filter.$or = [
+                {
+                    name: { $regex: req.query.searchItem, $options: "i" }
+                },
+                {
+                    email: { $regex: req.query.searchItem, $options: "i" }
+                },
+                {
+                    empCode: { $regex: req.query.searchItem, $options: "i" }
+                },
+                {
+                    department: { $regex: req.query.searchItem, $options: "i" }
+                },
+                {
+                    joiningDate: { $regex: req.query.searchItem, $options: "i" }
+                },
+                {
+                    dob: { $regex: req.query.searchItem, $options: "i" }
+                },
+            ]
+        }
+
+        // sorting 
+        const sort = {};
+        if (req.query.sortBy) {
+            const [field, order] = req.query.sortBy.split(":");
+            sort[field] = order === 'desc' ? -1 : 1;
+        }
+
+        // Get total count (for pagination metadata)
+        const totalUsers = await usersCollection.countDocuments(filter)
+
+        // Fetch paginated users
+        const users = await usersCollection.find(filter).sort(sort).skip(skip).limit(limit).toArray()
+        return res.json({
+            users,
+            totalPages: Math.ceil(totalUsers / limit),
+            currentPage: page,
+            totalUsers
+        });
     } catch (e) {
         console.log(e)
         if (e instanceof ZodError) {
@@ -210,23 +262,23 @@ const getAllUsers = async (req, res) => {
     }
 }
 
-const getAllAdmins = async (req, res) => {
-    /*  #swagger.tags = ['Admin']
-           #swagger.description = 'Get all Admins.' */
-    try {
-        await connectDB();
-        const users = await usersCollection.find({ isAdmin: true, isDeleted: false }).toArray();
-        // const users = await usersCollection.find().toArray();
+// const getAllAdmins = async (req, res) => {
+//     /*  #swagger.tags = ['Admin']
+//            #swagger.description = 'Get all Admins.' */
+//     try {
+//         await connectDB();
+//         const users = await usersCollection.find({ isAdmin: true, isDeleted: false }).toArray();
+//         // const users = await usersCollection.find().toArray();
 
-        res.send(users)
-    } catch (e) {
-        console.log(e)
-        if (e instanceof ZodError) {
-            res.status(400).json({ message: e.message })
-        }
-        res.status(500).json({ message: e.message })
-    }
-}
+//         res.send(users)
+//     } catch (e) {
+//         console.log(e)
+//         if (e instanceof ZodError) {
+//             res.status(400).json({ message: e.message })
+//         }
+//         res.status(500).json({ message: e.message })
+//     }
+// }
 
 const deleteUserWithId = async (req, res) => {
     /*  #swagger.tags = ['Auth']
@@ -319,4 +371,4 @@ const createAdmin = async (req, res) => {
 };
 
 
-module.exports = { register, getAllUsers, updateUser, deleteUserWithId, getUserWithId, createAdmin, getAllAdmins }
+module.exports = { register, getAllUsers, updateUser, deleteUserWithId, getUserWithId, createAdmin }

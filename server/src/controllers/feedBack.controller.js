@@ -64,7 +64,12 @@ const getAllFeedbacks = async (req, res) => {
                 "userDetails.tokens": 0,
                 "userDetails.isDeleted": 0,
                 "userDetails.isAdmin": 0,
-                "userDetails.isPrimaryAdmin": 0
+                "userDetails.isPrimaryAdmin": 0,
+                "userDetails._id": 0,
+                "userDetails.joiningDate": 0,
+                "userDetails.dob": 0,
+                "userIdObj": 0
+
             }
         }
         ]).toArray();
