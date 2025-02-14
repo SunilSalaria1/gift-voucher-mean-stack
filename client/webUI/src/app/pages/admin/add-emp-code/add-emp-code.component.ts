@@ -101,8 +101,14 @@ export class AddEmpCodeComponent {
   openDialog(): void {
     this.dialogRef = this.dialog.open(this.dialogTemplate, {
       width: '1200px',
+      disableClose: true
     });
-
+    this.dialogRef.afterOpened().subscribe(() => {
+      const dialogContainer = document.querySelector('.cdk-overlay-container');
+      if (dialogContainer) {
+        dialogContainer.removeAttribute('aria-hidden');
+      }
+    });
     this.dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });

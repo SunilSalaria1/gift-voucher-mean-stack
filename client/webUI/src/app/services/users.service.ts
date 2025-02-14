@@ -12,7 +12,7 @@ export class UsersService {
   constructor(private http: HttpClient,private snackBar: MatSnackBar) { }
   // login
   login(data:any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/loginUser`, data);
+    return this.http.post(`${this.apiUrl}/api/login`, data);
   }
   // Store token
   saveToken(token: string): void {
@@ -26,7 +26,7 @@ export class UsersService {
 
   // POST request
   registerUser(postData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/register`, postData);
+    return this.http.post(`${this.apiUrl}/api/user`, postData);
   }
 // Get request
   getUser(): Observable<any> {
@@ -35,22 +35,22 @@ export class UsersService {
 
   //get user by id
   getUserById(userId:any): Observable<any>{
-    return this.http.get(`${this.apiUrl}/api/getUser/${userId}`);
+    return this.http.get(`${this.apiUrl}/api/user/${userId}`);
   }
 
   // put request
 updateUser(userId:any,postData:any): Observable<any>{
-  return this.http.put(`${this.apiUrl}/api/updateUser/${userId}`,postData)
+  return this.http.put(`${this.apiUrl}/api/user/${userId}`,postData)
 }
 
 // delete request (delete user by id)
 deleteUser(userId:any): Observable<any>{
-  return this.http.post(`${this.apiUrl}/api/deleteUser/${userId}`,userId);
+  return this.http.delete(`${this.apiUrl}/api/user/${userId}`,userId);
 }
 
 // create and remove admin
 createAdminRemoveAdmin(data:any):Observable<any>{
-  return this.http.post(`${this.apiUrl}/api/createAdminRemoveAdmin`,data)
+  return this.http.put(`${this.apiUrl}/api/role`,data)
 }
 
 // get all admins
@@ -60,18 +60,18 @@ getAllAdmins():Observable<any>{
 
 // add feedback
 addFeedback(data:any):Observable<any>{
-  return this.http.post(`${this.apiUrl}/api/addFeedback`,data)
+  return this.http.post(`${this.apiUrl}/api/feedback`,data)
 }
 
 // get feedbacks
 getFeedbacks():Observable<any>{
-  return this.http.get(`${this.apiUrl}/api/getFeedbacks`)
+  return this.http.get(`${this.apiUrl}/api/feedbacks`)
 }
 
 
 // logOut request
 logout(): void {
-  this.http.post(`${this.apiUrl}/api/logoutUser`, {}).subscribe({
+  this.http.post(`${this.apiUrl}/api/logout`, {}).subscribe({
     next: () => {
       localStorage.removeItem("authToken");
       localStorage.removeItem('loginUser') // Remove token
