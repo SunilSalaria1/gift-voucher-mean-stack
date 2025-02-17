@@ -99,18 +99,31 @@ export class AddEmpCodeComponent {
   openDialog(): void {
     this.dialogRef = this.dialog.open(this.dialogTemplate, {
       width: '1200px',
-      disableClose: true
     });
+  
     this.dialogRef.afterOpened().subscribe(() => {
       const dialogContainer = document.querySelector('.cdk-overlay-container');
       if (dialogContainer) {
-        dialogContainer.removeAttribute('aria-hidden');
+        dialogContainer.removeAttribute('aria-hidden');  // Remove aria-hidden dynamically for the dialog container
+      }
+  
+      const appRoot = document.querySelector('app-root');
+      if (appRoot) {
+        // Temporarily hide focusable elements outside of the dialog
+        appRoot.setAttribute('aria-hidden', 'true');
       }
     });
+  
     this.dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
+      const appRoot = document.querySelector('app-root');
+      if (appRoot) {
+        appRoot.removeAttribute('aria-hidden');  // Remove aria-hidden after dialog closes
+      }
+      this.dialogRef = null;  // Reset reference
     });
   }
+  
 
   // Call the openDialog method conditionally
   submitForm(): void {

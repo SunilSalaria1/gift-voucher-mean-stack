@@ -135,20 +135,33 @@ export class EditEmpCodeComponent {
   }
   // dialog
   openDialog(): void {
-    // Use the TemplateRef for the dialog
-    const dialogRef = this.dialog.open(this.dialogTemplate, {
+    this.dialogRef = this.dialog.open(this.dialogTemplate, {
       width: '1200px',
     });
+  
     this.dialogRef.afterOpened().subscribe(() => {
       const dialogContainer = document.querySelector('.cdk-overlay-container');
       if (dialogContainer) {
-        dialogContainer.removeAttribute('aria-hidden');
+        dialogContainer.removeAttribute('aria-hidden');  // Remove aria-hidden dynamically for the dialog container
+      }
+  
+      const appRoot = document.querySelector('app-root');
+      if (appRoot) {
+        // Temporarily hide focusable elements outside of the dialog
+        appRoot.setAttribute('aria-hidden', 'true');
       }
     });
-    dialogRef.afterClosed().subscribe((result) => {
+  
+    this.dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
+      const appRoot = document.querySelector('app-root');
+      if (appRoot) {
+        appRoot.removeAttribute('aria-hidden');  // Remove aria-hidden after dialog closes
+      }
+      this.dialogRef = null;  // Reset reference
     });
   }
+  
   // Call the openDialog method conditionally
   submitForm(): void {
     if (this.editEmployeeCodeForm.valid) {
