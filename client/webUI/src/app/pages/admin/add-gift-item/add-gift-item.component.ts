@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { ProductsService } from '../../../services/products.service';
 
 @Component({
   selector: 'app-add-gift-item',
@@ -30,7 +31,7 @@ export class AddGiftItemComponent {
   submitted: boolean = false;
   addGiftItemForm!: FormGroup;
   constructor(
-    private formBuilder: FormBuilder,private snackBar: MatSnackBar,private router: Router
+    private formBuilder: FormBuilder, private snackBar: MatSnackBar, private router: Router,private productsService:ProductsService
   ) { }
 
   ngOnInit(): void {
@@ -60,13 +61,32 @@ export class AddGiftItemComponent {
         verticalPosition: "top",
       });
     }
-  }
+  }  
 
   // selecting image
   selectedFiles: any;
   selectFiles(event: any): void {
     this.selectedFiles = event.target.files[0];
+    if (this.selectedFiles) {
+      // Upload image when a file is selected
+      this.uploadImage(this.selectedFiles);
+    }
   }
+
+  // image upload to api
+  uploadImage(file:File){
+    const formData= new FormData()
+    formData.append('file',file,file.name)
+    this.productsService.uploadProductImage(formData).subscribe(
+      (response)=>{
+       this.selectedFiles.name=response.fileDetails.fileBuffer
+        this.addGiftItemForm.patchValue({
+          productImage:response.fileDetails.fileName 
+        })
+      }
+    )
+  }
+
 
   // deleting image
   removeImage() {
