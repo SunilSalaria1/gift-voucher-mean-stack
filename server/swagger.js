@@ -44,11 +44,24 @@ const doc = {
     createAdmin: {
       id: "67a4af8cf19f72c03d3d4547",
       isAdmin: "true"
-    },
+    }
+    ,
     logoutUser: {
       id: "67a4af8cf19f72c03d3d4547",
       isAdmin: "true"
-    }
+    },
+    addProduct: {
+      couponCode: "lp12345",
+      productImg: "image id",
+      productDescription: "this product is good",
+      productTitle: "bottle"
+    },
+    UpdateProduct: {
+      couponCode: "lp12345",
+      productImg: "image id",
+      productDescription: "this product is good",
+      productTitle: "bottle"
+    },
   }
 };
 

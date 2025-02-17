@@ -1,40 +1,60 @@
 
 const { connectDB, db } = require("../config/db.config");
 const fileUploadSchema = require("../models/upload.model");
-
+const filesCollection = db.collection('files');
+const { ObjectId } = require('mongodb');
 const uploadFile = async (req, res) => {
+    /*  #swagger.tags = ['Upload Image']
+     */
     try {
         await connectDB();
-        console.log(req.body)
 
-        if (!req.body.userId) {
-            return res.status(400).json({ message: "No file userId" });
+        if (!req.file) {
+            return res.status(400).json({ message: "No file uploaded" });
         }
 
-        if (!req.body.file) {
-            return res.status(400).json({ message: "No file 23uploaded" });
-        }
+        // Extract file details
+        const fileData = {
+            userId: req.body.userId,
+            fileName: req.file.originalname,
+            fileType: req.file.mimetype,
+            fileBuffer: req.file.buffer,
+            uploadedAt: new Date()
+        };
 
-        const { originalname, mimetype, buffer } = req.file;
-        const userId = req.body.userId;
+        console.log("File Data:", fileData); // Debugging
 
-        // Validate with Zod
-        const validatedData = fileUploadSchema.parse({
-            userId,
-            fileName: originalname,
-            fileType: mimetype,
-            fileBuffer: buffer,
-        });
+        // Save file to MongoDB
+        const result = await filesCollection.insertOne(fileData);
+        const result2 = await filesCollection.findOne({ _id: new ObjectId(result.insertedId) });
+        res.status(201).json({ message: "File uploaded successfully", fileId: result.insertedId, fileDetails: result2 });
 
-        // Save file details in MongoDB
-        const fileCollection = db.collection("files");
-        await fileCollection.insertOne(validatedData);
-
-        return res.status(201).json({ message: "File uploaded successfully", file: validatedData });
     } catch (error) {
-        console.error("File upload error:", error);
-        return res.status(500).json({ message: error.message });
+        console.error("Upload error:", error);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 };
 
-module.exports = { uploadFile };
+
+const getImage = async (req, res) => {
+     /*  #swagger.tags = ['Upload Image']
+     */
+    try {
+        await connectDB();
+        const fileId = req.params.id;
+        const file =  await filesCollection.findOne({ _id: new ObjectId(fileId) });
+
+        if (!file) {
+            return res.status(404).json({ message: "Image not found" });
+        }
+
+        res.setHeader("Content-Type", file.fileType); // Set the correct MIME type
+        res.send(file.fileBuffer); // Send the image data
+
+    } catch (error) {
+        console.error("Image retrieval error:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+module.exports = { uploadFile, getImage };

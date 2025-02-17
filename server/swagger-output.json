@@ -434,6 +434,9 @@
     },
     "/api/upload": {
       "post": {
+        "tags": [
+          "Upload Image"
+        ],
         "description": "",
         "parameters": [
           {
@@ -461,6 +464,224 @@
           }
         }
       }
+    },
+    "/api/image/{id}": {
+      "get": {
+        "tags": [
+          "Upload Image"
+        ],
+        "description": "",
+        "produces": [
+          "Image retrieval error:"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/products": {
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Add Product",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Product details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/addProduct"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Product Added successfully"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Get all Products.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "searchItem",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/products/{id}": {
+      "put": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Add Product",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User registration details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateProduct"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Product Updated successfully"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Get Product with Id .",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Delete User with Id .",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/couponCode/{couponCode}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Get Coupon Code .",
+        "parameters": [
+          {
+            "name": "couponCode",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -469,11 +690,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Fri Feb 14 2025 18:46:45 GMT+0530 (India Standard Time)"
+          "example": "Mon Feb 17 2025 16:23:40 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Fri Feb 14 2025 18:46:45 GMT+0530 (India Standard Time)"
+          "example": "Mon Feb 17 2025 16:23:40 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
@@ -542,6 +763,48 @@
         "isAdmin": {
           "type": "string",
           "example": "true"
+        }
+      }
+    },
+    "addProduct": {
+      "type": "object",
+      "properties": {
+        "couponCode": {
+          "type": "string",
+          "example": "lp12345"
+        },
+        "productImg": {
+          "type": "string",
+          "example": "image id"
+        },
+        "productDescription": {
+          "type": "string",
+          "example": "this product is good"
+        },
+        "productTitle": {
+          "type": "string",
+          "example": "bottle"
+        }
+      }
+    },
+    "UpdateProduct": {
+      "type": "object",
+      "properties": {
+        "couponCode": {
+          "type": "string",
+          "example": "lp12345"
+        },
+        "productImg": {
+          "type": "string",
+          "example": "image id"
+        },
+        "productDescription": {
+          "type": "string",
+          "example": "this product is good"
+        },
+        "productTitle": {
+          "type": "string",
+          "example": "bottle"
         }
       }
     }

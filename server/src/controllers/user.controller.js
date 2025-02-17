@@ -262,23 +262,6 @@ const getAllUsers = async (req, res) => {
     }
 }
 
-// const getAllAdmins = async (req, res) => {
-//     /*  #swagger.tags = ['Admin']
-//            #swagger.description = 'Get all Admins.' */
-//     try {
-//         await connectDB();
-//         const users = await usersCollection.find({ isAdmin: true, isDeleted: false }).toArray();
-//         // const users = await usersCollection.find().toArray();
-
-//         res.send(users)
-//     } catch (e) {
-//         console.log(e)
-//         if (e instanceof ZodError) {
-//             res.status(400).json({ message: e.message })
-//         }
-//         res.status(500).json({ message: e.message })
-//     }
-// }
 
 const deleteUserWithId = async (req, res) => {
     /*  #swagger.tags = ['Auth']

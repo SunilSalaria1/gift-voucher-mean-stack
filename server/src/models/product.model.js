@@ -7,6 +7,7 @@ const productSchema = z.object({
     productDescription: z.string().min(5, { message: "Product description should be at least 5 characters" }),
     addedAt: z.date().default(() => new Date()),
     productTitle: z.string().min(1, { message: "Product title is required" }),
+    isDeleted: z.boolean().default(false)
 });
 
 module.exports = productSchema;

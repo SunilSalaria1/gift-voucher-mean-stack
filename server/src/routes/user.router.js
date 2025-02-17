@@ -3,7 +3,7 @@ const userRouter = express.Router();
 const { register, getAllUsers, getUserWithId, updateUser, deleteUserWithId, createAdmin, getAllAdmins } = require("../controllers/user.controller");
 const { authenticateToken } = require("../middlewares/authMiddleWare")
 
-userRouter.post('/users', authenticateToken, register); 
+userRouter.post('/users', authenticateToken, register);
 userRouter.get('/users', authenticateToken, getAllUsers);
 userRouter.get('/users/:id', authenticateToken, getUserWithId);
 userRouter.put('/users/:id', authenticateToken, updateUser);
