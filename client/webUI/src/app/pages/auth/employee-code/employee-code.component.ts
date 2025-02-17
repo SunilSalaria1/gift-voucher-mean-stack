@@ -33,9 +33,9 @@ export class EmployeeCodeComponent implements OnInit {
       employeeCode: ['', Validators.required],
     });
     // user data
-    this._usersService.getUsers().subscribe(response => {
-      this.userData = response;
-    })
+    // this._usersService.getUsers().subscribe(response => {
+    //   this.userData = response;
+    // })
   }
 
 

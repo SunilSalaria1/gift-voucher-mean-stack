@@ -36,9 +36,9 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 export class SettingsComponent {
   @ViewChild('content') dialogTemplate!: TemplateRef<any>;
   constructor(private snackBar: MatSnackBar, private route: ActivatedRoute) { }
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-  }
+  // ngAfterViewInit(): void {
+  //   this.dataSource.paginator = this.paginator;
+  // }
   readonly dialog = inject(MatDialog);
   private _usersService = inject(UsersService)
   userData: any[] = [];

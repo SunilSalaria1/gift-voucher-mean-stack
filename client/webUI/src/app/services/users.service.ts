@@ -23,17 +23,16 @@ export class UsersService {
     return localStorage.getItem('authToken');
   }
 
-
   // POST request
   registerUser(postData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/api/users`, postData);
   }
   // Get request
-  getUsers(page: number = 1, limit: number = 10, searchItem: string = '', sortBy: string = '', role: string = ''): Observable<any> {
+  getUsers(page: number, limit: number , searchItem: string = '', sortBy: string = '', role: string = ''): Observable<any> {
     const params: any = {
-      role:"",
-      page:1,
-      limit:10,
+      role:role,
+      page:page,
+      limit:limit,
       sortBy:"",
       searchItem:"",
     };     
@@ -42,6 +41,9 @@ export class UsersService {
       }
       if (sortBy) {
         params.sortBy = sortBy;
+      }
+      if(role){
+        params.role= "admin";
       }
     
     return this.http.get(`${this.apiUrl}/api/users`, { params });
@@ -79,7 +81,7 @@ export class UsersService {
 
   // get feedbacks
   getFeedbacks(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/api/feedbacks`)
+    return this.http.get(`${this.apiUrl}/api/feedback`)
   }
 
 

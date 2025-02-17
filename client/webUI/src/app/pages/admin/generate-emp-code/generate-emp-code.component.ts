@@ -5,6 +5,7 @@ import {
   ViewChild,
   OnInit,
   AfterViewInit,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -42,6 +43,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
     ClipboardModule,
     MatButtonToggleModule,
     ReactiveFormsModule,
+
   ],
   templateUrl: './generate-emp-code.component.html',
   styleUrl: './generate-emp-code.component.css',
@@ -57,16 +59,17 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
     ])
   ]
 })
-export class GenerateEmpCodeComponent implements AfterViewInit {
+export class GenerateEmpCodeComponent {
   @ViewChild('content') dialogTemplate!: TemplateRef<any>;
   constructor(private snackBar: MatSnackBar, private route: ActivatedRoute,private formBuilder: FormBuilder) {
     this.searchForm = this.formBuilder.group({
       searchTerm: ['']
     });
    }
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-  }
+   private cdr= inject(ChangeDetectorRef)
+  // ngAfterViewInit(): void {
+  //   this.dataSource.paginator = this.paginator;
+  // }
   readonly dialog = inject(MatDialog);
   private _usersService = inject(UsersService)
   userData: any[] = [];
@@ -75,7 +78,7 @@ export class GenerateEmpCodeComponent implements AfterViewInit {
   totalPages = 0;
   currentPage = 1;
   totalUsers:number;
-  pageSize = 10;
+  pageSize:number=10;
 
   // Create a map to store copied state for each coupon code
   copiedMap = new Map<string, boolean>();
@@ -83,7 +86,7 @@ export class GenerateEmpCodeComponent implements AfterViewInit {
   // ngOnInIt
   ngOnInit() {
     this.dataSource = new MatTableDataSource<any>([]); // Initialize with an empty array
-    this.loadUsers()
+    this.loadUsers(this.currentPage,this.pageSize,this.searchForm.value)
     this.searchForm.get('searchTerm')?.valueChanges.pipe(
       debounceTime(500),
       distinctUntilChanged()
@@ -94,21 +97,25 @@ export class GenerateEmpCodeComponent implements AfterViewInit {
 
   
 
-  loadUsers(page: number = 1, limit: number = 10, searchTerm: string = '', sortBy: string = '') {
+  loadUsers(page: number , limit: number , searchTerm: string = '', sortBy: string = '') {
     this._usersService.getUsers(page, limit, searchTerm, sortBy).subscribe(data => {
+    
       this.userData = data.users;
       this.totalPages = data.totalPages;
       this.currentPage = data.currentPage;
       this.totalUsers = data.totalUsers;
       this.dataSource.data = this.userData;
+      console.log(data, this.totalUsers)
+
     }, error => console.error('Error fetching users', error));
   }
 
   onPageChange(event: PageEvent) {
-    console.log(event)
+    console.log(event,'kkkk')
     this.currentPage = event.pageIndex + 1; // MatPaginator uses 0-based index    
     this.pageSize = event.pageSize;
-    this.loadUsers(); // Fetch data for the new page
+    this.totalUsers= event.length;
+    this.loadUsers(this.currentPage,this.pageSize,this.searchForm.value); // Fetch data for the new page          
   }
   
   // Admin toggle
