@@ -438,20 +438,6 @@
           "Upload Image"
         ],
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "userId": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
           "201": {
             "description": "Created"
@@ -465,7 +451,7 @@
         }
       }
     },
-    "/api/image/{id}": {
+    "/api/images/{id}": {
       "get": {
         "tags": [
           "Upload Image"
@@ -491,6 +477,22 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/images": {
+      "get": {
+        "tags": [
+          "Upload Image"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       }
@@ -690,11 +692,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Mon Feb 17 2025 16:23:40 GMT+0530 (India Standard Time)"
+          "example": "Mon Feb 17 2025 17:15:01 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Mon Feb 17 2025 16:23:40 GMT+0530 (India Standard Time)"
+          "example": "Mon Feb 17 2025 17:15:01 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",

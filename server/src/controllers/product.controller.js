@@ -40,7 +40,10 @@ const addProduct = async (req, res) => {
         if (!validation.success) {
             return res.status(400).json({ errors: validation.error.format() }); // 🔹 Added return
         }
-
+        const existingCouponCode = await productsCollection.findOne({ couponCode: req.body.couponCode });
+        if (existingCouponCode) {
+            return res.status(400).json({ error: "Coupon code already exists" }); // 🔹 Added return
+        }
 
         const result = await productsCollection.insertOne(validation.data);
         const insertedDocument = await productsCollection.findOne({ _id: result.insertedId });
