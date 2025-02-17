@@ -22,6 +22,8 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { UsersService } from '../../../services/users.service';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { PageEvent } from '@angular/material/paginator';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-generate-emp-code',
@@ -70,24 +72,45 @@ export class GenerateEmpCodeComponent implements AfterViewInit {
   userData: any[] = [];
   selectedEmpId: string | null = null;
   searchForm: FormGroup;
+  totalPages = 0;
+  currentPage = 1;
+  totalUsers:number;
+  pageSize = 10;
+
   // Create a map to store copied state for each coupon code
   copiedMap = new Map<string, boolean>();
 
   // ngOnInIt
   ngOnInit() {
     this.dataSource = new MatTableDataSource<any>([]); // Initialize with an empty array
-    this._usersService.getUser().subscribe(
-      (data) => {
-        this.userData = data.users; // Set data here
-        console.log(this.userData)
-        this.dataSource.data = this.userData;
-      },
-      (error) => {
-        console.error('Error fetching posts', error);
-      }
-    );
+    this.loadUsers()
+    this.searchForm.get('searchTerm')?.valueChanges.pipe(
+      debounceTime(500),
+      distinctUntilChanged()
+    ).subscribe(searchTerm => {
+      this.loadUsers(this.currentPage, this.pageSize, searchTerm);
+    });
   }
 
+  
+
+  loadUsers(page: number = 1, limit: number = 10, searchTerm: string = '', sortBy: string = '') {
+    this._usersService.getUsers(page, limit, searchTerm, sortBy).subscribe(data => {
+      this.userData = data.users;
+      this.totalPages = data.totalPages;
+      this.currentPage = data.currentPage;
+      this.totalUsers = data.totalUsers;
+      this.dataSource.data = this.userData;
+    }, error => console.error('Error fetching users', error));
+  }
+
+  onPageChange(event: PageEvent) {
+    console.log(event)
+    this.currentPage = event.pageIndex + 1; // MatPaginator uses 0-based index    
+    this.pageSize = event.pageSize;
+    this.loadUsers(); // Fetch data for the new page
+  }
+  
   // Admin toggle
   onAdminToggleChange(selectedValue: string, employeeId: any) {
     let payload: any;
@@ -142,7 +165,7 @@ export class GenerateEmpCodeComponent implements AfterViewInit {
   // this is for the filter the table data
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filter = filterValue.trim().toLowerCase();    
   }
 
   // displaying table headings

@@ -16,7 +16,7 @@ export class DashboardComponent {
  private _usersService = inject(UsersService)
  totalEmployees:any;
   ngOnInit() {
-    this._usersService.getUser().subscribe(
+    this._usersService.getUsers().subscribe(
       (employees) => {
         this.totalEmployees = employees.length; // Set data here
         console.log(this.totalEmployees)        
