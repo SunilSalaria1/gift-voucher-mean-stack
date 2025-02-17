@@ -48,12 +48,12 @@ export class UsersService {
 
   //get user by id
   getUserById(userId: any): Observable<any> {
-    return this.http.get(`${this.apiUrl}/api/user/${userId}`);
+    return this.http.get(`${this.apiUrl}/api/users/${userId}`);
   }
 
   // put request
   updateUser(userId: any, postData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/api/user/${userId}`, postData)
+    return this.http.put(`${this.apiUrl}/api/users/${userId}`, postData)
   }
 
   // delete request (delete user by id)

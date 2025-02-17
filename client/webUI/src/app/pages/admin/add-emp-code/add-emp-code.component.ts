@@ -71,28 +71,26 @@ export class AddEmpCodeComponent {
     });
   }
   // approve
-  approve() {
-    debugger;
+  approve() {    
     if (this.dialogRef) {
       this.dialogRef.close(); // This closes the dialog
       this.router.navigate(['/admin/generate-emp-code']);
     }
   }
   // decline button
-  decline() {
-    debugger;
+  decline() {   
     if (this.addEmployeeCodeForm.valid) {
       this.dialogEmployee = ""
       this.addEmployeeCodeForm.reset()
       if (this.dialogRef) {
         this.dialogRef.close(); // This closes the dialog
-        // error snackbar
-        // this.snackBar.open('You have successfully deleted the generated employee code!.', 'close', {
-        //   duration: 5000,
-        //   panelClass: ['snackbar-error'],
-        //   horizontalPosition: "center",
-        //   verticalPosition: "top",
-        // });
+        // success snackbar
+        this.snackBar.open('You can now generate new employee code!.', 'close', {
+          duration: 5000,
+          panelClass: ['snackbar-success'],
+          horizontalPosition: "center",
+          verticalPosition: "top",
+        });
       }
     }
   }

@@ -12,7 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { trigger, style, animate, transition } from '@angular/animations';
@@ -57,6 +57,7 @@ import { UsersService } from '../../../services/users.service';
 export class EditEmpCodeComponent {
   @ViewChild('content') dialogTemplate!: TemplateRef<any>;
   readonly dialog = inject(MatDialog);
+  dialogRef: MatDialogRef<any> | null = null;
   submitted: boolean = false;
   departments = ['HR', 'Frontend', 'Backend', 'Audit', 'Bidding'];
   generatedCode: string | null = null;
@@ -124,7 +125,7 @@ export class EditEmpCodeComponent {
     if (this.editEmployeeCodeForm.valid) {
       this.dialogEmployee = ""
       // error snackbar
-      this.snackBar.open('You have successfully deleted the generated employee code!.', 'close', {
+      this.snackBar.open('You can now generate new employee code!.', 'close', {
         duration: 5000,
         panelClass: ['snackbar-error'],
         horizontalPosition: "center",
@@ -137,6 +138,12 @@ export class EditEmpCodeComponent {
     // Use the TemplateRef for the dialog
     const dialogRef = this.dialog.open(this.dialogTemplate, {
       width: '1200px',
+    });
+    this.dialogRef.afterOpened().subscribe(() => {
+      const dialogContainer = document.querySelector('.cdk-overlay-container');
+      if (dialogContainer) {
+        dialogContainer.removeAttribute('aria-hidden');
+      }
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
