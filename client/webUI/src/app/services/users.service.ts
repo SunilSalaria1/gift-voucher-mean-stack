@@ -41,10 +41,7 @@ export class UsersService {
       }
       if (sortBy) {
         params.sortBy = sortBy;
-      }
-      if(role){
-        params.role= "admin";
-      }
+      }      
     
     return this.http.get(`${this.apiUrl}/api/users`, { params });
   }

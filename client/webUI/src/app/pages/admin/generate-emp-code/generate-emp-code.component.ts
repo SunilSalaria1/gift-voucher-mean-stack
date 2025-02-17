@@ -66,7 +66,7 @@ export class GenerateEmpCodeComponent {
       searchTerm: ['']
     });
    }
-   private cdr= inject(ChangeDetectorRef)
+  //  private cdr= inject(ChangeDetectorRef)
   // ngAfterViewInit(): void {
   //   this.dataSource.paginator = this.paginator;
   // }

@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UsersService } from '../../../services/users.service';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 @Component({
   selector: 'app-settings',
   standalone: true,
@@ -35,42 +36,67 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 })
 export class SettingsComponent {
   @ViewChild('content') dialogTemplate!: TemplateRef<any>;
-  constructor(private snackBar: MatSnackBar, private route: ActivatedRoute) { }
-  // ngAfterViewInit(): void {
-  //   this.dataSource.paginator = this.paginator;
-  // }
+  constructor(private snackBar: MatSnackBar, private route: ActivatedRoute, private formBuilder: FormBuilder) {
+    this.searchForm = this.formBuilder.group({
+      searchTerm: ['']
+    });
+  }
   readonly dialog = inject(MatDialog);
   private _usersService = inject(UsersService)
   userData: any[] = [];
   selectedEmpId: string | null = null;
+  searchForm: FormGroup;
+  totalPages = 0;
+  currentPage = 1;
+  totalUsers: number;
+  pageSize: number = 10;
+  role="admin";
   // Create a map to store copied state for each coupon code
   copiedMap = new Map<string, boolean>();
   // ngOnInIt
   ngOnInit() {
     this.dataSource = new MatTableDataSource<any>([]); // Initialize with an empty array
-    this._usersService.getAllAdmins().subscribe(
+    this.loadUsers(this.currentPage, this.pageSize, this.searchForm.value)
+    this.searchForm.get('searchTerm')?.valueChanges.pipe(
+      debounceTime(500),
+      distinctUntilChanged()
+    ).subscribe(searchTerm => {
+      this.loadUsers(this.currentPage, this.pageSize, searchTerm);
+    });
+  }
+
+  loadUsers(page: number, limit: number, searchTerm: string = '', sortBy: string = '',role=this.role) {
+    this._usersService.getUsers(page, limit, searchTerm, sortBy,role).subscribe(
       (data) => {
-        // Sort users so that Primary Admins are always at the top
-      this.userData = data.sort((a, b) => {
-        return b.isPrimaryAdmin - a.isPrimaryAdmin; // True (1) comes before False (0)
-      });
-        this.userData = data; // Set data here
-        console.log(this.userData)
+        // Assuming data has a structure like { users: [], totalPages: number, currentPage: number, totalUsers: number }
+        this.userData = data.users.sort((a, b) => b.isPrimaryAdmin - a.isPrimaryAdmin); // Sort the array
+        this.totalPages = data.totalPages;
+        this.currentPage = data.currentPage;
+        this.totalUsers = data.totalUsers;
         this.dataSource.data = this.userData;
       },
       (error) => {
-        console.error('Error fetching posts', error);
+        console.error('Error fetching admin', error);
       }
     );
   }
   
+
+  onPageChange(event: PageEvent) {
+      console.log(event,'kkkk')
+      this.currentPage = event.pageIndex + 1; // MatPaginator uses 0-based index    
+      this.pageSize = event.pageSize;
+      this.totalUsers= event.length;
+      this.loadUsers(this.currentPage,this.pageSize,this.searchForm.value); // Fetch data for the new page          
+    }
+
   // dialog box
-  openDialog(element:any): void {
+  openDialog(element: any): void {
     // Check if the user is a primary admin
-  if (element.isPrimaryAdmin === true) {
-    console.log('Primary admin cannot be deleted');
-    return;
-  }
+    if (element.isPrimaryAdmin === true) {
+      console.log('Primary admin cannot be deleted');
+      return;
+    }
     this.selectedEmpId = element._id;
     // Use the TemplateRef for the dialog
     const dialogRef = this.dialog.open(this.dialogTemplate);
@@ -79,12 +105,12 @@ export class SettingsComponent {
     });
   }
 
- 
+
   matDelete() {
-    let payload:any;
-    payload={
-      id:this.selectedEmpId,
-      isAdmin:'false',
+    let payload: any;
+    payload = {
+      id: this.selectedEmpId,
+      isAdmin: 'false',
     }
     this._usersService.createAdminRemoveAdmin(payload).subscribe(
       (data: any) => {
