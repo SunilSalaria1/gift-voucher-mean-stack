@@ -66,10 +66,7 @@ export class GenerateEmpCodeComponent {
       searchTerm: ['']
     });
    }
-  //  private cdr= inject(ChangeDetectorRef)
-  // ngAfterViewInit(): void {
-  //   this.dataSource.paginator = this.paginator;
-  // }
+  
   readonly dialog = inject(MatDialog);
   private _usersService = inject(UsersService)
   userData: any[] = [];
@@ -93,9 +90,7 @@ export class GenerateEmpCodeComponent {
     ).subscribe(searchTerm => {
       this.loadUsers(this.currentPage, this.pageSize, searchTerm);
     });
-  }
-
-  
+  }  
 
   loadUsers(page: number , limit: number , searchTerm: string = '', sortBy: string = '') {
     this._usersService.getUsers(page, limit, searchTerm, sortBy).subscribe(data => {

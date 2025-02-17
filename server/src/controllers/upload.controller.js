@@ -29,8 +29,6 @@ const uploadFile = async (req, res) => {
         // Convert buffer to Base64
         const base64Image = result2.fileBuffer.toString("base64");
         const mimeType = result2.fileType;
-
-        res.json({ imageUrl: `data:${mimeType};base64,${base64Image}` });
         res.status(201).json({ message: "File uploaded successfully", fileDetails: result2, imageUrl: `data:${mimeType};base64,${base64Image}` });
 
     } catch (error) {

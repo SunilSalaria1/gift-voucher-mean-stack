@@ -29,9 +29,11 @@ import { ProductsService } from '../../../services/products.service';
 })
 export class AddGiftItemComponent {
   submitted: boolean = false;
+  currentImage;
+  productImg;
   addGiftItemForm!: FormGroup;
   constructor(
-    private formBuilder: FormBuilder, private snackBar: MatSnackBar, private router: Router,private productsService:ProductsService
+    private formBuilder: FormBuilder, private snackBar: MatSnackBar, private router: Router, private productsService: ProductsService
   ) { }
 
   ngOnInit(): void {
@@ -47,21 +49,23 @@ export class AddGiftItemComponent {
     });
   }
 
-  // create reward button
-  onSubmit() {
-    this.submitted = true;
-    if (this.addGiftItemForm.valid) {
-      console.log('@@@@@', this.addGiftItemForm?.value);
-      this.router.navigate(['/admin/gift-inventory']);
-      // Show success snackbar
-      this.snackBar.open('You have successfully created a reward!.', 'close', {
-        duration: 5000,
-        panelClass: ['snackbar-success'],
-        horizontalPosition: "center",
-        verticalPosition: "top",
-      });
+  // validating coupon code
+  validateCouponCode(){
+    const couponCode = this.addGiftItemForm.get('couponCode')?.value;
+    if (couponCode) {
+      this.productsService.checkCouponCode(couponCode).subscribe(
+        (response) => {
+          if (response) {
+           console.log('Coupon code already exists!');            
+          } 
+        },
+        (error) => {
+          console.error('Error checking coupon code:', error);
+        }
+      );
     }
-  }  
+  }
+
 
   // selecting image
   selectedFiles: any;
@@ -74,23 +78,47 @@ export class AddGiftItemComponent {
   }
 
   // image upload to api
-  uploadImage(file:File){
-    const formData= new FormData()
-    formData.append('file',file,file.name)
+  uploadImage(file: File) {
+    const formData = new FormData()
+    formData.append('file', file, file.name)
     this.productsService.uploadProductImage(formData).subscribe(
-      (response)=>{
-       this.selectedFiles.name=response.fileDetails.fileBuffer
+      (response) => {
+        this.currentImage = response.imageUrl
+        this.productImg = response.fileDetails._id
         this.addGiftItemForm.patchValue({
-          productImage:response.fileDetails.fileName 
+          productImage: response.fileDetails.fileName
         })
       }
     )
   }
-
-
   // deleting image
   removeImage() {
     this.selectedFiles = '';
     this.addGiftItemForm.get('productImage')?.setValue('');
+  }
+
+  // create reward button
+  onSubmit() {
+    this.submitted = true;
+    if (this.addGiftItemForm.valid) {
+      const payload = {
+        couponCode: this.addGiftItemForm.value.couponCode,
+        productImg: this.productImg,
+        productDescription: this.addGiftItemForm.value.productDescription,
+        productTitle: this.addGiftItemForm.value.productTitle
+      }
+      this.productsService.addProducts(payload).subscribe(
+        (response) => {                   
+          this.router.navigate(['/admin/gift-inventory']);
+          // Show success snackbar
+          this.snackBar.open('You have successfully created a reward!.', 'close', {
+            duration: 5000,
+            panelClass: ['snackbar-success'],
+            horizontalPosition: "center",
+            verticalPosition: "top",
+          });
+        }
+      )
+    }
   }
 }
