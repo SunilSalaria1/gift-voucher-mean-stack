@@ -29,8 +29,9 @@ import { ProductsService } from '../../../services/products.service';
 })
 export class AddGiftItemComponent {
   submitted: boolean = false;
-  currentImage;
-  productImg;
+  currentImage: any;
+  productImg: any;
+  isCouponCodeAlreadyExists: boolean;
   addGiftItemForm!: FormGroup;
   constructor(
     private formBuilder: FormBuilder, private snackBar: MatSnackBar, private router: Router, private productsService: ProductsService
@@ -50,14 +51,15 @@ export class AddGiftItemComponent {
   }
 
   // validating coupon code
-  validateCouponCode(){
+  validateCouponCode() {
     const couponCode = this.addGiftItemForm.get('couponCode')?.value;
     if (couponCode) {
       this.productsService.checkCouponCode(couponCode).subscribe(
         (response) => {
           if (response) {
-           console.log('Coupon code already exists!');            
-          } 
+            this.isCouponCodeAlreadyExists = response
+            console.log('Coupon code already exists!');
+          }
         },
         (error) => {
           console.error('Error checking coupon code:', error);
@@ -108,7 +110,7 @@ export class AddGiftItemComponent {
         productTitle: this.addGiftItemForm.value.productTitle
       }
       this.productsService.addProducts(payload).subscribe(
-        (response) => {                   
+        (response) => {
           this.router.navigate(['/admin/gift-inventory']);
           // Show success snackbar
           this.snackBar.open('You have successfully created a reward!.', 'close', {

@@ -6,35 +6,53 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProductsService {
- private apiUrl = 'http://localhost:3000'
+  private apiUrl = 'http://localhost:3000'
   constructor(private http: HttpClient) { }
 
-  // upload
+  // upload product image
   uploadProductImage(data: any): Observable<any> {
-      return this.http.post(`${this.apiUrl}/api/upload`, data);
-    }
+    return this.http.post(`${this.apiUrl}/api/upload`, data);
+  }
 
-    addProducts(data:any):Observable<any>{
-      return this.http.post(`${this.apiUrl}/api/products`,data)
-    }
+  // add products
+  addProducts(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/api/products`, data)
+  }
 
-    checkCouponCode(couponCode:string):Observable<any>{
-      return this.http.get(`${this.apiUrl}/api/couponCode/{ params: { couponCode: couponCode } }`)
-    }
+  // check coupon code already exists
+  checkCouponCode(couponCode: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/couponCode/${couponCode}`)
+  }
 
-    getProducts(page: number, limit: number , searchItem: string = '', sortBy: string = ''):Observable<any>{
-      const params: any = {       
-        page:page,
-        limit:limit,
-        sortBy:"",
-        searchItem:"",
-      };     
-        if (searchItem) {
-          params.searchItem = searchItem;
-        }
-        if (sortBy) {
-          params.sortBy = sortBy;
-        }      
-      return this.http.get(`${this.apiUrl}/api/products`,{ params })
+  // get all products
+  getProducts(page: number, limit: number, searchItem: string = '', sortBy: string = ''): Observable<any> {
+    const params: any = {
+      page: page,
+      limit: limit,
+      sortBy: "",
+      searchItem: "",
+    };
+    if (searchItem) {
+      params.searchItem = searchItem;
     }
+    if (sortBy) {
+      params.sortBy = sortBy;
+    }
+    return this.http.get(`${this.apiUrl}/api/products`, { params })
+  }
+
+  // get product by id
+  getProductById(productId:any):Observable<any>{
+    return this.http.get(`${this.apiUrl}/api/products/${productId}`)
+  }
+
+  // update product
+  updateProduct(productId: any, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/api/users/${productId}`,data)
+  }
+
+  // delete request (delete product by id)
+  deleteProduct(productId: any): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/api/products/${productId}`, productId);
+  }
 }
