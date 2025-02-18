@@ -34,9 +34,11 @@ export class EditGiftItemComponent {
   submitted: boolean = false;
   productData: any;
   currentProductId: any;
-  currentImage: any;
-  productImg: any;
+  imageUrl: any;
+  productImgId: any;
   editGiftItemForm!: FormGroup;
+  displayFileName: string = '';
+  imageRequired: boolean = false;
 
   ngOnInit(): void {
     // accessing product id through params
@@ -54,34 +56,56 @@ export class EditGiftItemComponent {
         [Validators.required, Validators.maxLength(200)],
       ],
       couponCode: ['', Validators.required],
-      productImage: ['', Validators.required],
+      // productImage: ['', Validators.required],
     });
     this.getProduct()
   }
 
+  // getProduct() {
+  //   this._productsService.getProductById(this.currentProductId).subscribe(
+  //     (data: any) => {
+  //       console.log('get request is successfull', data)
+  //       this.productData = data;
+  //       this.currentImage = this.productData.productImageDetails.imageUrl
+  //       this.editGiftItemForm.patchValue({
+  //         productTitle: this.productData.productTitle,
+  //         productDescription: this.productData.productDescription,
+  //         couponCode: this.productData.couponCode,
+  //         // productImage: this.productData.productImageDetails.fileName,
+  //       })
+  //     }
+  //   )
+  // }
   getProduct() {
     this._productsService.getProductById(this.currentProductId).subscribe(
       (data: any) => {
-        console.log('get request is successfull', data)
+        console.log('get request is successfull', data);
         this.productData = data;
+        this.imageUrl = this.productData.productImageDetails.imageUrl;
+        // Store the filename in the component property
+        this.displayFileName = this.productData.productImageDetails.fileName;
+        this.productImgId=this.productData.productImageDetails._id
         this.editGiftItemForm.patchValue({
           productTitle: this.productData.productTitle,
           productDescription: this.productData.productDescription,
           couponCode: this.productData.couponCode,
-          productImage: this.productData.productImg,
-        })
+        });
       }
-    )
+    );
   }
   // update reward button
-  onSubmit() : void{
+  onSubmit(): void {
     this.submitted = true;
+    if (!this.productImgId && !this.imageUrl) {
+      this.imageRequired = true;
+      return;
+    }
     if (this.editGiftItemForm.valid) {
-      const payload={
-        productTitle:this.editGiftItemForm.value.productTitle,
-        productDescription:this.editGiftItemForm.value.productDescription,
-        couponCode:this.editGiftItemForm.value.couponCode,
-        productImg:this.editGiftItemForm.value.productImage
+      const payload = {
+        productTitle: this.editGiftItemForm.value.productTitle,
+        productDescription: this.editGiftItemForm.value.productDescription,
+        couponCode: this.editGiftItemForm.value.couponCode,
+        productImg: this.productImgId
       };
       this._productsService.updateProduct(this.currentProductId, payload).subscribe(
         (response) => {
@@ -96,7 +120,7 @@ export class EditGiftItemComponent {
           });
         },
         (error) => {
-          console.error('Error checking coupon code:', error);
+          console.error('Error updating the reward', error);
         }
       )
     }
@@ -106,28 +130,48 @@ export class EditGiftItemComponent {
   selectFiles(event: any): void {
     this.selectedFiles = event.target.files[0];
     if (this.selectedFiles) {
-      // Upload image when a file is selected
       this.uploadImage(this.selectedFiles);
+      this.imageRequired = false; 
     }
   }
   // image upload to api
+  // uploadImage(file: File) {
+  //   const formData = new FormData()
+  //   formData.append('file', file, file.name)
+  //   this._productsService.uploadProductImage(formData).subscribe(
+  //     (response) => {
+  //       this.currentImage = response.imageUrl
+  //       this.productImgId = response.fileDetails._id
+  //       this.editGiftItemForm.patchValue({
+  //         productImage: response.fileDetails.fileName
+  //       })
+  //     }
+  //   )
+  // }
+
   uploadImage(file: File) {
     const formData = new FormData()
     formData.append('file', file, file.name)
     this._productsService.uploadProductImage(formData).subscribe(
       (response) => {
-        this.currentImage = response.imageUrl
-        this.productImg = response.fileDetails._id
-        this.editGiftItemForm.patchValue({
-          productImage: response.fileDetails.fileName
-        })
+        this.imageUrl = response.imageUrl;
+        this.productImgId = response.fileDetails._id;
+        this.displayFileName = response.fileDetails.fileName;
       }
     )
   }
 
   // deleting image
+  // removeImage() {
+  //   this.selectedFiles = null;
+  //   this.currentImage = null;
+  //   this.productImgId = null;
+  // }
   removeImage() {
-    this.selectedFiles = '';
-    this.editGiftItemForm.get('productImage')?.setValue('');
+    this.selectedFiles = null;
+    this.imageUrl = null;
+    this.productImgId = null;
+    this.displayFileName = '';
+    this.imageRequired = true;
   }
 }
