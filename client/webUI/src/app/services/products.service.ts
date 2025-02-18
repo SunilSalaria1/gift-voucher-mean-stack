@@ -48,7 +48,7 @@ export class ProductsService {
 
   // update product
   updateProduct(productId: any, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/api/users/${productId}`,data)
+    return this.http.put(`${this.apiUrl}/api/products/${productId}`,data)
   }
 
   // delete request (delete product by id)

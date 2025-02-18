@@ -44,6 +44,7 @@ export class EditGiftItemComponent {
       (params: Params) => {
         console.log(params['id']);
         this.currentProductId = params['id']
+        console.log(this.currentProductId)
       })
     // form
     this.editGiftItemForm = this.formBuilder.group({
@@ -73,10 +74,16 @@ export class EditGiftItemComponent {
     )
   }
   // update reward button
-  onSubmit() {
+  onSubmit() : void{
     this.submitted = true;
     if (this.editGiftItemForm.valid) {
-      this._productsService.updateProduct(this.currentProductId, this.editGiftItemForm.value).subscribe(
+      const payload={
+        productTitle:this.editGiftItemForm.value.productTitle,
+        productDescription:this.editGiftItemForm.value.productDescription,
+        couponCode:this.editGiftItemForm.value.couponCode,
+        productImg:this.editGiftItemForm.value.productImage
+      };
+      this._productsService.updateProduct(this.currentProductId, payload).subscribe(
         (response) => {
           console.log('Post updated:', response);
           this.router.navigate(['/admin/gift-inventory']);
