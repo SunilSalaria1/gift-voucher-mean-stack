@@ -246,7 +246,13 @@ const getAllUsers = async (req, res) => {
         const totalUsers = await usersCollection.countDocuments(filter)
 
         // Fetch paginated users
-        const users = await usersCollection.find(filter).sort(sort).skip(skip).limit(limit).toArray()
+        const users = await usersCollection
+            .find(filter)
+            .project({ password: 0, tokens: 0 }) // Exclude 'password' and 'tokens'
+            .sort(sort)
+            .skip(skip)
+            .limit(limit)
+            .toArray();
         return res.json({
             users,
             totalPages: Math.ceil(totalUsers / limit),
