@@ -25,19 +25,24 @@ export class ProductsService {
   }
 
   // get all products
-  getProducts(page: number, limit: number, searchItem: string = '', sortBy: string = ''): Observable<any> {
-    const params: any = {
-      page: page,
-      limit: limit,
-      sortBy: "",
-      searchItem: "",
-    };
+  getProducts(page?: number, limit?: number, searchItem: string = '', sortBy: string = ''): Observable<any> {
+    const params: any = {}
+    if(page && limit){
+      params.page=page;
+      params.limit=limit;
+    }
+      // page: page,
+      // limit: limit,
+      // sortBy: "",
+      // searchItem: "",
+  
     if (searchItem) {
       params.searchItem = searchItem;
     }
     if (sortBy) {
       params.sortBy = sortBy;
     }
+    
     return this.http.get(`${this.apiUrl}/api/products`, { params })
   }
 

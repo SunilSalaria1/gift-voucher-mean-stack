@@ -71,7 +71,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-3 mb-4" *ngFor="let item of productList; let i = index">
+            <div class="col-3 mb-4" *ngFor="let item of products; let i = index">
                 <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
                     @if(activeIndex === i && isConfirmVisible){
                     <div class="gift-confirmation-button bg-dark text-white p-3 position-absolute shadow-sm"
@@ -90,13 +90,13 @@
                     </div>
                     }
                     <mat-card-content [ngClass]="{'active-product-card': activeIndex === i}">
-                        <span class="badge shadow-sm bg-dark text-white fs-12">{{ item.code }}</span>
+                        <span class="badge shadow-sm bg-dark text-white fs-12">{{ item.couponCode }}</span>
                         <div class="d-flex justify-content-center my-5">
-                            <img mat-card-image height="200" width="200" [src]="item.image" />
+                            <img mat-card-image height="200" width="200" [src]="item.productImageDetails.imageUrl" />
                         </div>
                         <div>
-                            <div>{{ item.name }}</div>
-                            <div class="fs-12">{{ item.description }}</div>
+                            <div>{{ item.productTitle }}</div>
+                            <div class="fs-12">{{ item.productDescription }}</div>
                         </div>
                         <div>
                             <button mat-flat-button class="button-mh-60 py-4 shadow-sm w-100 bg-dark mt-2 claim-gift-btn"
