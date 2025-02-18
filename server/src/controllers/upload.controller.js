@@ -1,4 +1,3 @@
-
 const { connectDB, db } = require("../config/db.config");
 const fileUploadSchema = require("../models/upload.model");
 const filesCollection = db.collection('files');
@@ -51,7 +50,7 @@ const getImage = async (req, res) => {
         // Convert buffer to Base64
         const base64Image = file.fileBuffer.toString("base64");
         const mimeType = file.fileType;
-        return res.send({imageUrl:`data:${mimeType};base64,${base64Image}`});
+        return res.send({ imageUrl: `data:${mimeType};base64,${base64Image}` });
     } catch (error) {
         console.error("Image retrieval error:", error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -71,4 +70,5 @@ const getAllImages = async (req, res) => {
     } catch (error) {
     }
 }
+
 module.exports = { uploadFile, getImage, getAllImages };
