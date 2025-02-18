@@ -48,16 +48,22 @@ export class AddGiftItemComponent {
       couponCode: ['', Validators.required],
       productImage: ['', Validators.required],
     });
+
+     // Reset error when coupon code changes
+  this.addGiftItemForm.get('couponCode')?.valueChanges.subscribe(() => {
+    this.isCouponCodeAlreadyExists = false;
+  });
   }
 
   // validating coupon code
   validateCouponCode() {
+    this.isCouponCodeAlreadyExists = false;
     const couponCode = this.addGiftItemForm.get('couponCode')?.value;
     if (couponCode) {
       this.productsService.checkCouponCode(couponCode).subscribe(
         (response) => {
           if (response) {
-            this.isCouponCodeAlreadyExists = response
+            this.isCouponCodeAlreadyExists = true; // Set error if exists
             console.log('Coupon code already exists!');
           }
         },
@@ -67,8 +73,6 @@ export class AddGiftItemComponent {
       );
     }
   }
-
-
   // selecting image
   selectedFiles: any;
   selectFiles(event: any): void {

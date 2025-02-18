@@ -79,17 +79,15 @@
               <mat-form-field appearance="outline" class="d-block input-lg input">
                 <div class="d-flex">
                   <input readonly matInput [value]="displayFileName || ''" />
-                  @if (displayFileName) {
+                  <!-- @if (displayFileName) {
                     <mat-icon (click)="removeImage()" class="delete-btn">delete</mat-icon>
-                  }
+                  } -->
                 </div>
-                <mat-error *ngIf="submitted && !productImgId">
-                  This is Required
-                </mat-error>
-                @if (!displayFileName) {
+                <mat-error>This is Required</mat-error>
+                @if (displayFileName) {
                   <mat-icon matSuffix>cloud_upload</mat-icon>
                 }
-                @if (!displayFileName) {
+                @if (displayFileName) {
                   <input 
                     type="file" 
                     id="fileInput" 

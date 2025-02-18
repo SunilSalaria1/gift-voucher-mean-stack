@@ -38,7 +38,7 @@ export class EditGiftItemComponent {
   productImgId: any;
   editGiftItemForm!: FormGroup;
   displayFileName: string = '';
-  imageRequired: boolean = false;
+  
 
   ngOnInit(): void {
     // accessing product id through params
@@ -96,10 +96,6 @@ export class EditGiftItemComponent {
   // update reward button
   onSubmit(): void {
     this.submitted = true;
-    if (!this.productImgId && !this.imageUrl) {
-      this.imageRequired = true;
-      return;
-    }
     if (this.editGiftItemForm.valid) {
       const payload = {
         productTitle: this.editGiftItemForm.value.productTitle,
@@ -131,7 +127,7 @@ export class EditGiftItemComponent {
     this.selectedFiles = event.target.files[0];
     if (this.selectedFiles) {
       this.uploadImage(this.selectedFiles);
-      this.imageRequired = false; 
+       
     }
   }
   // image upload to api
@@ -167,11 +163,11 @@ export class EditGiftItemComponent {
   //   this.currentImage = null;
   //   this.productImgId = null;
   // }
-  removeImage() {
-    this.selectedFiles = null;
-    this.imageUrl = null;
-    this.productImgId = null;
-    this.displayFileName = '';
-    this.imageRequired = true;
-  }
+  // removeImage() {
+  //   this.selectedFiles = null;
+  //   this.imageUrl = null;
+  //   this.productImgId = null;
+  //   this.displayFileName = '';
+    
+  // }
 }
