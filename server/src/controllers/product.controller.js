@@ -87,25 +87,150 @@ const getCouponCode = async (req, res) => {
     }
 }
 
+// const getProductWithId = async (req, res) => {
+//     /*  #swagger.tags = ['Products']
+//            #swagger.description = 'Get Product with Id .' */
+//     try {
+//         await connectDB();
+//         const productId = req.params.id;
+
+//         // Validate Product Id
+//         if (!ObjectId.isValid(productId)) {
+//             return res.status(400).json({ message: "Invalid Product Id" });
+//         }
+
+//         // Define the filter to find the product
+//         const filter = { _id: new ObjectId(productId), isDeleted: false };
+
+//         // Aggregate to join product with files collection
+//         const product = await productsCollection.aggregate([
+//             { $match: filter }, // Apply filtering
+//             {
+//                 $addFields: {
+//                     productObjId: {
+//                         $cond: {
+//                             if: { $eq: [{ $strLenCP: "$productImg" }, 24] }, // Check if productImg is a valid ObjectId
+//                             then: { $toObjectId: "$productImg" }, // Convert to ObjectId
+//                             else: null // Set null if invalid
+//                         }
+//                     }
+//                 }
+//             },
+//             {
+//                 $lookup: {
+//                     from: 'files', // Join with the 'files' collection
+//                     localField: 'productObjId', // The field in products collection that holds the file _id
+//                     foreignField: '_id', // The field in files collection that corresponds to the productImg _id
+//                     as: 'productImageDetails' // The alias for the joined data
+//                 }
+//             },
+//             { $unwind: "$productImageDetails" }, // Unwind the array to get a single image
+//             {
+//                 $project: {
+//                     "productImageDetails.productObjId": 0,
+//                     "productImageDetails.isDeleted": 0
+//                 }
+//             }
+//         ]).toArray();
+
+//         // Check if the product is found
+//         if (product.length === 0) {
+//             return res.status(404).json({ message: "Product not found" });
+//         }
+
+//         // Convert buffer to Base64 and add imageUrl
+//         const productObj = product[0]; // Since we expect only one product with the provided ID
+//         if (productObj.productImageDetails && productObj.productImageDetails.fileBuffer) {
+//             // Convert the fileBuffer to Base64
+//             const base64Image = productObj.productImageDetails.fileBuffer.toString('base64');
+//             // Add the Base64 string as a new field in the image details
+//             productObj.productImageDetails.imageUrl = `data:${productObj.productImageDetails.fileType};base64,${base64Image}`;
+//             delete productObj.productImageDetails.fileBuffer;
+//         }
+
+//         return res.json(productObj);
+
+//     } catch (e) {
+//         console.log(e);
+//         if (e instanceof ZodError) {
+//             res.status(400).json({ message: e.message });
+//         }
+//         res.status(500).json({ message: e.message });
+//     }
+// };
 const getProductWithId = async (req, res) => {
     /*  #swagger.tags = ['Products']
            #swagger.description = 'Get Product with Id .' */
     try {
         await connectDB();
-        const productId = req.params.id
+        const productId = req.params.id;
+
+        // Validate Product Id
         if (!ObjectId.isValid(productId)) {
             return res.status(400).json({ message: "Invalid Product Id" });
         }
-        const productObj = await productsCollection.findOne({ _id: new ObjectId(productId) });
-        res.send(productObj)
-    } catch (e) {
-        console.log(e)
-        if (e instanceof ZodError) {
-            res.status(400).json({ message: e.message })
+
+        // Define the filter to find the product
+        const filter = { _id: new ObjectId(productId), isDeleted: false };
+
+        // Aggregate to join product with files collection
+        const product = await productsCollection.aggregate([
+            { $match: filter }, // Apply filtering
+            {
+                $addFields: {
+                    productObjId: {
+                        $cond: {
+                            if: { $eq: [{ $strLenCP: "$productImg" }, 24] }, // Check if productImg is a valid ObjectId
+                            then: { $toObjectId: "$productImg" }, // Convert to ObjectId
+                            else: null // Set null if invalid
+                        }
+                    }
+                }
+            },
+            {
+                $lookup: {
+                    from: 'files', // Join with the 'files' collection
+                    localField: 'productObjId', // The field in products collection that holds the file _id
+                    foreignField: '_id', // The field in files collection that corresponds to the productImg _id
+                    as: 'productImageDetails' // The alias for the joined data
+                }
+            },
+            { $unwind: "$productImageDetails" }, // Unwind the array to get a single image
+            {
+                $project: {
+                    "productImageDetails.productObjId": 0, // Remove productObjId from productImageDetails
+                    "productImageDetails.isDeleted": 0 // Remove isDeleted from productImageDetails
+                }
+            }
+        ]).toArray();
+
+        // Check if the product is found
+        if (product.length === 0) {
+            return res.status(404).json({ message: "Product not found" });
         }
-        res.status(500).json({ message: e.message })
+
+        // Convert buffer to Base64 and add imageUrl
+        const productObj = product[0]; // Since we expect only one product with the provided ID
+        if (productObj.productImageDetails && productObj.productImageDetails.fileBuffer) {
+            // Convert the fileBuffer to Base64
+            const base64Image = productObj.productImageDetails.fileBuffer.toString('base64');
+            // Add the Base64 string as a new field in the image details
+            productObj.productImageDetails.imageUrl = `data:${productObj.productImageDetails.fileType};base64,${base64Image}`;
+            delete productObj.productImageDetails.fileBuffer;
+            delete productObj.productObjId;
+            delete productObj.isDeleted;
+        }
+
+        return res.json(productObj);
+
+    } catch (e) {
+        console.log(e);
+        if (e instanceof ZodError) {
+            res.status(400).json({ message: e.message });
+        }
+        res.status(500).json({ message: e.message });
     }
-}
+};
 
 
 const updateProduct = async (req, res) => {
@@ -253,6 +378,9 @@ const getAllProducts = async (req, res) => {
                 const base64Image = product.productImageDetails.fileBuffer.toString('base64');
                 // Add the Base64 string as a new field in the image details
                 product.productImageDetails.imageUrl = `data:${product.productImageDetails.fileType};base64,${base64Image}`;
+                delete product.productImageDetails.fileBuffer;
+                delete product.productObjId;
+                delete product.isDeleted;
             }
         });
 

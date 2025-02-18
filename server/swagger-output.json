@@ -439,9 +439,6 @@
         ],
         "description": "",
         "responses": {
-          "200": {
-            "description": "OK"
-          },
           "201": {
             "description": "Created"
           },
@@ -627,6 +624,9 @@
           "400": {
             "description": "Bad Request"
           },
+          "404": {
+            "description": "Not Found"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -692,11 +692,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Tue Feb 18 2025 09:58:10 GMT+0530 (India Standard Time)"
+          "example": "Tue Feb 18 2025 13:34:17 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Tue Feb 18 2025 09:58:10 GMT+0530 (India Standard Time)"
+          "example": "Tue Feb 18 2025 13:34:17 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
