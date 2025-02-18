@@ -105,7 +105,6 @@ export class EditEmpCodeComponent {
           joiningDate: this.userData.joiningDate,
           email: this.userData.email,
         })
-
       }
     )
   }

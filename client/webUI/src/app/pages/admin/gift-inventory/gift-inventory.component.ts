@@ -52,8 +52,9 @@ export class GiftInventoryComponent {
   readonly dialog = inject(MatDialog);
   // Create a map to store copied state for each coupon code
   copiedMap = new Map<string, boolean>();
+
   products: any[] = [];
-  selectedEmpId: string | null = null;
+  selectedProductId: string | null = null;
   searchForm: FormGroup;
   totalPages = 0;
   currentPage = 1;
@@ -64,6 +65,7 @@ export class GiftInventoryComponent {
   ngOnInit() {
     this.dataSource = new MatTableDataSource<any>([]); // Initialize with an empty array
     this.loadUsers(this.currentPage, this.pageSize, this.searchForm.value)
+    // search
     this.searchForm.get('searchTerm')?.valueChanges.pipe(
       debounceTime(500),
       distinctUntilChanged()
@@ -72,7 +74,7 @@ export class GiftInventoryComponent {
     });
   }
 
-
+  // get products
   loadUsers(page: number, limit: number, searchTerm: string = '', sortBy: string = '') {
     this._productsService.getProducts(page, limit, searchTerm, sortBy).subscribe(data => {
       this.products = data.products;
@@ -85,15 +87,17 @@ export class GiftInventoryComponent {
     }, error => console.error('Error fetching users', error));
   }
 
+  // onPageChange 
   onPageChange(event: PageEvent) {
-    console.log(event, 'kkkk')
     this.currentPage = event.pageIndex + 1; // MatPaginator uses 0-based index    
     this.pageSize = event.pageSize;
     this.totalUsers = event.length;
     this.loadUsers(this.currentPage, this.pageSize, this.searchForm.value); // Fetch data for the new page          
   }
 
-  openDialog(): void {
+  // dialog box
+  openDialog(id: string): void {
+    this.selectedProductId = id;
     // Use the TemplateRef for the dialog
     const dialogRef = this.dialog.open(this.dialogTemplate);
 
@@ -101,7 +105,16 @@ export class GiftInventoryComponent {
       console.log(`Dialog result: ${result}`);
     });
   }
+
+  //delete
   matDelete() {
+    this._productsService.deleteProduct(this.selectedProductId).subscribe(
+      (data: any) => {
+        console.log('delete request is successfull', data)
+      })
+    // Remove the deleted user from the table
+    this.products = this.products.filter(product => product._id !== this.selectedProductId);
+    this.dataSource.data = [...this.products];
     // Show success snackbar
     this.snackBar.open('You have successfully deleted the reward!.', 'close', {
       duration: 5000,
@@ -110,12 +123,13 @@ export class GiftInventoryComponent {
       verticalPosition: "top",
     });
   }
-  // this is for the filter the table data
+  // this is for filtering the table data
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  // displaying columns
   displayedColumns: string[] = [
     'position',
     'couponCode',

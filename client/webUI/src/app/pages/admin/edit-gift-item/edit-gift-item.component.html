@@ -13,27 +13,25 @@
             <mat-card class="bg-white shadow-sm product-reward-card p-3 mt-3" appearance="outlined">
               <mat-card-content class="d-block">
                 <span class="badge shadow-sm bg-dark text-white fs-12">{{
-                  this.addGiftItemForm.get("couponCode")?.value || "Coupon Code"
+                  this.editGiftItemForm.get("couponCode")?.value || "Coupon Code"
                   }}
                 </span>
   
                 <div class="d-flex justify-content-center my-5">
-                  <img mat-card-image height="200" width="200" alt="Product Image" src="assets/images/products/{{
-                      selectedFiles?.name || 'create-magic.png'
-                    }}  " />
+                  <img mat-card-image height="200" width="200" alt="Product Image" [src]="currentImage ||  'assets/images/products/create-magic.png'" />
                 </div>
   
                 <div>
                   <div>
                     {{
-                    this.addGiftItemForm.get("productTitle")?.value ||
+                    this.editGiftItemForm.get("productTitle")?.value ||
                     "Product Title"
                     }}
                   </div>
   
                   <div class="fs-12">
                     {{
-                    this.addGiftItemForm.get("productDescription")?.value ||
+                    this.editGiftItemForm.get("productDescription")?.value ||
                     "Product Description"
                     }}
                   </div>
@@ -54,10 +52,10 @@
           <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
             <mat-card-content class="d-block">
           <!-- form -->
-          <form [formGroup]="addGiftItemForm" (ngSubmit)="onSubmit()">
+          <form [formGroup]="editGiftItemForm" (ngSubmit)="onSubmit()">
             <h4 class="fw-bold mb-1">Coupon Code</h4>
             <mat-form-field appearance="outline" class="d-block input-lg input">
-              <input matInput formControlName="couponCode" />
+              <input matInput formControlName="couponCode" readonly/>
               <mat-icon matSuffix>vpn_key</mat-icon>
               <mat-error>This is Required</mat-error>
             </mat-form-field>
@@ -88,10 +86,10 @@
             </div>
             <mat-form-field appearance="outline" class="d-block input-lg input">
               <textarea matInput formControlName="productDescription" rows="5"></textarea>
-              <mat-error *ngIf="addGiftItemForm.get('productDescription')?.hasError('required')">
+              <mat-error *ngIf="editGiftItemForm.get('productDescription')?.hasError('required')">
                 This is Required
               </mat-error>
-              <mat-error *ngIf="addGiftItemForm.get('productDescription')?.hasError('maxlength')">
+              <mat-error *ngIf="editGiftItemForm.get('productDescription')?.hasError('maxlength')">
                 Maximum 200 characters allowed.
               </mat-error>
             </mat-form-field>
