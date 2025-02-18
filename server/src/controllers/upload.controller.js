@@ -45,16 +45,13 @@ const getImage = async (req, res) => {
         await connectDB();
         const fileId = req.params.id;
         const file = await filesCollection.findOne({ _id: new ObjectId(fileId) });
-
         if (!file) {
             return res.status(404).json({ message: "Image not found" });
         }
-
         // Convert buffer to Base64
         const base64Image = file.fileBuffer.toString("base64");
         const mimeType = file.fileType;
-
-        res.json({ imageUrl: `data:${mimeType};base64,${base64Image}` });
+        return res.send({imageUrl:`data:${mimeType};base64,${base64Image}`});
     } catch (error) {
         console.error("Image retrieval error:", error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -71,9 +68,7 @@ const getAllImages = async (req, res) => {
             return res.status(404).json({ message: "no content" });
         }
         return res.status(200).json({ images, totalImages: images.length })
-
     } catch (error) {
-
     }
 }
 module.exports = { uploadFile, getImage, getAllImages };

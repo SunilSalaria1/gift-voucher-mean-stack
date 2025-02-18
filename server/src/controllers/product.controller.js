@@ -68,10 +68,10 @@ const getCouponCode = async (req, res) => {
     try {
         await connectDB();
         const code = req.params.couponCode
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", code)
         if (!code) {
             return res.status(400).json({ message: "Coupon code is required" });
         }
-
         const productObj = await productsCollection.findOne({ couponCode: code });
         // const users = await usersCollection.find().toArray();
         if (productObj) {
@@ -120,9 +120,7 @@ const updateProduct = async (req, res) => {
                 #swagger.responses[201] = {
                 description: 'Product Updated successfully',
                 }
-              
                 */
-
     try {
         await connectDB();
         // Validate user ID
@@ -135,26 +133,23 @@ const updateProduct = async (req, res) => {
         if (!productDetails) {
             return res.status(404).json({ message: "Product not found" });
         }
+
         // Validate request body
-
-
         const { couponCode, productImg, productDescription, productTitle } = req.body;
         if (!couponCode || !productImg || !productDescription || !productTitle) {
             return res.status(400).json({ message: "Missing required fields" });
         }
+
         // Update user in MongoDB
         const updatedProduct = await productsCollection.findOneAndUpdate(
             { _id: new ObjectId(productId) },
             { $set: { productImg, productDescription, productTitle } },
             { returnDocument: "after" }
         );
-
         if (!updatedProduct) {
             return res.status(404).json({ message: "Failed to update Product" });
         }
-
         return res.status(200).json({ message: "Product updated successfully", updatedProduct });
-
     } catch (error) {
         console.error("MongoDB Error:", error);
         return res.status(500).json({ message: "Internal server error", error: error.message });
@@ -171,6 +166,7 @@ const deleteProduct = async (req, res) => {
         if (!ObjectId.isValid(productId)) {
             return res.status(400).json({ message: "Invalid Product Id" });
         }
+
         const result = await productsCollection.findOneAndUpdate(
             { _id: new ObjectId(productId) },
             { $set: { isDeleted: true } },
@@ -186,7 +182,6 @@ const deleteProduct = async (req, res) => {
     }
 }
 
-
 const getAllProducts = async (req, res) => {
     /*  #swagger.tags = ['Products']
            #swagger.description = 'Get all Products.' */
@@ -197,14 +192,8 @@ const getAllProducts = async (req, res) => {
         const limit = parseInt(req.query.limit) || 10;
         const skip = (page - 1) * limit;
 
-
-
         // flitering
         const filter = { isDeleted: false };
-        // console.log("req.query.rolereq.query.role", typeof (req.query.role))
-        // if (req.query.role === "admin") {
-        //     filter.isAdmin = true;
-        // }
 
         if (req.query.searchItem) {
             filter.$or = [
@@ -226,25 +215,74 @@ const getAllProducts = async (req, res) => {
             const [field, order] = req.query.sortBy.split(":");
             sort[field] = order === 'desc' ? -1 : 1;
         }
+        const sortStage = req.query.sortBy ? [{ $sort: sort }] : [];
 
-        // Get total count (for pagination metadata)
-        const totalProducts = await productsCollection.countDocuments(filter)
+        // Aggregate to join products with files collection
+        const products = await productsCollection.aggregate([
+            { $match: filter }, // Apply filtering
+            {
+                $addFields: {
+                    productObjId: {
+                        $cond: {
+                            if: { $eq: [{ $strLenCP: "$productImg" }, 24] }, // Check if userId is 24 characters long
+                            then: { $toObjectId: "$productImg" },  // Convert valid userId to ObjectId
+                            else: null  // Set null if invalid
+                        }
+                    } // Add the entire image object from files collection
+                }
+            },
+            {
+                $lookup: {
+                    from: 'files', // Join with the 'files' collection
+                    localField: 'productObjId', // The field in products collection that holds the file _id
+                    foreignField: '_id', // The field in files collection that corresponds to the productImg _id
+                    as: 'productImageDetails' // The alias for the joined data
+                }
+            },
+            { $unwind: "$productImageDetails" }, // Unwind the array to get a single image
 
-        // Fetch paginated users
-        const products = await productsCollection.find(filter).sort(sort).skip(skip).limit(limit).toArray()
+            { $skip: skip }, // Pagination skip
+            { $limit: limit }, // Pagination limit
+            ...sortStage, // Only if sorting is applied
+        ]).toArray();
+
+        // Convert buffer to Base64 and add imageUrl
+        products.forEach(product => {
+            if (product.productImageDetails && product.productImageDetails.fileBuffer) {
+                // Convert the fileBuffer to Base64
+                const base64Image = product.productImageDetails.fileBuffer.toString('base64');
+                // Add the Base64 string as a new field in the image details
+                product.productImageDetails.imageUrl = `data:${product.productImageDetails.fileType};base64,${base64Image}`;
+            }
+        });
+
+        // Get total count for pagination
+        const totalProducts = await productsCollection.countDocuments(filter);
+
         return res.json({
             products,
             totalPages: Math.ceil(totalProducts / limit),
             currentPage: page,
             totalProducts
         });
+
     } catch (e) {
-        console.log(e)
+        console.log(e);
         if (e instanceof ZodError) {
-            res.status(400).json({ message: e.message })
+            res.status(400).json({ message: e.message });
         }
-        res.status(500).json({ message: e.message })
+        res.status(500).json({ message: e.message });
     }
-}
+};
+
+
+
+
+
+
+
+
+
+
 
 module.exports = { addProduct, getCouponCode, getProductWithId, updateProduct, deleteProduct, getAllProducts };
