@@ -1,5 +1,4 @@
 const { connectDB, db } = require("../config/db.config");
-const fileUploadSchema = require("../models/upload.model");
 const filesCollection = db.collection('files');
 const { ObjectId } = require('mongodb');
 

@@ -1,6 +1,5 @@
-const userSchema = require("../models/user.model");
+
 const { connectDB, db } = require('../config/db.config'); // Import db from db.js
-const { ObjectId } = require('mongodb');
 const jwt = require('jsonwebtoken')
 const usersCollection = db.collection('users');
 const SECRET_KEY = "Aniwer32432@#^%&^#!%@&#%&%!@#!&%@#!&@2153"

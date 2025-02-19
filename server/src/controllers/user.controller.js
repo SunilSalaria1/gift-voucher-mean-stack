@@ -3,11 +3,9 @@ const userSchema = require("../models/user.model");
 const { ZodError } = require("zod");
 const { connectDB, db } = require('../config/db.config'); // Import db from db.js
 const { ObjectId } = require('mongodb');
-
 const usersCollection = db.collection('users');
 const productsCollection = db.collection('products');
 const crypto = require('crypto');
-
 const bcrypt = require("bcryptjs");
 
 const generateEmpCodeAndPassword = async (name, email, department, dob, usersCollection) => {
@@ -34,8 +32,6 @@ const generateEmpCodeAndPassword = async (name, email, department, dob, usersCol
     // 🔹 Hash the password using bcryptjs
     const salt = await bcrypt.genSalt(10); // Generate salt
     const hashedPassword = await bcrypt.hash(defaultPassword, salt); // Hash password
-    // console.log("###################################", hashedPassword)
-    // console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$", empCode)
     return { empCode, hashedPassword };
 };
 
@@ -417,6 +413,7 @@ const updateUserPick = async (req, res) => {
         return res.status(500).json({ message: "Internal server error", error: error.message });
     }
 };
+
 const deleteUserPick = async (req, res) => {
     /*  #swagger.tags = ['Gifts']
         #swagger.description = 'Delete User Gift Pick with Id.' 
@@ -484,8 +481,8 @@ const getGiftInvertory = async (req, res) => {
                 { name: { $regex: req.query.searchItem, $options: "i" } },
                 { empCode: { $regex: req.query.searchItem, $options: "i" } },
                 { department: { $regex: req.query.searchItem, $options: "i" } },
-                { joiningDate: { $regex: req.query.searchItem, $options: "i" } },
-                { dob: { $regex: req.query.searchItem, $options: "i" } }
+                { "productDetails?.couponCode": { $regex: req.query.searchItem, $options: "i" } },
+                { "productDetails?.title": { $regex: req.query.searchItem, $options: "i" } }
             ];
         }
 
@@ -591,7 +588,8 @@ const getGiftInvertory = async (req, res) => {
         });
 
         // Total counts for pagination
-        const totalusers = await usersCollection.countDocuments({ isDeleted: false });
+        const totalUsers = await usersCollection.countDocuments({ isDeleted: false });
+        const totalProducts = await productsCollection.countDocuments({ isDeleted: false });
         const usersPickedGift = await usersCollection.countDocuments({ isDeleted: false, isPicked: true });
         const userDidNotPickedGift = totalusers - usersPickedGift;
 
@@ -599,7 +597,7 @@ const getGiftInvertory = async (req, res) => {
             giftInventoryData,
             totalPages: Math.ceil(totalusers / limit),
             currentPage: page,
-            totalusers,
+            totalUsers,totalProducts,
             usersPickedGift,
             userDidNotPickedGift
         });
