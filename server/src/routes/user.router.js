@@ -10,6 +10,6 @@ userRouter.put('/users/:id', authenticateToken, updateUser);
 userRouter.delete('/users/:id', authenticateToken, deleteUserWithId);
 userRouter.put('/users/:id/role', authenticateToken, createAdmin);
 userRouter.put('/users/:id/giftPick', authenticateToken, updateUserPick);
-userRouter.get('/allGiftPicks/', authenticateToken, getGiftInvertory);
+userRouter.get('/gifts', authenticateToken, getGiftInvertory); // Get all gift inventory
 
 module.exports = userRouter;
