@@ -30,7 +30,7 @@ const loginUser = async (req, res) => {
     try {
         await connectDB();
         // Find the user by empCode
-        const result = await usersCollection.findOne({ empCode: req.body.empCode });
+        const result = await usersCollection.findOne({ empCode: req.body.empCode,isDeleted:false });
 
         if (!result) {
             return res.status(404).json({ message: "User not found" });
