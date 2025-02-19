@@ -346,6 +346,46 @@
         }
       }
     },
+    "/api/allGiftPicks/": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "searchItem",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
     "/api/login": {
       "post": {
         "tags": [
@@ -847,11 +887,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Wed Feb 19 2025 11:24:57 GMT+0530 (India Standard Time)"
+          "example": "Wed Feb 19 2025 12:58:41 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Wed Feb 19 2025 11:24:57 GMT+0530 (India Standard Time)"
+          "example": "Wed Feb 19 2025 12:58:41 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
