@@ -296,6 +296,56 @@
         }
       }
     },
+    "/api/users/{id}/giftPick": {
+      "put": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Update User Gift Pick with Id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User update details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateUserGiftPick"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User updated successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
     "/api/login": {
       "post": {
         "tags": [
@@ -343,15 +393,6 @@
         "description": "Logout user",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "description": "User logout credentials",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/logoutUser"
-            }
-          },
-          {
             "name": "authorization",
             "in": "header",
             "type": "string"
@@ -387,6 +428,11 @@
         "description": "",
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "body",
             "in": "body",
             "schema": {
@@ -412,6 +458,12 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -422,9 +474,22 @@
           "Feedback section"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "500": {
             "description": "Internal Server Error"
@@ -438,12 +503,25 @@
           "Upload Image"
         ],
         "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "500": {
             "description": "Internal Server Error"
@@ -463,11 +541,22 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -502,6 +591,11 @@
         "description": "Add Product",
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "body",
             "in": "body",
             "description": "Product details",
@@ -518,6 +612,12 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -529,6 +629,11 @@
         ],
         "description": "Get all Products.",
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
           {
             "name": "page",
             "in": "query",
@@ -557,6 +662,12 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -574,6 +685,11 @@
             "name": "id",
             "in": "path",
             "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
             "type": "string"
           },
           {
@@ -596,6 +712,12 @@
           "400": {
             "description": "Bad Request"
           },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -615,6 +737,11 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
           }
         ],
         "responses": {
@@ -623,6 +750,12 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Not Found"
@@ -643,6 +776,11 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
           }
         ],
         "responses": {
@@ -651,6 +789,12 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "500": {
             "description": "Internal Server Error"
@@ -670,6 +814,11 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
           }
         ],
         "responses": {
@@ -678,6 +827,12 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "500": {
             "description": "Internal Server Error"
@@ -692,11 +847,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Tue Feb 18 2025 13:34:17 GMT+0530 (India Standard Time)"
+          "example": "Wed Feb 19 2025 10:31:15 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Tue Feb 18 2025 13:34:17 GMT+0530 (India Standard Time)"
+          "example": "Wed Feb 19 2025 10:31:15 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
@@ -755,19 +910,6 @@
         }
       }
     },
-    "logoutUser": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "example": "67a4af8cf19f72c03d3d4547"
-        },
-        "isAdmin": {
-          "type": "string",
-          "example": "true"
-        }
-      }
-    },
     "addProduct": {
       "type": "object",
       "properties": {
@@ -807,6 +949,19 @@
         "productTitle": {
           "type": "string",
           "example": "bottle"
+        }
+      }
+    },
+    "UpdateUserGiftPick": {
+      "type": "object",
+      "properties": {
+        "isPicked": {
+          "type": "string",
+          "example": "true"
+        },
+        "productId": {
+          "type": "string",
+          "example": "productId"
         }
       }
     }

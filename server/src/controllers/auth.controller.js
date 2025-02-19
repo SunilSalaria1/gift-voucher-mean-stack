@@ -111,12 +111,7 @@ const loginUser = async (req, res) => {
 const logoutUser = async (req, res) => {
     /*  #swagger.tags = ['Auth']
        #swagger.description = 'Logout user'
-       #swagger.parameters['body'] = {
-           in: 'body',
-           description: 'User logout credentials',
-           required: true,
-           schema: { $ref: '#/definitions/logoutUser' }
-       }
+       
        #swagger.responses[201] = {
            description: 'Logout successful',
        }

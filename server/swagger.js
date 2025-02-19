@@ -46,10 +46,6 @@ const doc = {
       isAdmin: "true"
     }
     ,
-    logoutUser: {
-      id: "67a4af8cf19f72c03d3d4547",
-      isAdmin: "true"
-    },
     addProduct: {
       couponCode: "lp12345",
       productImg: "image id",
@@ -61,6 +57,10 @@ const doc = {
       productImg: "image id",
       productDescription: "this product is good",
       productTitle: "bottle"
+    },
+    UpdateUserGiftPick: {
+      isPicked:'true',
+      productId:"productId"
     },
   }
 };

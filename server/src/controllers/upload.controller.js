@@ -2,6 +2,7 @@ const { connectDB, db } = require("../config/db.config");
 const fileUploadSchema = require("../models/upload.model");
 const filesCollection = db.collection('files');
 const { ObjectId } = require('mongodb');
+
 const uploadFile = async (req, res) => {
     /*  #swagger.tags = ['Upload Image']
      */
@@ -35,7 +36,6 @@ const uploadFile = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
-
 
 const getImage = async (req, res) => {
     /*  #swagger.tags = ['Upload Image']

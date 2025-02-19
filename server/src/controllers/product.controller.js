@@ -2,6 +2,7 @@ const productSchema = require("../models/product.model");
 const { connectDB, db } = require('../config/db.config'); // Import db from db.js
 const { ObjectId } = require('mongodb');
 const productsCollection = db.collection('products');
+
 const addProduct = async (req, res) => {
     /*  #swagger.tags = ['Products']
                 #swagger.description = 'Add Product'

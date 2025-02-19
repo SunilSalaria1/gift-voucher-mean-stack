@@ -5,7 +5,7 @@ const { connectDB, db } = require('../config/db.config'); // Import db from db.j
 const { ObjectId } = require('mongodb');
 
 const usersCollection = db.collection('users');
-
+const productsCollection = db.collection('products');
 const crypto = require('crypto');
 
 const bcrypt = require("bcryptjs");
@@ -129,7 +129,7 @@ const getUserWithId = async (req, res) => {
         }
         res.status(500).json({ message: e.message })
     }
-}
+};
 
 const updateUser = async (req, res) => {
     /*  #swagger.tags = ['Auth']
@@ -175,6 +175,7 @@ const updateUser = async (req, res) => {
         const { empCode, hashedPassword } = await generateEmpCodeAndPassword(name, email, department, dob, usersCollection);
 
         // Update user in MongoDB
+
         const updatedUser = await usersCollection.findOneAndUpdate(
             { _id: new ObjectId(userId) },
             { $set: { name, department, empCode, password: hashedPassword } },
@@ -266,7 +267,7 @@ const getAllUsers = async (req, res) => {
         }
         res.status(500).json({ message: e.message })
     }
-}
+};
 
 
 const deleteUserWithId = async (req, res) => {
@@ -291,7 +292,7 @@ const deleteUserWithId = async (req, res) => {
         }
         res.status(500).json({ message: e.message })
     }
-}
+};
 
 const createAdmin = async (req, res) => {
     /*  #swagger.tags = ['Admin']
@@ -359,5 +360,63 @@ const createAdmin = async (req, res) => {
     }
 };
 
+const updateUserPick = async (req, res) => {
+    /*  #swagger.tags = ['Auth']
+        #swagger.description = 'Update User Gift Pick with Id.' 
+        // #swagger.parameters['body'] = {
+        //     in: 'body',
+        //     description: 'User update details',
+        //     required: true,
+        //     schema: { $ref: '#/definitions/UpdateUserGiftPick' }
+        // }
+        #swagger.responses[200] = { description: 'User updated successfully' }
+        #swagger.responses[400] = { description: 'Invalid input' }
+        #swagger.responses[404] = { description: 'User not found' }
+        #swagger.responses[500] = { description: 'Internal server error' }
+    */
+    try {
+        await connectDB();
+        // Validate user ID
+        const userId = req.params.id;
+        if (!ObjectId.isValid(userId)) {
+            return res.status(400).json({ message: "Invalid user ID format" });
+        }
+        // Fetch user details
+        const userDetails = await usersCollection.findOne({ _id: new ObjectId(userId), isDeleted: false });
+        if (!userDetails) {
+            return res.status(404).json({ message: "User not found" });
+        }
 
-module.exports = { register, getAllUsers, updateUser, deleteUserWithId, getUserWithId, createAdmin }
+
+        const { productId, isPicked } = req.body;
+        if (!productId || !isPicked) {
+            return res.status(400).json({ message: "Missing required fields: productId and isPicked" });
+        }
+        if (!ObjectId.isValid(productId)) {
+            return res.status(400).json({ message: "Invalid product ID format" });
+        }
+        const productDetails = await productsCollection.findOne({ _id: new ObjectId(productId), isDeleted: false });
+        if (!productDetails) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        // Update user in MongoDB
+        const updatedUser = await usersCollection.findOneAndUpdate(
+            { _id: new ObjectId(userId) },
+            { $set: { productId, isPicked: true } },
+            { returnDocument: "after" }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: "Failed to update user" });
+        }
+
+        return res.status(200).json({ message: "User updated successfully", updatedUser });
+
+    } catch (error) {
+        console.error("MongoDB Error:", error);
+        return res.status(500).json({ message: "Internal server error", error: error.message });
+    }
+};
+
+module.exports = { register, getAllUsers, updateUser, deleteUserWithId, getUserWithId, createAdmin, updateUserPick }
