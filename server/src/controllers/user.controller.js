@@ -360,7 +360,7 @@ const createAdmin = async (req, res) => {
 };
 
 const updateUserPick = async (req, res) => {
-    /*  #swagger.tags = ['Auth']
+    /*  #swagger.tags = ['Gifts']
         #swagger.description = 'Update User Gift Pick with Id.' 
         // #swagger.parameters['body'] = {
         //     in: 'body',
@@ -556,6 +556,9 @@ const updateUserPick = async (req, res) => {
 
 // }
 const getGiftInvertory = async (req, res) => {
+    /*  #swagger.tags = ['Gifts']
+    #swagger.description = 'All Users Gift Pick.' 
+    */
     try {
         await connectDB();
 

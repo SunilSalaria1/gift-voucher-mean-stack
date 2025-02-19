@@ -296,10 +296,10 @@
         }
       }
     },
-    "/api/users/{id}/giftPick": {
-      "put": {
+    "/api/users/{id}/gifts": {
+      "patch": {
         "tags": [
-          "Auth"
+          "Gifts"
         ],
         "description": "Update User Gift Pick with Id.",
         "parameters": [
@@ -348,7 +348,10 @@
     },
     "/api/gifts": {
       "get": {
-        "description": "",
+        "tags": [
+          "Gifts"
+        ],
+        "description": "All Users Gift Pick.",
         "parameters": [
           {
             "name": "Authorization",
@@ -901,11 +904,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Wed Feb 19 2025 13:21:18 GMT+0530 (India Standard Time)"
+          "example": "Wed Feb 19 2025 13:24:26 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Wed Feb 19 2025 13:21:18 GMT+0530 (India Standard Time)"
+          "example": "Wed Feb 19 2025 13:24:26 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
