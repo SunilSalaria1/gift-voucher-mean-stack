@@ -62,6 +62,6 @@ export class ProductsService {
   }
 
   giftPick(userId:any,data:any):Observable<any>{
-    return this.http.put(`${this.apiUrl}/api/users/${userId}/giftPick`,data)
+    return this.http.put(`${this.apiUrl}/api/users/${userId}/gifts`,data)
   }
 }
