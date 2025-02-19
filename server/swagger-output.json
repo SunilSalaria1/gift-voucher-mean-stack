@@ -344,6 +344,50 @@
             "description": "Internal server error"
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "Gifts"
+        ],
+        "description": "Delete User Gift Pick with Id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "isPicked",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
     },
     "/api/gifts": {
@@ -393,9 +437,6 @@
           },
           "403": {
             "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -904,11 +945,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Wed Feb 19 2025 13:25:30 GMT+0530 (India Standard Time)"
+          "example": "Wed Feb 19 2025 17:15:48 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Wed Feb 19 2025 13:25:30 GMT+0530 (India Standard Time)"
+          "example": "Wed Feb 19 2025 17:15:48 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
@@ -1019,6 +1060,15 @@
         "productId": {
           "type": "string",
           "example": "productId"
+        }
+      }
+    },
+    "DeleteUserGiftPick": {
+      "type": "object",
+      "properties": {
+        "isPicked": {
+          "type": "string",
+          "example": "false"
         }
       }
     }

@@ -62,6 +62,9 @@ const doc = {
       isPicked:'true',
       productId:"productId"
     },
+    DeleteUserGiftPick: {
+      isPicked:'false',
+    },
   }
 };
 

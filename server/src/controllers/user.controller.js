@@ -417,6 +417,48 @@ const updateUserPick = async (req, res) => {
         return res.status(500).json({ message: "Internal server error", error: error.message });
     }
 };
+const deleteUserPick = async (req, res) => {
+    /*  #swagger.tags = ['Gifts']
+        #swagger.description = 'Delete User Gift Pick with Id.' 
+
+    */
+    try {
+        await connectDB();
+        // Validate user ID
+        const userId = req.params.id;
+        if (!ObjectId.isValid(userId)) {
+            return res.status(400).json({ message: "Invalid user ID format" });
+        }
+        // Fetch user details
+        const userDetails = await usersCollection.findOne({ _id: new ObjectId(userId), isDeleted: false });
+        if (!userDetails) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+
+
+        if (!req.query.isPicked) {
+            return res.status(400).json({ message: "Missing required field: isPicked" });
+        }
+
+        // Update user in MongoDB
+        const deletedUser = await usersCollection.findOneAndUpdate(
+            { _id: new ObjectId(userId) },
+            { $set: { productId: "", isPicked: false } },
+            { returnDocument: "after" }
+        );
+
+        if (!deletedUser) {
+            return res.status(404).json({ message: "Failed to delete user" });
+        }
+
+        return res.status(200).json({ message: "User deleted successfully" });
+
+    } catch (error) {
+        console.error("MongoDB Error:", error);
+        return res.status(500).json({ message: "Internal server error", error: error.message });
+    }
+};
 
 
 const getGiftInvertory = async (req, res) => {
@@ -570,4 +612,4 @@ const getGiftInvertory = async (req, res) => {
 
 
 
-module.exports = { register, getAllUsers, updateUser, deleteUserWithId, getUserWithId, createAdmin, updateUserPick, getGiftInvertory }
+module.exports = { register, getAllUsers, updateUser, deleteUserWithId, getUserWithId, createAdmin, updateUserPick, getGiftInvertory, deleteUserPick }
