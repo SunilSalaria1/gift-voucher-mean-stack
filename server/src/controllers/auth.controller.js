@@ -41,7 +41,6 @@ const loginUser = async (req, res) => {
                 return res.status(400).json({ message: "Missing required fields: Employee Code" });
             }
             // 2. If the user is not an admin, proceed with login (admin check can be handled differently)
-            if (result.isAdmin === false) {
                 // Generate JWT token for non-admin user
                 const token = await jwt.sign({ userId: result._id.toString() }, SECRET_KEY, { expiresIn: "1h" });
                 const updatedDataToken = await usersCollection.updateOne(
@@ -60,7 +59,7 @@ const loginUser = async (req, res) => {
                     },
                     token: token,
                 });
-            }
+            
         }
         else if (req.body.role == "admin") {
             if (result.isAdmin == false) {

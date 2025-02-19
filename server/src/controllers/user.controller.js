@@ -418,146 +418,10 @@ const updateUserPick = async (req, res) => {
     }
 };
 
-// const getGiftInvertory = async (req, res) => {
 
-//     try {
-//         await connectDB();
-//         // pagination 
-//         const page = parseInt(req.query.page) || 1;
-//         const limit = parseInt(req.query.limit) || 10;
-//         const skip = (page - 1) * limit;
-
-
-
-//         // flitering
-//         const filter = { isDeleted: false };
-//         console.log("req.query.rolereq.query.role", typeof (req.query.role))
-//         if (req.query.role === "admin") {
-//             filter.isAdmin = true;
-//         }
-
-//         if (req.query.searchItem) {
-//             filter.$or = [
-//                 {
-//                     name: { $regex: req.query.searchItem, $options: "i" }
-//                 },
-//                 {
-//                     email: { $regex: req.query.searchItem, $options: "i" }
-//                 },
-//                 {
-//                     empCode: { $regex: req.query.searchItem, $options: "i" }
-//                 },
-//                 {
-//                     department: { $regex: req.query.searchItem, $options: "i" }
-//                 },
-//                 {
-//                     joiningDate: { $regex: req.query.searchItem, $options: "i" }
-//                 },
-//                 {
-//                     dob: { $regex: req.query.searchItem, $options: "i" }
-//                 },
-//             ]
-//         }
-
-//         // sorting 
-//         const sort = {};
-//         if (req.query.sortBy) {
-//             const [field, order] = req.query.sortBy.split(":");
-//             sort[field] = order === 'desc' ? -1 : 1;
-//         }
-//         const giftInvertoryData = await usersCollection.aggregate([
-//             {
-//                 $match: filter  // Apply filtering
-//             }, {
-//                 $addFields: {
-//                     productObjId: {
-//                         $cond: {
-//                             if: { $eq: [{ $strLenCP: "$productId" }, 24] }, // Check if productId is a valid ObjectId
-//                             then: { $toObjectId: "$productId" }, // Convert to ObjectId
-//                             else: null // Set null if invalid
-//                         }
-//                     }
-//                 }
-//             },
-//             {
-//                 $lookup: {
-//                     from: 'products',
-//                     localField: "productObjId",
-//                     foreignField: "_id",
-//                     as: "productDetails"
-//                 }
-
-//             }, {
-//                 $unwind: "$productDetails"
-//             },
-//             {
-//                 $addFields: {
-//                     productImgObjId: {
-//                         $cond: {
-//                             if: { $eq: [{ $strLenCP: "$productDetails.productImg" }, 24] }, // Check if productId is a valid ObjectId
-//                             then: { $toObjectId: "$productDetails.productImg" }, // Convert to ObjectId
-//                             else: null // Set null if invalid
-//                         }
-//                     }
-//                 }
-//             },
-//             {
-//                 $lookup: {
-//                     from: 'files',
-//                     localField: "productDetails._id",
-//                     foreignField: "productDetails.productImgObjId",
-//                     as: "productDetails.productImgDetails"
-//                 }
-//             }, {
-//                 $unwind: "$productDetails.productImgDetails"
-//             },
-//             {
-//                 $project: {
-//                     "password": 0,
-//                     "tokens": 0,
-//                     "isDeleted": 0,
-//                     "isAdmin": 0,
-//                     "isPrimaryAdmin": 0,
-//                     "_id": 0,
-//                     "joiningDate": 0,
-//                     "dob": 0,
-//                     "productObjId": 0,
-//                     "productDetails.isDeleted": 0,
-//                 }
-//             }
-//         ]).toArray();
-
-//         // Check if the product is found
-//         if (giftInvertoryData.length === 0) {
-//             return res.status(404).json({ message: "Product not found" });
-//         }
-//         giftInvertoryData.forEach(data => {
-//             if (data.productDetails && data.productDetails.productImgDetails.fileBuffer) {
-//                 const base64Image = data.productDetails.productImgDetails.fileBuffer.toString('base64');
-//                 data.productDetails.productImgDetails.imageUrl = `data${data.productDetails.productImgDetails.fileType};base64,${base64Image}`
-//                 delete data.productDetails.productImgDetails.fileBuffer
-//             }
-//         })
-//         // Get total count for pagination
-//         const totalusers = await productsCollection.countDocuments(filter);
-//         const usersPickedGift = await productsCollection.countDocuments({ ...filter, isPicked: true });
-//         const userDidNotPickedGift = totalusers - usersPickedGift
-//         return res.json({
-//             giftInvertoryData,
-//             totalPages: Math.ceil(totalusers / limit),
-//             currentPage: page,
-//             totalusers, usersPickedGift, userDidNotPickedGift
-//         });
-
-
-//     } catch (e) {
-
-//     }
-
-// }
 const getGiftInvertory = async (req, res) => {
     /*  #swagger.tags = ['Gifts']
-    #swagger.description = 'All Users Gift Pick.' 
+        #swagger.description = 'All Users Gift Pick.' 
     */
     try {
         await connectDB();
@@ -576,7 +440,6 @@ const getGiftInvertory = async (req, res) => {
         if (req.query.searchItem) {
             filter.$or = [
                 { name: { $regex: req.query.searchItem, $options: "i" } },
-                { email: { $regex: req.query.searchItem, $options: "i" } },
                 { empCode: { $regex: req.query.searchItem, $options: "i" } },
                 { department: { $regex: req.query.searchItem, $options: "i" } },
                 { joiningDate: { $regex: req.query.searchItem, $options: "i" } },
@@ -590,22 +453,33 @@ const getGiftInvertory = async (req, res) => {
             const [field, order] = req.query.sortBy.split(":");
             sort[field] = order === 'desc' ? -1 : 1;
         }
+        const sortStage = req.query.sortBy ? [{ $sort: sort }] : [];
 
         // Aggregation
         const giftInvertoryData = await usersCollection.aggregate([
             { $match: filter },
+
+            // Convert productId to ObjectId only if it's a valid string
             {
                 $addFields: {
                     productObjId: {
                         $cond: {
-                            if: { $and: [{ $ifNull: ["$productId", false] }, { $eq: [{ $strLenCP: "$productId" }, 24] }] },
+                            if: {
+                                $and: [
+                                    { $ifNull: ["$productId", false] },  // Ensure it exists
+                                    { $ne: ["$productId", ""] },  // Ignore empty strings
+                                    { $eq: [{ $type: "$productId" }, "string"] },  // Ensure it's a string
+                                    { $eq: [{ $strLenCP: "$productId" }, 24] }  // Ensure valid ObjectId length
+                                ]
+                            },
                             then: { $toObjectId: "$productId" },
                             else: null
                         }
                     }
                 }
             },
-            { $match: { productObjId: { $ne: null } } },
+
+            // Lookup product details (preserving unmatched users)
             {
                 $lookup: {
                     from: 'products',
@@ -614,18 +488,29 @@ const getGiftInvertory = async (req, res) => {
                     as: "productDetails"
                 }
             },
-            { $unwind: "$productDetails" },
+            { $unwind: { path: "$productDetails", preserveNullAndEmptyArrays: true } },
+
+            // Convert productImg to ObjectId only if it's a valid string
             {
                 $addFields: {
                     productImgObjId: {
                         $cond: {
-                            if: { $and: [{ $ifNull: ["$productDetails.productImg", false] }, { $eq: [{ $strLenCP: "$productDetails.productImg" }, 24] }] },
+                            if: {
+                                $and: [
+                                    { $ifNull: ["$productDetails.productImg", false] },  // Ensure it exists
+                                    { $ne: ["$productDetails.productImg", ""] },  // Ignore empty strings
+                                    { $eq: [{ $type: "$productDetails.productImg" }, "string"] },  // Ensure it's a string
+                                    { $eq: [{ $strLenCP: "$productDetails.productImg" }, 24] }  // Ensure valid ObjectId length
+                                ]
+                            },
                             then: { $toObjectId: "$productDetails.productImg" },
                             else: null
                         }
                     }
                 }
             },
+
+            // Lookup product image details (preserving unmatched users)
             {
                 $lookup: {
                     from: 'files',
@@ -634,30 +519,33 @@ const getGiftInvertory = async (req, res) => {
                     as: "productDetails.productImgDetails"
                 }
             },
-            { $unwind: "$productDetails.productImgDetails" },
+            { $unwind: { path: "$productDetails.productImgDetails", preserveNullAndEmptyArrays: true } },
+
+            // Remove unwanted fields
             {
                 $project: {
-                    password: 0, email: 0, productId: 0, tokens: 0, isDeleted: 0, isAdmin: 0, isPrimaryAdmin: 0,
-                    joiningDate: 0, dob: 0, productObjId: 0, "productDetails.isDeleted": 0, "productDetails._id": 0, "productDetails.productImg": 0
-                    , "productDetails.productDescription": 0,
-                    "productDetails.addedAt": 0,
-                    productImgObjId: 0,
-
+                    password: 0, email: 0, tokens: 0, isDeleted: 0, isAdmin: 0, isPrimaryAdmin: 0,
+                    joiningDate: 0, dob: 0, productObjId: 0, productImgObjId: 0,
+                    "productDetails.isDeleted": 0, "productDetails._id": 0, "productDetails.productImg": 0,
+                    "productDetails.productDescription": 0, "productDetails.addedAt": 0
                 }
-            }
+            },
+            // Sorting
+            ...(Object.keys(sort).length > 0 ? [{ $sort: sort }] : []),
+
+            // Pagination (Skip and Limit)
+            { $skip: skip },
+            { $limit: limit }
+
         ]).toArray();
 
-        if (giftInvertoryData.length === 0) {
-            return res.status(404).json({ message: "Product not found" });
-        }
-
+        // Ensure users without product details still appear
         giftInvertoryData.forEach(data => {
             if (data.productDetails?.productImgDetails?.fileBuffer) {
                 data.productDetails.imageUrl = `data${data.productDetails.productImgDetails.fileType};base64,${data.productDetails.productImgDetails.fileBuffer.toString('base64')}`;
                 delete data.productDetails.productImgDetails.fileBuffer;
-                delete data.productDetails.productImgDetails;
-
             }
+            delete data.productDetails?.productImgDetails;
         });
 
         // Total counts for pagination
@@ -665,12 +553,21 @@ const getGiftInvertory = async (req, res) => {
         const usersPickedGift = await usersCollection.countDocuments({ isDeleted: false, isPicked: true });
         const userDidNotPickedGift = totalusers - usersPickedGift;
 
-        return res.json({ giftInvertoryData, totalPages: Math.ceil(totalusers / limit), currentPage: page, totalusers, usersPickedGift, userDidNotPickedGift });
+        return res.json({
+            giftInvertoryData,
+            totalPages: Math.ceil(totalusers / limit),
+            currentPage: page,
+            totalusers,
+            usersPickedGift,
+            userDidNotPickedGift
+        });
 
     } catch (e) {
         console.error("Error:", e);
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
+
+
 
 module.exports = { register, getAllUsers, updateUser, deleteUserWithId, getUserWithId, createAdmin, updateUserPick, getGiftInvertory }

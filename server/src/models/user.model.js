@@ -27,7 +27,7 @@ const userSchema = z.object({
     tokens: z.array(z.string()).optional(),
     isPrimaryAdmin: z.boolean().default(false),
     isPicked: z.boolean().default(false),
-    productId: z.boolean().default( "" ),
+    productId: z.boolean().default(null),
 }).strict(); // 🔹 This will reject extra fields
 
 
