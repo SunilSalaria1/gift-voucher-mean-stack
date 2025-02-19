@@ -60,4 +60,8 @@ export class ProductsService {
   deleteProduct(productId: any): Observable<any> {
     return this.http.delete(`${this.apiUrl}/api/products/${productId}`, productId);
   }
+
+  giftPick(userId:any,data:any):Observable<any>{
+    return this.http.put(`${this.apiUrl}/api/users/${userId}/giftPick`,data)
+  }
 }
