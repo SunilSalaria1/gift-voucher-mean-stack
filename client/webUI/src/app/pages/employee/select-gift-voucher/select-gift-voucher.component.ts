@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { EmployeeFooterComponent } from '../../../shared/employee-footer/employee-footer.component';
 import { EmployeeHeaderComponent } from '../../../shared/employee-header/employee-header.component';
 import { ProductsService } from '../../../services/products.service';
@@ -40,29 +40,20 @@ import { ProductsService } from '../../../services/products.service';
 
 export class SelectGiftVoucherComponent {
   private _snackBar = inject(MatSnackBar);
-  constructor(private snackBar: MatSnackBar) { }
+  constructor(private snackBar: MatSnackBar,private router:Router) { }
   private _productsService = inject(ProductsService)
-  userData:any=localStorage.getItem('loginUser');
+  products:any[]; 
+  selectedProductId:any;  
+  userData:any=localStorage.getItem('loginUser');  
   user:any=JSON.parse(this.userData);
-  products:any[];
-
-  //product list array object
-  // productList: any[] = [
-  //   { id: 1, code: "CODE98547", image: "assets/images/products/water-bottle.png", name: "Copper bottle", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
-  //   { id: 2, code: "CODE98981", image: "assets/images/products/perfume.png", name: "Engage perfume", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
-  //   { id: 3, code: "CODE93457", image: "assets/images/products/ear-buds.png", name: "Ear buds", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
-  //   { id: 4, code: "CODE34780", image: "assets/images/products/chair.png", name: "Office chair", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
-  //   { id: 5, code: "CODE51547", image: "assets/images/products/tumbler.png", name: "Tumbler", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
-  //   { id: 6, code: "CODE78456", image: "assets/images/products/power-bank.png", name: "Power bank", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
-  //   { id: 7, code: "CODE90927", image: "assets/images/products/steel-water-bottle.png", name: "Cello water bottle", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
-  //   { id: 8, code: "CODE76047", image: "assets/images/products/laptop-screen.png", name: "Laptop screen", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
-  //   { id: 9, code: "CODE98264", image: "assets/images/products/bluetooth-speaker.png", name: "Bluetooth speaker", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
-  //   { id: 10, code: "CODE63154", image: "assets/images/products/lunch-box.png", name: "Lunch box", description: "This product is most popular and most rated by customers.", text: "Claim Gift" },
-  // ];
+  currentUserId: any = this.user?._id;   
+  
 
   ngOnInit(){
 this.getProducts()
-  }
+console.log(this.currentUserId)
+  } 
+  
 
   getProducts(){
     this._productsService.getProducts().subscribe(
@@ -85,7 +76,10 @@ this.getProducts()
     this.activeIndex = index;
     this.isConfirmVisible=true
     // Trigger zoom-out animation (for opening)    
-    this.zoomState = 'in';     
+    this.zoomState = 'in';    
+     // Capturing the product ID
+    this.selectedProductId = this.products[index]._id;
+    console.log('Selected Product ID:', this.selectedProductId);
   }
 
   // notSelected
@@ -105,12 +99,26 @@ this.getProducts()
 
   // selected
   selected(){
-    // show success snackbar
-    this.snackBar.open('Enjoy your exclusive reward.', 'close', {
+    const payload={
+      isPicked:"true",
+      productId:this.selectedProductId
+    }
+this._productsService.giftPick(this.currentUserId,payload).subscribe(
+  (response)=>{
+    console.log(response,"gift pick successfull")
+    this.router.navigateByUrl("/reward-claimed")
+     // show success snackbar
+     this.snackBar.open('Enjoy your exclusive reward.', 'close', {
       duration: 5000,
       panelClass: ['snackbar-success'],
       horizontalPosition: "center",
       verticalPosition: "top",
     });
+  },
+  (error)=>{
+    console.log(error,"error in gift pick");    
+  }
+  )
+   
   } 
 }
