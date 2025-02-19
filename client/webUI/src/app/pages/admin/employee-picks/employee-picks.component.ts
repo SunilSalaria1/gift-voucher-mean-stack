@@ -74,7 +74,7 @@ export class EmployeePicksComponent {
         this.userData = data.giftInventoryData;
         this.totalPages = data.totalPages;
         this.currentPage = data.currentPage;
-        this.totalUsers = data.totalusers;
+        this.totalUsers = data.totalUsers;
         this.dataSource.data = this.userData;
         console.log(data, this.totalUsers)
       }, error => console.error('Error fetching users', error));

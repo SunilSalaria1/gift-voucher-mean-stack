@@ -29,7 +29,7 @@
             <!-- employees products employees -->
             <div class="row mb-4">
                 <div class="col-4">
-                    <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
+                    <mat-card class="bg-white shadow-sm product-reward-card p-3 text-center" appearance="outlined">
                         <mat-card-content>
                             <div>
                                 <h5>Total Employees</h5>
@@ -39,17 +39,17 @@
                     </mat-card>
                 </div>
                 <div class="col-4">
-                    <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
+                    <mat-card class="bg-white shadow-sm text-center product-reward-card p-3" appearance="outlined">
                         <mat-card-content>
                             <div>
-                                <h5>Products</h5>
+                                <h5>Total Products</h5>
                             </div>
-                            <div>20</div>
+                            <div>{{totalProducts}}</div>
                         </mat-card-content>
                     </mat-card>
                 </div>
                 <div class="col-4">
-                    <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
+                    <mat-card class="bg-white shadow-sm product-reward-card p-3 text-center" appearance="outlined">
                         <mat-card-content>
                             <div>
                                 <h5>Employees</h5>
@@ -86,13 +86,13 @@
                     <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
                         <mat-card-content>
                             <div>
-                                <h5>Upgrade to Pro</h5>
+                                <h5>Employee Picks</h5>
                             </div>
                             <!-- pie chart -->
                             <div class="pie-chart">
                                 <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="pieChartData"
                                     [gradient]="gradient" [legend]="showLegend" [legendPosition]="legendPosition"
-                                    [labels]="showLabels" [doughnut]="isDoughnut" (select)="onSelect($event)"
+                                    [labels]="showLabels" [doughnut]="isDoughnut" (select)="onSelect($event)" [tooltipDisabled]="false"
                                     (activate)="onActivate($event)" (deactivate)="onDeactivate($event)">
                                 </ngx-charts-pie-chart>
                             </div>
