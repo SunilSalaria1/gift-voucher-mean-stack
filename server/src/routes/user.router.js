@@ -9,7 +9,7 @@ userRouter.get('/users/:id', authenticateToken, getUserWithId);
 userRouter.put('/users/:id', authenticateToken, updateUser);
 userRouter.delete('/users/:id', authenticateToken, deleteUserWithId);
 userRouter.put('/users/:id/role', authenticateToken, createAdmin);
-userRouter.put('/users/:id/giftPick', authenticateToken, updateUserPick);
+userRouter.patch('/users/:id/gifts', authenticateToken, updateUserPick);
 userRouter.get('/gifts', authenticateToken, getGiftInvertory); // Get all gift inventory
 
 module.exports = userRouter;
