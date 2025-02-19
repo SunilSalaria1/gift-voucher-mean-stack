@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { UsersService } from '../../../services/users.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-reward-claimed',
@@ -20,7 +21,7 @@ import { UsersService } from '../../../services/users.service';
   styleUrl: './reward-claimed.component.css'
 })
 export class RewardClaimedComponent {
-  constructor(private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private router: Router,private snackBar: MatSnackBar) { }
   private _usersService = inject(UsersService)
   submitted: boolean = false;
   numbers = [1, 2, 3, 4, 5];
@@ -43,6 +44,13 @@ export class RewardClaimedComponent {
   // back to home
   logOut() {
     this._usersService.logout();
+    //success snackbar
+    this.snackBar.open('You have successfully logged out.', 'close', {
+      duration: 5000,
+      panelClass: ['snackbar-success'],
+      horizontalPosition: "center",
+      verticalPosition: "top",
+    });
   }
 
 

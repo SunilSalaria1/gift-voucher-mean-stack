@@ -87,14 +87,7 @@ export class UsersService {
     this.http.post(`${this.apiUrl}/api/logout`, {}).subscribe({
       next: () => {
         localStorage.removeItem("authToken");
-        localStorage.removeItem('loginUser') // Remove token
-        //success snackbar
-        this.snackBar.open('You have successfully logged out.', 'close', {
-          duration: 5000,
-          panelClass: ['snackbar-success'],
-          horizontalPosition: "center",
-          verticalPosition: "top",
-        });
+        localStorage.removeItem('loginUser') // Remove token        
       },
       error: (err) => {
         console.error('Logout failed', err);

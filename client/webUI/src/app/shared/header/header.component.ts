@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import {MatMenuModule} from '@angular/material/menu';
 import { UsersService } from '../../services/users.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +15,7 @@ import { UsersService } from '../../services/users.service';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  constructor(private snackBar: MatSnackBar){}
   userData:any=localStorage.getItem('loginUser');
   user:any=JSON.parse(this.userData);
   private _usersService = inject(UsersService)
@@ -32,6 +34,13 @@ ngOnInit() {
 
   logOut() {    
     this._usersService.logout();
+    //success snackbar
+    this.snackBar.open('You have successfully logged out.', 'close', {
+      duration: 5000,
+      panelClass: ['snackbar-success'],
+      horizontalPosition: "center",
+      verticalPosition: "top",
+    });
   }
 
   @Output() menuClicked = new EventEmitter<void>();
