@@ -4,12 +4,14 @@
 <mat-card class="bg-white border-light product-reward-card p-3" appearance="outlined">
   <div class="d-flex justify-content-between">
     <!-- searchbar -->
-    <mat-form-field appearance="outline">
-      <input matInput (keyup)="applyFilter($event)" type="text" name="search" placeholder="Search..." />
-      <button matSuffix mat-icon-button aria-label="Search">
-        <mat-icon>search</mat-icon>
-      </button>
-    </mat-form-field>
+    <form [formGroup]="searchForm" action="">
+      <mat-form-field appearance="outline">
+        <input matInput  type="text" formControlName="searchTerm" class="form-control" name="search" placeholder="Search..." />
+        <button matSuffix mat-icon-button aria-label="Search">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+     </form>   
     <!-- /searchbar -->
   </div>
   <!-- table reference with search and pagination -->
@@ -19,14 +21,14 @@
       <!-- Position Column -->
       <ng-container matColumnDef="position">
         <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">No.</th>
-        <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+        <td mat-cell *matCellDef="let element;let i = index">{{ i+1 }}</td>
       </ng-container>
       <!-- /Position Column -->
       <!-- Name -->
       <ng-container matColumnDef="employeeName">
         <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Employee Name</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.employeeName }}
+          {{ element.name }}
         </td>
       </ng-container>
       <!-- / Name -->
@@ -34,7 +36,7 @@
       <ng-container matColumnDef="employeeCode">
         <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Employee Code</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.employeeCode }}
+          {{ element.empCode }}
         </td>
       </ng-container>
       <!-- /employee code -->
@@ -42,7 +44,7 @@
       <ng-container matColumnDef="employeeDepartment">
         <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Employee Department</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.employeeDepartment }}
+          {{ element.department }}
         </td>
       </ng-container>
       <!-- / department -->
@@ -50,11 +52,11 @@
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Status</th>
         <td mat-cell *matCellDef="let element">
-          <span *ngIf="element.status === 'completed'" class="badge bg-success text-white p-2">
-            {{ element.status }}
+          <span *ngIf="element.isPicked" class="badge bg-success text-white p-2">
+            Completed
           </span>
-          <span *ngIf="element.status === 'pending'" class="badge bg-warning text-white p-2">
-            {{ element.status }}
+          <span *ngIf="!element.isPicked" class="badge bg-warning text-white p-2">
+            Pending
           </span>
         </td>
       </ng-container>
@@ -63,14 +65,14 @@
       <ng-container matColumnDef="couponCode">
         <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Coupon Code</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.couponCode}}
+          {{ element.productDetails.couponCode || "---" }}
         </td>
       </ng-container>
       <!-- /coupon code -->
       <!-- product title -->
       <ng-container matColumnDef="productTitle">
         <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Product Title</th>
-        <td mat-cell *matCellDef="let element">{{ element.productTitle }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.productDetails.productTitle || "---" }}</td>
       </ng-container>
       <!-- /product title -->
       <!--product image  -->
@@ -78,7 +80,7 @@
         <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Product Image</th>
         <td mat-cell *matCellDef="let element">
           <div class="p-3">
-            <img style="height: 50px" src="{{ element.productImage }}" alt="image" />
+            <img *ngIf="element.productDetails.imageUrl" style="height: 50px" [src]="element.productDetails.imageUrl" alt="image"/>
           </div>
         </td>
       </ng-container>
@@ -88,13 +90,13 @@
         <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Action</th>
         <td mat-cell *matCellDef="let element">
           <div>
-            <span (click)="openDialog()" class="border border-light p-2 shadow-sm table-action-buttons cursor-pointer">
+            <button (click)="openDialog(element._id) " [disabled]="!element.isPicked" class="border border-light p-2 shadow-sm table-action-buttons cursor-pointer">
               <svg width="16" height="16" viewBox="0 0 12.375 13.75" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M8.017 11.745c0 .237-.19.43-.422.43a.426.426 0 0 1-.422-.43V6.589c0-.238.189-.43.422-.43.233 0 .422.192.422.43v5.156zm-2.813 0c0 .237-.189.43-.422.43a.426.426 0 0 1-.421-.43V6.589c0-.238.189-.43.421-.43.233 0 .422.192.422.43v5.156zm5.175-7.448H1.995a.284.284 0 0 0-.281.312l.724 8.099c.053.59.539 1.042 1.12 1.042h5.258c.582 0 1.068-.452 1.12-1.042l.723-8.099a.288.288 0 0 0-.072-.219.277.277 0 0 0-.208-.093zM4.5 2.148v-.716c0-.158.126-.286.281-.286h2.813c.155 0 .281.128.281.286v.716c0 .08-.063.144-.14.144H4.64a.142.142 0 0 1-.141-.144m7.313.144H9.14A.142.142 0 0 1 9 2.148v-.716C9 .642 8.37 0 7.594 0H4.78c-.777 0-1.406.641-1.406 1.432v.716c0 .08-.063.144-.14.144H.562A.568.568 0 0 0 0 2.865c0 .316.252.572.563.572h11.25a.568.568 0 0 0 .562-.572.568.568 0 0 0-.563-.573"
                   fill="#FC3E30" fill-rule="evenodd" />
               </svg>
-            </span>
+            </button>
           </div>
         </td>
       </ng-container>
@@ -106,9 +108,17 @@
     <div class="d-flex justify-content-center mt-2 fw-bold bg-light" *ngIf="dataSource.filteredData.length === 0">
       No result found.
     </div>
-    <mat-paginator class="bg-white" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-      aria-label="Select page of periodic elements">
-    </mat-paginator>
+    <!-- paginator -->
+    <mat-paginator class="bg-white" 
+    [length]="totalUsers"
+  [pageSize]="pageSize"
+  [pageIndex]="currentPage - 1"
+  [pageSizeOptions]="[5, 10, 20]"
+  (page)="onPageChange($event)"
+    showFirstLastButtons
+    aria-label="Select page of periodic elements">
+  </mat-paginator>
+    <!-- /paginator -->
   </div>
   <!-- /table reference with search and pagination -->
 </mat-card>

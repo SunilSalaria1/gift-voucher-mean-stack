@@ -93,8 +93,7 @@ export class GenerateEmpCodeComponent {
   }  
 
   loadUsers(page: number , limit: number , searchTerm: string = '', sortBy: string = '') {
-    this._usersService.getUsers(page, limit, searchTerm, sortBy).subscribe(data => {
-    
+    this._usersService.getUsers(page, limit, searchTerm, sortBy).subscribe(data => {    
       this.userData = data.users;
       this.totalPages = data.totalPages;
       this.currentPage = data.currentPage;

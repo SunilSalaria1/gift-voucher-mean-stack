@@ -4,6 +4,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
 import { Color, LegendPosition, NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
 import { UsersService } from '../../../services/users.service';
+import { ProductsService } from '../../../services/products.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,22 +14,26 @@ import { UsersService } from '../../../services/users.service';
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent {
- private _usersService = inject(UsersService)
+ private _productsService = inject(ProductsService)
  totalEmployees:any;
+ userData:any;
+ totalProducts:any;
+ // pie chart
+ view: [number, number] = [700, 400];  
   ngOnInit() {
-    // this._usersService.getUsers().subscribe(
-    //   (employees) => {
-    //     this.totalEmployees = employees.length; // Set data here
-    //     console.log(this.totalEmployees)        
-    //   },
-    //   (error) => {
-    //     console.error('Error fetching employees', error);
-    //   }
-    // );
+    
   }
-  // pie chart
-  view: [number, number] = [700, 400];  
-
+  loadEmployeePicks(page: number, limit: number, searchTerm: string = '', sortBy: string = '') {
+    this._productsService.employeePicks(page, limit, searchTerm, sortBy).subscribe
+      (data => {
+        this.userData = data.giftInventoryData;
+        this.totalEmployees = data.totalusers;
+this.totalProducts=
+        console.log(data)
+      }, error => console.error('Error fetching users', error));
+  }
+  
+// pie chart
   pieChartData = [
     {
       "name": "Germany",
