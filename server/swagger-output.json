@@ -297,7 +297,7 @@
       }
     },
     "/api/users/{id}/gifts": {
-      "patch": {
+      "put": {
         "tags": [
           "Gifts"
         ],
@@ -904,11 +904,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Wed Feb 19 2025 13:24:26 GMT+0530 (India Standard Time)"
+          "example": "Wed Feb 19 2025 13:25:30 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Wed Feb 19 2025 13:24:26 GMT+0530 (India Standard Time)"
+          "example": "Wed Feb 19 2025 13:25:30 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
