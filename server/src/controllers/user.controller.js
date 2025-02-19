@@ -456,7 +456,7 @@ const getGiftInvertory = async (req, res) => {
         const sortStage = req.query.sortBy ? [{ $sort: sort }] : [];
 
         // Aggregation
-        const giftInvertoryData = await usersCollection.aggregate([
+        const giftInventoryData = await usersCollection.aggregate([
             { $match: filter },
 
             // Convert productId to ObjectId only if it's a valid string
@@ -540,9 +540,9 @@ const getGiftInvertory = async (req, res) => {
         ]).toArray();
 
         // Ensure users without product details still appear
-        giftInvertoryData.forEach(data => {
+        giftInventoryData.forEach(data => {
             if (data.productDetails?.productImgDetails?.fileBuffer) {
-                data.productDetails.imageUrl = `data${data.productDetails.productImgDetails.fileType};base64,${data.productDetails.productImgDetails.fileBuffer.toString('base64')}`;
+                data.productDetails.imageUrl = `data:${data.productDetails.productImgDetails.fileType};base64,${data.productDetails.productImgDetails.fileBuffer.toString('base64')}`;
                 delete data.productDetails.productImgDetails.fileBuffer;
             }
             delete data.productDetails?.productImgDetails;
@@ -554,7 +554,7 @@ const getGiftInvertory = async (req, res) => {
         const userDidNotPickedGift = totalusers - usersPickedGift;
 
         return res.json({
-            giftInvertoryData,
+            giftInventoryData,
             totalPages: Math.ceil(totalusers / limit),
             currentPage: page,
             totalusers,
