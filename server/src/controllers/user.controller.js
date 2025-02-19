@@ -591,7 +591,7 @@ const getGiftInvertory = async (req, res) => {
         const totalUsers = await usersCollection.countDocuments({ isDeleted: false });
         const totalProducts = await productsCollection.countDocuments({ isDeleted: false });
         const usersPickedGift = await usersCollection.countDocuments({ isDeleted: false, isPicked: true });
-        const userDidNotPickedGift = totalusers - usersPickedGift;
+        const userDidNotPickedGift = totalUsers - usersPickedGift;
 
         return res.json({
             giftInventoryData,
