@@ -118,7 +118,6 @@ this._productsService.giftPick(this.currentUserId,payload).subscribe(
   (error)=>{
     console.log(error,"error in gift pick");    
   }
-  )
-   
+  )   
   } 
 }

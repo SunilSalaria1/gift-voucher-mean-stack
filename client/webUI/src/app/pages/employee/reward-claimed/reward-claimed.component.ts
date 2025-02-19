@@ -93,6 +93,13 @@ export class RewardClaimedComponent {
           this._usersService.logout();
           this.router.navigateByUrl('/home');
           console.log("add feedback successfull:", response)
+           //success snackbar
+    this.snackBar.open('You have successfully shared your feedback.', 'close', {
+      duration: 5000,
+      panelClass: ['snackbar-success'],
+      horizontalPosition: "center",
+      verticalPosition: "top",
+    });
         },
         (error) => {
           console.error('error in adding feedback:', error)
