@@ -3,6 +3,7 @@ const { connectDB, db } = require('../config/db.config'); // Import db from db.j
 const { ObjectId } = require('mongodb');
 const { ZodError } = require("zod");
 const productsCollection = db.collection('products');
+const usersCollection = db.collection('users');
 
 const addProduct = async (req, res) => {
     /*  #swagger.tags = ['Products']
@@ -210,7 +211,7 @@ const deleteProduct = async (req, res) => {
         if (!ObjectId.isValid(productId)) {
             return res.status(400).json({ message: "Invalid Product Id" });
         }
-        
+
         const result = await productsCollection.findOneAndUpdate(
             { _id: new ObjectId(productId) },
             { $set: { isDeleted: true } },
@@ -291,10 +292,9 @@ const getAllProducts = async (req, res) => {
         if (isPaginationProvided) {
             aggregationPipeline.push({ $skip: skip }, { $limit: limit });
         }
-
         // Fetch products
         const products = await productsCollection.aggregate(aggregationPipeline).toArray();
-
+        const getallUserwhoPicked = await usersCollection.find({ ...filter, isPicked: true, isDeleted: false }).toArray();
         // Convert buffer to Base64 and add imageUrl
         products.forEach(product => {
             if (product.productImageDetails && product.productImageDetails.fileBuffer) {
@@ -303,19 +303,28 @@ const getAllProducts = async (req, res) => {
                 // Add the Base64 string as a new field in the image details
                 product.productImageDetails.imageUrl = `data:${product.productImageDetails.fileType};base64,${base64Image}`;
                 delete product.productImageDetails.fileBuffer;
+                delete product.productImageDetails.fileType;
+                delete product.productImageDetails.uploadedAt;
                 delete product.productObjId;
                 delete product.isDeleted;
+                delete product.addedAt;
+                 // Initialize pickedCount if it's undefined or null
+                if (!product.pickedCount) {
+                    product.pickedCount = 0;
+                }
+                getallUserwhoPicked.forEach(element => {
+                    if (element.productId == product._id) {
+                        product.pickedCount += 1 
+                    }
+                });
             }
         });
-
         // Get total count for pagination
         const totalProducts = await productsCollection.countDocuments(filter);
-
         // If pagination was not provided, return all products in a separate response
         if (!isPaginationProvided) {
-            return res.json({ products,totalProducts });
+            return res.json({ products, totalProducts });
         }
-
         // Return paginated response
         return res.json({
             products,
@@ -323,7 +332,6 @@ const getAllProducts = async (req, res) => {
             currentPage: page,
             totalProducts
         });
-
     } catch (e) {
         console.log(e);
         if (e instanceof ZodError) {

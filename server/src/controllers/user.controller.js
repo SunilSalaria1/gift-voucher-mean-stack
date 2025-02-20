@@ -597,7 +597,7 @@ const getGiftInvertory = async (req, res) => {
             giftInventoryData,
             totalPages: Math.ceil(totalUsers / limit),
             currentPage: page,
-            totalUsers,totalProducts,
+            totalUsers, totalProducts,
             usersPickedGift,
             userDidNotPickedGift
         });
