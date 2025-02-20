@@ -260,7 +260,7 @@ const getAllProducts = async (req, res) => {
 
         // Aggregation pipeline
         const aggregationPipeline = [
-            { $match: filter }, // Apply filtering
+            // { $match: filter }, // Apply filtering
             {
                 $addFields: {
                     productObjId: {
@@ -294,7 +294,9 @@ const getAllProducts = async (req, res) => {
         }
         // Fetch products
         const products = await productsCollection.aggregate(aggregationPipeline).toArray();
-        const getallUserwhoPicked = await usersCollection.find({ ...filter, isPicked: true, isDeleted: false }).toArray();
+        const getAllUsersWhoPicked = await usersCollection.find({ isPicked: true, isDeleted: false }).toArray();
+        const totalPickedUsersCount = await usersCollection.countDocuments({ isPicked: true, isDeleted: false })
+        console.log(" totalPickedUserstotalPickedUserstotalPickedUserstotalPickedUserstotalPickedUsers ", totalPickedUsersCount)
         // Convert buffer to Base64 and add imageUrl
         products.forEach(product => {
             if (product.productImageDetails && product.productImageDetails.fileBuffer) {
@@ -308,15 +310,20 @@ const getAllProducts = async (req, res) => {
                 delete product.productObjId;
                 delete product.isDeleted;
                 delete product.addedAt;
-                 // Initialize pickedCount if it's undefined or null
+                // Initialize pickedCount if it's undefined or null
                 if (!product.pickedCount) {
                     product.pickedCount = 0;
                 }
-                getallUserwhoPicked.forEach(element => {
+                getAllUsersWhoPicked.forEach(element => {
                     if (element.productId == product._id) {
-                        product.pickedCount += 1 
+                        product.pickedCount += 1
                     }
+                    // product.pickedCountPercentage=
                 });
+                product.pickedCountPercentage = totalPickedUsersCount > 0 
+            ? (product.pickedCount / totalPickedUsersCount) * 100 
+            : 0;
+                
             }
         });
         // Get total count for pagination
