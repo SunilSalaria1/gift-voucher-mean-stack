@@ -75,7 +75,7 @@ export class GiftInventoryComponent {
   }
 
   // get products
-  loadUsers(page: number, limit: number, searchTerm: string = '', sortBy: string = '') {
+  loadUsers(page: number, limit: number, searchTerm, sortBy: string = '') {
     this._productsService.getProducts(page, limit, searchTerm, sortBy).subscribe(data => {
       this.products = data.products;
       this.totalPages = data.totalPages;
@@ -93,6 +93,10 @@ export class GiftInventoryComponent {
     this.pageSize = event.pageSize;
     this.totalUsers = event.length;
     this.loadUsers(this.currentPage, this.pageSize, this.searchForm.value); // Fetch data for the new page          
+  }
+
+  index(i: number): number {
+    return (this.currentPage - 1) * this.pageSize + i + 1;
   }
 
   // dialog box

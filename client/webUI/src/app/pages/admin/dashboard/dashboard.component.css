@@ -25,3 +25,10 @@
 .pie-chart ngx-charts-pie-chart{
     text-align: -webkit-center;
 }
+
+/* scroller */
+.viewport {
+    height: 135vh;  /* Adjust as needed */
+    width: 100%;
+    overflow: auto;
+  }

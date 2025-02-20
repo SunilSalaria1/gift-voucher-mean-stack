@@ -86,7 +86,11 @@ export class EmployeePicksComponent {
       this.pageSize = event.pageSize;
       this.totalUsers= event.length;
       this. loadEmployeePicks(this.currentPage,this.pageSize,this.searchForm.value); // Fetch data for the new page          
-    }  
+    } 
+    
+    index(i: number): number {
+      return (this.currentPage - 1) * this.pageSize + i + 1;
+    }
 
   openDialog(id: string): void {
     this.selectedEmpId = id;

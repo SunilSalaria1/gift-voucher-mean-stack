@@ -111,6 +111,10 @@ export class GenerateEmpCodeComponent {
     this.totalUsers= event.length;
     this.loadUsers(this.currentPage,this.pageSize,this.searchForm.value); // Fetch data for the new page          
   }
+
+  index(i: number): number {
+    return (this.currentPage - 1) * this.pageSize + i + 1;
+  }
   
   // Admin toggle
   onAdminToggleChange(selectedValue: string, employeeId: any) {

@@ -6,3 +6,8 @@
     border-radius: 5px;  
     padding: 3px 7px;
 }
+
+/* delete icon */
+button:disabled .delete-icon {
+    fill: gray !important; /* Change to desired color */
+  }

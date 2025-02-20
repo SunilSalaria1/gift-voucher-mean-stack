@@ -75,7 +75,7 @@
                                     businesses to stay ahead of the competition.""With the right data analytics
                                     tools, organizations can enhance efficiency, reduce risks, and improve customer
                                     experiences.
-                                </div>                                
+                                </div>
                             </div>
                         </mat-card-content>
                     </mat-card>
@@ -92,8 +92,9 @@
                             <div class="pie-chart">
                                 <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="pieChartData"
                                     [gradient]="gradient" [legend]="showLegend" [legendPosition]="legendPosition"
-                                    [labels]="showLabels" [doughnut]="isDoughnut" (select)="onSelect($event)" [tooltipDisabled]="false"
-                                    (activate)="onActivate($event)" (deactivate)="onDeactivate($event)">
+                                    [labels]="showLabels" [doughnut]="isDoughnut" (select)="onSelect($event)"
+                                    [tooltipDisabled]="false" (activate)="onActivate($event)"
+                                    (deactivate)="onDeactivate($event)">
                                 </ngx-charts-pie-chart>
                             </div>
                             <!-- /pie chart -->
@@ -117,304 +118,32 @@
                     <div>
                         <h4>Transactions</h4>
                     </div>
-                    <mat-tab-group>
-                        <mat-tab>
-                            <ng-template mat-tab-label>
-                                <mat-icon class="example-tab-icon">thumb_up</mat-icon>
-                                All
-                            </ng-template>
-                            <div class="row">
-                                <div class="col-12">
-                                    <mat-card class="bg-white shadow-sm product-reward-card p-3 my-4"
-                                        appearance="outlined">
-                                        <mat-card-content class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <div>
-                                                    <img src="assets/images/user-profile.png" class="user-profile"
-                                                        alt="">
-                                                </div>
-                                                <div>
-                                                    <div>
-                                                        Jyoti
-                                                    </div>
-                                                    <div>
-                                                        EMPLPFR348509
-                                                    </div>
-                                                </div>
+                    <!-- virtual scroll -->
+                    <cdk-virtual-scroll-viewport itemSize="80" class="viewport" (scrolledIndexChange)="onScrollProducts()">
+                        <div *cdkVirtualFor="let product of productData; let i = index" class="col-12">
+                            <mat-card class="bg-white shadow-sm product-reward-card p-3 my-4" appearance="outlined">
+                                <mat-card-content class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex">
+                                        <div>
+                                            <img [src]="product.productImageDetails.imageUrl" class="user-profile" alt="">
+                                        </div>
+                                        <div>
+                                            <div>
+                                                {{product.productTitle}}
                                             </div>
                                             <div>
-                                                <span class="badge bg-success text-white">Completed</span>
+                                                {{product.couponCode}}
                                             </div>
-                                        </mat-card-content>
-                                    </mat-card>
-                                    <mat-card class="bg-white shadow-sm product-reward-card p-3 my-4"
-                                        appearance="outlined">
-                                        <mat-card-content class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <div>
-                                                    <img src="assets/images/user-profile.png" class="user-profile"
-                                                        alt="">
-                                                </div>
-                                                <div>
-                                                    <div>
-                                                        Aniket
-                                                    </div>
-                                                    <div>
-                                                        EMPLPFR348509
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <span class="badge bg-warning text-white">Pending</span>
-                                            </div>
-                                        </mat-card-content>
-                                    </mat-card>
-                                    <mat-card class="bg-white shadow-sm product-reward-card p-3 my-4"
-                                        appearance="outlined">
-                                        <mat-card-content class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <div>
-                                                    <img src="assets/images/user-profile.png" class="user-profile"
-                                                        alt="">
-                                                </div>
-                                                <div>
-                                                    <div>
-                                                        Sushma
-                                                    </div>
-                                                    <div>
-                                                        EMPLPFR348509
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <span class="badge bg-success text-white">Completed</span>
-                                            </div>
-                                        </mat-card-content>
-                                    </mat-card>
-                                    <mat-card class="bg-white shadow-sm product-reward-card p-3 my-4"
-                                        appearance="outlined">
-                                        <mat-card-content class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <div>
-                                                    <img src="assets/images/user-profile.png" class="user-profile"
-                                                        alt="">
-                                                </div>
-                                                <div>
-                                                    <div>
-                                                        Kanchan
-                                                    </div>
-                                                    <div>
-                                                        EMPLPFR348509
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <span class="badge bg-warning text-white">Pending</span>
-                                            </div>
-                                        </mat-card-content>
-                                    </mat-card>
-                                </div>
-                            </div>
-                        </mat-tab>
-
-                        <mat-tab>
-                            <ng-template mat-tab-label>
-                                <mat-icon class="example-tab-icon">thumb_up</mat-icon>
-                                Completed
-                            </ng-template>
-                            <div class="row">
-                                <div class="col-12">
-                                    <mat-card class="bg-white shadow-sm product-reward-card p-3 my-4"
-                                        appearance="outlined">
-                                        <mat-card-content class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <div>
-                                                    <img src="assets/images/user-profile.png" class="user-profile"
-                                                        alt="">
-                                                </div>
-                                                <div>
-                                                    <div>
-                                                        Jyoti
-                                                    </div>
-                                                    <div>
-                                                        EMPLPFR348509
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <span class="badge bg-success text-white">Completed</span>
-                                            </div>
-                                        </mat-card-content>
-                                    </mat-card>
-                                    <mat-card class="bg-white shadow-sm product-reward-card p-3 my-4"
-                                        appearance="outlined">
-                                        <mat-card-content class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <div>
-                                                    <img src="assets/images/user-profile.png" class="user-profile"
-                                                        alt="">
-                                                </div>
-                                                <div>
-                                                    <div>
-                                                        Aniket
-                                                    </div>
-                                                    <div>
-                                                        EMPLPFR348509
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <span class="badge bg-success text-white">Completed</span>
-                                            </div>
-                                        </mat-card-content>
-                                    </mat-card>
-                                    <mat-card class="bg-white shadow-sm product-reward-card p-3 my-4"
-                                        appearance="outlined">
-                                        <mat-card-content class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <div>
-                                                    <img src="assets/images/user-profile.png" class="user-profile"
-                                                        alt="">
-                                                </div>
-                                                <div>
-                                                    <div>
-                                                        Sushma
-                                                    </div>
-                                                    <div>
-                                                        EMPLPFR348509
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <span class="badge bg-success text-white">Completed</span>
-                                            </div>
-                                        </mat-card-content>
-                                    </mat-card>
-                                    <mat-card class="bg-white shadow-sm product-reward-card p-3 my-4"
-                                        appearance="outlined">
-                                        <mat-card-content class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <div>
-                                                    <img src="assets/images/user-profile.png" class="user-profile"
-                                                        alt="">
-                                                </div>
-                                                <div>
-                                                    <div>
-                                                        Kanchan
-                                                    </div>
-                                                    <div>
-                                                        EMPLPFR348509
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <span class="badge bg-success text-white">Completed</span>
-                                            </div>
-                                        </mat-card-content>
-                                    </mat-card>
-                                </div>
-                            </div>
-                        </mat-tab>
-                        <mat-tab>
-                            <ng-template mat-tab-label>
-                                <mat-icon class="example-tab-icon">thumb_up</mat-icon>
-                                Pending
-                            </ng-template>
-                            <div class="row">
-                                <div class="col-12">
-                                    <mat-card class="bg-white shadow-sm product-reward-card p-3 my-4"
-                                        appearance="outlined">
-                                        <mat-card-content class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <div>
-                                                    <img src="assets/images/user-profile.png" class="user-profile"
-                                                        alt="">
-                                                </div>
-                                                <div>
-                                                    <div>
-                                                        Jyoti
-                                                    </div>
-                                                    <div>
-                                                        EMPLPFR348509
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <span class="badge bg-warning text-white">Warning</span>
-                                            </div>
-                                        </mat-card-content>
-                                    </mat-card>
-                                    <mat-card class="bg-white shadow-sm product-reward-card p-3 my-4"
-                                        appearance="outlined">
-                                        <mat-card-content class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <div>
-                                                    <img src="assets/images/user-profile.png" class="user-profile"
-                                                        alt="">
-                                                </div>
-                                                <div>
-                                                    <div>
-                                                        Aniket
-                                                    </div>
-                                                    <div>
-                                                        EMPLPFR348509
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <span class="badge bg-warning text-white">Pending</span>
-                                            </div>
-                                        </mat-card-content>
-                                    </mat-card>
-                                    <mat-card class="bg-white shadow-sm product-reward-card p-3 my-4"
-                                        appearance="outlined">
-                                        <mat-card-content class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <div>
-                                                    <img src="assets/images/user-profile.png" class="user-profile"
-                                                        alt="">
-                                                </div>
-                                                <div>
-                                                    <div>
-                                                        Sushma
-                                                    </div>
-                                                    <div>
-                                                        EMPLPFR348509
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <span class="badge bg-warning text-white">Pending</span>
-                                            </div>
-                                        </mat-card-content>
-                                    </mat-card>
-                                    <mat-card class="bg-white shadow-sm product-reward-card p-3 my-4"
-                                        appearance="outlined">
-                                        <mat-card-content class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <div>
-                                                    <img src="assets/images/user-profile.png" class="user-profile"
-                                                        alt="">
-                                                </div>
-                                                <div>
-                                                    <div>
-                                                        Kanchan
-                                                    </div>
-                                                    <div>
-                                                        EMPLPFR348509
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <span class="badge bg-warning text-white">Pending</span>
-                                            </div>
-                                        </mat-card-content>
-                                    </mat-card>
-                                </div>
-                            </div>
-                        </mat-tab>
-                    </mat-tab-group>
-
+                                        </div>
+                                    </div>
+                                    <div>
+                                        {{product.pickedCountPercentage}}%
+                                    </div>
+                                </mat-card-content>
+                            </mat-card> 
+                        </div>
+                    </cdk-virtual-scroll-viewport>
+                    <!-- End Virtual Scroll -->
                 </mat-card-content>
             </mat-card>
         </div>

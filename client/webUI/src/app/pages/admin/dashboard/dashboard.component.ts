@@ -5,11 +5,12 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { Color, LegendPosition, NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
 import { UsersService } from '../../../services/users.service';
 import { ProductsService } from '../../../services/products.service';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MatCardModule, MatIconModule, MatTabsModule, NgxChartsModule],
+  imports: [MatCardModule, MatIconModule, MatTabsModule, NgxChartsModule,ScrollingModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
@@ -17,6 +18,7 @@ export class DashboardComponent {
   private _productsService = inject(ProductsService)
   totalEmployees: any;
   userData: any;
+  productData: any[] = [];
   totalProducts: any;
   employeesPickedGift: any;
   employeesDidNotPickedGift: any
@@ -25,11 +27,16 @@ export class DashboardComponent {
   pieChartData:any;
   currentPage: any;
   pageSize: any;
+  loading = false;
+  allProductsLoaded = false; // Flag to stop loading when no more data
   // pie chart
   view: [number, number] = [700, 400];
   ngOnInit() {
     this.loadEmployeePicks(this.currentPage, this.pageSize)
+    this.loadProducts(this.currentPage, this.pageSize)
   }
+
+  // gift api
   loadEmployeePicks(page: number, limit: number, searchTerm: string = '', sortBy: string = '') {
     this._productsService.employeePicks(page, limit, searchTerm, sortBy).subscribe
       (data => {
@@ -54,6 +61,35 @@ export class DashboardComponent {
     },
   ];
       }, error => console.error('Error fetching users', error));
+  }
+
+
+  // products api
+  loadProducts(page: number, limit: number, searchTerm: string = '', sortBy: string = '') {
+    if (this.loading || this.allProductsLoaded) return;
+    this.loading = true;
+    this._productsService.getProducts(page, limit, searchTerm, sortBy).subscribe
+      (data => {
+
+        const products = data.products ?? []; // Ensure products is always an array
+
+      if (products.length === 0) {
+        this.allProductsLoaded = true;
+      } else {
+        console.log('Before Update:', this.productData); 
+        this.productData = [...this.productData, ...products]; // Append new data
+        console.log('Updated productData:', this.productData); 
+        this.currentPage++; // Increment page number
+      }
+        this.loading = false;   
+      }, error => console.error('Error fetching users', error));
+  }
+
+  // Triggered when user scrolls near the end of the product list
+  onScrollProducts() {
+    if (!this.loading && !this.allProductsLoaded) {
+      this.loadProducts(this.currentPage, this.pageSize);
+    }
   }
 
   formatLabel(value: any): string {

@@ -25,7 +25,7 @@ export class ProductsService {
   }
 
   // get all products
-  getProducts(page?: number, limit?: number, searchItem: string = '', sortBy: string = ''): Observable<any> {
+  getProducts(page?: number, limit?: number, searchItem?:string, sortBy?: string ): Observable<any> {
     const params: any = {}
     if (page && limit) {
       params.page = page;
@@ -38,6 +38,7 @@ export class ProductsService {
 
     if (searchItem) {
       params.searchItem = searchItem;
+      console.log("ghjkhhjkhkg",params.searchItem)
     }
     if (sortBy) {
       params.sortBy = sortBy;
@@ -67,7 +68,7 @@ export class ProductsService {
   }
 
   // get request (employee picks)
-  employeePicks(page: number, limit: number, searchItem: string = '', sortBy: string = ''): Observable<any> {
+  employeePicks(page?: number, limit?: number, searchItem?:string, sortBy: string = ''): Observable<any> {
     const params: any = {
       page: page,
       limit: limit,
