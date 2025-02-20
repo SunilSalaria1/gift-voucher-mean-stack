@@ -15,8 +15,8 @@ const addFeedback = async (req, res) => {
         if (!userId || !rating || !description) {
             return res.status(400).json({ message: 'Missing required fields:' })
         }
-        if (!ObjectId.isValid(userId)){
-            return res.status(400).json({message:"Invalid User Id"})
+        if (!ObjectId.isValid(userId)) {
+            return res.status(400).json({ message: "Invalid User Id" })
         }
 
 
@@ -40,42 +40,43 @@ const getAllFeedbacks = async (req, res) => {
     try {
         await connectDB();
         // const useriddata = await feedbackCollection.find().toArray()
-        const feedbacks = await feedbackCollection.aggregate([{
-            $addFields: {
-                userIdObj: {
-                    $cond: {
-                        if: { $eq: [{ $strLenCP: "$userId" }, 24] }, // Check if userId is 24 characters long
-                        then: { $toObjectId: "$userId" },  // Convert valid userId to ObjectId
-                        else: null  // Set null if invalid
+        const feedbacks = await feedbackCollection.aggregate([
+            { $match: { isDeleted: false } }, , {
+                $addFields: {
+                    userIdObj: {
+                        $cond: {
+                            if: { $eq: [{ $strLenCP: "$userId" }, 24] }, // Check if userId is 24 characters long
+                            then: { $toObjectId: "$userId" },  // Convert valid userId to ObjectId
+                            else: null  // Set null if invalid
+                        }
                     }
                 }
-            }
-        },
-        {
-            $lookup: {
-                from: "users",              // Join with users collection
-                localField: "userIdObj",           // userId in feedback collection
-                foreignField: "_id",            // _id in users collection
-                as: "userDetails"           // Store result in 'userDetails'
-            }
-        },
-        {
-            $unwind: "$userDetails"             // Convert userDetails array into object
-        },
-        {
-            $project: {
-                "userDetails.password": 0,
-                "userDetails.tokens": 0,
-                "userDetails.isDeleted": 0,
-                "userDetails.isAdmin": 0,
-                "userDetails.isPrimaryAdmin": 0,
-                "userDetails._id": 0,
-                "userDetails.joiningDate": 0,
-                "userDetails.dob": 0,
-                "userIdObj": 0
+            },
+            {
+                $lookup: {
+                    from: "users",              // Join with users collection
+                    localField: "userIdObj",           // userId in feedback collection
+                    foreignField: "_id",            // _id in users collection
+                    as: "userDetails"           // Store result in 'userDetails'
+                }
+            },
+            {
+                $unwind: "$userDetails"             // Convert userDetails array into object
+            },
+            {
+                $project: {
+                    "userDetails.password": 0,
+                    "userDetails.tokens": 0,
+                    "userDetails.isDeleted": 0,
+                    "userDetails.isAdmin": 0,
+                    "userDetails.isPrimaryAdmin": 0,
+                    "userDetails._id": 0,
+                    "userDetails.joiningDate": 0,
+                    "userDetails.dob": 0,
+                    "userIdObj": 0
 
+                }
             }
-        }
         ]).toArray();
         return res.status(200).json({ feedbacks })
 

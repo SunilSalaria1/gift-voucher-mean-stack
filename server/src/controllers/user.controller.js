@@ -155,35 +155,24 @@ const updateUser = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
         // Validate request body
-        console.log("@@@@@@@@@@@@@@@", req.body)
-        console.log("@@@@@@@@@@@@@@@", userDetails)
         const { name, department, email, dob } = req.body;
         if (!name || !department) {
             return res.status(400).json({ message: "Missing required fields: name and department" });
         }
 
-        // Ensure email and dob match existing user data
-        // if (email != userDetails.email || dob != userDetails.dob) {
-        //     return res.status(400).json({ message: "Email or DOB does not match our records" });
-        // }
-
         // Generate new employee code and hashed password if necessary
         const { empCode, hashedPassword } = await generateEmpCodeAndPassword(name, email, department, dob, usersCollection);
 
         // Update user in MongoDB
-
         const updatedUser = await usersCollection.findOneAndUpdate(
             { _id: new ObjectId(userId) },
-            { $set: { name, department, empCode, password: hashedPassword } },
+            { $set: { name, department, empCode, password: hashedPassword, lastUpdated: new Date() } },
             { returnDocument: "after" }
         );
-
         if (!updatedUser) {
             return res.status(404).json({ message: "Failed to update user" });
         }
-
         return res.status(200).json({ message: "User updated successfully", updatedUser });
-
     } catch (error) {
         console.error("MongoDB Error:", error);
         return res.status(500).json({ message: "Internal server error", error: error.message });

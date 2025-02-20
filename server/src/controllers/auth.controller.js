@@ -29,7 +29,7 @@ const loginUser = async (req, res) => {
     try {
         await connectDB();
         // Find the user by empCode
-        const result = await usersCollection.findOne({ empCode: req.body.empCode,isDeleted:false });
+        const result = await usersCollection.findOne({ empCode: req.body.empCode, isDeleted: false });
 
         if (!result) {
             return res.status(404).json({ message: "User not found" });
@@ -40,25 +40,27 @@ const loginUser = async (req, res) => {
                 return res.status(400).json({ message: "Missing required fields: Employee Code" });
             }
             // 2. If the user is not an admin, proceed with login (admin check can be handled differently)
-                // Generate JWT token for non-admin user
-                const token = await jwt.sign({ userId: result._id.toString() }, SECRET_KEY, { expiresIn: "1h" });
-                const updatedDataToken = await usersCollection.updateOne(
-                    { _id: result._id },
-                    { $push: { tokens: token } },
-                    { returnDocument: 'after' } // Add the token to the tokens array
-                );
-                return res.status(200).json({
-                    message: "Employee Login successful",
-                    userDetails: {
-                        _id: result._id,
-                        name: result.name,
-                        email: result.email,
-                        isAdmin: result.isAdmin,
-                        department: result.department
-                    },
-                    token: token,
-                });
-            
+            // Generate JWT token for non-admin user
+            const token = await jwt.sign({ userId: result._id.toString() }, SECRET_KEY, { expiresIn: "1h" });
+            const updatedDataToken = await usersCollection.updateOne(
+                { _id: result._id },
+                { $push: { tokens: token } },
+                { returnDocument: 'after' } // Add the token to the tokens array
+            );
+            return res.status(200).json({
+                message: "Employee Login successful",
+                userDetails: {
+                    _id: result._id,
+                    name: result.name,
+                    email: result.email,
+                    isAdmin: result.isAdmin,
+                    department: result.department,
+                    isPicked: result.isPicked,
+                    productId: result.productId,
+                },
+                token: token,
+            });
+
         }
         else if (req.body.role == "admin") {
             if (result.isAdmin == false) {

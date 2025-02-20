@@ -27,7 +27,9 @@ const userSchema = z.object({
     tokens: z.array(z.string()).optional(),
     isPrimaryAdmin: z.boolean().default(false),
     isPicked: z.boolean().default(false),
-    productId: z.boolean().default(null),
+    productId: z.string().default(null),
+    lastUpdated:z.preprocess((val) => (val ? new Date(val) : new Date()), z.date()),
+    createdAt:z.preprocess((val) => (val ? new Date(val) : new Date()), z.date()),
 }).strict(); // 🔹 This will reject extra fields
 
 

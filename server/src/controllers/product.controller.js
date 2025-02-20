@@ -93,7 +93,7 @@ const getProductWithId = async (req, res) => {
             return res.status(400).json({ message: "Invalid Product Id" });
         }
         // Define the filter to find the product
-        const filter = { _id: new ObjectId(productId), isDeleted: false };
+        const filter = { _id: new ObjectId(productId), isDeleted: false, isActive: true };
         // Aggregate to join product with files collection
         const product = await productsCollection.aggregate([
             { $match: filter }, // Apply filtering
@@ -169,6 +169,10 @@ const updateProduct = async (req, res) => {
     try {
         await connectDB();
         // Validate user ID
+        const { couponCode, productImg, productDescription, productTitle } = req.body;
+        if (!couponCode || !productImg || !productDescription || !productTitle) {
+            return res.status(400).json({ message: "Missing required fields" });
+        }
         const productId = req.params.id;
         if (!ObjectId.isValid(productId)) {
             return res.status(400).json({ message: "Invalid product ID format" });
@@ -181,10 +185,7 @@ const updateProduct = async (req, res) => {
         }
 
         // Validate request body
-        const { couponCode, productImg, productDescription, productTitle } = req.body;
-        if (!couponCode || !productImg || !productDescription || !productTitle) {
-            return res.status(400).json({ message: "Missing required fields" });
-        }
+
 
         // Update user in MongoDB
         const updatedProduct = await productsCollection.findOneAndUpdate(
@@ -240,9 +241,10 @@ const getAllProducts = async (req, res) => {
         const skip = (page - 1) * limit;
 
         // Filtering
-        const filter = { isDeleted: false };
-
-        if (req.query.searchItem) {
+        const filter = { isDeleted: false, isActive: true };
+        if (req.query.searchItem &&
+            typeof req.query.searchItem === 'string' &&
+            req.query.searchItem !== '[object Object]') {
             filter.$or = [
                 { couponCode: { $regex: req.query.searchItem, $options: "i" } },
                 { productDescription: { $regex: req.query.searchItem, $options: "i" } },
@@ -260,7 +262,7 @@ const getAllProducts = async (req, res) => {
 
         // Aggregation pipeline
         const aggregationPipeline = [
-            // { $match: filter }, // Apply filtering
+            { $match: filter }, // Apply filtering
             {
                 $addFields: {
                     productObjId: {
@@ -294,9 +296,10 @@ const getAllProducts = async (req, res) => {
         }
         // Fetch products
         const products = await productsCollection.aggregate(aggregationPipeline).toArray();
+
         const getAllUsersWhoPicked = await usersCollection.find({ isPicked: true, isDeleted: false }).toArray();
         const totalPickedUsersCount = await usersCollection.countDocuments({ isPicked: true, isDeleted: false })
-        console.log(" totalPickedUserstotalPickedUserstotalPickedUserstotalPickedUserstotalPickedUsers ", totalPickedUsersCount)
+
         // Convert buffer to Base64 and add imageUrl
         products.forEach(product => {
             if (product.productImageDetails && product.productImageDetails.fileBuffer) {
@@ -320,14 +323,14 @@ const getAllProducts = async (req, res) => {
                     }
                     // product.pickedCountPercentage=
                 });
-                product.pickedCountPercentage = totalPickedUsersCount > 0 
-            ? (product.pickedCount / totalPickedUsersCount) * 100 
-            : 0;
-                
+                product.pickedCountPercentage = totalPickedUsersCount > 0
+                    ? (product.pickedCount / totalPickedUsersCount) * 100
+                    : 0;
+
             }
         });
         // Get total count for pagination
-        const totalProducts = await productsCollection.countDocuments(filter);
+        const totalProducts = await productsCollection.countDocuments({ isDeleted: false, isActive: true });
         // If pagination was not provided, return all products in a separate response
         if (!isPaginationProvided) {
             return res.json({ products, totalProducts });
