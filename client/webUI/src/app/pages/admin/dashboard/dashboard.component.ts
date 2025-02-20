@@ -10,7 +10,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MatCardModule, MatIconModule, MatTabsModule, NgxChartsModule,ScrollingModule],
+  imports: [MatCardModule, MatIconModule, MatTabsModule, NgxChartsModule, ScrollingModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
@@ -22,9 +22,9 @@ export class DashboardComponent {
   totalProducts: any;
   employeesPickedGift: any;
   employeesDidNotPickedGift: any
-  pickedPercentage:any;
-  notPickedPercentage:any;
-  pieChartData:any;
+  pickedPercentage: any;
+  notPickedPercentage: any;
+  pieChartData: any;
   currentPage: any;
   pageSize: any;
   loading = false;
@@ -47,19 +47,19 @@ export class DashboardComponent {
         this.employeesDidNotPickedGift = data.userDidNotPickedGift;
         console.log(data)
         // Calculate percentages
-      this.pickedPercentage = this.totalEmployees ? (this.employeesPickedGift / this.totalEmployees) * 100 : 0;
-      this.notPickedPercentage = this.totalEmployees ? (this.employeesDidNotPickedGift / this.totalEmployees) * 100 : 0;
-      // pie chart
-  this.pieChartData = [
-    {
-      "name": `Completed (${this.pickedPercentage.toFixed(1)}%)`,
-      "value": this.pickedPercentage
-    },
-    {
-      "name": `Pending (${this.notPickedPercentage.toFixed(1)}%)`,
-      "value": this.notPickedPercentage
-    },
-  ];
+        this.pickedPercentage = this.totalEmployees ? (this.employeesPickedGift / this.totalEmployees) * 100 : 0;
+        this.notPickedPercentage = this.totalEmployees ? (this.employeesDidNotPickedGift / this.totalEmployees) * 100 : 0;
+        // pie chart
+        this.pieChartData = [
+          {
+            "name": `Completed (${this.pickedPercentage.toFixed(1)}%)`,
+            "value": this.pickedPercentage
+          },
+          {
+            "name": `Pending (${this.notPickedPercentage.toFixed(1)}%)`,
+            "value": this.notPickedPercentage
+          },
+        ];
       }, error => console.error('Error fetching users', error));
   }
 
@@ -73,15 +73,15 @@ export class DashboardComponent {
 
         const products = data.products ?? []; // Ensure products is always an array
 
-      if (products.length === 0) {
-        this.allProductsLoaded = true;
-      } else {
-        console.log('Before Update:', this.productData); 
-        this.productData = [...this.productData, ...products]; // Append new data
-        console.log('Updated productData:', this.productData); 
-        this.currentPage++; // Increment page number
-      }
-        this.loading = false;   
+        if (products.length === 0) {
+          this.allProductsLoaded = true;
+        } else {
+          console.log('Before Update:', this.productData);
+          this.productData = [...this.productData, ...products]; // Append new data
+          console.log('Updated productData:', this.productData);
+          this.currentPage++; // Increment page number
+        }
+        this.loading = false;
       }, error => console.error('Error fetching users', error));
   }
 

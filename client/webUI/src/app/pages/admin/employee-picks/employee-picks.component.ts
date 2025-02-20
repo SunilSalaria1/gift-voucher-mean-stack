@@ -19,7 +19,7 @@ import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductsService } from '../../../services/products.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-employee-picks',
   standalone: true,
@@ -34,7 +34,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
     MatPaginatorModule,
     MatCardModule,
     MatButtonModule,
-   ReactiveFormsModule,],
+   ReactiveFormsModule,
+   MatProgressSpinnerModule,],
   templateUrl: './employee-picks.component.html',
   styleUrl: './employee-picks.component.css'
 })
@@ -54,7 +55,7 @@ export class EmployeePicksComponent {
   totalUsers: number;
   pageSize: number = 10;
   selectedEmpId: string | null = null;
-
+  isLoading = false; // To track loading state
   // ngOnInIt
   ngOnInit() {
     this.dataSource = new MatTableDataSource<any>([]); // Initialize with an empty array
@@ -69,6 +70,7 @@ export class EmployeePicksComponent {
 
 
   loadEmployeePicks(page: number, limit: number, searchTerm: string = '', sortBy: string = '') {
+    this.isLoading = true; // Show spinner before API call starts
     this._productsService.employeePicks(page, limit, searchTerm, sortBy).subscribe
       (data => {
         this.userData = data.giftInventoryData;
@@ -77,7 +79,13 @@ export class EmployeePicksComponent {
         this.totalUsers = data.totalUsers;
         this.dataSource.data = this.userData;
         console.log(data, this.totalUsers)
-      }, error => console.error('Error fetching users', error));
+        this.isLoading = false; // Hide spinner after data is received
+      }, 
+      (error) =>{
+        console.error('Error fetching users', error);
+        this.isLoading = false; 
+      } 
+    );
   }
 
    onPageChange(event: PageEvent) {

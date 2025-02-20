@@ -20,6 +20,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductsService } from '../../../services/products.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-gift-inventory',
   standalone: true,
@@ -37,6 +38,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     MatButtonModule,
     ReactiveFormsModule,
     ClipboardModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './gift-inventory.component.html',
   styleUrl: './gift-inventory.component.css',
@@ -60,6 +62,8 @@ export class GiftInventoryComponent {
   currentPage = 1;
   totalUsers: number;
   pageSize: number = 10;
+  isLoading = false; // To track loading state
+
 
   // ngOnInIt
   ngOnInit() {
@@ -76,6 +80,7 @@ export class GiftInventoryComponent {
 
   // get products
   loadUsers(page: number, limit: number, searchTerm, sortBy: string = '') {
+    this.isLoading = true; // Show spinner before API call starts
     this._productsService.getProducts(page, limit, searchTerm, sortBy).subscribe(data => {
       this.products = data.products;
       this.totalPages = data.totalPages;
@@ -83,8 +88,13 @@ export class GiftInventoryComponent {
       this.totalUsers = data.totalProducts;
       this.dataSource.data = this.products;
       console.log(data, this.totalUsers)
+      this.isLoading = false; // Hide spinner after data is received
+    }, (error) => {
+      console.error('Error fetching users', error)
+      this.isLoading = false; // Hide spinner after data is received
+    }
 
-    }, error => console.error('Error fetching users', error));
+    );
   }
 
   // onPageChange 
