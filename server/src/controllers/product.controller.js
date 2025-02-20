@@ -140,6 +140,11 @@ const getProductWithId = async (req, res) => {
             delete productObj.productImageDetails.fileBuffer;
             delete productObj.productObjId;
             delete productObj.isDeleted;
+            delete productObj.isActive;
+            delete productObj.addedAt;
+            delete productObj.updatedAt;
+            delete productObj.productImageDetails.fileType;
+            delete productObj.productImageDetails.uploadedAt;
         }
 
         return res.json(productObj);
@@ -313,6 +318,7 @@ const getAllProducts = async (req, res) => {
                 delete product.productObjId;
                 delete product.isDeleted;
                 delete product.addedAt;
+                delete product.isActive;
                 // Initialize pickedCount if it's undefined or null
                 if (!product.pickedCount) {
                     product.pickedCount = 0;
@@ -326,15 +332,19 @@ const getAllProducts = async (req, res) => {
                 product.pickedCountPercentage = totalPickedUsersCount > 0
                     ? (product.pickedCount / totalPickedUsersCount) * 100
                     : 0;
-
             }
         });
         // Get total count for pagination
         const totalProducts = await productsCollection.countDocuments({ isDeleted: false, isActive: true });
+        const totalUsers = await usersCollection.countDocuments({ isDeleted: false });
+        const usersPickedGift = await usersCollection.countDocuments({ isDeleted: false, isPicked: true });
+        const userDidNotPickedGift = totalUsers - usersPickedGift;
+
         // If pagination was not provided, return all products in a separate response
         if (!isPaginationProvided) {
-            return res.json({ products, totalProducts });
+            return res.json({ products, totalProducts, totalUsers, usersPickedGift, userDidNotPickedGift });
         }
+
         // Return paginated response
         return res.json({
             products,

@@ -10,9 +10,9 @@ const addFeedback = async (req, res) => {
                */
     try {
         await connectDB();
-        const { userId, rating, description } = req.body
+        const { userId, description } = req.body
 
-        if (!userId || !rating || !description) {
+        if (!userId || !description) {
             return res.status(400).json({ message: 'Missing required fields:' })
         }
         if (!ObjectId.isValid(userId)) {
