@@ -23,11 +23,7 @@
                                         (click)="logOut()">
                                         <mat-icon>celebration</mat-icon> <span>Back to Home</span></a>
                                 </div>
-                                <div><a mat-flat-button
-                                        class="bg-dark text-white py-4 px-5 shadow-sm button-mh-60 mt-4 ms-3"
-                                        (click)="openDialog()">
-                                        <mat-icon>celebration</mat-icon> <span>Share Feedback</span></a>
-                                </div>
+                                
                             </div>
                         </div>
                     </mat-card-content>
@@ -46,13 +42,7 @@
                 <div>
                     <h4 class="mb-0">Give Feedback</h4>
                 </div>
-                <div>What do you think of the gifts?</div>
-                <div class="mt-4">
-                    <span *ngFor="let num of numbers; let i = index" class="badge mx-2 fw-bold"
-                        [ngClass]="{ 'active': selectedNumber === num }" (click)="setActive(num)">
-                        {{ num }}
-                    </span>
-                </div>
+                <div>What do you think of the gifts?</div>               
             </div>
             <div class="mt-5 px-2 pb-2">Do you have any thoughts you'd like to share?</div>
             <mat-form-field appearance="outline" class="d-block input-lg input">

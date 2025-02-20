@@ -1,20 +1,44 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
 import { UsersService } from '../../services/users.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-employee-header',
   standalone: true,
-  imports: [MatIconModule,RouterLink,MatButtonModule],
+  imports: [MatIconModule,RouterLink,MatButtonModule,ReactiveFormsModule, MatDialogModule, MatFormFieldModule, CommonModule, MatInputModule],
   templateUrl: './employee-header.component.html',
   styleUrl: './employee-header.component.css'
 })
 export class EmployeeHeaderComponent { 
   private _usersService = inject(UsersService)
-  constructor(private router: Router,private snackBar: MatSnackBar  ) {}
+  constructor(private router: Router,private snackBar: MatSnackBar ,private formBuilder: FormBuilder ) {}
+
+  submitted: boolean = false;   
+    feedbackForm!: FormGroup;
+    @ViewChild('content') dialogTemplate!: TemplateRef<any>;
+    readonly dialog = inject(MatDialog);
+    loggedUser = JSON.parse(localStorage.getItem('loginUser') || '{}');
+  
+
+  ngOnInit(): void {
+      // form
+      this.feedbackForm = this.formBuilder.group({
+        productDescription: [
+          '',
+          [Validators.required, Validators.maxLength(200)],
+        ],
+      });
+      console.log('Form Initialized:', this.feedbackForm);
+    }   
+   
   
   isLoginPage(): boolean {
     return this.router.url === '/employee-code';
@@ -45,5 +69,55 @@ export class EmployeeHeaderComponent {
       horizontalPosition: "center",
       verticalPosition: "top",
     });
+  }
+
+  // dialog
+  openDialog(): void {
+
+    this.feedbackForm.reset();    
+    this.submitted = false;
+    // Use the TemplateRef for the dialog
+    const dialogRef = this.dialog.open(this.dialogTemplate, {
+      width: '1200px',
+    });
+
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  
+  // Method to handle Send button click (when form is valid)
+  send(): void {
+    if (this.feedbackForm.valid) {
+      // add feedback
+      let payload: any;
+      payload = {
+        userId: this.loggedUser._id,      
+        description: this.feedbackForm.value.productDescription,
+      }
+      this._usersService.addFeedback(payload).subscribe(
+        (response: any) => {
+          console.log(this.feedbackForm.value); // Log form values
+          this.dialog.closeAll(); // Close dialog 
+          console.log("add feedback successfull:", response)
+           //success snackbar
+    this.snackBar.open('You have successfully shared your feedback.', 'close', {
+      duration: 5000,
+      panelClass: ['snackbar-success'],
+      horizontalPosition: "center",
+      verticalPosition: "top",
+    });
+        },
+        (error) => {
+          console.error('error in adding feedback:', error)
+        }
+      )
+
+    } else {
+      // this.feedbackForm.markAllAsTouched(); // Trigger validation messages
+      this.submitted = true;
+    }
   }
 }
