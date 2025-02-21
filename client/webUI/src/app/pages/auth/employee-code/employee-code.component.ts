@@ -56,6 +56,7 @@ export class EmployeeCodeComponent implements OnInit {
           console.log(response);
           localStorage.setItem('loginUser', JSON.stringify(response.userDetails));
           this._usersService.saveToken(response.token); // Store token
+          
           this.router.navigate(['/select-gift-voucher']);
           this.snackBar.open('Welcome! Now you can access your rewards.', 'Close', {
             duration: 5000,

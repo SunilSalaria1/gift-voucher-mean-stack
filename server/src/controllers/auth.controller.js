@@ -57,6 +57,7 @@ const loginUser = async (req, res) => {
                     department: result.department,
                     isPicked: result.isPicked,
                     productId: result.productId,
+                    role:"employee"
                 },
                 token: token,
             });
@@ -89,7 +90,8 @@ const loginUser = async (req, res) => {
                         name: result.name,
                         email: result.email,
                         isAdmin: result.isAdmin,
-                        department: result.department
+                        department: result.department,
+                        role:"admin"
                     },
                     token: token,
                 });

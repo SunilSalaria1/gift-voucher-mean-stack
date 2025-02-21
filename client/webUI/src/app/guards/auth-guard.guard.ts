@@ -14,6 +14,7 @@ export const authGuardGuard: CanActivateFn = (route, state) => {
     const user = JSON.parse(loggedUser);
     const employeeRoutes = ['select-gift-voucher', 'reward-claimed'];
     const adminRoutes = [
+      'select-gift-voucher', 'reward-claimed',
       'admin',
       'dashboard',
       'gift-inventory',
@@ -22,6 +23,7 @@ export const authGuardGuard: CanActivateFn = (route, state) => {
       'settings',
       'add-gift-item',
     ];
+    console.log("user...........0",user.role)
 
     // If the user is an employee
     if (user.role === 'employee') {
