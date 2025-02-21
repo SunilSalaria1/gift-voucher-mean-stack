@@ -1,9 +1,11 @@
 <div>
   <h5 class="fw-bold mb-4">Gift Inventory</h5>
 </div>
+<!-- loader -->
 <div *ngIf="isLoading" class="spinner-container d-flex justify-content-center align-items-center h-100 w-100">
   <mat-spinner [diameter]="80"></mat-spinner>
 </div>
+<!-- /loader -->
 <div *ngIf="!isLoading">
   <mat-card class="bg-white border-light product-reward-card p-3" appearance="outlined">
     <div class="d-flex justify-content-between">
