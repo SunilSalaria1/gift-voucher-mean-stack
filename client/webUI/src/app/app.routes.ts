@@ -17,6 +17,7 @@ import {GenerateEmpCodeComponent} from './pages/admin/generate-emp-code/generate
 import { AddEmpCodeComponent } from './pages/admin/add-emp-code/add-emp-code.component';
 import { EditEmpCodeComponent } from './pages/admin/edit-emp-code/edit-emp-code.component';
 import { FeedbackComponent } from './pages/admin/feedback/feedback.component';
+import { SelectedGiftDetailsComponent } from './pages/employee/selected-gift-details/selected-gift-details.component';
 
 export const routes: Routes = [
     //auth routes
@@ -26,6 +27,8 @@ export const routes: Routes = [
     { path: 'admin-login-access', component: AdminLoginAccessComponent },
     { path: 'select-gift-voucher', component: SelectGiftVoucherComponent,canActivate:[authGuardGuard ]},
     { path: 'reward-claimed', component: RewardClaimedComponent,canActivate:[authGuardGuard ] },
+    { path: 'selected-gift-details', component: SelectedGiftDetailsComponent,canActivate:[authGuardGuard ] },
+
 
     { path: 'admin', component: AdminDashboardComponent,canActivate:[authGuardGuard ],
         children: [
@@ -38,8 +41,7 @@ export const routes: Routes = [
             { path: 'edit-gift-item/:id', component: EditGiftItemComponent },
             { path: 'generate-emp-code', component: GenerateEmpCodeComponent },
             { path: 'add-emp-code', component: AddEmpCodeComponent },
-            { path: 'edit-emp-code/:id', component:EditEmpCodeComponent }
-            
+            { path: 'edit-emp-code/:id', component:EditEmpCodeComponent }            
         ]
      },
     { path: '**', component: PageNotFoundComponent }

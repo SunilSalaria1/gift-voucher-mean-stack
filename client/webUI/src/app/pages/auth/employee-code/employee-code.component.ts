@@ -56,14 +56,19 @@ export class EmployeeCodeComponent implements OnInit {
           console.log(response);
           localStorage.setItem('loginUser', JSON.stringify(response.userDetails));
           this._usersService.saveToken(response.token); // Store token
+          if(!response.userDetails.isPicked){
+            this.router.navigate(['/select-gift-voucher']);
+            this.snackBar.open('Welcome! Now you can access your rewards.', 'Close', {
+              duration: 5000,
+              panelClass: ['snackbar-success'],
+              horizontalPosition: "center",
+              verticalPosition: "top",
+            });            
+          }else{
+            this.router.navigate(['/selected-gift-details']);  
+          }
           
-          this.router.navigate(['/select-gift-voucher']);
-          this.snackBar.open('Welcome! Now you can access your rewards.', 'Close', {
-            duration: 5000,
-            panelClass: ['snackbar-success'],
-            horizontalPosition: "center",
-            verticalPosition: "top",
-          });
+          
         },
         (error) => {
           console.error('Login failed:', error);

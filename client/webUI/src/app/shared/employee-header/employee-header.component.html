@@ -7,7 +7,7 @@
     <div>
       @if(isLoginPage()){
       <a mat-flat-button href="https://www.google.com/" class="bg-dark py-3 shadow-sm button-mh-45"
-        [routerLink]="['/admin-login-access']"><mat-icon>celebration</mat-icon><span>Manage Rewards</span></a>
+        [routerLink]="['/admin-login-access']"><mat-icon>celebration</mat-icon><span>Manage Rewards</span></a>      
       }@else if(isSelectGiftPage()){
       <a mat-flat-button [routerLink]="['/employee-code']" class="bg-dark py-3 shadow-sm button-mh-45"
         (click)="logOut()">

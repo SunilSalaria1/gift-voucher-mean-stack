@@ -42,7 +42,7 @@ export class EmployeeHeaderComponent {
   
   isLoginPage(): boolean {
     return this.router.url === '/employee-code';
-  }
+  }  
 
   isSelectGiftPage(): boolean {
     return this.router.url === '/select-gift-voucher';
