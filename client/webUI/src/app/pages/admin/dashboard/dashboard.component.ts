@@ -11,7 +11,7 @@ import {
 import { UsersService } from '../../../services/users.service';
 import { ProductsService } from '../../../services/products.service';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -21,6 +21,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     MatTabsModule,
     NgxChartsModule,
     ScrollingModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
@@ -39,8 +40,9 @@ export class DashboardComponent {
   pieChartData: any;
   currentPage: any;
   pageSize: any;
-  
-  loading = false;
+  isLoading = false; // To track loading state
+
+  productsLoading = false;
   allProductsLoaded = false; // Flag to stop loading when no more data
   // pie chart
   view: [number, number] = [700, 400];
@@ -97,10 +99,12 @@ export class DashboardComponent {
     searchTerm?: any,
     sortBy: string = ''
   ) {
-    if (this.loading || this.allProductsLoaded) return;
-    this.loading = true;
+    
+    if (this.productsLoading || this.allProductsLoaded) return;   
+    this.productsLoading = true;
+    this.isLoading = true; // Show spinner before API call starts
     this._productsService
-      .getProducts(page, limit, {searchTerm:''}, sortBy)
+      .getProducts(page, limit, { searchTerm: '' }, sortBy)
       .subscribe(
         (data) => {
           const products = data.products ?? []; // Ensure products is always an array
@@ -125,6 +129,7 @@ export class DashboardComponent {
               value: this.notPickedPercentage,
             },
           ];
+          this.isLoading = false; // Hide spinner after data is received
           if (products.length === 0) {
             this.allProductsLoaded = true;
           } else {
@@ -132,16 +137,19 @@ export class DashboardComponent {
             this.productData = [...this.productData, ...products]; // Append new data
             console.log('Updated productData:', this.productData);
             this.currentPage++; // Increment page number
-          }
-          this.loading = false;
+          }          
         },
-        (error) => console.error('Error fetching users', error)
+        (error) =>{
+          console.error('Error fetching users', error)
+          this.isLoading = false; // Hide spinner after data is received
+        }
+           
       );
   }
 
   // Triggered when user scrolls near the end of the product list
   onScrollProducts() {
-    if (!this.loading && !this.allProductsLoaded) {
+    if (!this.productsLoading && !this.allProductsLoaded) {
       this.loadProducts(this.currentPage, this.pageSize);
     }
   }

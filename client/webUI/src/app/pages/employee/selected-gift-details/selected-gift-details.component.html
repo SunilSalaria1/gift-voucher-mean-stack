@@ -1,36 +1,46 @@
-
-<p>selected-gift-details works!</p>
-
 <!-- container-section -->
-<section class="container-fluid p-0 vh-100 d-flex justify-content-between my-auto">
-    <!-- main-section -->
-    <section class="container  d-flex justify-content-center align-items-center">
-      <div class="row justify-content-center align-items-center">
-        <div class="col-5">
-          <div class="banner-font fw-bold">
-            <div class="text-primary"><span>Oops!</span></div>
-            <div>Page not Found.</div>
-          </div>
-          <p class="mt-4">
-            The requested URL was not found on this server. The page you are looking
-            for might have been removed, had its name changed or it's temporarily
-            unavailable.
-          </p>
-          <div class="col d-flex justify-content-center mt-4">
-            <button mat-flat-button class="px-5 py-4 button-mh-60 bg-dark shadow-sm" (click)="goBack()">
-              <mat-icon>keyboard_backspace</mat-icon> <span>Previous Page</span>
-            </button>
-          </div>
+<section class="container-fluid p-0 vh-100 d-flex justify-content-between my-auto bg-light">
+  <!-- main-section -->
+  <section class="container  d-flex justify-content-center align-items-center">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-5">
+        <div class="banner-font fw-bold">
+          <div class="text-primary"><span>Awesome!</span></div>
+          <div>Your Selected Gift.</div>
         </div>
-        <!-- image-section -->
-        <div class="col-4">
-          <div>
-            <img src="assets/images/ballon-icon.png" class="w-100 h-100" />
-          </div>
+        <p class="mt-4">
+          You’ve made a great choice! Your selected gift is displayed here, just as you picked it. We hope it brings
+          you joy and makes your day extra special.
+        </p>
+        <div class="col d-flex justify-content-center mt-4">
+          <button mat-flat-button class="px-5 py-4 button-mh-60 bg-dark shadow-sm" (click)="logOut()">
+            <mat-icon>keyboard_backspace</mat-icon> <span>Back to Home</span>
+          </button>
         </div>
-        <!-- /image-section -->
       </div>
-    </section>
-    <!-- /main-section -->
+      <!-- product-section -->
+      <div class="col-4">
+        <mat-card class="bg-light shadow-sm  p-3 bg-white" appearance="outlined">
+          <mat-card-content>
+            <span class="badge shadow-sm bg-dark text-white fs-12">{{product.couponCode}}</span>
+            <div class="d-flex justify-content-center my-5">
+              <img mat-card-image height="200" width="200" [src]="product.productImageDetails.imageUrl" />
+            </div>
+            <div>
+              <div>{{product.productTitle}}</div>
+              <div class="fs-12">{{product.productDescription}}</div>
+            </div>
+            <div>
+              <button mat-flat-button class="button-mh-60 py-4 shadow-sm w-100 bg-dark mt-2 claim-gift-btn">
+                <mat-icon>celebration</mat-icon>Claim Reward
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <!-- /product-section -->
+    </div>
   </section>
-  <!-- /container-section -->
+  <!-- /main-section -->
+</section>
+<!-- /container-section -->

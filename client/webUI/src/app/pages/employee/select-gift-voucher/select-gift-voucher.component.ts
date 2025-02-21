@@ -47,16 +47,21 @@ export class SelectGiftVoucherComponent {
   userData:any=localStorage.getItem('loginUser');  
   user:any=JSON.parse(this.userData);
   currentUserId: any = this.user?._id;   
-  
+  currentPage: any;
+  pageSize: any;
 
   ngOnInit(){
-this.getProducts()
+this.getProducts(this.currentPage, this.pageSize)
 console.log(this.currentUserId)
   } 
   
 
-  getProducts(){
-    this._productsService.getProducts().subscribe(
+  getProducts(page: number,
+    limit: number,
+    searchTerm?: any,
+    sortBy: string = ''){
+    
+    this._productsService.getProducts(page, limit, { searchTerm: '' }, sortBy).subscribe(
       (response)=>{
         this.products=response.products;
         console.log(this.products);

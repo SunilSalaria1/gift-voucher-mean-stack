@@ -6,13 +6,7 @@
         <div class="col-3" *ngFor="let card of cards">
             <mat-card class="bg-white shadow-sm product-reward-card p-3 h-100 justify-content-between"
                 appearance="outlined">
-                <mat-card-content>
-                    <!-- Star Ratings -->
-                    <div>
-                        <ng-container *ngFor="let star of getStars(card.rating)">
-                            <mat-icon [ngClass]="{ 'active-star': star === 'star' }">{{ star }}</mat-icon>
-                        </ng-container>
-                    </div>
+                <mat-card-content>                    
                     <!-- Description -->
                     <p class="description fs-12">{{ card.description |truncate:40:card.expanded }}</p>
                     <span *ngIf="card.description.split('').length > 50"

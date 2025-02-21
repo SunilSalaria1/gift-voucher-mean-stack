@@ -32,12 +32,7 @@ export class FeedbackComponent {
   toggleReadMore(card: Feedback) {
     card.expanded = !card.expanded;
   }
-  // Generate stars for each card
-  getStars(rating: number): string[] {
-    return Array.from({ length: this.totalStars }, (_, i) =>
-      i < rating ? 'star' : 'star_border'
-    );
-  }
+ 
 // initials of first and last name
   getInitials(name: string): string {
     const parts = name.trim().split(' ');
