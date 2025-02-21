@@ -41,7 +41,8 @@ const getAllFeedbacks = async (req, res) => {
         await connectDB();
         // const useriddata = await feedbackCollection.find().toArray()
         const feedbacks = await feedbackCollection.aggregate([
-            { $match: { isDeleted: false } }, , {
+            { $match: { isDeleted: false } },
+            {
                 $addFields: {
                     userIdObj: {
                         $cond: {
@@ -79,13 +80,10 @@ const getAllFeedbacks = async (req, res) => {
             }
         ]).toArray();
         return res.status(200).json({ feedbacks })
-
-
     } catch (e) {
         console.error("Error fetching feedbacks:", e);
         res.status(500).json({ error: "Internal Server Error" });
     }
 }
-
 
 module.exports = { addFeedback, getAllFeedbacks }
