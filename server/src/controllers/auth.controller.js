@@ -57,7 +57,8 @@ const loginUser = async (req, res) => {
                     department: result.department,
                     isPicked: result.isPicked,
                     productId: result.productId,
-                    role:"employee"
+                    role:"employee",
+                    
                 },
                 token: token,
             });

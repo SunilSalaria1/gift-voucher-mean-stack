@@ -69,7 +69,7 @@ export class EmployeePicksComponent {
   }
 
 
-  loadEmployeePicks(page: number, limit: number, searchTerm: string = '', sortBy: string = '') {
+  loadEmployeePicks(page: number, limit: number, searchTerm: any, sortBy: string = '') {
     this.isLoading = true; // Show spinner before API call starts
     this._productsService.employeePicks(page, limit, searchTerm, sortBy).subscribe
       (data => {

@@ -28,6 +28,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 export class DashboardComponent {
   private _productsService = inject(ProductsService);
   totalEmployees: any;
+
   userData: any;
   productData: any[] = [];
   totalProducts: any;
@@ -38,6 +39,7 @@ export class DashboardComponent {
   pieChartData: any;
   currentPage: any;
   pageSize: any;
+  
   loading = false;
   allProductsLoaded = false; // Flag to stop loading when no more data
   // pie chart
@@ -88,17 +90,17 @@ export class DashboardComponent {
   // }
 
   // products api
-  
+
   loadProducts(
     page: number,
     limit: number,
-    searchTerm: string = '',
+    searchTerm?: any,
     sortBy: string = ''
   ) {
     if (this.loading || this.allProductsLoaded) return;
     this.loading = true;
     this._productsService
-      .getProducts(page, limit, searchTerm, sortBy)
+      .getProducts(page, limit, {searchTerm:''}, sortBy)
       .subscribe(
         (data) => {
           const products = data.products ?? []; // Ensure products is always an array

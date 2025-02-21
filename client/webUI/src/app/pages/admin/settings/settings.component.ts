@@ -65,7 +65,7 @@ export class SettingsComponent {
     });
   }
 
-  loadUsers(page: number, limit: number, searchTerm: string = '', sortBy: string = '',role=this.role) {
+  loadUsers(page: number, limit: number, searchTerm: any, sortBy: string = '',role=this.role) {
     this._usersService.getUsers(page, limit, searchTerm, sortBy,role).subscribe(
       (data) => {
         // Assuming data has a structure like { users: [], totalPages: number, currentPage: number, totalUsers: number }
