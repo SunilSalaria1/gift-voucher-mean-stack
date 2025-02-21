@@ -1,3 +1,8 @@
+<section class="container-fluid p-0">
+  <!-- header section -->
+  <app-employee-header></app-employee-header>
+  <!-- /header section  -->
+</section>
 <!-- container-section -->
 <section class="container-fluid p-0 vh-100 d-flex justify-content-between my-auto bg-light">
   <!-- main-section -->
@@ -11,12 +16,7 @@
         <p class="mt-4">
           You’ve made a great choice! Your selected gift is displayed here, just as you picked it. We hope it brings
           you joy and makes your day extra special.
-        </p>
-        <div class="col d-flex justify-content-center mt-4">
-          <button mat-flat-button class="px-5 py-4 button-mh-60 bg-dark shadow-sm" (click)="logOut()">
-            <mat-icon>keyboard_backspace</mat-icon> <span>Back to Home</span>
-          </button>
-        </div>
+        </p>        
       </div>
       <!-- product-section -->
       <div class="col-4">
@@ -44,3 +44,4 @@
   <!-- /main-section -->
 </section>
 <!-- /container-section -->
+ <app-employee-footer></app-employee-footer>
