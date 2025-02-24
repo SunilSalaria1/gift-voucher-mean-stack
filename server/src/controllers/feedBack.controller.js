@@ -2,7 +2,7 @@ const feedbackSchema = require("../models/feedback.model");
 const { ZodError } = require("zod");
 const { connectDB, db } = require('../config/db.config'); // Import db from db.js
 const { ObjectId } = require('mongodb');
-const feedbackCollection = db.collection('feedback');
+const feedbackCollection = db.collection('suggestions');
 
 const addFeedback = async (req, res) => {
     /*  #swagger.tags = ['Feedback section']

@@ -1,5 +1,5 @@
 const { connectDB, db } = require("../config/db.config");
-const filesCollection = db.collection('files');
+const filesCollection = db.collection('images');
 const { ObjectId } = require('mongodb');
 
 const uploadFile = async (req, res) => {
