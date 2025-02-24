@@ -14,7 +14,7 @@ import { ProductsService } from '../../../services/products.service';
 @Component({
   selector: 'app-select-gift-voucher',
   standalone: true,
-  imports: [MatIconModule, RouterLink, MatButtonModule, MatCardModule, CommonModule,EmployeeFooterComponent,EmployeeHeaderComponent],
+  imports: [MatIconModule, RouterLink, MatButtonModule, MatCardModule, CommonModule, EmployeeFooterComponent, EmployeeHeaderComponent],
   templateUrl: './select-gift-voucher.component.html',
   styleUrls: ['./select-gift-voucher.component.css'],
   animations: [
@@ -36,93 +36,96 @@ import { ProductsService } from '../../../services/products.service';
     ])
   ]
 })
-  
+
 
 export class SelectGiftVoucherComponent {
   private _snackBar = inject(MatSnackBar);
-  constructor(private snackBar: MatSnackBar,private router:Router) { }
+  constructor(private snackBar: MatSnackBar, private router: Router) { }
   private _productsService = inject(ProductsService)
-  products:any[]; 
-  selectedProductId:any;  
-  userData:any=localStorage.getItem('loginUser');  
-  user:any=JSON.parse(this.userData);
-  currentUserId: any = this.user?._id;   
+  products: any[];
+  selectedProductId: any;
+  userData: any = localStorage.getItem('loginUser');
+  user: any = JSON.parse(this.userData);
+  currentUserId: any = this.user?._id;
   currentPage: any;
   pageSize: any;
 
-  ngOnInit(){
-this.getProducts(this.currentPage, this.pageSize)
-console.log(this.currentUserId)
-  } 
-  
+  ngOnInit() {
+    this.getProducts(this.currentPage, this.pageSize)
+    console.log(this.currentUserId)
+  }
+
 
   getProducts(page: number,
     limit: number,
     searchTerm?: any,
-    sortBy: string = ''){
-    
+    sortBy: string = '') {
+
     this._productsService.getProducts(page, limit, { searchTerm: '' }, sortBy).subscribe(
-      (response)=>{
-        this.products=response.products;
+      (response) => {
+        this.products = response.products;
         console.log(this.products);
       },
-      (error)=>{
-        console.log(error,"error getting products")
+      (error) => {
+        console.log(error, "error getting products")
       }
     )
   }
-  
+
   //active product card
   activeIndex: number | null = null;
-  isConfirmVisible:boolean=false;
+  isConfirmVisible: boolean = false;
   zoomState = 'void';
-  
+
   claimGiftBtn(index: number): void {
     this.activeIndex = index;
-    this.isConfirmVisible=true
+    this.isConfirmVisible = true
     // Trigger zoom-out animation (for opening)    
-    this.zoomState = 'in';    
-     // Capturing the product ID
+    this.zoomState = 'in';
+    // Capturing the product ID
     this.selectedProductId = this.products[index]._id;
     console.log('Selected Product ID:', this.selectedProductId);
   }
 
   // notSelected
-  notSelected(){
+  notSelected() {
     console.log("dfdghfgn");
-    this.isConfirmVisible=false 
+    this.isConfirmVisible = false
     // Close with zoom-in effect
-    this.zoomState = 'void'; 
+    this.zoomState = 'void';
     // show error snackbar
     this.snackBar.open('Gift not selected. You can select another gift', 'close', {
       duration: 5000,
       panelClass: ['snackbar-error'],
       horizontalPosition: "center",
       verticalPosition: "top",
-    });   
+    });
   }
 
   // selected
-  selected(){
-    const payload={
-      isPicked:"true",
-      productId:this.selectedProductId
+  selected() {
+    if (this.user.role === "employee") {
+      const payload = {
+        isPicked: "true",
+        productId: this.selectedProductId
+      }
+      this._productsService.giftPick(this.currentUserId, payload).subscribe(
+        (response) => {
+          console.log(response, "gift pick successfull")
+          this.router.navigateByUrl("/reward-claimed")
+          // show success snackbar
+          this.snackBar.open('Enjoy your exclusive reward.', 'close', {
+            duration: 5000,
+            panelClass: ['snackbar-success'],
+            horizontalPosition: "center",
+            verticalPosition: "top",
+          });
+        },
+        (error) => {
+          console.log(error, "error in gift pick");
+        }
+      )
     }
-this._productsService.giftPick(this.currentUserId,payload).subscribe(
-  (response)=>{
-    console.log(response,"gift pick successfull")
-    this.router.navigateByUrl("/reward-claimed")
-     // show success snackbar
-     this.snackBar.open('Enjoy your exclusive reward.', 'close', {
-      duration: 5000,
-      panelClass: ['snackbar-success'],
-      horizontalPosition: "center",
-      verticalPosition: "top",
-    });
-  },
-  (error)=>{
-    console.log(error,"error in gift pick");    
+
   }
-  )   
-  } 
 }
