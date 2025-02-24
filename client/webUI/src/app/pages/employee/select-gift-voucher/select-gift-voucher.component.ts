@@ -9,12 +9,12 @@ import { Router, RouterLink } from '@angular/router';
 import { EmployeeFooterComponent } from '../../../shared/employee-footer/employee-footer.component';
 import { EmployeeHeaderComponent } from '../../../shared/employee-header/employee-header.component';
 import { ProductsService } from '../../../services/products.service';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-select-gift-voucher',
   standalone: true,
-  imports: [MatIconModule, RouterLink, MatButtonModule, MatCardModule, CommonModule, EmployeeFooterComponent, EmployeeHeaderComponent],
+  imports: [MatIconModule, RouterLink, MatButtonModule, MatCardModule,MatProgressSpinnerModule, CommonModule, EmployeeFooterComponent, EmployeeHeaderComponent],
   templateUrl: './select-gift-voucher.component.html',
   styleUrls: ['./select-gift-voucher.component.css'],
   animations: [
@@ -49,6 +49,7 @@ export class SelectGiftVoucherComponent {
   currentUserId: any = this.user?._id;
   currentPage: any;
   pageSize: any;
+  isLoading = false; // To track loading state
 
   ngOnInit() {
     this.getProducts(this.currentPage, this.pageSize)
@@ -60,14 +61,16 @@ export class SelectGiftVoucherComponent {
     limit: number,
     searchTerm?: any,
     sortBy: string = '') {
-
+      this.isLoading = true; // Show spinner before API call starts
     this._productsService.getProducts(page, limit, { searchTerm: '' }, sortBy).subscribe(
       (response) => {
         this.products = response.products;
         console.log(this.products);
+        this.isLoading = false; // Hide spinner after data is received
       },
       (error) => {
         console.log(error, "error getting products")
+        this.isLoading = false; // Hide spinner after data is received
       }
     )
   }

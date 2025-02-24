@@ -3,114 +3,129 @@
     <app-employee-header></app-employee-header>
     <!-- /header section  -->
 </section>
-<!-- banner-section -->
-<section class="container">
-    <div class="row py-5 align-items-center">
-        <div class="col-5">
-            <div class="text-primary">Welcome {{user.name}}</div>
-            <div class="banner-font fw-bold">
-                Unlock Your <span class="text-primary">Gift,</span> Embrace the <span
-                    class="text-primary">Moment!</span>
-            </div>
-            <div class="mt-4">
-                Discover a world of rewards made just for you! Enter your unique code and browse a curated selection of
-                gifts tailored to bring joy. With every choice, a moment of celebration awaits. Whether it’s a small
-                token or a grand surprise, your perfect gift is only a click away. Choose, click, and celebrate with
-                ease!
-            </div>
-        </div>
-        <div class="col-7 mt-4">
-            <div class="row">
-                <div class="col-4 mb-4">
-                    <mat-card class="banner-card banner-card-bg-1 shadow-sm p-3 banner-card-odd" appearance="outlined">
-                        <img mat-card-image src="assets/images/banner-1.png" />
-                    </mat-card>
-                </div>
-                <div class="col-4 mb-4">
-                    <mat-card class="banner-card banner-card-bg-2 position-relative shadow-sm p-3 py-5 banner-card-even"
-                        appearance="outlined">
-                        <img mat-card-image src="assets/images/banner-5.png" />
-                    </mat-card>
-                </div>
-                <div class="col-4 mb-4">
-                    <mat-card class="banner-card banner-card-bg-3 shadow-sm p-3 banner-card-odd" appearance="outlined">
-                        <img mat-card-image src="assets/images/banner-3.png" />
-                    </mat-card>
-                </div>
-                <div class="col-4">
-                    <mat-card class="banner-card banner-card-bg-4 position-relative shadow-sm p-3 py-5 banner-card-odd"
-                        appearance="outlined">
-                        <img mat-card-image src="assets/images/banner-4.png" />
-                    </mat-card>
-                </div>
-                <div class="col-4">
-                    <mat-card class="banner-card banner-card-bg-5 position-relative shadow-sm p-3 banner-card-even"
-                        appearance="outlined">
-                        <img mat-card-image src="assets/images/banner-2.png" />
-                    </mat-card>
-                </div>
-                <div class="col-4">
-                    <mat-card class="banner-card banner-card-bg-6 position-relative shadow-sm p-3 py-5 banner-card-odd"
-                        appearance="outlined">
-                        <img mat-card-image src="assets/images/banner-6.png" />
-                    </mat-card>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- /banner-section -->
-<!-- product-section -->
-<section class="container-fluid py-5 bg-light border-top border-bottom border-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 mb-5">
+
+<div *ngIf="isLoading" class="spinner-container d-flex justify-content-center align-items-center h-100 w-100">
+    <mat-spinner [diameter]="50"></mat-spinner>
+</div>
+<section *ngIf="!isLoading">
+    <!-- banner-section -->
+    <section class="container">
+        <div class="row py-5 align-items-center">
+            <div class="col-5">
+                <div class="text-primary">Welcome {{user.name}}</div>
                 <div class="banner-font fw-bold">
-                    Claim your <span class="text-primary">Reward</span>
+                    Unlock Your <span class="text-primary">Gift,</span> Embrace the <span
+                        class="text-primary">Moment!</span>
+                </div>
+                <div class="mt-4">
+                    Discover a world of rewards made just for you! Enter your unique code and browse a curated selection
+                    of
+                    gifts tailored to bring joy. With every choice, a moment of celebration awaits. Whether it’s a small
+                    token or a grand surprise, your perfect gift is only a click away. Choose, click, and celebrate with
+                    ease!
+                </div>
+            </div>
+            <div class="col-7 mt-4">
+                <div class="row">
+                    <div class="col-4 mb-4">
+                        <mat-card class="banner-card banner-card-bg-1 shadow-sm p-3 banner-card-odd"
+                            appearance="outlined">
+                            <img mat-card-image src="assets/images/banner-1.png" />
+                        </mat-card>
+                    </div>
+                    <div class="col-4 mb-4">
+                        <mat-card
+                            class="banner-card banner-card-bg-2 position-relative shadow-sm p-3 py-5 banner-card-even"
+                            appearance="outlined">
+                            <img mat-card-image src="assets/images/banner-5.png" />
+                        </mat-card>
+                    </div>
+                    <div class="col-4 mb-4">
+                        <mat-card class="banner-card banner-card-bg-3 shadow-sm p-3 banner-card-odd"
+                            appearance="outlined">
+                            <img mat-card-image src="assets/images/banner-3.png" />
+                        </mat-card>
+                    </div>
+                    <div class="col-4">
+                        <mat-card
+                            class="banner-card banner-card-bg-4 position-relative shadow-sm p-3 py-5 banner-card-odd"
+                            appearance="outlined">
+                            <img mat-card-image src="assets/images/banner-4.png" />
+                        </mat-card>
+                    </div>
+                    <div class="col-4">
+                        <mat-card class="banner-card banner-card-bg-5 position-relative shadow-sm p-3 banner-card-even"
+                            appearance="outlined">
+                            <img mat-card-image src="assets/images/banner-2.png" />
+                        </mat-card>
+                    </div>
+                    <div class="col-4">
+                        <mat-card
+                            class="banner-card banner-card-bg-6 position-relative shadow-sm p-3 py-5 banner-card-odd"
+                            appearance="outlined">
+                            <img mat-card-image src="assets/images/banner-6.png" />
+                        </mat-card>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-3 mb-4" *ngFor="let item of products; let i = index">
-                <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
-                    @if(activeIndex === i && isConfirmVisible){
-                    <div class="gift-confirmation-button bg-dark text-white p-3 position-absolute shadow-sm"
-                        [@zoomInOut]="zoomState">
-                        <div>Are you sure want to proceed with this.</div>
-                        <div class="confirm-buttons mt-2 text-end">
-                            <button mat-flat-button class="button-mh-45 shadow-sm py-3 bg-danger mt-2"
-                                (click)="notSelected()">
-                                <mat-icon>close</mat-icon>No
-                            </button>
-                            <button mat-flat-button class="button-mh-45 shadow-sm py-3 bg-success mt-2 ms-2"
-                                 (click)="selected()">
-                                <mat-icon>check</mat-icon>Yes
-                            </button>
-                        </div>
+    </section>
+    <!-- /banner-section -->
+    <!-- product-section -->
+    <section class="container-fluid py-5 bg-light border-top border-bottom border-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-5">
+                    <div class="banner-font fw-bold">
+                        Claim your <span class="text-primary">Reward</span>
                     </div>
-                    }
-                    <mat-card-content [ngClass]="{'active-product-card': activeIndex === i}">
-                        <span class="badge shadow-sm bg-dark text-white fs-12">{{ item.couponCode }}</span>
-                        <div class="d-flex justify-content-center my-5">
-                            <img mat-card-image height="200" width="200" [src]="item.productImageDetails.imageUrl" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3 mb-4" *ngFor="let item of products; let i = index">
+                    <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
+                        @if(activeIndex === i && isConfirmVisible){
+                        <div class="gift-confirmation-button bg-dark text-white p-3 position-absolute shadow-sm"
+                            [@zoomInOut]="zoomState">
+                            <div>Are you sure want to proceed with this.</div>
+                            <div class="confirm-buttons mt-2 text-end">
+                                <button mat-flat-button class="button-mh-45 shadow-sm py-3 bg-danger mt-2"
+                                    (click)="notSelected()">
+                                    <mat-icon>close</mat-icon>No
+                                </button>
+                                <button mat-flat-button class="button-mh-45 shadow-sm py-3 bg-success mt-2 ms-2"
+                                    (click)="selected()">
+                                    <mat-icon>check</mat-icon>Yes
+                                </button>
+                            </div>
                         </div>
-                        <div>
-                            <div>{{ item.productTitle }}</div>
-                            <div class="fs-12">{{ item.productDescription }}</div>
-                        </div>
-                        <div>
-                            <button mat-flat-button class="button-mh-60 py-4 shadow-sm w-100 bg-dark mt-2 claim-gift-btn"
-                                (click)="claimGiftBtn(i)" [disabled]="activeIndex === i">
-                                <mat-icon>celebration</mat-icon>Claim Reward
-                            </button>
-                        </div>
-                    </mat-card-content>
-                </mat-card>
+                        }
+                        <mat-card-content [ngClass]="{'active-product-card': activeIndex === i}">
+                            <span class="badge shadow-sm bg-dark text-white fs-12">{{ item.couponCode }}</span>
+                            <div class="d-flex justify-content-center my-5">
+                                <img mat-card-image height="200" width="200"
+                                    [src]="item.productImageDetails.imageUrl" />
+                            </div>
+                            <div>
+                                <div>{{ item.productTitle }}</div>
+                                <div class="fs-12">{{ item.productDescription }}</div>
+                            </div>
+                            <div>
+                                <button mat-flat-button
+                                    class="button-mh-60 py-4 shadow-sm w-100 bg-dark mt-2 claim-gift-btn"
+                                    (click)="claimGiftBtn(i)" [disabled]="activeIndex === i">
+                                    <mat-icon>celebration</mat-icon>Claim Reward
+                                </button>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
+    <!-- /product-section -->
 </section>
-<!-- /product-section -->
+
 <!-- footer -->
 <app-employee-footer></app-employee-footer>
 <!-- /footer -->
