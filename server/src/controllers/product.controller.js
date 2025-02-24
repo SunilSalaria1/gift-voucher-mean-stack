@@ -66,7 +66,7 @@ const getCouponCode = async (req, res) => {
         if (!code) {
             return res.status(400).json({ message: "Coupon code is required" });
         }
-        const productObj = await productsCollection.findOne({ couponCode: code });
+        const productObj = await productsCollection.findOne({ couponCode: code }, { isDeleted: false });
 
         if (productObj) {
             return res.send(true)

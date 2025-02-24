@@ -6,7 +6,6 @@ const feedbackCollection = db.collection('suggestions');
 
 const addFeedback = async (req, res) => {
     /*  #swagger.tags = ['Feedback section']
-               
                */
     try {
         await connectDB();

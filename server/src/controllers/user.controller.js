@@ -85,7 +85,7 @@ const register = async (req, res) => {
             return res.status(400).json({ errors: validation.error.format() }); // 🔹 Added return
         }
         // Check if email already exists
-        const existingUser = await usersCollection.findOne({ email: req.body.email });
+        const existingUser = await usersCollection.findOne({ email: req.body.email }, { isDeleted: false });
         if (existingUser) {
             return res.status(400).json({ error: "Email already exists" }); // 🔹 Added return
         }
@@ -176,7 +176,7 @@ const updateUser = async (req, res) => {
         if (!updatedUser) {
             return res.status(404).json({ message: "Failed to update user" });
         }
-        return res.status(200).json({ message: "User updated successfully", updatedUser });
+        return res.status(200).json({ message: "User updated successfully" });
     } catch (error) {
         console.error("MongoDB Error:", error);
         return res.status(500).json({ message: "Internal server error", error: error.message });
@@ -197,7 +197,6 @@ const getAllUsers = async (req, res) => {
 
         // flitering
         const filter = { isDeleted: false };
-        console.log("req.query.rolereq.query.role", typeof (req.query.role))
         if (req.query.role === "admin") {
             filter.isAdmin = true;
         }
@@ -267,7 +266,7 @@ const deleteUserWithId = async (req, res) => {
         if (!ObjectId.isValid(userId)) {
             return res.status(400).json({ message: "Invalid User Id" });
         }
-        const userData = await usersCollection.findOne({ _id: new ObjectId(userId) })
+        const userData = await usersCollection.findOne({ _id: new ObjectId(userId) }, { isDeleted: false })
         if (!userData) {
             return res.status(404).json({ message: "User not found" });
 
