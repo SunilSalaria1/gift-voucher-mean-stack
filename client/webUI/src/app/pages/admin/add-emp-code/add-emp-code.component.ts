@@ -72,10 +72,14 @@ export class AddEmpCodeComponent {
   }
   // approve
   approve() {    
-    if (this.dialogRef) {
-      this.dialogRef.close(); // This closes the dialog
-      this.router.navigate(['/admin/generate-emp-code']);
-    }
+    this.router.navigate(['/admin/generate-emp-code']);
+   // success snackbar
+   this.snackBar.open('You have successfully generated the employee code!.', 'close', {
+    duration: 5000,
+    panelClass: ['snackbar-success'],
+    horizontalPosition: "center",
+    verticalPosition: "top",
+  });
   }
   // decline button
   decline() {   
@@ -96,31 +100,42 @@ export class AddEmpCodeComponent {
   }
 
   // dialog
-  openDialog(): void {
-    this.dialogRef = this.dialog.open(this.dialogTemplate, {
+  // openDialog(): void {
+  //   this.dialogRef = this.dialog.open(this.dialogTemplate, {
+  //     width: '1200px',
+  //   });
+  
+  //   this.dialogRef.afterOpened().subscribe(() => {
+  //     const dialogContainer = document.querySelector('.cdk-overlay-container');
+  //     if (dialogContainer) {
+  //       dialogContainer.removeAttribute('aria-hidden');  // Remove aria-hidden dynamically for the dialog container
+  //     }
+  
+  //     const appRoot = document.querySelector('app-root');
+  //     if (appRoot) {
+  //       // Temporarily hide focusable elements outside of the dialog
+  //       appRoot.setAttribute('aria-hidden', 'true');
+  //     }
+  //   });
+  
+  //   this.dialogRef.afterClosed().subscribe((result) => {
+  //     console.log(`Dialog result: ${result}`);
+  //     const appRoot = document.querySelector('app-root');
+  //     if (appRoot) {
+  //       appRoot.removeAttribute('aria-hidden');  // Remove aria-hidden after dialog closes
+  //     }
+  //     this.dialogRef = null;  // Reset reference
+  //   });
+  // }
+
+   // dialog box
+   openDialog(): void {    
+    // Use the TemplateRef for the dialog
+    const dialogRef = this.dialog.open(this.dialogTemplate,{
       width: '1200px',
     });
-  
-    this.dialogRef.afterOpened().subscribe(() => {
-      const dialogContainer = document.querySelector('.cdk-overlay-container');
-      if (dialogContainer) {
-        dialogContainer.removeAttribute('aria-hidden');  // Remove aria-hidden dynamically for the dialog container
-      }
-  
-      const appRoot = document.querySelector('app-root');
-      if (appRoot) {
-        // Temporarily hide focusable elements outside of the dialog
-        appRoot.setAttribute('aria-hidden', 'true');
-      }
-    });
-  
-    this.dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
-      const appRoot = document.querySelector('app-root');
-      if (appRoot) {
-        appRoot.removeAttribute('aria-hidden');  // Remove aria-hidden after dialog closes
-      }
-      this.dialogRef = null;  // Reset reference
     });
   }
   

@@ -59,7 +59,7 @@ export class EditEmpCodeComponent {
   readonly dialog = inject(MatDialog);
   dialogRef: MatDialogRef<any> | null = null;
   submitted: boolean = false;
-  departments = ['HR', 'Frontend', 'Backend', 'Audit', 'Bidding'];
+  departments = ['hr', 'frontend', 'backend', 'audit', 'bidding'];
   generatedCode: string | null = null;
   editEmployeeCodeForm!: FormGroup;
   dialogEmployee: any;
@@ -105,6 +105,7 @@ export class EditEmpCodeComponent {
           joiningDate: this.userData.joiningDate,
           email: this.userData.email,
         })
+        console.log("Patched department value:", this.editEmployeeCodeForm.value.department);
       }
     )
   }
@@ -112,7 +113,7 @@ export class EditEmpCodeComponent {
   approve() {
     this.router.navigate(['/admin/generate-emp-code']);
     // success snackbar
-    this.snackBar.open('You have successfully generated the employee code!.', 'close', {
+    this.snackBar.open('You have successfully updated the employee code!.', 'close', {
       duration: 5000,
       panelClass: ['snackbar-success'],
       horizontalPosition: "center",
@@ -132,34 +133,39 @@ export class EditEmpCodeComponent {
       });
     }
   }
-  // dialog
-  openDialog(): void {
-    this.dialogRef = this.dialog.open(this.dialogTemplate, {
+  // openDialog(): void {
+  //   this.dialogRef = this.dialog.open(this.dialogTemplate, {
+  //     width: '1200px',
+  //     disableClose: true, // Prevents clicking outside the dialog
+  //     autoFocus: true, // Ensures focus moves inside the dialog
+  //     restoreFocus: true, // Returns focus to the trigger element after closing
+  //   });
+  
+    // this.dialogRef.afterOpened().subscribe(() => {
+    //   const dialogContainer = document.querySelector('.cdk-overlay-container');
+    //   if (dialogContainer) {
+    //     // dialogContainer.removeAttribute('aria-hidden'); // Ensure the dialog is not hidden
+    //   }
+    // });
+  
+    // this.dialogRef.afterClosed().subscribe(() => {
+    //   console.log(`Dialog closed`);
+    //   this.dialogRef = null; // Reset reference
+    // });
+  // }
+
+  // dialog box
+  openDialog(): void {    
+    // Use the TemplateRef for the dialog
+    const dialogRef = this.dialog.open(this.dialogTemplate,{
       width: '1200px',
     });
-  
-    this.dialogRef.afterOpened().subscribe(() => {
-      const dialogContainer = document.querySelector('.cdk-overlay-container');
-      if (dialogContainer) {
-        dialogContainer.removeAttribute('aria-hidden');  // Remove aria-hidden dynamically for the dialog container
-      }
-  
-      const appRoot = document.querySelector('app-root');
-      if (appRoot) {
-        // Temporarily hide focusable elements outside of the dialog
-        appRoot.setAttribute('aria-hidden', 'true');
-      }
-    });
-  
-    this.dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
-      const appRoot = document.querySelector('app-root');
-      if (appRoot) {
-        appRoot.removeAttribute('aria-hidden');  // Remove aria-hidden after dialog closes
-      }
-      this.dialogRef = null;  // Reset reference
     });
   }
+  
+  
   
   // Call the openDialog method conditionally
   submitForm(): void {

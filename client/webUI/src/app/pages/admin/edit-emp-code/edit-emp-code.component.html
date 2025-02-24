@@ -32,10 +32,8 @@
                             </mat-form-field>
                             <h4 class="fw-bold mb-1">Department</h4>
                             <mat-form-field appearance="outline" class="d-block input-lg input">
-                                <mat-select formControlName="department" placeholder="Select your department">
-                                    @for(department of departments;track $index){
-                                    <mat-option [value]="department">{{department}}</mat-option>
-                                    }
+                                <mat-select formControlName="department" placeholder="Select your department">                                    
+                                    <mat-option *ngFor="let department of departments; let i = index" [value]="department">{{department}}</mat-option>                                    
                                 </mat-select>
                                 <mat-error>This is Required</mat-error>
                             </mat-form-field>
