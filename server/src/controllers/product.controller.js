@@ -241,12 +241,14 @@ const getAllProducts = async (req, res) => {
 
         // Check if pagination is provided in the request
         const isPaginationProvided = req.query.page !== undefined && req.query.limit !== undefined;
-        const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 10;
+        const page = parseInt(req.query.page);
+        const limit = parseInt(req.query.limit);
         const skip = (page - 1) * limit;
+        console.log("#####################", req.query)
 
         // Filtering
         const filter = { isDeleted: false, isActive: true };
+
         if (req.query.searchItem &&
             typeof req.query.searchItem === 'string' &&
             req.query.searchItem !== '[object Object]') {
@@ -267,6 +269,7 @@ const getAllProducts = async (req, res) => {
 
         // Aggregation pipeline
         const aggregationPipeline = [
+
             { $match: filter }, // Apply filtering
             {
                 $addFields: {
@@ -281,7 +284,7 @@ const getAllProducts = async (req, res) => {
             },
             {
                 $lookup: {
-                    from: 'files', // Join with the 'files' collection
+                    from: 'images', // Join with the 'images' collection
                     localField: 'productObjId', // The field in products collection that holds the file _id
                     foreignField: '_id', // The field in files collection that corresponds to the productImg _id
                     as: 'productImageDetails' // The alias for the joined data
@@ -289,6 +292,7 @@ const getAllProducts = async (req, res) => {
             },
             { $unwind: "$productImageDetails" } // Unwind the array to get a single image
         ];
+
 
         // Apply sorting if specified
         if (sortStage.length) {

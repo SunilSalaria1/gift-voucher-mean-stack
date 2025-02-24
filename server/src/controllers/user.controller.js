@@ -234,7 +234,7 @@ const getAllUsers = async (req, res) => {
         // Fetch paginated users
         const users = await usersCollection
             .find(filter)
-            .project({ password: 0, tokens: 0 }) // Exclude 'password' and 'tokens'
+            .project({ password: 0, tokens: 0, isDeleted: 0, isPicked: 0, productId: 0, lastUpdated: 0, createdAt: 0 }) // Exclude 'password' and 'tokens'
             .sort(sort)
             .skip(skip)
             .limit(limit)
@@ -578,7 +578,7 @@ const getGiftInvertory = async (req, res) => {
 
         // Total counts for pagination
         const totalUsers = await usersCollection.countDocuments({ isDeleted: false });
-        const totalProducts = await productsCollection.countDocuments({ isDeleted: false,isActive:true });
+        const totalProducts = await productsCollection.countDocuments({ isDeleted: false, isActive: true });
         const usersPickedGift = await usersCollection.countDocuments({ isDeleted: false, isPicked: true });
         const userDidNotPickedGift = totalUsers - usersPickedGift;
 
