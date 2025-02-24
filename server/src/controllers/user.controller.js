@@ -4,7 +4,7 @@ const { ZodError } = require("zod");
 const { connectDB, db } = require('../config/db.config'); // Import db from db.js
 const { ObjectId } = require('mongodb');
 const usersCollection = db.collection('users');
-const productsCollection = db.collection('products');
+
 const crypto = require('crypto');
 const bcrypt = require("bcryptjs");
 
@@ -62,18 +62,9 @@ const register = async (req, res) => {
         // Step 2: Add generated empCode to req.body
         req.body.empCode = empCode;
         req.body.password = hashedPassword;
+
+
         // Convert `dob` and `joiningDate` from string to Date
-        const requiredFields = ["name", "department", "email", "dob", "joiningDate"];
-        const receivedFields = Object.keys(req.body);
-
-        // Check for missing fields
-        const missingFields = requiredFields.filter(field => !receivedFields.includes(field));
-
-        if (missingFields.length > 0) {
-            return res.status(400).json({
-                message: `Missing required fields: ${missingFields.join(", ")}`
-            });
-        }
         const parsedBody = {
             ...req.body,
             dob: req.body.dob ? new Date(req.body.dob) : undefined,
@@ -82,12 +73,12 @@ const register = async (req, res) => {
         // Validate request body
         const validation = userSchema.safeParse(parsedBody);
         if (!validation.success) {
-            return res.status(400).json({ errors: validation.error.format() }); // 🔹 Added return
+            return res.status(400).json({ errors: validation.error.format() }); //  Added return
         }
         // Check if email already exists
         const existingUser = await usersCollection.findOne({ email: req.body.email, isDeleted: false });
         if (existingUser) {
-            return res.status(400).json({ error: "Email already exists" }); // 🔹 Added return
+            return res.status(400).json({ error: "Email already exists" }); //  Added return
         }
 
         const result = await usersCollection.insertOne(validation.data);
@@ -115,13 +106,19 @@ const getUserWithId = async (req, res) => {
         if (!ObjectId.isValid(userId)) {
             return res.status(400).json({ message: "Invalid User Id" });
         }
+        // Fetch the user from the database while excluding sensitive fields
         const userObject = await usersCollection.findOne(
-            { _id: new ObjectId(userId) },
+            { _id: ObjectId.createFromHexString(userId) },
             { projection: { password: 0, tokens: 0, isDeleted: 0, isPicked: 0, productId: 0, lastUpdated: 0, createdAt: 0 } }
         );
+        // Check if the user was found
 
-        // const users = await usersCollection.find().toArray();
+        if (!userObject) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
         res.send(userObject)
+
     } catch (e) {
         console.log(e)
         if (e instanceof ZodError) {
@@ -148,29 +145,40 @@ const updateUser = async (req, res) => {
 
     try {
         await connectDB();
+
         // Validate user ID
         const userId = req.params.id;
         if (!ObjectId.isValid(userId)) {
             return res.status(400).json({ message: "Invalid user ID format" });
         }
+
+        // Validate request body
+        const { name, department } = req.body;
+
+        // Validate using the picked schema
+        const userUpdateSchema = userSchema.pick({ name: true, department: true });
+        const validation = userUpdateSchema.safeParse({ name, department });
+        if (!validation.success) {
+            return res.status(400).json({ errors: validation.error.format() });
+        }
+
         // Fetch user details
-        const userDetails = await usersCollection.findOne({ _id: new ObjectId(userId) });
+        const userDetails = await usersCollection.findOne({ _id: ObjectId.createFromHexString(userId) });
         if (!userDetails) {
             return res.status(404).json({ message: "User not found" });
         }
-        // Validate request body
-        const { name, department, email, dob } = req.body;
-        if (!name || !department) {
-            return res.status(400).json({ message: "Missing required fields: name and department" });
-        }
+
+        // if (!name || !department) {
+        //     return res.status(400).json({ message: "Missing required fields: name and department" });
+        // }
 
         // Generate new employee code and hashed password if necessary
-        const { empCode, hashedPassword } = await generateEmpCodeAndPassword(name, email, department, dob, usersCollection);
+        const { empCode, hashedPassword } = await generateEmpCodeAndPassword(name, userDetails.email, department, userDetails.dob, usersCollection);
 
         // Update user in MongoDB
         const updatedUser = await usersCollection.findOneAndUpdate(
-            { _id: new ObjectId(userId) },
-            { $set: { name, department, empCode, password: hashedPassword, lastUpdated: new Date() } },
+            { _id: ObjectId.createFromHexString(userId) },
+            { $set: { name, department, empCode, password: hashedPassword, updatedAt: new Date() } },
             { returnDocument: "after" }
         );
         if (!updatedUser) {
@@ -200,7 +208,7 @@ const getAllUsers = async (req, res) => {
         if (req.query.role === "admin") {
             filter.isAdmin = true;
         }
-
+        // Searching by name, email, empCode, department, joiningDate, or dob
         if (req.query.searchItem) {
             filter.$or = [
                 {
@@ -224,7 +232,7 @@ const getAllUsers = async (req, res) => {
             ]
         }
 
-        // sorting 
+        // sorting   (default: ascending order)
         const sort = {};
         if (req.query.sortBy) {
             const [field, order] = req.query.sortBy.split(":");
@@ -234,7 +242,7 @@ const getAllUsers = async (req, res) => {
         // Get total count (for pagination metadata)
         const totalUsers = await usersCollection.countDocuments(filter)
 
-        // Fetch paginated users
+        // // Fetch paginated users while excluding sensitive fields
         const users = await usersCollection
             .find(filter)
             .project({ password: 0, tokens: 0, isDeleted: 0, isPicked: 0, productId: 0, lastUpdated: 0, createdAt: 0 }) // Exclude 'password' and 'tokens'
@@ -262,24 +270,28 @@ const deleteUserWithId = async (req, res) => {
            #swagger.description = 'Delete User with Id .' */
     try {
         await connectDB();
+        // Validate user ID format
         const userId = req.params.id
         if (!ObjectId.isValid(userId)) {
             return res.status(400).json({ message: "Invalid User Id" });
         }
-        const userData = await usersCollection.findOne({ _id: new ObjectId(userId) }, { isDeleted: false })
+        // Check if user exists and is not deleted
+        const userData = await usersCollection.findOne({ _id: ObjectId.createFromHexString(userId) }, { isDeleted: false })
         if (!userData) {
             return res.status(404).json({ message: "User not found" });
 
         }
-
+        // Prevent deletion of Primary Admin
         if (userData.isPrimaryAdmin == true) {
             return res.status(403).json({ message: "You are not authorized to delete the Primary Admin" });
         }
+        // Soft delete user by setting isDeleted to true
         const result = await usersCollection.findOneAndUpdate(
-            { _id: new ObjectId(userId) },
+            { _id: ObjectId.createFromHexString(userId) },
             { $set: { isDeleted: true } },
             { returnDocument: 'after' }
         );
+
         return res.status(200).json({ message: "User deleted successfully", deletedUser: result });
     } catch (e) {
         console.log(e)
@@ -307,28 +319,31 @@ const createAdmin = async (req, res) => {
 
     try {
         await connectDB();
-
-        const { id, isAdmin } = req.body;
-
-        if (!id || !isAdmin) {
-            return res.status(400).json({ message: "Id or isAdmin is missing" });
-        }
-
-        if (!ObjectId.isValid(id)) {
+        // Validate user ID format
+        const userId = req.params.id
+        if (!ObjectId.isValid(userId)) {
             return res.status(400).json({ message: "Invalid User Id" });
         }
+        const { isAdmin } = req.body;
+
+        if (!isAdmin) {
+            return res.status(400).json({ message: " isAdmin is missing" });
+        }
+
+        // // Find the user by ID
         const user = await usersCollection.findOne(
-            { _id: new ObjectId(id) })
+            { _id: ObjectId.createFromHexString(userId) })
         if (user.isPrimaryAdmin == true) {
             return res.status(401).json({ message: "Unauthorised Access" });
         }
         if (isAdmin == 'true') {
+
             const result = await usersCollection.findOneAndUpdate(
-                { _id: new ObjectId(id) },
+                { _id: ObjectId.createFromHexString(userId) },
                 { $set: { isAdmin: true } },
                 { returnDocument: "after" }
             );
-
+            // Check if update was successful
             if (!result) {
                 return res.status(404).json({ message: "User not found" });
             }
@@ -336,7 +351,7 @@ const createAdmin = async (req, res) => {
             return res.status(200).json({ message: "Admin Created successfully", admin: result });
         } else {
             const result = await usersCollection.findOneAndUpdate(
-                { _id: new ObjectId(id) },
+                { _id: ObjectId.createFromHexString(userId) },
                 { $set: { isAdmin: false } },
                 { returnDocument: "after" }
             );
@@ -349,6 +364,7 @@ const createAdmin = async (req, res) => {
         }
     } catch (e) {
         console.log(e);
+        // Handle validation errors
         if (e instanceof ZodError) {
             return res.status(400).json({ message: e.message });
         }
@@ -356,259 +372,5 @@ const createAdmin = async (req, res) => {
     }
 };
 
-const updateUserPick = async (req, res) => {
-    /*  #swagger.tags = ['Gifts']
-        #swagger.description = 'Update User Gift Pick with Id.' 
-        // #swagger.parameters['body'] = {
-        //     in: 'body',
-        //     description: 'User update details',
-        //     required: true,
-        //     schema: { $ref: '#/definitions/UpdateUserGiftPick' }
-        // }
-        #swagger.responses[200] = { description: 'User updated successfully' }
-        #swagger.responses[400] = { description: 'Invalid input' }
-        #swagger.responses[404] = { description: 'User not found' }
-        #swagger.responses[500] = { description: 'Internal server error' }
-    */
-    try {
-        await connectDB();
-        // Validate user ID
-        const userId = req.params.id;
-        if (!ObjectId.isValid(userId)) {
-            return res.status(400).json({ message: "Invalid user ID format" });
-        }
-        // Fetch user details
-        const userDetails = await usersCollection.findOne({ _id: new ObjectId(userId), isDeleted: false });
-        if (!userDetails) {
-            return res.status(404).json({ message: "User not found" });
-        }
 
-
-        const { productId, isPicked } = req.body;
-        if (!productId || !isPicked) {
-            return res.status(400).json({ message: "Missing required fields: productId and isPicked" });
-        }
-        if (!ObjectId.isValid(productId)) {
-            return res.status(400).json({ message: "Invalid product ID format" });
-        }
-        const productDetails = await productsCollection.findOne({ _id: new ObjectId(productId), isDeleted: false });
-        if (!productDetails) {
-            return res.status(404).json({ message: "Product not found" });
-        }
-
-        // Update user in MongoDB
-        const updatedUser = await usersCollection.findOneAndUpdate(
-            { _id: new ObjectId(userId) },
-            { $set: { productId, isPicked: true } },
-            { returnDocument: "after" }
-        );
-
-        if (!updatedUser) {
-            return res.status(404).json({ message: "Failed to update user" });
-        }
-
-        return res.status(200).json({ message: "User updated successfully", updatedUser });
-
-    } catch (error) {
-        console.error("MongoDB Error:", error);
-        return res.status(500).json({ message: "Internal server error", error: error.message });
-    }
-};
-
-const deleteUserPick = async (req, res) => {
-    /*  #swagger.tags = ['Gifts']
-        #swagger.description = 'Delete User Gift Pick with Id.' 
-
-    */
-    try {
-        await connectDB();
-        // Validate user ID
-        const userId = req.params.id;
-        if (!ObjectId.isValid(userId)) {
-            return res.status(400).json({ message: "Invalid user ID format" });
-        }
-        // Fetch user details
-        const userDetails = await usersCollection.findOne({ _id: new ObjectId(userId), isDeleted: false });
-        if (!userDetails) {
-            return res.status(404).json({ message: "User not found" });
-        }
-
-
-
-        if (!req.query.isPicked) {
-            return res.status(400).json({ message: "Missing required field: isPicked" });
-        }
-
-        // Update user in MongoDB
-        const deletedUser = await usersCollection.findOneAndUpdate(
-            { _id: new ObjectId(userId) },
-            { $set: { productId: "", isPicked: false } },
-            { returnDocument: "after" }
-        );
-
-        if (!deletedUser) {
-            return res.status(404).json({ message: "Failed to delete user" });
-        }
-
-        return res.status(200).json({ message: "User deleted successfully" });
-
-    } catch (error) {
-        console.error("MongoDB Error:", error);
-        return res.status(500).json({ message: "Internal server error", error: error.message });
-    }
-};
-
-
-const getGiftInvertory = async (req, res) => {
-    /*  #swagger.tags = ['Gifts']
-        #swagger.description = 'All Users Gift Pick.' 
-    */
-    try {
-        await connectDB();
-
-        // Pagination
-        const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 10;
-        const skip = (page - 1) * limit;
-
-        // Filtering
-        const filter = { isDeleted: false };
-        if (req.query.role === "admin") {
-            filter.isAdmin = true;
-        }
-
-        if (req.query.searchItem) {
-            filter.$or = [
-                { name: { $regex: req.query.searchItem, $options: "i" } },
-                { empCode: { $regex: req.query.searchItem, $options: "i" } },
-                { department: { $regex: req.query.searchItem, $options: "i" } },
-                { "productDetails?.couponCode": { $regex: req.query.searchItem, $options: "i" } },
-                { "productDetails?.title": { $regex: req.query.searchItem, $options: "i" } }
-            ];
-        }
-
-        // Sorting
-        const sort = {};
-        if (req.query.sortBy) {
-            const [field, order] = req.query.sortBy.split(":");
-            sort[field] = order === 'desc' ? -1 : 1;
-        }
-        const sortStage = req.query.sortBy ? [{ $sort: sort }] : [];
-
-        // Aggregation
-        const giftInventoryData = await usersCollection.aggregate([
-            { $match: filter },
-
-            // Convert productId to ObjectId only if it's a valid string
-            {
-                $addFields: {
-                    productObjId: {
-                        $cond: {
-                            if: {
-                                $and: [
-                                    { $ifNull: ["$productId", false] },  // Ensure it exists
-                                    { $ne: ["$productId", ""] },  // Ignore empty strings
-                                    { $eq: [{ $type: "$productId" }, "string"] },  // Ensure it's a string
-                                    { $eq: [{ $strLenCP: "$productId" }, 24] }  // Ensure valid ObjectId length
-                                ]
-                            },
-                            then: { $toObjectId: "$productId" },
-                            else: null
-                        }
-                    }
-                }
-            },
-
-            // Lookup product details (preserving unmatched users)
-            {
-                $lookup: {
-                    from: 'products',
-                    localField: "productObjId",
-                    foreignField: "_id",
-                    as: "productDetails"
-                }
-            },
-            { $unwind: { path: "$productDetails", preserveNullAndEmptyArrays: true } },
-
-            // Convert productImg to ObjectId only if it's a valid string
-            {
-                $addFields: {
-                    productImgObjId: {
-                        $cond: {
-                            if: {
-                                $and: [
-                                    { $ifNull: ["$productDetails.productImg", false] },  // Ensure it exists
-                                    { $ne: ["$productDetails.productImg", ""] },  // Ignore empty strings
-                                    { $eq: [{ $type: "$productDetails.productImg" }, "string"] },  // Ensure it's a string
-                                    { $eq: [{ $strLenCP: "$productDetails.productImg" }, 24] }  // Ensure valid ObjectId length
-                                ]
-                            },
-                            then: { $toObjectId: "$productDetails.productImg" },
-                            else: null
-                        }
-                    }
-                }
-            },
-
-            // Lookup product image details (preserving unmatched users)
-            {
-                $lookup: {
-                    from: 'files',
-                    localField: "productImgObjId",
-                    foreignField: "_id",
-                    as: "productDetails.productImgDetails"
-                }
-            },
-            { $unwind: { path: "$productDetails.productImgDetails", preserveNullAndEmptyArrays: true } },
-
-            // Remove unwanted fields
-            {
-                $project: {
-                    password: 0, email: 0, tokens: 0, isDeleted: 0, isAdmin: 0, isPrimaryAdmin: 0,
-                    joiningDate: 0, dob: 0, productObjId: 0, productImgObjId: 0,
-                    "productDetails.isDeleted": 0, "productDetails._id": 0, "productDetails.productImg": 0,
-                    "productDetails.productDescription": 0, "productDetails.addedAt": 0
-                }
-            },
-            // Sorting
-            ...(Object.keys(sort).length > 0 ? [{ $sort: sort }] : []),
-
-            // Pagination (Skip and Limit)
-            { $skip: skip },
-            { $limit: limit }
-
-        ]).toArray();
-
-        // Ensure users without product details still appear
-        giftInventoryData.forEach(data => {
-            if (data.productDetails?.productImgDetails?.fileBuffer) {
-                data.productDetails.imageUrl = `data:${data.productDetails.productImgDetails.fileType};base64,${data.productDetails.productImgDetails.fileBuffer.toString('base64')}`;
-                delete data.productDetails.productImgDetails.fileBuffer;
-            }
-            delete data.productDetails?.productImgDetails;
-        });
-
-        // Total counts for pagination
-        const totalUsers = await usersCollection.countDocuments({ isDeleted: false });
-        const totalProducts = await productsCollection.countDocuments({ isDeleted: false, isActive: true });
-        const usersPickedGift = await usersCollection.countDocuments({ isDeleted: false, isPicked: true });
-        const userDidNotPickedGift = totalUsers - usersPickedGift;
-
-        return res.json({
-            giftInventoryData,
-            totalPages: Math.ceil(totalUsers / limit),
-            currentPage: page,
-            totalUsers, totalProducts,
-            usersPickedGift,
-            userDidNotPickedGift
-        });
-
-    } catch (e) {
-        console.error("Error:", e);
-        res.status(500).json({ message: "Internal Server Error" });
-    }
-};
-
-
-
-module.exports = { register, getAllUsers, updateUser, deleteUserWithId, getUserWithId, createAdmin, updateUserPick, getGiftInvertory, deleteUserPick }
+module.exports = { register, getAllUsers, updateUser, deleteUserWithId, getUserWithId, createAdmin }

@@ -5,7 +5,7 @@ const { ZodError } = require("zod");
 const productsCollection = db.collection('products');
 const usersCollection = db.collection('users');
 
-const addProduct = async (req, res) => {
+const createProduct = async (req, res) => {
     /*  #swagger.tags = ['Products']
                 #swagger.description = 'Add Product'
                 #swagger.parameters['body'] = {
@@ -17,37 +17,23 @@ const addProduct = async (req, res) => {
                 #swagger.responses[201] = {
                 description: 'Product Added successfully',
                 }
-    
-              
                 */
     try {
         await connectDB();
-        const requiredFields = ["couponCode", "productImg", "productDescription", "productTitle"];
-        const receivedFields = Object.keys(req.body);
-
-        // Check for missing fields
-        const missingFields = requiredFields.filter(field => !receivedFields.includes(field));
-
-        if (missingFields.length > 0) {
-            return res.status(400).json({
-                message: `Missing required fields: ${missingFields.join(", ")}`
-            });
-        }
+       // validating the req.body for Product Schema
         const validation = productSchema.safeParse(req.body);
         if (!validation.success) {
             return res.status(400).json({ errors: validation.error.format() }); // 🔹 Added return
         }
-        const existingCouponCode = await productsCollection.findOne({ couponCode: req.body.couponCode, isDeleted: false });
-        if (existingCouponCode) {
-            return res.status(400).json({ error: "Coupon code already exists" }); // 🔹 Added return
-        }
+        // creating a new product using insertOne 
         const result = await productsCollection.insertOne(validation.data);
+        // fetching the inserted object
         const insertedDocument = await productsCollection.findOne({ _id: result.insertedId });
         return res.status(201).json({
             message: "Product added successfully", user: {
                 _id: insertedDocument._id,
                 couponCode: insertedDocument.couponCode,
-                productImg: insertedDocument.productImg,
+                productImageId: insertedDocument.productImageId,
                 productDescription: insertedDocument.productDescription,
                 productTitle: insertedDocument.productTitle
             }
@@ -57,22 +43,23 @@ const addProduct = async (req, res) => {
     }
 };
 
-const getCouponCode = async (req, res) => {
+const validateCouponCode = async (req, res) => {
     /*  #swagger.tags = ['Products']
            #swagger.description = 'Get Coupon Code .' */
     try {
         await connectDB();
+        // validate coupon code 
         const code = req.params.couponCode
         if (!code) {
             return res.status(400).json({ message: "Coupon code is required" });
         }
+        // fetching the existing coupon code 
         const productObj = await productsCollection.findOne({ couponCode: code, isDeleted: false });
-        console.log("productObj", productObj)
-
-
+        // if exists then send true
         if (productObj) {
             return res.send(true)
         }
+        // if not then send false
         return res.send(false)
     } catch (e) {
         console.log(e)
@@ -88,6 +75,7 @@ const getProductWithId = async (req, res) => {
            #swagger.description = 'Get Product with Id .' */
     try {
         await connectDB();
+
         const productId = req.params.id;
 
         // Validate Product Id
@@ -95,7 +83,8 @@ const getProductWithId = async (req, res) => {
             return res.status(400).json({ message: "Invalid Product Id" });
         }
         // Define the filter to find the product
-        const filter = { _id: new ObjectId(productId), isDeleted: false, isActive: true };
+        const filter = { _id:  ObjectId.createFromHexString(productId), isDeleted: false, isActive: true };
+
         // Aggregate to join product with images collection
         const product = await productsCollection.aggregate([
             { $match: filter }, // Apply filtering
@@ -103,8 +92,8 @@ const getProductWithId = async (req, res) => {
                 $addFields: {
                     productObjId: {
                         $cond: {
-                            if: { $eq: [{ $strLenCP: "$productImg" }, 24] }, // Check if productImg is a valid ObjectId
-                            then: { $toObjectId: "$productImg" }, // Convert to ObjectId
+                            if: { $eq: [{ $strLenCP: "$productImageId" }, 24] }, // Check if productImage is a valid ObjectId
+                            then: { $toObjectId: "$productImageId" }, // Convert to ObjectId
                             else: null // Set null if invalid
                         }
                     }
@@ -114,7 +103,7 @@ const getProductWithId = async (req, res) => {
                 $lookup: {
                     from: 'images', // Join with the 'images' collection
                     localField: 'productObjId', // The field in products collection that holds the file _id
-                    foreignField: '_id', // The field in images collection that corresponds to the productImg _id
+                    foreignField: '_id', // The field in images collection that corresponds to the productImage _id
                     as: 'productImageDetails' // The alias for the joined data
                 }
             },
@@ -175,31 +164,33 @@ const updateProduct = async (req, res) => {
                 */
     try {
         await connectDB();
-        // Validate user ID
-        const { couponCode, productImg, productDescription, productTitle } = req.body;
-        if (!couponCode || !productImg || !productDescription || !productTitle) {
-            return res.status(400).json({ message: "Missing required fields" });
-        }
+        // validating user Id
         const productId = req.params.id;
         if (!ObjectId.isValid(productId)) {
             return res.status(400).json({ message: "Invalid product ID format" });
         }
+      
+         // validating the req.body for Product Schema
+         const validation = productSchema.safeParse(req.body);
+         if (!validation.success) {
+             return res.status(400).json({ errors: validation.error.format() }); // 🔹 Added return
+         }
+         
         // Fetch user details
-        const productDetails = await productsCollection.findOne({ _id: new ObjectId(productId), couponCode: req.body.couponCode });
-
+        const productDetails = await productsCollection.findOne({ _id:  ObjectId.createFromHexString(productId), couponCode: req.body.couponCode });
+         
+        // if not geting productDetails 
         if (!productDetails) {
             return res.status(404).json({ message: "Product not found" });
         }
-
-        // Validate request body
-
-
         // Update user in MongoDB
         const updatedProduct = await productsCollection.findOneAndUpdate(
-            { _id: new ObjectId(productId) },
-            { $set: { productImg, productDescription, productTitle } },
+            { _id:  ObjectId.createFromHexString(productId) },
+            { $set: { productImageId:req.body.productImageId, productDescription:req.body.productDescription, productTitle:req.body.productTitle } },
             { returnDocument: "after" }
         );
+
+        // Failed to update Product
         if (!updatedProduct) {
             return res.status(404).json({ message: "Failed to update Product" });
         }
@@ -215,16 +206,21 @@ const deleteProduct = async (req, res) => {
            #swagger.description = 'Delete User with Id .' */
     try {
         await connectDB();
+        // validate product ID
         const productId = req.params.id
         if (!ObjectId.isValid(productId)) {
             return res.status(400).json({ message: "Invalid Product Id" });
         }
-
+// fetching object by productId 
         const result = await productsCollection.findOneAndUpdate(
-            { _id: new ObjectId(productId) },
+            { _id:   ObjectId.createFromHexString(productId) },
             { $set: { isDeleted: true } },
             { returnDocument: 'after' }
         );
+        if(!result){
+            return res.status(404).json({ message: "Failed to delete Product" });
+        }
+
         return res.status(200).json({ message: "Product deleted successfully", deletedProduct: result });
     } catch (e) {
         console.log(e)
@@ -276,8 +272,8 @@ const getAllProducts = async (req, res) => {
                 $addFields: {
                     productObjId: {
                         $cond: {
-                            if: { $eq: [{ $strLenCP: "$productImg" }, 24] }, // Check if productImg is a valid ObjectId
-                            then: { $toObjectId: "$productImg" }, // Convert to ObjectId
+                            if: { $eq: [{ $strLenCP: "$productImageId" }, 24] }, // Check if productImageId is a valid ObjectId
+                            then: { $toObjectId: "$productImageId" }, // Convert to ObjectId
                             else: null // Set null if invalid
                         }
                     }
@@ -287,7 +283,7 @@ const getAllProducts = async (req, res) => {
                 $lookup: {
                     from: 'images', // Join with the 'images' collection
                     localField: 'productObjId', // The field in products collection that holds the file _id
-                    foreignField: '_id', // The field in images collection that corresponds to the productImg _id
+                    foreignField: '_id', // The field in images collection that corresponds to the productImage _id
                     as: 'productImageDetails' // The alias for the joined data
                 }
             },
@@ -366,4 +362,4 @@ const getAllProducts = async (req, res) => {
     }
 };
 
-module.exports = { addProduct, getCouponCode, getProductWithId, updateProduct, deleteProduct, getAllProducts };
+module.exports = { createProduct, validateCouponCode, getProductWithId, updateProduct, deleteProduct, getAllProducts };

@@ -7,8 +7,6 @@ const userSchema = z.object({
 
     email: z.string()
         .email({ message: "Invalid email address" }),
-
-
     dob: z.date({ required_error: "Date of birth is required" }),
 
     joiningDate: z.date({ required_error: "Joining date is required" }),
@@ -28,7 +26,7 @@ const userSchema = z.object({
     isPrimaryAdmin: z.boolean().default(false),
     isPicked: z.boolean().default(false),
     productId: z.string().default('null'),
-    lastUpdated:z.preprocess((val) => (val ? new Date(val) : new Date()), z.date()),
+    updatedAt:z.preprocess((val) => (val ? new Date(val) : new Date()), z.date()),
     createdAt:z.preprocess((val) => (val ? new Date(val) : new Date()), z.date()),
 }).strict(); // 🔹 This will reject extra fields
 

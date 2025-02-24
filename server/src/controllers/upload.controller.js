@@ -24,7 +24,7 @@ const uploadFile = async (req, res) => {
 
         // Save file to MongoDB
         const result = await filesCollection.insertOne(fileData);
-        const result2 = await filesCollection.findOne({ _id: new ObjectId(result.insertedId) });
+        const result2 = await filesCollection.findOne({ _id: ObjectId.createFromHexString(result.insertedId) });
         // Convert buffer to Base64
         const base64Image = result2.fileBuffer.toString("base64");
         const mimeType = result2.fileType;
@@ -42,7 +42,7 @@ const getImage = async (req, res) => {
     try {
         await connectDB();
         const fileId = req.params.id;
-        const file = await filesCollection.findOne({ _id: new ObjectId(fileId) });
+        const file = await filesCollection.findOne({ _id: ObjectId.createFromHexString(fileId) });
         if (!file) {
             return res.status(404).json({ message: "Image not found" });
         }

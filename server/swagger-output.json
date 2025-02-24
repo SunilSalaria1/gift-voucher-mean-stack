@@ -33,6 +33,11 @@
         "description": "Register user",
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "body",
             "in": "body",
             "description": "User registration details",
@@ -48,6 +53,12 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "404": {
             "description": "Invalid credentials"
@@ -284,154 +295,6 @@
           },
           "500": {
             "description": "Internal server error"
-          }
-        }
-      }
-    },
-    "/api/users/{id}/gifts": {
-      "put": {
-        "tags": [
-          "Gifts"
-        ],
-        "description": "Update User Gift Pick with Id.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "User update details",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UpdateUserGiftPick"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "User updated successfully"
-          },
-          "400": {
-            "description": "Invalid input"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "User not found"
-          },
-          "500": {
-            "description": "Internal server error"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Gifts"
-        ],
-        "description": "Delete User Gift Pick with Id.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "isPicked",
-            "in": "query",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/gifts": {
-      "get": {
-        "tags": [
-          "Gifts"
-        ],
-        "description": "All Users Gift Pick.",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "role",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "searchItem",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "sortBy",
-            "in": "query",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -926,6 +789,154 @@
           }
         }
       }
+    },
+    "/api/users/{id}/gifts": {
+      "put": {
+        "tags": [
+          "Gifts"
+        ],
+        "description": "Update User Gift Pick with Id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User update details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateUserGiftPick"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User updated successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Gifts"
+        ],
+        "description": "Delete User Gift Pick with Id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "isPicked",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/gifts": {
+      "get": {
+        "tags": [
+          "Gifts"
+        ],
+        "description": "All Users Gift Pick.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "searchItem",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -934,11 +945,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Mon Feb 24 2025 12:53:35 GMT+0530 (India Standard Time)"
+          "example": "Mon Feb 24 2025 15:44:10 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Mon Feb 24 2025 12:53:35 GMT+0530 (India Standard Time)"
+          "example": "Mon Feb 24 2025 15:44:10 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
