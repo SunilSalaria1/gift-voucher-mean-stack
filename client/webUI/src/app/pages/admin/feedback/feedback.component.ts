@@ -12,17 +12,15 @@ import { TruncatePipe } from '../../../shared/pipes/truncate.pipe';
   styleUrl: './feedback.component.css'
 })
 export class FeedbackComponent {
-  private _usersService = inject(UsersService)
-  totalStars: number = 5; // Total stars per card
+  private _usersService = inject(UsersService)  
   cards: Feedback[] = [];
   ngOnInit():void {
-    this._usersService.getFeedbacks().subscribe(
+    this._usersService.getSuggestions().subscribe(
       (response) => {
-        this.cards = response.feedbacks.map(feedback => ({
-          description: feedback.description,
-          rating: parseInt(feedback.rating, 10), // Convert rating to number
-          name: feedback.userDetails.name,
-          empCode: feedback.userDetails.empCode || 'N/A',
+        this.cards = response.suggestions.map(suggestions => ({
+          description: suggestions.description,         
+          name: suggestions.userDetails.name,
+          empCode: suggestions.userDetails.empCode || 'N/A',
           expanded: false // Initialize expanded state          
         }));
         console.log(this.cards);        

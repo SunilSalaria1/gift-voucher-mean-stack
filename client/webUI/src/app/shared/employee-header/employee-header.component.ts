@@ -101,7 +101,7 @@ export class EmployeeHeaderComponent {
         userId: this.loggedUser._id,      
         description: this.feedbackForm.value.productDescription,
       }
-      this._usersService.addFeedback(payload).subscribe(
+      this._usersService.addSuggestions(payload).subscribe(
         (response: any) => {
           console.log(this.feedbackForm.value); // Log form values
           this.dialog.closeAll(); // Close dialog 

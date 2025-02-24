@@ -30,7 +30,7 @@ import { ProductsService } from '../../../services/products.service';
 export class AddGiftItemComponent {
   submitted: boolean = false;
   currentImage: any;
-  productImg: any;
+  productImage: any;
   isCouponCodeAlreadyExists: boolean;
   addGiftItemForm!: FormGroup;
   constructor(
@@ -90,7 +90,7 @@ export class AddGiftItemComponent {
     this.productsService.uploadProductImage(formData).subscribe(
       (response) => {
         this.currentImage = response.imageUrl
-        this.productImg = response.fileDetails._id
+        this.productImage = response.fileDetails._id
         this.addGiftItemForm.patchValue({
           productImage: response.fileDetails.fileName
         })
@@ -109,7 +109,7 @@ export class AddGiftItemComponent {
     if (this.addGiftItemForm.valid) {
       const payload = {
         couponCode: this.addGiftItemForm.value.couponCode,
-        productImg: this.productImg,
+        productImageId: this.productImage,
         productDescription: this.addGiftItemForm.value.productDescription,
         productTitle: this.addGiftItemForm.value.productTitle
       }

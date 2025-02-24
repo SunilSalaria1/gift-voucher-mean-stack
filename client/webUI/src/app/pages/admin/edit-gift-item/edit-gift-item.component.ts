@@ -35,7 +35,7 @@ export class EditGiftItemComponent {
   productData: any;
   currentProductId: any;
   imageUrl: any;
-  productImgId: any;
+  productImageId: any;
   editGiftItemForm!: FormGroup;
   displayFileName: string = '';
   
@@ -84,7 +84,7 @@ export class EditGiftItemComponent {
         this.imageUrl = this.productData.productImageDetails.imageUrl;
         // Store the filename in the component property
         this.displayFileName = this.productData.productImageDetails.fileName;
-        this.productImgId=this.productData.productImageDetails._id
+        this.productImageId=this.productData.productImageDetails._id
         this.editGiftItemForm.patchValue({
           productTitle: this.productData.productTitle,
           productDescription: this.productData.productDescription,
@@ -101,7 +101,7 @@ export class EditGiftItemComponent {
         productTitle: this.editGiftItemForm.value.productTitle,
         productDescription: this.editGiftItemForm.value.productDescription,
         couponCode: this.editGiftItemForm.value.couponCode,
-        productImg: this.productImgId
+        productImageId: this.productImageId
       };
       this._productsService.updateProduct(this.currentProductId, payload).subscribe(
         (response) => {
@@ -151,7 +151,7 @@ export class EditGiftItemComponent {
     this._productsService.uploadProductImage(formData).subscribe(
       (response) => {
         this.imageUrl = response.imageUrl;
-        this.productImgId = response.fileDetails._id;
+        this.productImageId = response.fileDetails._id;
         this.displayFileName = response.fileDetails.fileName;
       }
     )

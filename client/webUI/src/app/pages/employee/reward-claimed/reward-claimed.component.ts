@@ -77,39 +77,39 @@ export class RewardClaimedComponent {
   }
 
   // Method to handle Send button click (when form is valid)
-  send(): void {
-    if (this.feedbackForm.valid) {
-      // add feedback
-      let payload: any;
-      payload = {
-        userId: this.loggedUser._id,
-        rating: JSON.stringify(this.selectedNumber),
-        description: this.feedbackForm.value.productDescription,
-      }
-      this._usersService.addFeedback(payload).subscribe(
-        (response: any) => {
-          console.log(this.feedbackForm.value); // Log form values
-          this.dialog.closeAll(); // Close dialog
-          this._usersService.logout();
-          this.router.navigateByUrl('/home');
-          console.log("add feedback successfull:", response)
-           //success snackbar
-    this.snackBar.open('You have successfully shared your feedback.', 'close', {
-      duration: 5000,
-      panelClass: ['snackbar-success'],
-      horizontalPosition: "center",
-      verticalPosition: "top",
-    });
-        },
-        (error) => {
-          console.error('error in adding feedback:', error)
-        }
-      )
+  // send(): void {
+  //   if (this.feedbackForm.valid) {
+  //     // add feedback
+  //     let payload: any;
+  //     payload = {
+  //       userId: this.loggedUser._id,
+  //       rating: JSON.stringify(this.selectedNumber),
+  //       description: this.feedbackForm.value.productDescription,
+  //     }
+  //     this._usersService.addFeedback(payload).subscribe(
+  //       (response: any) => {
+  //         console.log(this.feedbackForm.value); // Log form values
+  //         this.dialog.closeAll(); // Close dialog
+  //         this._usersService.logout();
+  //         this.router.navigateByUrl('/home');
+  //         console.log("add feedback successfull:", response)
+  //          //success snackbar
+  //   this.snackBar.open('You have successfully shared your feedback.', 'close', {
+  //     duration: 5000,
+  //     panelClass: ['snackbar-success'],
+  //     horizontalPosition: "center",
+  //     verticalPosition: "top",
+  //   });
+  //       },
+  //       (error) => {
+  //         console.error('error in adding feedback:', error)
+  //       }
+  //     )
 
-    } else {
-      // this.feedbackForm.markAllAsTouched(); // Trigger validation messages
-      this.submitted = true;
-    }
-  }
+  //   } else {
+  //     // this.feedbackForm.markAllAsTouched(); // Trigger validation messages
+  //     this.submitted = true;
+  //   }
+  // }
   
 }

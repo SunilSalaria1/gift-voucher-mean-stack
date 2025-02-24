@@ -77,13 +77,13 @@ export class UsersService {
   }
 
   // add feedback
-  addFeedback(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/feedback`, data);
+  addSuggestions(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/api/suggestion`, data);
   }
 
   // get feedbacks
-  getFeedbacks(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/api/feedback`);
+  getSuggestions(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/suggestion`);
   }
 
   // logOut request
