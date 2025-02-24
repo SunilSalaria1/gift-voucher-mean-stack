@@ -20,7 +20,7 @@ const createProduct = async (req, res) => {
                 */
     try {
         await connectDB();
-       // validating the req.body for Product Schema
+        // validating the req.body for Product Schema
         const validation = productSchema.safeParse(req.body);
         if (!validation.success) {
             return res.status(400).json({ errors: validation.error.format() }); // 🔹 Added return
@@ -43,32 +43,7 @@ const createProduct = async (req, res) => {
     }
 };
 
-const validateCouponCode = async (req, res) => {
-    /*  #swagger.tags = ['Products']
-           #swagger.description = 'Get Coupon Code .' */
-    try {
-        await connectDB();
-        // validate coupon code 
-        const code = req.params.couponCode
-        if (!code) {
-            return res.status(400).json({ message: "Coupon code is required" });
-        }
-        // fetching the existing coupon code 
-        const productObj = await productsCollection.findOne({ couponCode: code, isDeleted: false });
-        // if exists then send true
-        if (productObj) {
-            return res.send(true)
-        }
-        // if not then send false
-        return res.send(false)
-    } catch (e) {
-        console.log(e)
-        if (e instanceof ZodError) {
-            res.status(400).json({ message: e.message })
-        }
-        res.status(500).json({ message: e.message })
-    }
-};
+
 
 const getProductWithId = async (req, res) => {
     /*  #swagger.tags = ['Products']
@@ -83,26 +58,16 @@ const getProductWithId = async (req, res) => {
             return res.status(400).json({ message: "Invalid Product Id" });
         }
         // Define the filter to find the product
-        const filter = { _id:  ObjectId.createFromHexString(productId), isDeleted: false, isActive: true };
+        const filter = { _id: ObjectId.createFromHexString(productId), isDeleted: false, isActive: true };
 
         // Aggregate to join product with images collection
         const product = await productsCollection.aggregate([
             { $match: filter }, // Apply filtering
-            {
-                $addFields: {
-                    productObjId: {
-                        $cond: {
-                            if: { $eq: [{ $strLenCP: "$productImageId" }, 24] }, // Check if productImage is a valid ObjectId
-                            then: { $toObjectId: "$productImageId" }, // Convert to ObjectId
-                            else: null // Set null if invalid
-                        }
-                    }
-                }
-            },
+            
             {
                 $lookup: {
                     from: 'images', // Join with the 'images' collection
-                    localField: 'productObjId', // The field in products collection that holds the file _id
+                    localField: 'productImageId', // The field in products collection that holds the file _id
                     foreignField: '_id', // The field in images collection that corresponds to the productImage _id
                     as: 'productImageDetails' // The alias for the joined data
                 }
@@ -110,7 +75,7 @@ const getProductWithId = async (req, res) => {
             { $unwind: "$productImageDetails" }, // Unwind the array to get a single image
             {
                 $project: {
-                    "productImageDetails.productObjId": 0, // Remove productObjId from productImageDetails
+
                     "productImageDetails.isDeleted": 0 // Remove isDeleted from productImageDetails
                 }
             }
@@ -129,7 +94,7 @@ const getProductWithId = async (req, res) => {
             // Add the Base64 string as a new field in the image details
             productObj.productImageDetails.imageUrl = `data:${productObj.productImageDetails.fileType};base64,${base64Image}`;
             delete productObj.productImageDetails.fileBuffer;
-            delete productObj.productObjId;
+
             delete productObj.isDeleted;
             delete productObj.isActive;
             delete productObj.addedAt;
@@ -169,24 +134,24 @@ const updateProduct = async (req, res) => {
         if (!ObjectId.isValid(productId)) {
             return res.status(400).json({ message: "Invalid product ID format" });
         }
-      
-         // validating the req.body for Product Schema
-         const validation = productSchema.safeParse(req.body);
-         if (!validation.success) {
-             return res.status(400).json({ errors: validation.error.format() }); // 🔹 Added return
-         }
-         
+
+        // validating the req.body for Product Schema
+        const validation = productSchema.safeParse(req.body);
+        if (!validation.success) {
+            return res.status(400).json({ errors: validation.error.format() }); // 🔹 Added return
+        }
+
         // Fetch user details
-        const productDetails = await productsCollection.findOne({ _id:  ObjectId.createFromHexString(productId), couponCode: req.body.couponCode });
-         
+        const productDetails = await productsCollection.findOne({ _id: ObjectId.createFromHexString(productId), couponCode: req.body.couponCode });
+
         // if not geting productDetails 
         if (!productDetails) {
             return res.status(404).json({ message: "Product not found" });
         }
         // Update user in MongoDB
         const updatedProduct = await productsCollection.findOneAndUpdate(
-            { _id:  ObjectId.createFromHexString(productId) },
-            { $set: { productImageId:req.body.productImageId, productDescription:req.body.productDescription, productTitle:req.body.productTitle } },
+            { _id: ObjectId.createFromHexString(productId) },
+            { $set: { productImageId: req.body.productImageId, productDescription: req.body.productDescription, productTitle: req.body.productTitle } },
             { returnDocument: "after" }
         );
 
@@ -211,13 +176,13 @@ const deleteProduct = async (req, res) => {
         if (!ObjectId.isValid(productId)) {
             return res.status(400).json({ message: "Invalid Product Id" });
         }
-// fetching object by productId 
+        // fetching object by productId 
         const result = await productsCollection.findOneAndUpdate(
-            { _id:   ObjectId.createFromHexString(productId) },
+            { _id: ObjectId.createFromHexString(productId) },
             { $set: { isDeleted: true } },
             { returnDocument: 'after' }
         );
-        if(!result){
+        if (!result) {
             return res.status(404).json({ message: "Failed to delete Product" });
         }
 
@@ -268,21 +233,21 @@ const getAllProducts = async (req, res) => {
         const aggregationPipeline = [
 
             { $match: filter }, // Apply filtering
-            {
-                $addFields: {
-                    productObjId: {
-                        $cond: {
-                            if: { $eq: [{ $strLenCP: "$productImageId" }, 24] }, // Check if productImageId is a valid ObjectId
-                            then: { $toObjectId: "$productImageId" }, // Convert to ObjectId
-                            else: null // Set null if invalid
-                        }
-                    }
-                }
-            },
+            // {
+            //     $addFields: {
+            //         productObjId: {
+            //             $cond: {
+            //                 if: { $eq: [{ $strLenCP: "$productImageId" }, 24] }, // Check if productImageId is a valid ObjectId
+            //                 then: { $toObjectId: "$productImageId" }, // Convert to ObjectId
+            //                 else: null // Set null if invalid
+            //             }
+            //         }
+            //     }
+            // },
             {
                 $lookup: {
                     from: 'images', // Join with the 'images' collection
-                    localField: 'productObjId', // The field in products collection that holds the file _id
+                    localField: 'productImageId', // The field in products collection that holds the file _id
                     foreignField: '_id', // The field in images collection that corresponds to the productImage _id
                     as: 'productImageDetails' // The alias for the joined data
                 }
@@ -316,7 +281,7 @@ const getAllProducts = async (req, res) => {
                 delete product.productImageDetails.fileBuffer;
                 delete product.productImageDetails.fileType;
                 delete product.productImageDetails.uploadedAt;
-                delete product.productObjId;
+
                 delete product.isDeleted;
                 delete product.addedAt;
                 delete product.isActive;
@@ -362,4 +327,4 @@ const getAllProducts = async (req, res) => {
     }
 };
 
-module.exports = { createProduct, validateCouponCode, getProductWithId, updateProduct, deleteProduct, getAllProducts };
+module.exports = { createProduct, getProductWithId, updateProduct, deleteProduct, getAllProducts };

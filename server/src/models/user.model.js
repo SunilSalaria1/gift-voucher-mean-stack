@@ -1,5 +1,5 @@
 const { z } = require("zod");
-
+const { ObjectId } = require('mongodb');
 const userSchema = z.object({
     name: z.string()
         .min(3, { message: "Name must be at least 3 characters long" })
@@ -24,8 +24,11 @@ const userSchema = z.object({
     isDeleted: z.boolean().default(false),
     tokens: z.array(z.string()).optional(),
     isPrimaryAdmin: z.boolean().default(false),
-    isPicked: z.boolean().default(false),
-    productId: z.string().default('null'),
+    isPicked: z.string().default("pending"),
+    productId: z.string()
+        .default("null") // Default value as "null"
+        .refine((val) => val === "null" || ObjectId.isValid(val), { message: "Invalid MongoDB ObjectId" }) // Validate ObjectId when not "null"
+        .transform((val) => (val === "null" ? val : new ObjectId(val))), // Convert to ObjectId unless default
     updatedAt:z.preprocess((val) => (val ? new Date(val) : new Date()), z.date()),
     createdAt:z.preprocess((val) => (val ? new Date(val) : new Date()), z.date()),
 }).strict(); // 🔹 This will reject extra fields

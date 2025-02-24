@@ -33,11 +33,6 @@
         "description": "Register user",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
             "name": "body",
             "in": "body",
             "description": "User registration details",
@@ -54,12 +49,6 @@
           "400": {
             "description": "Bad Request"
           },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
           "404": {
             "description": "Invalid credentials"
           },
@@ -74,11 +63,6 @@
         ],
         "description": "Get all users.",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          },
           {
             "name": "page",
             "in": "query",
@@ -111,12 +95,6 @@
           },
           "400": {
             "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
           },
           "500": {
             "description": "Internal Server Error"
@@ -155,6 +133,9 @@
           },
           "403": {
             "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -373,10 +354,10 @@
         }
       }
     },
-    "/api/feedback": {
+    "/api/suggestion": {
       "post": {
         "tags": [
-          "Feedback section"
+          "Suggestion section"
         ],
         "description": "",
         "parameters": [
@@ -421,7 +402,7 @@
       },
       "get": {
         "tags": [
-          "Feedback section"
+          "Suggestion section"
         ],
         "description": "",
         "parameters": [
@@ -746,6 +727,9 @@
           "403": {
             "description": "Forbidden"
           },
+          "404": {
+            "description": "Not Found"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -945,11 +929,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Mon Feb 24 2025 15:44:10 GMT+0530 (India Standard Time)"
+          "example": "Mon Feb 24 2025 18:49:24 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Mon Feb 24 2025 15:44:10 GMT+0530 (India Standard Time)"
+          "example": "Mon Feb 24 2025 18:49:24 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",

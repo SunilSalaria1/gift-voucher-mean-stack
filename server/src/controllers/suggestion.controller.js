@@ -33,7 +33,7 @@ const createSuggestion = async (req, res) => {
     }
 };
 
-const getAllSuggestion = async (req, res) => {
+const getAllSuggestions = async (req, res) => {
     /*  #swagger.tags = ['Suggestion section']
                */
     try {
@@ -85,4 +85,4 @@ const getAllSuggestion = async (req, res) => {
     }
 }
 
-module.exports = { createSuggestion, getAllSuggestion }
+module.exports = { createSuggestion, getAllSuggestions }

@@ -6,6 +6,7 @@ const uploadRouter = require("./upload.router");
 const suggestionRouter = require("./suggestion.router");
 const productRouter = require("./product.router");
 const giftInventoryRouter = require("./giftInventory.router");
+const validateCouponCodeRouter = require("./validateCouponCode.router");
 
 globalRouter.use('/api', userRouter)
 globalRouter.use('/api', authRouter)
@@ -13,6 +14,7 @@ globalRouter.use('/api', suggestionRouter)
 globalRouter.use('/api', uploadRouter)
 globalRouter.use('/api', productRouter)
 globalRouter.use('/api', giftInventoryRouter)
+globalRouter.use('/api', validateCouponCodeRouter)
 
 module.exports = globalRouter;
 

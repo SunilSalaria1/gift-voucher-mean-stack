@@ -2,7 +2,7 @@ const { connectDB, db } = require("../config/db.config");
 const filesCollection = db.collection('images');
 const { ObjectId } = require('mongodb');
 
-const uploadFile = async (req, res) => {
+const uploadImage = async (req, res) => {
     /*  #swagger.tags = ['Upload Image']
      */
     try {
@@ -19,12 +19,9 @@ const uploadFile = async (req, res) => {
             fileBuffer: req.file.buffer,
             uploadedAt: new Date()
         };
-
-        console.log("File Data:", fileData); // Debugging
-
         // Save file to MongoDB
         const result = await filesCollection.insertOne(fileData);
-        const result2 = await filesCollection.findOne({ _id: ObjectId.createFromHexString(result.insertedId) });
+        const result2 = await filesCollection.findOne({ _id: result.insertedId });
         // Convert buffer to Base64
         const base64Image = result2.fileBuffer.toString("base64");
         const mimeType = result2.fileType;
@@ -35,7 +32,7 @@ const uploadFile = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
-
+// this getImage is not used anywhere 
 const getImage = async (req, res) => {
     /*  #swagger.tags = ['Upload Image']
     */
@@ -55,7 +52,7 @@ const getImage = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
-
+// this getAllImages is not used anywhere 
 const getAllImages = async (req, res) => {
     /*  #swagger.tags = ['Upload Image']
     */
@@ -70,4 +67,4 @@ const getAllImages = async (req, res) => {
     }
 }
 
-module.exports = { uploadFile, getImage, getAllImages };
+module.exports = { uploadImage, getImage, getAllImages };

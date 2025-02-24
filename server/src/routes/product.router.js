@@ -9,6 +9,6 @@ const { authenticateToken } = require("../middlewares/auth.middleWare")
     productRouter.put('/products/:id', authenticateToken,convertValuesToLowercase, updateProduct),
     productRouter.get('/products/:id', authenticateToken, getProductWithId),
     productRouter.delete('/products/:id', authenticateToken, deleteProduct),
-    productRouter.get('/couponCode/:couponCode', authenticateToken,convertValuesToLowercase, validateCouponCode)
+    
 
 module.exports = productRouter

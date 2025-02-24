@@ -36,6 +36,12 @@ const createUserPick = async (req, res) => {
         if (!productId || !isPicked) {
             return res.status(400).json({ message: "Missing required fields: productId and isPicked" });
         }
+        // Validate `isPicked` value
+        const validPickedValues = ["completed", "pending"];
+        if (!validPickedValues.includes(isPicked)) {
+            return res.status(400).json({ message: "Invalid isPicked value. Allowed values: 'completed', 'pending'" });
+        }
+
         // validating the productId is a valid object Id  or not 
         if (!ObjectId.isValid(productId)) {
             return res.status(400).json({ message: "Invalid product ID format" });
@@ -49,8 +55,8 @@ const createUserPick = async (req, res) => {
 
         // Update user in MongoDB
         const updatedUser = await usersCollection.findOneAndUpdate(
-            { _id: ObjectId(userId) },
-            { $set: { productId, isPicked: true } },
+            { _id: ObjectId.createFromHexString(userId) },
+            { $set: { productId, isPicked } },
             { returnDocument: "after" }
         );
         // if Failed to update user
@@ -92,7 +98,7 @@ const deleteUserPick = async (req, res) => {
 
         // Update user in MongoDB
         const deletedUser = await usersCollection.findOneAndUpdate(
-            { _id:  ObjectId.createFromHexString(userId) },
+            { _id: ObjectId.createFromHexString(userId) },
             { $set: { productId: "", isPicked: false } },
             { returnDocument: "after" }
         );
@@ -108,7 +114,6 @@ const deleteUserPick = async (req, res) => {
         return res.status(500).json({ message: "Internal server error", error: error.message });
     }
 };
-
 
 const getGiftInvertory = async (req, res) => {
     /*  #swagger.tags = ['Gifts']
@@ -151,61 +156,61 @@ const getGiftInvertory = async (req, res) => {
             { $match: filter },
 
             // Convert productId to ObjectId only if it's a valid string
-            {
-                $addFields: {
-                    productObjId: {
-                        $cond: {
-                            if: {
-                                $and: [
-                                    { $ifNull: ["$productId", false] },  // Ensure it exists
-                                    { $ne: ["$productId",""] },  // Ignore empty strings
-                                    { $eq: [{ $type: "$productId" }, "string"] },  // Ensure it's a string
-                                    { $eq: [{ $strLenCP: "$productId" }, 24] }  // Ensure valid ObjectId length
-                                ]
-                            },
-                            then: { $toObjectId: "$productId" },
-                            else: null
-                        }
-                    }
-                }
-            },
+            // {
+            //     $addFields: {
+            //         productObjId: {
+            //             $cond: {
+            //                 if: {
+            //                     $and: [
+            //                         { $ifNull: ["$productId", false] },  // Ensure it exists
+            //                         { $ne: ["$productId", ""] },  // Ignore empty strings
+            //                         { $eq: [{ $type: "$productId" }, "string"] },  // Ensure it's a string
+            //                         { $eq: [{ $strLenCP: "$productId" }, 24] }  // Ensure valid ObjectId length
+            //                     ]
+            //                 },
+            //                 then: { $toObjectId: "$productId" },
+            //                 else: null
+            //             }
+            //         }
+            //     }
+            // },
 
             // Lookup product details (preserving unmatched users)
             {
                 $lookup: {
                     from: 'products',
-                    localField: "productObjId",
+                    localField: "productId",
                     foreignField: "_id",
                     as: "productDetails"
                 }
             },
             { $unwind: { path: "$productDetails", preserveNullAndEmptyArrays: true } },
 
-            // Convert productImg to ObjectId only if it's a valid string
-            {
-                $addFields: {
-                    productImgObjId: {
-                        $cond: {
-                            if: {
-                                $and: [
-                                    { $ifNull: ["$productDetails.productImageId", false] },  // Ensure it exists
-                                    { $ne: ["$productDetails.productImageId", ""] },  // Ignore empty strings
-                                    { $eq: [{ $type: "$productDetails.productImageId" }, "string"] },  // Ensure it's a string
-                                    { $eq: [{ $strLenCP: "$productDetails.productImageId" }, 24] }  // Ensure valid ObjectId length
-                                ]
-                            },
-                            then: { $toObjectId: "$productDetails.productImageId" },
-                            else: null
-                        }
-                    }
-                }
-            },
+            // // Convert productImg to ObjectId only if it's a valid string
+            // {
+            //     $addFields: {
+            //         productImgObjId: {
+            //             $cond: {
+            //                 if: {
+            //                     $and: [
+            //                         { $ifNull: ["$productDetails.productImageId", false] },  // Ensure it exists
+            //                         { $ne: ["$productDetails.productImageId", ""] },  // Ignore empty strings
+            //                         { $eq: [{ $type: "$productDetails.productImageId" }, "string"] },  // Ensure it's a string
+            //                         { $eq: [{ $strLenCP: "$productDetails.productImageId" }, 24] }  // Ensure valid ObjectId length
+            //                     ]
+            //                 },
+            //                 then: { $toObjectId: "$productDetails.productImageId" },
+            //                 else: null
+            //             }
+            //         }
+            //     }
+            // },
 
             // Lookup product image details (preserving unmatched users)
             {
                 $lookup: {
                     from: 'files',
-                    localField: "productImageObjId",
+                    localField: "productDetails.productImageId",
                     foreignField: "_id",
                     as: "productDetails.productImageDetails"
                 }
@@ -216,7 +221,7 @@ const getGiftInvertory = async (req, res) => {
             {
                 $project: {
                     password: 0, email: 0, tokens: 0, isDeleted: 0, isAdmin: 0, isPrimaryAdmin: 0,
-                    joiningDate: 0, dob: 0, productObjId: 0, productImageObjId: 0,
+                    joiningDate: 0, dob: 0,
                     "productDetails.isDeleted": 0, "productDetails._id": 0, "productDetails.productImageId": 0,
                     "productDetails.productDescription": 0, "productDetails.addedAt": 0
                 }
@@ -259,6 +264,5 @@ const getGiftInvertory = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
-
 
 module.exports = { createUserPick, getGiftInvertory, deleteUserPick }
