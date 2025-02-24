@@ -79,7 +79,7 @@ const getCouponCode = async (req, res) => {
         }
         res.status(500).json({ message: e.message })
     }
-}
+};
 
 const getProductWithId = async (req, res) => {
     /*  #swagger.tags = ['Products']
@@ -94,7 +94,7 @@ const getProductWithId = async (req, res) => {
         }
         // Define the filter to find the product
         const filter = { _id: new ObjectId(productId), isDeleted: false, isActive: true };
-        // Aggregate to join product with files collection
+        // Aggregate to join product with images collection
         const product = await productsCollection.aggregate([
             { $match: filter }, // Apply filtering
             {
@@ -110,9 +110,9 @@ const getProductWithId = async (req, res) => {
             },
             {
                 $lookup: {
-                    from: 'files', // Join with the 'files' collection
+                    from: 'images', // Join with the 'images' collection
                     localField: 'productObjId', // The field in products collection that holds the file _id
-                    foreignField: '_id', // The field in files collection that corresponds to the productImg _id
+                    foreignField: '_id', // The field in images collection that corresponds to the productImg _id
                     as: 'productImageDetails' // The alias for the joined data
                 }
             },
@@ -231,7 +231,7 @@ const deleteProduct = async (req, res) => {
         }
         res.status(500).json({ message: e.message })
     }
-}
+};
 
 const getAllProducts = async (req, res) => {
     /*  #swagger.tags = ['Products']
@@ -244,7 +244,6 @@ const getAllProducts = async (req, res) => {
         const page = parseInt(req.query.page);
         const limit = parseInt(req.query.limit);
         const skip = (page - 1) * limit;
-        console.log("#####################", req.query)
 
         // Filtering
         const filter = { isDeleted: false, isActive: true };
@@ -286,7 +285,7 @@ const getAllProducts = async (req, res) => {
                 $lookup: {
                     from: 'images', // Join with the 'images' collection
                     localField: 'productObjId', // The field in products collection that holds the file _id
-                    foreignField: '_id', // The field in files collection that corresponds to the productImg _id
+                    foreignField: '_id', // The field in images collection that corresponds to the productImg _id
                     as: 'productImageDetails' // The alias for the joined data
                 }
             },
@@ -364,6 +363,5 @@ const getAllProducts = async (req, res) => {
         res.status(500).json({ message: e.message });
     }
 };
-
 
 module.exports = { addProduct, getCouponCode, getProductWithId, updateProduct, deleteProduct, getAllProducts };

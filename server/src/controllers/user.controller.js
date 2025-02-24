@@ -15,7 +15,7 @@ const generateEmpCodeAndPassword = async (name, email, department, dob, usersCol
     hash.update(baseString);
     let numericPart = hash.digest("hex").slice(0, 8);
     numericPart = parseInt(numericPart, 16).toString().slice(0, 8);
-    let empCode = `LPIT${numericPart}`;
+    let empCode = `lpit${numericPart}`;
 
     // Ensure uniqueness in DB
     const existingEmpCode = await usersCollection.findOne({ empCode });
@@ -108,14 +108,18 @@ const register = async (req, res) => {
 
 const getUserWithId = async (req, res) => {
     /*  #swagger.tags = ['Users']
-           #swagger.description = 'Get User with Id .' */
+           #swagger.description = 'Get User with Id.' */
     try {
         await connectDB();
         const userId = req.params.id
         if (!ObjectId.isValid(userId)) {
             return res.status(400).json({ message: "Invalid User Id" });
         }
-        const userObject = await usersCollection.findOne({ _id: new ObjectId(userId) });
+        const userObject = await usersCollection.findOne(
+            { _id: new ObjectId(userId) },
+            { projection: { password: 0, tokens: 0, isDeleted: 0, isPicked: 0, productId: 0, lastUpdated: 0, createdAt: 0 } }
+        );
+
         // const users = await usersCollection.find().toArray();
         res.send(userObject)
     } catch (e) {
@@ -262,6 +266,15 @@ const deleteUserWithId = async (req, res) => {
         const userId = req.params.id
         if (!ObjectId.isValid(userId)) {
             return res.status(400).json({ message: "Invalid User Id" });
+        }
+        const userData = await usersCollection.findOne({ _id: new ObjectId(userId) })
+        if (!userData) {
+            return res.status(404).json({ message: "User not found" });
+
+        }
+
+        if (userData.isPrimaryAdmin == true) {
+            return res.status(403).json({ message: "You are not authorized to delete the Primary Admin" });
         }
         const result = await usersCollection.findOneAndUpdate(
             { _id: new ObjectId(userId) },

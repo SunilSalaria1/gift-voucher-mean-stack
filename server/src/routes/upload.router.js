@@ -1,7 +1,7 @@
 const express = require('express')
 const uploadRouter = express.Router();
 const { uploadFile, getImage, getAllImages } = require('../controllers/upload.controller')
-const { authenticateToken } = require("../middlewares/authMiddleWare")
+const { authenticateToken } = require("../middlewares/auth.middleWare")
 const upload = require("./../middlewares/multer.config");
 
 uploadRouter.post("/upload", authenticateToken, upload.single("file"), uploadFile);   // Upload a new image
