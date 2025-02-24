@@ -37,7 +37,7 @@ const addProduct = async (req, res) => {
         if (!validation.success) {
             return res.status(400).json({ errors: validation.error.format() }); // 🔹 Added return
         }
-        const existingCouponCode = await productsCollection.findOne({ couponCode: req.body.couponCode });
+        const existingCouponCode = await productsCollection.findOne({ couponCode: req.body.couponCode, isDeleted: false });
         if (existingCouponCode) {
             return res.status(400).json({ error: "Coupon code already exists" }); // 🔹 Added return
         }
@@ -66,7 +66,9 @@ const getCouponCode = async (req, res) => {
         if (!code) {
             return res.status(400).json({ message: "Coupon code is required" });
         }
-        const productObj = await productsCollection.findOne({ couponCode: code }, { isDeleted: false });
+        const productObj = await productsCollection.findOne({ couponCode: code, isDeleted: false });
+        console.log("productObj", productObj)
+
 
         if (productObj) {
             return res.send(true)

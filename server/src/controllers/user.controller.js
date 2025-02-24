@@ -85,7 +85,7 @@ const register = async (req, res) => {
             return res.status(400).json({ errors: validation.error.format() }); // 🔹 Added return
         }
         // Check if email already exists
-        const existingUser = await usersCollection.findOne({ email: req.body.email }, { isDeleted: false });
+        const existingUser = await usersCollection.findOne({ email: req.body.email, isDeleted: false });
         if (existingUser) {
             return res.status(400).json({ error: "Email already exists" }); // 🔹 Added return
         }
