@@ -28,8 +28,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 })
 export class DashboardComponent {
   private _productsService = inject(ProductsService);
+  loggedUserData: any = localStorage.getItem('loginUser');
+  loggedUser: any = JSON.parse(this.loggedUserData);
   totalEmployees: any;
-
   userData: any;
   productData: any[] = [];
   totalProducts: any;
@@ -41,7 +42,6 @@ export class DashboardComponent {
   currentPage: any;
   pageSize: any;
   isLoading = false; // To track loading state
-
   productsLoading = false;
   allProductsLoaded = false; // Flag to stop loading when no more data
   // pie chart
