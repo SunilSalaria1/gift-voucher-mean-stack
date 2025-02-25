@@ -1,4 +1,3 @@
-const { ZodError } = require("zod");
 const userSchema = require("../models/user.model");
 const { connectDB, db } = require('../config/db.config'); // Import db from db.js
 const { ObjectId } = require('mongodb');

@@ -8,7 +8,7 @@ const generateEmpCodeAndPassword = async (name, email, department, dob, usersCol
     hash.update(baseString);
     let numericPart = hash.digest("hex").slice(0, 8);
     numericPart = parseInt(numericPart, 16).toString().slice(0, 8);
-    let empCode = `lpit${numericPart}`;
+    let empCode = `LPIT${numericPart}`;
 
     // Ensure uniqueness in DB
     const existingEmpCode = await usersCollection.findOne({ empCode });

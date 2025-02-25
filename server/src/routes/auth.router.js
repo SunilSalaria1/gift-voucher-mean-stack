@@ -1,12 +1,12 @@
 const express = require('express');
 const authRouter = express.Router();
 const { loginUser, logoutUser,register } = require("../controllers/auth.controller");
-const { convertValuesToLowercase } = require("../middlewares/convertValuesToLowercase.middleWare")
+const { authenticateToken } = require("../middlewares/auth.middleWare")
 
 // routes for login , logout and register new user
-authRouter.post('/login',convertValuesToLowercase, loginUser);
+authRouter.post('/login', loginUser);
 authRouter.post('/logout', logoutUser);
-authRouter.post('/users', convertValuesToLowercase, register);
+authRouter.post('/users',authenticateToken, register);
 
 
 module.exports = authRouter;

@@ -63,7 +63,7 @@ const updateUser = async (req, res) => {
         }
 
         // Validate request body
-        const { name, department } = req.body;
+        let { name, department } = req.body;
 
         // Validate using the picked schema
         const userUpdateSchema = userSchema.pick({ name: true, department: true });
@@ -71,6 +71,7 @@ const updateUser = async (req, res) => {
         if (!validation.success) {
             return res.status(400).json({ errors: validation.error.format() });
         }
+        name=name.trim().toLowerCase();
 
         // Fetch user details
         const userDetails = await usersCollection.findOne({ _id: ObjectId.createFromHexString(userId) });
@@ -198,7 +199,7 @@ const deleteUserWithId = async (req, res) => {
             { returnDocument: 'after' }
         );
 
-        return res.status(200).json({ message: "User deleted successfully", deletedUser: result });
+        return res.status(200).json({ message: "User deleted successfully", });
     } catch (e) {
         console.log(e)
         if (e instanceof ZodError) {

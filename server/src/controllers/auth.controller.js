@@ -1,4 +1,3 @@
-
 const { connectDB, db } = require('../config/db.config'); // Import db from db.js
 const jwt = require('jsonwebtoken')
 const usersCollection = db.collection('users');
@@ -172,7 +171,9 @@ const register = async (req, res) => {
     try {
         await connectDB();
         // Step 1: Generate empCode
-        const { name, email, department, dob } = req.body;
+        let { name, email, department, dob } = req.body;
+        req.body.name=name.trim().toLowerCase();
+        req.body.email=email.trim().toLowerCase();
         const { empCode, hashedPassword } = await generateEmpCodeAndPassword(name, email, department, dob, usersCollection);
 
 

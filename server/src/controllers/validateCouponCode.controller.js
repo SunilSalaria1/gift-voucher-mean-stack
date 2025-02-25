@@ -4,10 +4,10 @@ const productsCollection = db.collection('products');
 
 const validateCouponCode = async (req, res) => {
     /*  #swagger.tags = ['Products']
-           #swagger.description = 'Get Coupon Code .' */
+           #swagger.description = 'Get Coupon Code .'*/
     try {
         await connectDB();
-        // validate coupon code 
+        // validate coupon code
         const code = req.params.couponCode
         if (!code) {
             return res.status(400).json({ message: "Coupon code is required" });
