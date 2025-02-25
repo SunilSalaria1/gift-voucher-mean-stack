@@ -78,6 +78,10 @@ const updateUser = async (req, res) => {
         if (!userDetails) {
             return res.status(404).json({ message: "User not found" });
         }
+        // check if user is primary admin then you can not Update them
+        if( userDetails.isPrimaryAdmin === true ){
+            return res.status(401).json({ message: "User not authorised to update Primary Admin" });
+        }
 
         // Generate new employee code and hashed password if necessary
         const { empCode, hashedPassword } = await generateEmpCodeAndPassword(name, userDetails.email, department, userDetails.dob, usersCollection);
@@ -91,7 +95,11 @@ const updateUser = async (req, res) => {
         if (!updatedUser) {
             return res.status(404).json({ message: "Failed to update user" });
         }
-        return res.status(200).json({ message: "User updated successfully", updatedUser });
+        return res.status(200).json({ message: "User updated successfully", updatedUser:{
+            _id:updatedUser._id,
+            name:updatedUser.name,
+            empCode:updatedUser.empCode
+        } });
     } catch (error) {
         console.error("MongoDB Error:", error);
         return res.status(500).json({ message: "Internal server error", error: error.message });

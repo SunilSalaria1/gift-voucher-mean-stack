@@ -940,11 +940,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Tue Feb 25 2025 15:49:29 GMT+0530 (India Standard Time)"
+          "example": "Tue Feb 25 2025 17:22:50 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Tue Feb 25 2025 15:49:29 GMT+0530 (India Standard Time)"
+          "example": "Tue Feb 25 2025 17:22:50 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
@@ -998,8 +998,8 @@
           "example": "67a4af8cf19f72c03d3d4547"
         },
         "isAdmin": {
-          "type": "string",
-          "example": "true"
+          "type": "boolean",
+          "example": true
         }
       }
     },
@@ -1010,7 +1010,7 @@
           "type": "string",
           "example": "lp12345"
         },
-        "productImg": {
+        "productImageId": {
           "type": "string",
           "example": "image id"
         },
@@ -1031,7 +1031,7 @@
           "type": "string",
           "example": "lp12345"
         },
-        "productImg": {
+        "productImageId": {
           "type": "string",
           "example": "image id"
         },
@@ -1050,7 +1050,7 @@
       "properties": {
         "isPicked": {
           "type": "string",
-          "example": "true"
+          "example": "completed"
         },
         "productId": {
           "type": "string",
@@ -1063,7 +1063,7 @@
       "properties": {
         "isPicked": {
           "type": "string",
-          "example": "false"
+          "example": "pending"
         }
       }
     }

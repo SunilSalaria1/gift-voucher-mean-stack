@@ -25,12 +25,17 @@ const createProduct = async (req, res) => {
         if (!validation.success) {
             return res.status(400).json({ errors: validation.error.format() }); // 🔹 Added return
         }
+        // Check coupon code if aleady exists then return.
+        const result1 = await productsCollection.find({couponCode:validation.data.couponCode, isDeleted:false}).toArray();
+        if(result1.length>0){
+            return res.status(401).json({ message: "Coupon code already exist" });
+        }
         // creating a new product using insertOne 
         const result = await productsCollection.insertOne(validation.data);
         // fetching the inserted object
         const insertedDocument = await productsCollection.findOne({ _id: result.insertedId });
         return res.status(201).json({
-            message: "Product added successfully", user: {
+            message: "Product created successfully", user: {
                 _id: insertedDocument._id,
                 couponCode: insertedDocument.couponCode,
                 productImageId: insertedDocument.productImageId,
@@ -181,10 +186,10 @@ const deleteProduct = async (req, res) => {
             { returnDocument: 'after' }
         );
         if (!result) {
-            return res.status(404).json({ message: "Failed to delete Product" });
+            return res.status(404).json({ message: "Product not found" });
         }
 
-        return res.status(200).json({ message: "Product deleted successfully", deletedProduct: result });
+        return res.status(200).json({ message: "Product deleted successfully", });
     } catch (e) {
         console.log(e)
         if (e instanceof ZodError) {
@@ -273,6 +278,8 @@ const getAllProducts = async (req, res) => {
                 delete product.isDeleted;
                 delete product.addedAt;
                 delete product.isActive;
+                delete product.updatedAt;
+                delete product.createdAt;
                 // Initialize pickedCount if it's undefined or null
                 if (!product.pickedCount) {
                     product.pickedCount = 0;
