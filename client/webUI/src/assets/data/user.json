@@ -1,48 +1,46 @@
 {
-    "admin":[
-        {
-            "id": 1,
-            "name": "piyush",
-            "role": "admin",
-            "adminCode":"Ad1234",
-            "adminKey":"123123",
-            "email": "piyush@april.biz"
-        }
-    ],
+  "admin": [
+    {
+      "id": 1,
+      "name": "piyush",
+      "role": "admin",
+      "adminCode": "Ad1234",
+      "adminKey": "123123",
+      "email": "piyush@april.biz"
+    }
+  ],
 
-    "employee":[
-        {
-            "id": 2,
-            "name": "Jyoti",
-            "role": "employee",
-            "empCode":"Lp123",
-            "email": "jyoti@april.biz"
-        },
-        
-        {
-            "id": 3,
-            "name": "Aniket",
-            "role": "employee",
-            "empCode":"Lp456",
-            "email": "aniket@april.biz"
-        },
-        
-        {
-            "id": 4,
-            "name": "Sushma",
-            "role": "employee",
-            "empCode":"Lp789",
-            "email": "sushma@april.biz"
-        },
-        
-        {
-            "id":  5,
-            "name": "Rahul",
-            "role": "employee",
-            "empCode":"Lp1011",
-            "email": "rahul@april.biz"
-        }
-        
-    ]
+  "employee": [
+    {
+      "id": 2,
+      "name": "Jyoti",
+      "role": "employee",
+      "employeeCode": "Lp123",
+      "email": "jyoti@april.biz"
+    },
+
+    {
+      "id": 3,
+      "name": "Aniket",
+      "role": "employee",
+      "employeeCode": "Lp456",
+      "email": "aniket@april.biz"
+    },
+
+    {
+      "id": 4,
+      "name": "Sushma",
+      "role": "employee",
+      "employeeCode": "Lp789",
+      "email": "sushma@april.biz"
+    },
+
+    {
+      "id": 5,
+      "name": "Rahul",
+      "role": "employee",
+      "employeeCode": "Lp1011",
+      "email": "rahul@april.biz"
+    }
+  ]
 }
-    

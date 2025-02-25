@@ -173,11 +173,11 @@ export class GiftInventoryComponent {
   paginator!: MatPaginator;
 
   // Method to handle copying
-  copied(empCode: string) {
+  copied(employeeCode: string) {
     // Set copied state to true for this couponCode
-    this.copiedMap.set(empCode, true);
+    this.copiedMap.set(employeeCode, true);
     setTimeout(() => {
-      this.copiedMap.set(empCode, false);
+      this.copiedMap.set(employeeCode, false);
     }, 1500);
   }
 }

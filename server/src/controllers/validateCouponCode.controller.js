@@ -3,7 +3,7 @@ const { ZodError } = require("zod");
 const productsCollection = db.collection('products');
 
 const validateCouponCode = async (req, res) => {
-    /*  #swagger.tags = ['Products']
+    /*  #swagger.tags = ['Validate Coupon Code']
            #swagger.description = 'Get Coupon Code .'*/
     try {
         await connectDB();

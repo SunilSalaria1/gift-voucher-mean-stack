@@ -13,9 +13,7 @@
       "description": "User Routes"
     }
   ],
-  "schemes": [
-    "http"
-  ],
+  "schemes": ["http"],
   "securityDefinitions": {
     "Bearer": {
       "type": "apiKey",
@@ -27,9 +25,7 @@
   "paths": {
     "/api/users": {
       "get": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "description": "Get all users.",
         "parameters": [
           {
@@ -84,9 +80,7 @@
     },
     "/api/users/{id}": {
       "get": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "description": "Get User with Id.",
         "parameters": [
           {
@@ -123,9 +117,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Users"],
         "description": "Update User with Id.",
         "parameters": [
           {
@@ -171,9 +163,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Users"],
         "description": "Delete User with Id .",
         "parameters": [
           {
@@ -212,9 +202,7 @@
     },
     "/api/login": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "description": "Login user",
         "parameters": [
           {
@@ -251,9 +239,7 @@
     },
     "/api/logout": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "description": "Logout user",
         "parameters": [
           {
@@ -286,9 +272,7 @@
     },
     "/api/register": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "description": "Register user",
         "parameters": [
           {
@@ -330,9 +314,7 @@
     },
     "/api/suggestion": {
       "post": {
-        "tags": [
-          "Suggestion section"
-        ],
+        "tags": ["Suggestion section"],
         "description": "",
         "parameters": [
           {
@@ -375,9 +357,7 @@
         }
       },
       "get": {
-        "tags": [
-          "Suggestion section"
-        ],
+        "tags": ["Suggestion section"],
         "description": "",
         "parameters": [
           {
@@ -404,9 +384,7 @@
     },
     "/api/upload": {
       "post": {
-        "tags": [
-          "Upload Image"
-        ],
+        "tags": ["Upload Image"],
         "description": "",
         "parameters": [
           {
@@ -434,54 +412,9 @@
         }
       }
     },
-    "/api/images/{id}": {
-      "get": {
-        "tags": [
-          "Upload Image"
-        ],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/images": {
-      "get": {
-        "tags": [
-          "Upload Image"
-        ],
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
     "/api/products": {
       "post": {
-        "tags": [
-          "Products"
-        ],
+        "tags": ["Products"],
         "description": "Add Product",
         "parameters": [
           {
@@ -518,9 +451,7 @@
         }
       },
       "get": {
-        "tags": [
-          "Products"
-        ],
+        "tags": ["Products"],
         "description": "Get all Products.",
         "parameters": [
           {
@@ -570,9 +501,7 @@
     },
     "/api/products/{id}": {
       "put": {
-        "tags": [
-          "Products"
-        ],
+        "tags": ["Products"],
         "description": "Add Product",
         "parameters": [
           {
@@ -621,9 +550,7 @@
         }
       },
       "get": {
-        "tags": [
-          "Products"
-        ],
+        "tags": ["Products"],
         "description": "Get Product with Id .",
         "parameters": [
           {
@@ -660,9 +587,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Products"
-        ],
+        "tags": ["Products"],
         "description": "Delete User with Id .",
         "parameters": [
           {
@@ -701,9 +626,7 @@
     },
     "/api/users/{id}/gifts": {
       "put": {
-        "tags": [
-          "Gifts"
-        ],
+        "tags": ["Gifts"],
         "description": "Update User Gift Pick with Id.",
         "parameters": [
           {
@@ -749,9 +672,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Gifts"
-        ],
+        "tags": ["Gifts"],
         "description": "Delete User Gift Pick with Id.",
         "parameters": [
           {
@@ -795,9 +716,7 @@
     },
     "/api/gifts": {
       "get": {
-        "tags": [
-          "Gifts"
-        ],
+        "tags": ["Gifts"],
         "description": "All Users Gift Pick.",
         "parameters": [
           {
@@ -849,9 +768,7 @@
     },
     "/api/couponCode/{couponCode}": {
       "get": {
-        "tags": [
-          "Products"
-        ],
+        "tags": ["Validate Coupon Code"],
         "description": "Get Coupon Code .",
         "parameters": [
           {
@@ -887,9 +804,7 @@
     },
     "/api/users/{id}/role": {
       "put": {
-        "tags": [
-          "Admin"
-        ],
+        "tags": ["Admin"],
         "description": "Update User with Id.",
         "parameters": [
           {
@@ -942,11 +857,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Tue Feb 25 2025 18:16:00 GMT+0530 (India Standard Time)"
+          "example": "Tue Feb 25 2025 18:49:42 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Tue Feb 25 2025 18:16:00 GMT+0530 (India Standard Time)"
+          "example": "Tue Feb 25 2025 18:49:42 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
@@ -975,16 +890,29 @@
         }
       }
     },
-    "loginUser": {
+    "loginAdmin": {
       "type": "object",
       "properties": {
-        "empCode": {
+        "employeeCode": {
           "type": "string",
           "example": "LPIT30281076"
         },
         "password": {
           "type": "string",
           "example": "jyo04122001"
+        },
+        "role": {
+          "type": "string",
+          "example": "admin"
+        }
+      }
+    },
+    "loginUser": {
+      "type": "object",
+      "properties": {
+        "employeeCode": {
+          "type": "string",
+          "example": "LPIT30281076"
         },
         "role": {
           "type": "string",

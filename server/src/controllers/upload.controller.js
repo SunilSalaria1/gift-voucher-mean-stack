@@ -36,41 +36,41 @@ const uploadImage = async (req, res) => {
 
 
 
-//##############################################################################################################################
-// this getImage function is not used anywhere  this is only for testing purpose
-const getImage = async (req, res) => {
-    /*  #swagger.tags = ['Upload Image']
-    */
-    try {
-        await connectDB();
-        const fileId = req.params.id;
-        const file = await filesCollection.findOne({ _id: ObjectId.createFromHexString(fileId) });
-        if (!file) {
-            return res.status(404).json({ message: "Image not found" });
-        }
-        // Convert buffer to Base64
-        const base64Image = file.fileBuffer.toString("base64");
-        const mimeType = file.fileType;
-        return res.send({ imageUrl: `data:${mimeType};base64,${base64Image}` });
-    } catch (error) {
-        console.error("Image retrieval error:", error);
-        res.status(500).json({ message: "Internal Server Error" });
-    }
-};
+// //##############################################################################################################################
+// // this getImage function is not used anywhere  this is only for testing purpose
+// const getImage = async (req, res) => {
+//     /*  #swagger.tags = ['Upload Image']
+//     */
+//     try {
+//         await connectDB();
+//         const fileId = req.params.id;
+//         const file = await filesCollection.findOne({ _id: ObjectId.createFromHexString(fileId) });
+//         if (!file) {
+//             return res.status(404).json({ message: "Image not found" });
+//         }
+//         // Convert buffer to Base64
+//         const base64Image = file.fileBuffer.toString("base64");
+//         const mimeType = file.fileType;
+//         return res.send({ imageUrl: `data:${mimeType};base64,${base64Image}` });
+//     } catch (error) {
+//         console.error("Image retrieval error:", error);
+//         res.status(500).json({ message: "Internal Server Error" });
+//     }
+// };
 
-// this getAllImages is not used anywhere 
-const getAllImages = async (req, res) => {
-    /*  #swagger.tags = ['Upload Image']
-    */
-    try {
-        await connectDB();
-        const images = await filesCollection.find().toArray();
-        if (!images) {
-            return res.status(404).json({ message: "no content" });
-        }
-        return res.status(200).json({ images, totalImages: images.length })
-    } catch (error) {
-    }
-}
+// // this getAllImages is not used anywhere 
+// const getAllImages = async (req, res) => {
+//     /*  #swagger.tags = ['Upload Image']
+//     */
+//     try {
+//         await connectDB();
+//         const images = await filesCollection.find().toArray();
+//         if (!images) {
+//             return res.status(404).json({ message: "no content" });
+//         }
+//         return res.status(200).json({ images, totalImages: images.length })
+//     } catch (error) {
+//     }
+// }
 
-module.exports = { uploadImage, getImage, getAllImages };
+module.exports = { uploadImage  };

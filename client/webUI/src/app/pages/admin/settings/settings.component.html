@@ -61,18 +61,18 @@
             Administrator Code
           </th>
           <td mat-cell *matCellDef="let element" class="position-relative">
-            {{ element.empCode }}
+            {{ element.employeeCode }}
             <span class="ms-2"
               ><mat-icon
                 matSuffix
-                cdkCopyToClipboard="{{ element.empCode }}"
-                (click)="copied(element.empCode)"
+                cdkCopyToClipboard="{{ element.employeeCode }}"
+                (click)="copied(element.employeeCode)"
                 class="copy-icon"
                 >content_copy</mat-icon
               ></span
             >
             <div
-              *ngIf="copiedMap.get(element.empCode)"
+              *ngIf="copiedMap.get(element.employeeCode)"
               class="copy-text fs-12 position-absolute bg-dark text-white"
             >
               copied
@@ -147,7 +147,10 @@
                   />
                 </svg>
               </span>
-              <div *ngIf="element.isPrimaryAdmin" class="ms-3 bg-primary p-2 text-white primary-admin">
+              <div
+                *ngIf="element.isPrimaryAdmin"
+                class="ms-3 bg-primary p-2 text-white primary-admin"
+              >
                 Primary Admin
               </div>
             </div>

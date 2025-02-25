@@ -4,10 +4,10 @@ const { ZodError } = require("zod");
 const { connectDB, db } = require('../config/db.config'); // Import db from db.js
 const { ObjectId } = require('mongodb');
 const usersCollection = db.collection('users');
-const {generateEmpCodeAndPassword}=require("../utility/utils")
+const { generateEmpCodeAndPassword } = require("../utility/utils")
 
 
-const getUserWithId = async (req, res) => {
+const getUserById = async (req, res) => {
     /*  #swagger.tags = ['Users']
            #swagger.description = 'Get User with Id.' */
     try {
@@ -38,8 +38,8 @@ const getUserWithId = async (req, res) => {
     }
 };
 
-const updateUser = async (req, res) => {
-    /*  #swagger.tags = ['Auth']
+const updateUserById = async (req, res) => {
+    /*  #swagger.tags = ['Users']
         #swagger.description = 'Update User with Id.' 
         #swagger.parameters['body'] = {
             in: 'body',
@@ -71,7 +71,7 @@ const updateUser = async (req, res) => {
         if (!validation.success) {
             return res.status(400).json({ errors: validation.error.format() });
         }
-        name=name.trim().toLowerCase();
+        name = name.trim().toLowerCase();
 
         // Fetch user details
         const userDetails = await usersCollection.findOne({ _id: ObjectId.createFromHexString(userId) });
@@ -79,27 +79,29 @@ const updateUser = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
         // check if user is primary admin then you can not Update them
-        if( userDetails.isPrimaryAdmin === true ){
+        if (userDetails.isPrimaryAdmin === true) {
             return res.status(401).json({ message: "User not authorised to update Primary Admin" });
         }
 
         // Generate new employee code and hashed password if necessary
-        const { empCode, hashedPassword } = await generateEmpCodeAndPassword(name, userDetails.email, department, userDetails.dob, usersCollection);
+        const { employeeCode, hashedPassword } = await generateEmpCodeAndPassword(name, userDetails.email, department, userDetails.dob, usersCollection);
 
         // Update user in MongoDB
         const updatedUser = await usersCollection.findOneAndUpdate(
             { _id: ObjectId.createFromHexString(userId) },
-            { $set: { name, department, empCode, password: hashedPassword, updatedAt: new Date() } },
+            { $set: { name, department, employeeCode, password: hashedPassword, updatedAt: new Date() } },
             { returnDocument: "after" }
         );
         if (!updatedUser) {
             return res.status(404).json({ message: "Failed to update user" });
         }
-        return res.status(200).json({ message: "User updated successfully", updatedUser:{
-            _id:updatedUser._id,
-            name:updatedUser.name,
-            empCode:updatedUser.empCode
-        } });
+        return res.status(200).json({
+            message: "User updated successfully", updatedUser: {
+                _id: updatedUser._id,
+                name: updatedUser.name,
+                employeeCode: updatedUser.employeeCode
+            }
+        });
     } catch (error) {
         console.error("MongoDB Error:", error);
         return res.status(500).json({ message: "Internal server error", error: error.message });
@@ -123,7 +125,7 @@ const getAllUsers = async (req, res) => {
         if (req.query.role === "admin") {
             filter.isAdmin = true;
         }
-        // Searching by name, email, empCode, department, joiningDate, or dob
+        // Searching by name, email, employeeCode, department, joiningDate, or dob
         if (req.query.searchItem) {
             filter.$or = [
                 {
@@ -133,7 +135,7 @@ const getAllUsers = async (req, res) => {
                     email: { $regex: req.query.searchItem, $options: "i" }
                 },
                 {
-                    empCode: { $regex: req.query.searchItem, $options: "i" }
+                    employeeCode: { $regex: req.query.searchItem, $options: "i" }
                 },
                 {
                     department: { $regex: req.query.searchItem, $options: "i" }
@@ -180,8 +182,8 @@ const getAllUsers = async (req, res) => {
     }
 };
 
-const deleteUserWithId = async (req, res) => {
-    /*  #swagger.tags = ['Auth']
+const deleteUserById = async (req, res) => {
+    /*  #swagger.tags = ['Users']
            #swagger.description = 'Delete User with Id .' */
     try {
         await connectDB();
@@ -217,4 +219,4 @@ const deleteUserWithId = async (req, res) => {
     }
 };
 
-module.exports = {  getAllUsers, updateUser, deleteUserWithId, getUserWithId }
+module.exports = { getUserById, updateUserById, getAllUsers, deleteUserById }

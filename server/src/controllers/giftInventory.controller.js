@@ -109,10 +109,10 @@ const deleteUserGift = async (req, res) => {
         );
         // if failed to delete user
         if (!deletedUser) {
-            return res.status(404).json({ message: "Failed to delete user" });
+            return res.status(404).json({ message: "Failed to unselect gift" });
         }
 
-        return res.status(200).json({ message: "User deleted successfully" });
+        return res.status(200).json({ message: "User gift unselected successfully" });
 
     } catch (error) {
         console.error("MongoDB Error:", error);
@@ -141,7 +141,7 @@ const getGiftInvertory = async (req, res) => {
         if (req.query.searchItem) {
             filter.$or = [
                 { name: { $regex: req.query.searchItem, $options: "i" } },
-                { empCode: { $regex: req.query.searchItem, $options: "i" } },
+                { employeeCode: { $regex: req.query.searchItem, $options: "i" } },
                 { department: { $regex: req.query.searchItem, $options: "i" } },
                 { isPicked: { $regex: req.query.searchItem, $options: "i" } },
                 { "productDetails.couponCode": { $regex: req.query.searchItem, $options: "i" } },  // ✅ Fix

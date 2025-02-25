@@ -1,11 +1,11 @@
 const { connectDB, db } = require('../config/db.config'); // Import db from db.js
 const jwt = require('jsonwebtoken')
 const usersCollection = db.collection('users');
-require('dotenv').config(); 
+require('dotenv').config();
 const SECRET_KEY = process.env.JWT_SECRET_KEY
 const bcrypt = require("bcryptjs");
 const userSchema = require("../models/user.model");
-const {generateEmpCodeAndPassword} = require("../utility/utils")
+const { generateEmpCodeAndPassword } = require("../utility/utils")
 
 
 const loginUser = async (req, res) => {
@@ -29,15 +29,15 @@ const loginUser = async (req, res) => {
     */
     try {
         await connectDB();
-        // Find the user by empCode
-        const result = await usersCollection.findOne({ empCode: req.body.empCode, isDeleted: false });
+        // Find the user by employeeCode
+        const result = await usersCollection.findOne({ employeeCode: req.body.employeeCode, isDeleted: false });
 
         if (!result) {
             return res.status(404).json({ message: "User not found" });
         }
         if (req.body.role == "employee") {
-            // 1. Check for the required empCode field in request body
-            if (!req.body.empCode) {
+            // 1. Check for the required employeeCode field in request body
+            if (!req.body.employeeCode) {
                 return res.status(400).json({ message: "Missing required fields: Employee Code" });
             }
             // 2. If the user is not an admin, proceed with login (admin check can be handled differently)
@@ -58,8 +58,8 @@ const loginUser = async (req, res) => {
                     department: result.department,
                     isPicked: result.isPicked,
                     productId: result.productId,
-                    role:"employee",
-                    
+                    role: "employee",
+
                 },
                 token: token,
             });
@@ -70,7 +70,7 @@ const loginUser = async (req, res) => {
                 return res.status(401).json({ message: "Sorry are not a admin :)" });
             }
             // 3. Check for missing password
-            if (!req.body.password || !req.body.empCode) {
+            if (!req.body.password || !req.body.employeeCode) {
                 return res.status(400).json({ message: "Missing required fields: Password or Empcode" });
             }
 
@@ -93,7 +93,7 @@ const loginUser = async (req, res) => {
                         email: result.email,
                         isAdmin: result.isAdmin,
                         department: result.department,
-                        role:"admin"
+                        role: "admin"
                     },
                     token: token,
                 });
@@ -170,15 +170,15 @@ const register = async (req, res) => {
                 */
     try {
         await connectDB();
-        // Step 1: Generate empCode
+        // Step 1: Generate employeeCode
         let { name, email, department, dob } = req.body;
-        req.body.name=name.trim().toLowerCase();
-        req.body.email=email.trim().toLowerCase();
-        const { empCode, hashedPassword } = await generateEmpCodeAndPassword(name, email, department, dob, usersCollection);
+        req.body.name = name.trim().toLowerCase();
+        req.body.email = email.trim().toLowerCase();
+        const { employeeCode, hashedPassword } = await generateEmpCodeAndPassword(name, email, department, dob, usersCollection);
 
 
-        // Step 2: Add generated empCode to req.body
-        req.body.empCode = empCode;
+        // Step 2: Add generated employeeCode to req.body
+        req.body.employeeCode = employeeCode;
         req.body.password = hashedPassword;
 
 
@@ -205,7 +205,7 @@ const register = async (req, res) => {
             message: "User registered successfully", user: {
                 _id: insertedDocument._id,
                 name: insertedDocument.name,
-                empCode: insertedDocument.empCode,
+                employeeCode: insertedDocument.employeeCode,
                 password: insertedDocument.password
             }
         });
@@ -216,4 +216,4 @@ const register = async (req, res) => {
 };
 
 
-module.exports = { loginUser, logoutUser,register }
+module.exports = { loginUser, logoutUser, register }

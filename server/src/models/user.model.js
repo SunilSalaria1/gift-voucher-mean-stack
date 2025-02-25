@@ -13,7 +13,7 @@ const userSchema = z.object({
 
     department: z.string({ required_error: "Department is required" }),
 
-    empCode: z.string()
+    employeeCode: z.string()
         .min(1, { message: "Employee Code is required" }),
     password: z.string()
         .min(6, { message: "Password is required & must greater than 6 digits" }),
@@ -22,10 +22,10 @@ const userSchema = z.object({
     tokens: z.array(z.string()).optional(),
     isPrimaryAdmin: z.boolean().default(false),
     isPicked: z.string()
-    .default("pending")
-    .refine(val => val === "completed" || val === "pending", {
-        message: "Invalid isPicked value. Allowed values: 'completed', 'pending'",
-    }),
+        .default("pending")
+        .refine(val => val === "completed" || val === "pending", {
+            message: "Invalid isPicked value. Allowed values: 'completed', 'pending'",
+        }),
     productId: z.string()
         .default("null") // Default value as "null"
         .refine((val) => val === "null" || ObjectId.isValid(val), { message: "Invalid MongoDB ObjectId" }) // Validate ObjectId when not "null"

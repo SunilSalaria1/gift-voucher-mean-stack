@@ -143,21 +143,20 @@ export class GenerateEmpCodeComponent {
   // Admin toggle
   onAdminToggleChange(selectedValue: string, employeeId: any) {
     let payload: any;
-    let id:any
+    let id: any;
     if (selectedValue === 'yes') {
-      id=employeeId;
+      id = employeeId;
       payload = {
         isAdmin: true,
       };
     } else if (selectedValue === 'no') {
-      id= employeeId;
+      id = employeeId;
       payload = {
-        
         isAdmin: false,
       };
     }
     console.log(payload);
-    this._usersService.createAdminRemoveAdmin(id,payload).subscribe(
+    this._usersService.createAdminRemoveAdmin(id, payload).subscribe(
       (response) => {
         console.log('access granted :', response);
       },
@@ -204,7 +203,7 @@ export class GenerateEmpCodeComponent {
   displayedColumns: string[] = [
     'position',
     'name',
-    'empCode',
+    'employeeCode',
     'email',
     'department',
     'dob',
@@ -220,17 +219,17 @@ export class GenerateEmpCodeComponent {
 
   // copy
   // Method to handle copying
-  copied(empCode: string) {
+  copied(employeeCode: string) {
     // Set copied state to true for this couponCode
-    this.copiedMap.set(empCode, true);
+    this.copiedMap.set(employeeCode, true);
     setTimeout(() => {
-      this.copiedMap.set(empCode, false);
+      this.copiedMap.set(employeeCode, false);
     }, 1500);
   }
 }
 export interface PeriodicElement {
   position: number;
-  empCode: string;
+  employeeCode: string;
   name: string;
   department: string;
   dob: string;

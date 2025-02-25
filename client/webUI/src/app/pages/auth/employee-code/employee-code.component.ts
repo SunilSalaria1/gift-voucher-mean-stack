@@ -16,16 +16,30 @@ import { EmployeeHeaderComponent } from '../../../shared/employee-header/employe
 @Component({
   selector: 'app-employee-code',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, FormsModule, MatInputModule, MatFormFieldModule, RouterLink, ReactiveFormsModule, EmployeeFooterComponent, EmployeeHeaderComponent],
+  imports: [
+    MatButtonModule,
+    MatIconModule,
+    FormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    RouterLink,
+    ReactiveFormsModule,
+    EmployeeFooterComponent,
+    EmployeeHeaderComponent,
+  ],
   templateUrl: './employee-code.component.html',
-  styleUrl: './employee-code.component.css'
+  styleUrl: './employee-code.component.css',
 })
 export class EmployeeCodeComponent implements OnInit {
   employeeCodeForm: any;
   private _snackBar = inject(MatSnackBar);
-  private _usersService = inject(UsersService)
+  private _usersService = inject(UsersService);
   userData: any;
-  constructor(private formBuilder: FormBuilder, private router: Router, private snackBar: MatSnackBar) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {}
 
   // Initialize the form group inside ngOnInit to avoid 'formBuilder' is used before its initialization
   ngOnInit(): void {
@@ -38,52 +52,52 @@ export class EmployeeCodeComponent implements OnInit {
     // })
   }
 
-
   //on submit
   onSubmit() {
     // const matchedEmployee = this.userData.employee.find(
-    //   (emp: { empCode: any }) => emp.empCode === this.employeeCodeForm.value.employeeCode
+    //   (emp: { employeeCode: any }) => emp.employeeCode === this.employeeCodeForm.value.employeeCode
     // );
     // console.log(matchedEmployee);
     if (this.employeeCodeForm.valid) {
       const data = {
-        empCode: this.employeeCodeForm.value.employeeCode,
-        role:"employee"
+        employeeCode: this.employeeCodeForm.value.employeeCode,
+        role: 'employee',
       };
 
       this._usersService.login(data).subscribe(
         (response) => {
           console.log(response);
-          localStorage.setItem('loginUser', JSON.stringify(response.userDetails));
+          localStorage.setItem(
+            'loginUser',
+            JSON.stringify(response.userDetails)
+          );
           this._usersService.saveToken(response.token); // Store token
-          if(response.userDetails.isPicked==='pending'){
+          if (response.userDetails.isPicked === 'pending') {
             this.router.navigate(['/select-gift-voucher']);
-            this.snackBar.open('Welcome! Now you can access your rewards.', 'Close', {
-              duration: 5000,
-              panelClass: ['snackbar-success'],
-              horizontalPosition: "center",
-              verticalPosition: "top",
-            });            
-          }else if(response.userDetails.isPicked==='completed'){
-            this.router.navigate(['/selected-gift-details']);  
+            this.snackBar.open(
+              'Welcome! Now you can access your rewards.',
+              'Close',
+              {
+                duration: 5000,
+                panelClass: ['snackbar-success'],
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+              }
+            );
+          } else if (response.userDetails.isPicked === 'completed') {
+            this.router.navigate(['/selected-gift-details']);
           }
-          
-          
         },
         (error) => {
           console.error('Login failed:', error);
           this.snackBar.open('Invalid employee code, try again.', 'Close', {
             duration: 5000,
             panelClass: ['snackbar-error'],
-            horizontalPosition: "center",
-            verticalPosition: "top",
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
           });
         }
       );
     }
   }
 }
-
-
-
-

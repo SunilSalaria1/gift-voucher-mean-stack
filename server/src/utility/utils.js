@@ -8,10 +8,10 @@ const generateEmpCodeAndPassword = async (name, email, department, dob, usersCol
     hash.update(baseString);
     let numericPart = hash.digest("hex").slice(0, 8);
     numericPart = parseInt(numericPart, 16).toString().slice(0, 8);
-    let empCode = `LPIT${numericPart}`;
+    let employeeCode = `LPIT${numericPart}`;
 
     // Ensure uniqueness in DB
-    const existingEmpCode = await usersCollection.findOne({ empCode });
+    const existingEmpCode = await usersCollection.findOne({ employeeCode });
     if (existingEmpCode) {
         return generateEmpCodeAndPassword(name, email, department, dob, usersCollection);
     }
@@ -25,7 +25,7 @@ const generateEmpCodeAndPassword = async (name, email, department, dob, usersCol
     // 🔹 Hash the password using bcryptjs
     const salt = await bcrypt.genSalt(10); // Generate salt
     const hashedPassword = await bcrypt.hash(defaultPassword, salt); // Hash password
-    return { empCode, hashedPassword };
+    return { employeeCode, hashedPassword };
 };
 
-module.exports={generateEmpCodeAndPassword}
+module.exports = { generateEmpCodeAndPassword }

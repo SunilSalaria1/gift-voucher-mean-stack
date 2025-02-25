@@ -1,118 +1,188 @@
 <!-- container-section -->
-<section class="container-fluid p-0 vh-100 d-flex justify-content-between flex-sm-column">
-    <!-- main-section -->
-    <section class="container d-flex justify-content-center align-items-center my-5">
-        <div class="row justify-content-center align-items-center">
-            <!-- image-section -->
-            <div class="col-5 pe-4">
-                <div>
-                    <div class="banner-font fw-bold">
-                        Generate,<span class="text-primary"> EmpCode!</span>
-                    </div>
-                    <p class="mb-0 mt-2">Quickly craft unique employee codes!
-                       </p>
-                       <p class="mt-0"> Streamline identification and simplify team management with personalized codes.</p>
-                    <div>
-                        <img src="assets/images/employee.png" class="w-100 h-100 pe-4"/>
-                    </div>
-                </div>
-            </div>
-            <!-- /image-section -->
-            <div class="col-5 position-relative">
-                <img class="curve-image position-absolute" alt="curve Image" src="assets/images/curved-arrow.png" />
-                <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
-                    <mat-card-content class="d-block">
-                        <!-- form -->
-                        <form [formGroup]="editEmployeeCodeForm">
-                            <h4 class="fw-bold mb-1">Employee Name</h4>
-                            <mat-form-field appearance="outline" class="d-block input-lg input">
-                                <input matInput formControlName="name" />
-                                <mat-icon matSuffix>person</mat-icon>
-                                <mat-error>This is Required</mat-error>
-                            </mat-form-field>
-                            <h4 class="fw-bold mb-1">Department</h4>
-                            <mat-form-field appearance="outline" class="d-block input-lg input">
-                                <mat-select formControlName="department" placeholder="Select your department">                                    
-                                    <mat-option *ngFor="let department of departments; let i = index" [value]="department">{{department}}</mat-option>                                    
-                                </mat-select>
-                                <mat-error>This is Required</mat-error>
-                            </mat-form-field>
-                            <h4 class="fw-bold mb-1">Email</h4>
-                            <mat-form-field appearance="outline" class="d-block input-lg input bg-light">
-                                <input matInput formControlName="email" readonly/>
-                                <mat-icon matSuffix>mail</mat-icon>
-                                <mat-error *ngIf="editEmployeeCodeForm.get('email')?.hasError('required')">
-                                    This is Required
-                                  </mat-error>
-                                  <mat-error *ngIf="editEmployeeCodeForm.get('email')?.hasError('email')">
-                                    Enter a valid email.
-                                  </mat-error>                                  
-                            </mat-form-field>
-                            <h4 class="fw-bold mb-1">DOB</h4>
-                            <mat-form-field appearance="outline" class="d-block input-lg input bg-light">
-                                <input matInput [matDatepicker]="picker" formControlName="dob" readonly>
-                                <mat-hint>MM/DD/YYYY</mat-hint>
-                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
-                                <mat-error>This is Required</mat-error>
-                            </mat-form-field>
-                            <h4 class="fw-bold mb-1">Joining Date</h4>
-                            <mat-form-field appearance="outline" class="d-block input-lg input bg-light">
-                                <input matInput [matDatepicker]="datepicker" formControlName="joiningDate" readonly>
-                                <mat-hint>MM/DD/YYYY</mat-hint>
-                                <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
-                                <mat-datepicker #datepicker></mat-datepicker>
-                                <mat-error>This is Required</mat-error>
-                            </mat-form-field>
-                            <div class="mt-2">
-                                <button mat-flat-button class="button-mh-60 text-white bg-dark shadow-sm w-100 me-2"
-                                    (click)="submitForm()">
-                                    <mat-icon>celebration</mat-icon>Update employee Code
-                                </button>
-                            </div>                           
-                        </form>
-                        <!-- /form -->
-                    </mat-card-content>
-                </mat-card>
-            </div>
+<section
+  class="container-fluid p-0 vh-100 d-flex justify-content-between flex-sm-column"
+>
+  <!-- main-section -->
+  <section
+    class="container d-flex justify-content-center align-items-center my-5"
+  >
+    <div class="row justify-content-center align-items-center">
+      <!-- image-section -->
+      <div class="col-5 pe-4">
+        <div>
+          <div class="banner-font fw-bold">
+            Generate,<span class="text-primary"> EmpCode!</span>
+          </div>
+          <p class="mb-0 mt-2">Quickly craft unique employee codes!</p>
+          <p class="mt-0">
+            Streamline identification and simplify team management with
+            personalized codes.
+          </p>
+          <div>
+            <img src="assets/images/employee.png" class="w-100 h-100 pe-4" />
+          </div>
         </div>
-    </section>
-    <!-- /main-section -->
+      </div>
+      <!-- /image-section -->
+      <div class="col-5 position-relative">
+        <img
+          class="curve-image position-absolute"
+          alt="curve Image"
+          src="assets/images/curved-arrow.png"
+        />
+        <mat-card
+          class="bg-white shadow-sm product-reward-card p-3"
+          appearance="outlined"
+        >
+          <mat-card-content class="d-block">
+            <!-- form -->
+            <form [formGroup]="editEmployeeCodeForm">
+              <h4 class="fw-bold mb-1">Employee Name</h4>
+              <mat-form-field
+                appearance="outline"
+                class="d-block input-lg input"
+              >
+                <input matInput formControlName="name" />
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error>This is Required</mat-error>
+              </mat-form-field>
+              <h4 class="fw-bold mb-1">Department</h4>
+              <mat-form-field
+                appearance="outline"
+                class="d-block input-lg input"
+              >
+                <mat-select
+                  formControlName="department"
+                  placeholder="Select your department"
+                >
+                  <mat-option
+                    *ngFor="let department of departments; let i = index"
+                    [value]="department"
+                    >{{ department }}</mat-option
+                  >
+                </mat-select>
+                <mat-error>This is Required</mat-error>
+              </mat-form-field>
+              <h4 class="fw-bold mb-1">Email</h4>
+              <mat-form-field
+                appearance="outline"
+                class="d-block input-lg input bg-light"
+              >
+                <input matInput formControlName="email" readonly />
+                <mat-icon matSuffix>mail</mat-icon>
+                <mat-error
+                  *ngIf="
+                    editEmployeeCodeForm.get('email')?.hasError('required')
+                  "
+                >
+                  This is Required
+                </mat-error>
+                <mat-error
+                  *ngIf="editEmployeeCodeForm.get('email')?.hasError('email')"
+                >
+                  Enter a valid email.
+                </mat-error>
+              </mat-form-field>
+              <h4 class="fw-bold mb-1">DOB</h4>
+              <mat-form-field
+                appearance="outline"
+                class="d-block input-lg input bg-light"
+              >
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  formControlName="dob"
+                  readonly
+                />
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error>This is Required</mat-error>
+              </mat-form-field>
+              <h4 class="fw-bold mb-1">Joining Date</h4>
+              <mat-form-field
+                appearance="outline"
+                class="d-block input-lg input bg-light"
+              >
+                <input
+                  matInput
+                  [matDatepicker]="datepicker"
+                  formControlName="joiningDate"
+                  readonly
+                />
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="datepicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #datepicker></mat-datepicker>
+                <mat-error>This is Required</mat-error>
+              </mat-form-field>
+              <div class="mt-2">
+                <button
+                  mat-flat-button
+                  class="button-mh-60 text-white bg-dark shadow-sm w-100 me-2"
+                  (click)="submitForm()"
+                >
+                  <mat-icon>celebration</mat-icon>Update employee Code
+                </button>
+              </div>
+            </form>
+            <!-- /form -->
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+  <!-- /main-section -->
 </section>
 <!-- /container-section -->
 
 <!-- dialog -->
 <ng-template #content>
-    <mat-dialog-content>
-        <div class="d-flex align-items-end">
-            <div class="gift-img position-relative">
-                <img src="assets/images/gift-man.png" alt="">
-            </div>
-            <div class="emp-details w-100">
-                <div class="border-bottom border-light mb-4">
-                    <div class="emp-code-label fs-12 pb-2 text-uppercase">Employee Name</div>
-                    <div class="emp-code-data fw-bold text-primary">
-                        {{dialogEmployee.name}}                        
-                    </div>
-                </div>
-                <div class="border-bottom border-light mb-4 position-relative">
-                    <div class="emp-code-label fs-12 pb-2 text-uppercase">Employee Code</div>
-                    <span class="emp-code-data fw-bold text-primary">
-                        {{dialogEmployee.empCode}}
-                    </span>                    
-                </div>      
-            </div>
+  <mat-dialog-content>
+    <div class="d-flex align-items-end">
+      <div class="gift-img position-relative">
+        <img src="assets/images/gift-man.png" alt="" />
+      </div>
+      <div class="emp-details w-100">
+        <div class="border-bottom border-light mb-4">
+          <div class="emp-code-label fs-12 pb-2 text-uppercase">
+            Employee Name
+          </div>
+          <div class="emp-code-data fw-bold text-primary">
+            {{ dialogEmployee.name }}
+          </div>
         </div>
-    </mat-dialog-content>
-    <mat-dialog-actions class="d-flex border-top border-light">
-        <a mat-flat-button (click)="decline()" class="bg-danger py-3 shadow-sm button-mh-45 me-2"
-            [mat-dialog-close]="true"><mat-icon>close</mat-icon>
-            <span>Decline
-            </span></a>
-        <a mat-flat-button (click)="approve()"
-            class="bg-success py-3 shadow-sm button-mh-45" mat-dialog-close><mat-icon>check</mat-icon>
-            <span>Approve
-            </span></a>
-    </mat-dialog-actions>
+        <div class="border-bottom border-light mb-4 position-relative">
+          <div class="emp-code-label fs-12 pb-2 text-uppercase">
+            Employee Code
+          </div>
+          <span class="emp-code-data fw-bold text-primary">
+            {{ dialogEmployee.employeeCode }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions class="d-flex border-top border-light">
+    <a
+      mat-flat-button
+      (click)="decline()"
+      class="bg-danger py-3 shadow-sm button-mh-45 me-2"
+      [mat-dialog-close]="true"
+      ><mat-icon>close</mat-icon> <span>Decline </span></a
+    >
+    <a
+      mat-flat-button
+      (click)="approve()"
+      class="bg-success py-3 shadow-sm button-mh-45"
+      mat-dialog-close
+      ><mat-icon>check</mat-icon> <span>Approve </span></a
+    >
+  </mat-dialog-actions>
 </ng-template>
 <!-- /dialog -->

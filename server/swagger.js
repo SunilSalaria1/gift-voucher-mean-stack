@@ -36,9 +36,13 @@ const doc = {
       name: "Aniket Sharma",
       department: "Front End"
     },
-    loginUser: {
-      empCode: "LPIT30281076",
+    loginAdmin: {
+      employeeCode: "LPIT30281076",
       password: "jyo04122001",
+      role: "admin"
+    },
+    loginUser: {
+      employeeCode: "LPIT30281076",
       role: "employee"
     },
     createAdmin: {
@@ -59,11 +63,11 @@ const doc = {
       productTitle: "bottle"
     },
     UpdateUserGiftPick: {
-      isPicked:'completed',
-      productId:"productId"
+      isPicked: 'completed',
+      productId: "productId"
     },
     DeleteUserGiftPick: {
-      isPicked:'pending',
+      isPicked: 'pending',
     },
   }
 };

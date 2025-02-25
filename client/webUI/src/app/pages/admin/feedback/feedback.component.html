@@ -1,30 +1,39 @@
 <section>
-    <div>
-        <h5 class="fw-bold mb-4">Suggestions</h5>
+  <div>
+    <h5 class="fw-bold mb-4">Suggestions</h5>
+  </div>
+  <div class="row">
+    <div class="col-3" *ngFor="let card of cards">
+      <mat-card
+        class="bg-white shadow-sm product-reward-card p-3 h-100 justify-content-between"
+        appearance="outlined"
+      >
+        <mat-card-content>
+          <!-- Description -->
+          <p class="description fs-12">
+            {{ card.description | truncate : 40 : card.expanded }}
+          </p>
+          <span
+            *ngIf="card.description.split('').length > 50"
+            class="read-more-less text-primary"
+            (click)="toggleReadMore(card)"
+          >
+            {{ card.expanded ? "Read Less" : "Read More" }}
+          </span>
+        </mat-card-content>
+        <mat-card-actions class="border-top border-light">
+          <!-- User Image and Name -->
+          <div>
+            <div class="user-info">
+              <div class="user-initials shadow-sm">
+                {{ getInitials(card.name) }}
+              </div>
+              <span class="user-name fs-14">{{ card.name }}</span>
+            </div>
+            <div class="emp-code fs-14 ps-5">{{ card.employeeCode }}</div>
+          </div>
+        </mat-card-actions>
+      </mat-card>
     </div>
-    <div class="row">
-        <div class="col-3" *ngFor="let card of cards">
-            <mat-card class="bg-white shadow-sm product-reward-card p-3 h-100 justify-content-between"
-                appearance="outlined">
-                <mat-card-content>                    
-                    <!-- Description -->
-                    <p class="description fs-12">{{ card.description |truncate:40:card.expanded }}</p>
-                    <span *ngIf="card.description.split('').length > 50"
-                    class="read-more-less text-primary" (click)="toggleReadMore(card)">
-                        {{ card.expanded ? 'Read Less' : 'Read More' }}
-                    </span>
-                </mat-card-content>
-                <mat-card-actions class="border-top border-light">
-                    <!-- User Image and Name -->
-                    <div>
-                        <div class="user-info">
-                            <div class="user-initials  shadow-sm">{{ getInitials(card.name) }}</div>
-                            <span class="user-name fs-14">{{ card.name }}</span>
-                        </div>
-                        <div class="emp-code fs-14 ps-5">{{ card.empCode }}</div>
-                    </div>
-                </mat-card-actions>
-            </mat-card>
-        </div>
-    </div>
+  </div>
 </section>
