@@ -6,7 +6,7 @@ const { ObjectId } = require('mongodb');
 const usersCollection = db.collection('users');
 
 
-const createAdminAndDeleteAdmin = async (req, res) => {
+const updateUserRole = async (req, res) => {
     /*  #swagger.tags = ['Admin']
         #swagger.description = 'Update User with Id.' 
         #swagger.parameters['body'] = {
@@ -86,4 +86,4 @@ const createAdminAndDeleteAdmin = async (req, res) => {
     }
 };
 
-module.exports = {createAdminAndDeleteAdmin}
+module.exports = {updateUserRole}

@@ -6,7 +6,7 @@ const { authenticateToken } = require("../middlewares/auth.middleWare")
 // routes for login , logout and register new user
 authRouter.post('/login', loginUser);
 authRouter.post('/logout', logoutUser);
-authRouter.post('/users',authenticateToken, register);
+authRouter.post('/register',authenticateToken, register);
 
 
 module.exports = authRouter;

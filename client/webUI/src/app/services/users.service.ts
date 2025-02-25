@@ -25,7 +25,7 @@ export class UsersService {
 
   // POST request
   registerUser(postData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/users`, postData);
+    return this.http.post(`${this.apiUrl}/api/register`, postData);
   }
   // Get request
   getUsers(
@@ -67,7 +67,7 @@ export class UsersService {
   }
 
   // create and remove admin
-  createAdminRemoveAdmin(id,data): Observable<any> {
+  createAdminRemoveAdmin(id, data): Observable<any> {
     return this.http.put(`${this.apiUrl}/api/users/${id}/role`, data);
   }
 
