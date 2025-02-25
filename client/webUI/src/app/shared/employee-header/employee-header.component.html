@@ -1,72 +1,156 @@
 <section class="bg-white border-bottom border-light">
-  <header class="container d-flex justify-content-between align-items-center py-3">
+  <header
+    class="container d-flex justify-content-between align-items-center py-3"
+  >
     <div class="logo-font">
       <span class="text-dark fw-bold">Choice</span>
       <span class="text-primary">Chase</span>
     </div>
     <div>
       @if(isLoginPage()){
-      <a mat-flat-button  class="bg-dark py-3 shadow-sm button-mh-45"
-        [routerLink]="['/admin-login-access']"><mat-icon>celebration</mat-icon><span>Manage Rewards</span></a>      
-      }
-      @if(isSelectedGiftDetailsPage()){
-        <a mat-flat-button [routerLink]="['/home']" class="px-5 py-4 button-mh-45 bg-dark shadow-sm" (click)="logOut()">
-          <mat-icon>keyboard_backspace</mat-icon> <span>Back to Home</span>
-        </a>    
-      }
-      @else if(isSelectGiftPage()){
-      <a mat-flat-button [routerLink]="['/employee-code']" class="bg-dark py-3 shadow-sm button-mh-45"
-        (click)="logOut()">
-        <mat-icon>power_settings_new</mat-icon> <span>Logout</span></a>
+      <a
+        mat-flat-button
+        class="bg-dark py-3 shadow-sm button-mh-45"
+        [routerLink]="['/admin-login-access']"
+        ><mat-icon>celebration</mat-icon><span>Manage Rewards</span></a
+      >
+      } @if(isSelectedGiftDetailsPage()){
+      <div class="header-links d-flex">
+        <div class="d-flex align-items-baseline">
+          <!-- admin name -->
+          <div [matMenuTriggerFor]="menu" class="mx-3 employee d-flex">
+            <mat-icon>person</mat-icon>{{ loggedUser.name }}
+          </div>
+          <!-- mat menu -->
+          <div>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <div
+                  [routerLink]="['/employee-code']"
+                  (click)="logOut()"
+                  class="d-flex align-items-center"
+                >
+                  <mat-icon>power_settings_new</mat-icon>
+                  <span>Logout</span>
+                </div>
+              </button>
+            </mat-menu>
+          </div>
+          <!-- /mat menu -->
+          <!-- /admin name -->
+        </div>
+      </div>
+      } @else if(isSelectGiftPage()){
+      <div class="header-links d-flex">
+        <div class="d-flex align-items-baseline">
+          <!-- admin name -->
+          <div [matMenuTriggerFor]="menu" class="mx-3 employee d-flex">
+            <mat-icon>person</mat-icon>{{ loggedUser.name }}
+          </div>
+          <!-- mat menu -->
+          <div>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                <div
+                  [routerLink]="['/employee-code']"
+                  (click)="logOut()"
+                  class="d-flex"
+                >
+                  <mat-icon class="dropdown-icon">power_settings_new</mat-icon>
+                  <span>Logout</span>
+                </div>
+              </button>
+              <button mat-menu-item>
+                <div (click)="openDialog()" class="d-flex">
+                  <mat-icon class="dropdown-icon">comment</mat-icon>
+                  <span>Suggestions</span>
+                </div>
+              </button>
+            </mat-menu>
+          </div>
+          <!-- /mat menu -->
+          <!-- /admin name -->
+        </div>
+      </div>
+
       }@else if(isRewardClaimedPage()){
-      <a mat-flat-button [routerLink]="['/employee-code']" class="bg-dark py-3 shadow-sm button-mh-45">
-        <mat-icon>celebration</mat-icon> <span>Back to Home</span></a>
+      <a
+        mat-flat-button
+        [routerLink]="['/employee-code']"
+        class="bg-dark py-3 shadow-sm button-mh-45"
+      >
+        <mat-icon>celebration</mat-icon> <span>Back to Home</span></a
+      >
       }@else if(isHomePage()){
-      <a mat-flat-button [routerLink]="['/employee-code']"
-        class="bg-dark py-3 shadow-sm button-mh-45"><mat-icon>celebration</mat-icon> <span>Join Us
-        </span></a>
+      <a
+        mat-flat-button
+        [routerLink]="['/employee-code']"
+        class="bg-dark py-3 shadow-sm button-mh-45"
+        ><mat-icon>celebration</mat-icon> <span>Join Us </span></a
+      >
+      } @else if(isAdminLoginPage()){
+      <a
+        mat-flat-button
+        href="https://www.google.com/"
+        class="bg-dark py-3 shadow-sm button-mh-45"
+        [routerLink]="['/employee-code']"
+        ><mat-icon>celebration</mat-icon><span>Access your Rewards</span></a
+      >
       }
-      @else if(isAdminLoginPage()){
-      <a mat-flat-button href="https://www.google.com/" class="bg-dark py-3 shadow-sm button-mh-45"
-        [routerLink]="['/employee-code']"><mat-icon>celebration</mat-icon><span>Access your Rewards</span></a>
-      }
-    </div>
-    <div *ngIf="isSelectGiftPage()"><a mat-flat-button class="bg-dark text-white py-4 px-5 shadow-sm button-mh-60 mt-4 ms-3"
-        (click)="openDialog()">
-        <mat-icon>celebration</mat-icon> <span>Share Suggestions</span></a>
     </div>
   </header>
 </section>
 <!-- dialog -->
 <ng-template #content>
-  <form [formGroup]="feedbackForm">
-    <mat-dialog-content>
+  <form [formGroup]="suggestionsForm">
+    <mat-dialog-content class="mb-3">
       <div class="text-center">
         <div>
-          <h4 class="mb-0">Give Feedback</h4>
+          <h5 class="mb-0">Suggestions</h5>
         </div>
-        <div>What do you think of the gifts?</div>
       </div>
-      <div class="mt-5 px-2 pb-2">Do you have any thoughts you'd like to share?</div>
+      <div class="mt-4 px-2 pb-2">
+        Do you have any thoughts you'd like to share?
+      </div>
       <mat-form-field appearance="outline" class="d-block input-lg input">
-        <textarea matInput formControlName="productDescription" rows="5" class="w-100"></textarea>
-        <mat-error *ngIf="feedbackForm.get('productDescription')?.hasError('required')">
+        <textarea
+          matInput
+          formControlName="productDescription"
+          rows="5"
+          class="w-100"
+        ></textarea>
+        <mat-error
+          *ngIf="
+            suggestionsForm.get('productDescription')?.hasError('required')
+          "
+        >
           This is required.
         </mat-error>
-        <mat-error *ngIf="feedbackForm.get('productDescription')?.hasError('maxlength')">
+        <mat-error
+          *ngIf="
+            suggestionsForm.get('productDescription')?.hasError('maxlength')
+          "
+        >
           Maximum 200 characters allowed.
         </mat-error>
       </mat-form-field>
       <!-- /form -->
     </mat-dialog-content>
     <mat-dialog-actions class="d-flex border-top border-light">
-      <button mat-flat-button class="bg-danger py-3 shadow-sm button-mh-45 me-2"
-        [mat-dialog-close]="true"><mat-icon>close</mat-icon>
-        <span>Decline
-        </span></button>
-      <button mat-flat-button class="bg-success py-3 shadow-sm button-mh-45" (click)="send()"><mat-icon>check</mat-icon>
-        <span>Send
-        </span></button>
+      <button
+        mat-flat-button
+        class="bg-danger py-3 shadow-sm button-mh-45 me-2"
+        [mat-dialog-close]="true"
+      >
+        <mat-icon>close</mat-icon> <span>Decline </span>
+      </button>
+      <button
+        mat-flat-button
+        class="bg-success py-3 shadow-sm button-mh-45"
+        (click)="send()"
+      >
+        <mat-icon>check</mat-icon> <span>Send </span>
+      </button>
     </mat-dialog-actions>
   </form>
 </ng-template>

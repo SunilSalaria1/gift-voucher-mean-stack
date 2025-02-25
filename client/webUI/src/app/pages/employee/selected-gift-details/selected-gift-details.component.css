@@ -1,4 +1,9 @@
 .badge {
-    padding: 7px 14px;
-    border-radius: 25px;
+  padding: 7px 14px;
+  border-radius: 25px;
+}
+
+/* == disabled button == */
+button.button-mh-60.mat-mdc-button-disabled {
+  color: white;
 }

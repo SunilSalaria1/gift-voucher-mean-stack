@@ -42,6 +42,11 @@ body {
   line-height: 1;
 }
 
+/* opacity */
+.opacity-fade {
+  opacity: 0.2;
+}
+
 /* input-lg */
 .input-lg input {
   font-size: 24px !important;
@@ -80,24 +85,33 @@ textarea {
 }
 
 /*table*/
-td, th {
-  border-right: 1px solid !important;    
+td,
+th {
+  border-right: 1px solid !important;
 }
 
-td, th{
+td,
+th {
   border-color: #e9ecf5 !important;
 }
 
-td:last-child, th:last-child {
+td:last-child,
+th:last-child {
   border-right: none !important;
-} 
+}
 
-.table-action-buttons{
+.table-action-buttons {
   border-radius: 5px;
   height: 34px;
   width: 34px;
 }
+
 /*/table*/
+
+/* dropdown */
+.mat-mdc-menu-panel {
+  background-color: #ffffff !important;
+}
 
 /*================================================================================================
  bootstrap v5.3.2 responsiveness of template.
@@ -5662,7 +5676,6 @@ p {
 .border-5 {
   border-width: 5px !important;
 }
-
 
 /* styling for Gift inventory component */
 

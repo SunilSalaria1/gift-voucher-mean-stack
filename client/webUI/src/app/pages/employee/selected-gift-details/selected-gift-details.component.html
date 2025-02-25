@@ -4,34 +4,51 @@
   <!-- /header section  -->
 </section>
 <!-- container-section -->
-<section class="container-fluid p-0 vh-100 d-flex justify-content-between my-auto bg-light">
+<section
+  class="container-fluid p-0 vh-100 d-flex justify-content-between my-auto bg-light"
+>
   <!-- main-section -->
-  <section class="container  d-flex justify-content-center align-items-center">
+  <section class="container d-flex justify-content-center align-items-center">
     <div class="row justify-content-center align-items-center">
-      <div class="col-5">
+      <div class="col-6">
         <div class="banner-font fw-bold">
           <div class="text-primary"><span>Awesome!</span></div>
           <div>Your Selected Gift.</div>
         </div>
         <p class="mt-4">
-          You’ve made a great choice! Your selected gift is displayed here, just as you picked it. We hope it brings
-          you joy and makes your day extra special.
-        </p>        
+          You’ve made a great choice! Your selected gift is displayed here, just
+          as you picked it. We hope it brings you joy and makes your day extra
+          special.You’ve made a great choice! Your selected gift is displayed
+          here, just as you picked it.We hope it brings you joy and makes your
+          day extra special.
+        </p>
       </div>
       <!-- product-section -->
       <div class="col-4">
-        <mat-card class="bg-light shadow-sm  p-3 bg-white" appearance="outlined">
+        <mat-card class="bg-light shadow-sm p-3 bg-white" appearance="outlined">
           <mat-card-content>
-            <span class="badge shadow-sm bg-dark text-white fs-12">{{product.couponCode}}</span>
+            <span class="badge shadow-sm bg-dark text-white fs-12">{{
+              product.couponCode
+            }}</span>
             <div class="d-flex justify-content-center my-5">
-              <img mat-card-image height="200" width="200" [src]="product.productImageDetails?.imageUrl" alt="product-image" />
+              <img
+                mat-card-image
+                height="200"
+                width="200"
+                [src]="product.productImageDetails?.imageUrl"
+                alt="product-image"
+              />
             </div>
             <div>
-              <div>{{product.productTitle}}</div>
-              <div class="fs-12">{{product.productDescription}}</div>
+              <div>{{ product.productTitle }}</div>
+              <div class="fs-12">{{ product.productDescription }}</div>
             </div>
             <div>
-              <button mat-flat-button class="button-mh-60 py-4 shadow-sm w-100 bg-dark mt-2 claim-gift-btn">
+              <button
+                mat-flat-button
+                class="button-mh-60 py-4 shadow-sm w-100 bg-dark mt-2 claim-gift-btn opacity-fade"
+                [disabled]="true"
+              >
                 <mat-icon>celebration</mat-icon>Claim Reward
               </button>
             </div>
@@ -44,4 +61,4 @@
   <!-- /main-section -->
 </section>
 <!-- /container-section -->
- <app-employee-footer></app-employee-footer>
+<app-employee-footer></app-employee-footer>

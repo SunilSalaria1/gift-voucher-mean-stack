@@ -1,7 +1,8 @@
-.admin:hover{
-    cursor: pointer;
+.admin:hover {
+  cursor: pointer;
 }
 
-.notifications:hover{
-    cursor: pointer;
+.dropdown-icon.material-icons {
+  font-size: 18px !important;
+  margin-right: 5px !important;
 }

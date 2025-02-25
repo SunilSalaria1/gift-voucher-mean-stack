@@ -1,0 +1,8 @@
+.employee:hover {
+  cursor: pointer;
+}
+
+.dropdown-icon.material-icons {
+  font-size: 18px !important;
+  margin-right: 5px !important;
+}
