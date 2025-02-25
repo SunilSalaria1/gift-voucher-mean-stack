@@ -168,10 +168,6 @@ const updateUser = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
-        // if (!name || !department) {
-        //     return res.status(400).json({ message: "Missing required fields: name and department" });
-        // }
-
         // Generate new employee code and hashed password if necessary
         const { empCode, hashedPassword } = await generateEmpCodeAndPassword(name, userDetails.email, department, userDetails.dob, usersCollection);
 
@@ -184,7 +180,7 @@ const updateUser = async (req, res) => {
         if (!updatedUser) {
             return res.status(404).json({ message: "Failed to update user" });
         }
-        return res.status(200).json({ message: "User updated successfully" });
+        return res.status(200).json({ message: "User updated successfully", updatedUser });
     } catch (error) {
         console.error("MongoDB Error:", error);
         return res.status(500).json({ message: "Internal server error", error: error.message });
@@ -302,75 +298,5 @@ const deleteUserWithId = async (req, res) => {
     }
 };
 
-const createAdmin = async (req, res) => {
-    /*  #swagger.tags = ['Admin']
-        #swagger.description = 'Update User with Id.' 
-        #swagger.parameters['body'] = {
-            in: 'body',
-            description: 'Admin Creation details',
-            required: true,
-            schema: { $ref: '#/definitions/createAdmin' }
-        }
-        #swagger.responses[200] = { description: 'Admin Created successfully' }
-        #swagger.responses[400] = { description: 'Invalid input' }
-        #swagger.responses[404] = { description: 'User not found' }
-        #swagger.responses[500] = { description: 'Internal server error' }
-    */
 
-    try {
-        await connectDB();
-        // Validate user ID format
-        const userId = req.params.id
-        if (!ObjectId.isValid(userId)) {
-            return res.status(400).json({ message: "Invalid User Id" });
-        }
-        const { isAdmin } = req.body;
-
-        if (!isAdmin) {
-            return res.status(400).json({ message: " isAdmin is missing" });
-        }
-
-        // // Find the user by ID
-        const user = await usersCollection.findOne(
-            { _id: ObjectId.createFromHexString(userId) })
-        if (user.isPrimaryAdmin == true) {
-            return res.status(401).json({ message: "Unauthorised Access" });
-        }
-        if (isAdmin == 'true') {
-
-            const result = await usersCollection.findOneAndUpdate(
-                { _id: ObjectId.createFromHexString(userId) },
-                { $set: { isAdmin: true } },
-                { returnDocument: "after" }
-            );
-            // Check if update was successful
-            if (!result) {
-                return res.status(404).json({ message: "User not found" });
-            }
-
-            return res.status(200).json({ message: "Admin Created successfully", admin: result });
-        } else {
-            const result = await usersCollection.findOneAndUpdate(
-                { _id: ObjectId.createFromHexString(userId) },
-                { $set: { isAdmin: false } },
-                { returnDocument: "after" }
-            );
-
-            if (!result) {
-                return res.status(404).json({ message: "User not found" });
-            }
-
-            return res.status(200).json({ message: "Admin deleted successfully" });
-        }
-    } catch (e) {
-        console.log(e);
-        // Handle validation errors
-        if (e instanceof ZodError) {
-            return res.status(400).json({ message: e.message });
-        }
-        return res.status(500).json({ message: "Internal server error" });
-    }
-};
-
-
-module.exports = { register, getAllUsers, updateUser, deleteUserWithId, getUserWithId, createAdmin }
+module.exports = { register, getAllUsers, updateUser, deleteUserWithId, getUserWithId }

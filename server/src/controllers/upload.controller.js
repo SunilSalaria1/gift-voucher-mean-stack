@@ -32,7 +32,8 @@ const uploadImage = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
-// this getImage is not used anywhere 
+
+// this getImage function is not used anywhere  this is only for testing purpose
 const getImage = async (req, res) => {
     /*  #swagger.tags = ['Upload Image']
     */
@@ -52,6 +53,7 @@ const getImage = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
+
 // this getAllImages is not used anywhere 
 const getAllImages = async (req, res) => {
     /*  #swagger.tags = ['Upload Image']

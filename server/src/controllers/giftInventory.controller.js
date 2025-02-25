@@ -1,10 +1,11 @@
 const { ZodError } = require("zod");
+const userSchema = require("../models/user.model");
 const { connectDB, db } = require('../config/db.config'); // Import db from db.js
 const { ObjectId } = require('mongodb');
 const productsCollection = db.collection('products');
 const usersCollection = db.collection('users');
 
-const createUserPick = async (req, res) => {
+const selectUserGift = async (req, res) => {
     /*  #swagger.tags = ['Gifts']
         #swagger.description = 'Update User Gift Pick with Id.' 
         // #swagger.parameters['body'] = {
@@ -30,16 +31,22 @@ const createUserPick = async (req, res) => {
         if (!userDetails) {
             return res.status(404).json({ message: "User not found" });
         }
-
-        // validating the req.body object
-        const { productId, isPicked } = req.body;
-        if (!productId || !isPicked) {
-            return res.status(400).json({ message: "Missing required fields: productId and isPicked" });
+        const userGiftPickSchema = userSchema.pick({
+            productId: true,
+            isPicked: true
+        });
+        // Validate request body using existing schema
+        const validationResult = userGiftPickSchema.safeParse(req.body);
+        if (!validationResult.success) {
+            return res.status(400).json({ errors: validationResult.error.format() });
         }
+
+        // Extract validated data
+        const { productId, isPicked } = validationResult.data;
         // Validate `isPicked` value
-        const validPickedValues = ["completed", "pending"];
-        if (!validPickedValues.includes(isPicked)) {
-            return res.status(400).json({ message: "Invalid isPicked value. Allowed values: 'completed', 'pending'" });
+
+        if (isPicked != "completed") {
+            return res.status(400).json({ message: "Invalid isPicked value. Allowed values: 'completed'" });
         }
 
         // validating the productId is a valid object Id  or not 
@@ -72,11 +79,11 @@ const createUserPick = async (req, res) => {
     }
 };
 
-const deleteUserPick = async (req, res) => {
+const deleteUserGift = async (req, res) => {
     /*  #swagger.tags = ['Gifts']
         #swagger.description = 'Delete User Gift Pick with Id.' 
-
     */
+
     try {
         await connectDB();
         // Validate user ID
@@ -92,14 +99,14 @@ const deleteUserPick = async (req, res) => {
 
 
         // validating the req.query
-        if (!req.query.isPicked) {
-            return res.status(400).json({ message: "Missing required field: isPicked" });
+        if (req.query.isPicked != "pending") {
+            return res.status(400).json({ message: "Invalid isPicked value. Allowed values: 'pending'" });
         }
 
         // Update user in MongoDB
         const deletedUser = await usersCollection.findOneAndUpdate(
             { _id: ObjectId.createFromHexString(userId) },
-            { $set: { productId: "", isPicked: false } },
+            { $set: { productId: "", isPicked } },
             { returnDocument: "after" }
         );
         // if failed to delete user
@@ -265,4 +272,4 @@ const getGiftInvertory = async (req, res) => {
     }
 };
 
-module.exports = { createUserPick, getGiftInvertory, deleteUserPick }
+module.exports = { selectUserGift, getGiftInvertory, deleteUserGift }

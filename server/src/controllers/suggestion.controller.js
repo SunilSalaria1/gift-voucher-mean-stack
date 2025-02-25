@@ -40,21 +40,21 @@ const getAllSuggestions = async (req, res) => {
         await connectDB();
         const suggestions = await suggestionCollection.aggregate([
             { $match: { isDeleted: false } },
-            {
-                $addFields: {
-                    userIdObj: {
-                        $cond: {
-                            if: { $eq: [{ $strLenCP: "$userId" }, 24] }, // Check if userId is 24 characters long
-                            then: { $toObjectId: "$userId" },  // Convert valid userId to ObjectId
-                            else: null  // Set null if invalid
-                        }
-                    }
-                }
-            },
+            // {
+            //     $addFields: {
+            //         userIdObj: {
+            //             $cond: {
+            //                 if: { $eq: [{ $strLenCP: "$userId" }, 24] }, // Check if userId is 24 characters long
+            //                 then: { $toObjectId: "$userId" },  // Convert valid userId to ObjectId
+            //                 else: null  // Set null if invalid
+            //             }
+            //         }
+            //     }
+            // },
             {
                 $lookup: {
                     from: "users",              // Join with users collection
-                    localField: "userIdObj",           // userId in suggestion collection
+                    localField: "userId",           // userId in suggestion collection
                     foreignField: "_id",            // _id in users collection
                     as: "userDetails"           // Store result in 'userDetails'
                 }
@@ -72,7 +72,7 @@ const getAllSuggestions = async (req, res) => {
                     "userDetails._id": 0,
                     "userDetails.joiningDate": 0,
                     "userDetails.dob": 0,
-                    "userIdObj": 0
+
 
                 }
             }

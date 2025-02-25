@@ -3,7 +3,7 @@ const productRouter = express.Router();
 const { createProduct, validateCouponCode, getProductWithId, updateProduct, deleteProduct, getAllProducts } = require("../controllers/product.controller")
 const { convertValuesToLowercase } = require("../middlewares/convertValuesToLowercase.middleWare")
 const { authenticateToken } = require("../middlewares/auth.middleWare")
-
+    // routes for delete ,Create ,Update or getAll routes
     productRouter.post('/products', authenticateToken,convertValuesToLowercase, createProduct),
     productRouter.get('/products', authenticateToken, getAllProducts),
     productRouter.put('/products/:id', authenticateToken,convertValuesToLowercase, updateProduct),

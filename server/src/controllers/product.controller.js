@@ -43,8 +43,6 @@ const createProduct = async (req, res) => {
     }
 };
 
-
-
 const getProductWithId = async (req, res) => {
     /*  #swagger.tags = ['Products']
            #swagger.description = 'Get Product with Id .' */
@@ -63,7 +61,7 @@ const getProductWithId = async (req, res) => {
         // Aggregate to join product with images collection
         const product = await productsCollection.aggregate([
             { $match: filter }, // Apply filtering
-            
+
             {
                 $lookup: {
                     from: 'images', // Join with the 'images' collection
@@ -151,7 +149,7 @@ const updateProduct = async (req, res) => {
         // Update user in MongoDB
         const updatedProduct = await productsCollection.findOneAndUpdate(
             { _id: ObjectId.createFromHexString(productId) },
-            { $set: { productImageId: req.body.productImageId, productDescription: req.body.productDescription, productTitle: req.body.productTitle } },
+            { $set: { productImageId: ObjectId.createFromHexString(req.body.productImageId), productDescription: req.body.productDescription, productTitle: req.body.productTitle } },
             { returnDocument: "after" }
         );
 

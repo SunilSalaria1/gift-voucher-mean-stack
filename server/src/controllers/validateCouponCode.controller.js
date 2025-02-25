@@ -1,10 +1,6 @@
-
-
 const { connectDB, db } = require('../config/db.config'); // Import db from db.js
-
 const { ZodError } = require("zod");
 const productsCollection = db.collection('products');
-
 
 const validateCouponCode = async (req, res) => {
     /*  #swagger.tags = ['Products']
@@ -32,4 +28,5 @@ const validateCouponCode = async (req, res) => {
         res.status(500).json({ message: e.message })
     }
 };
+
 module.exports = { validateCouponCode }

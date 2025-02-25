@@ -1,10 +1,12 @@
 const express = require('express');
 const giftInventoryRouter = express.Router();
-const { createUserPick, getGiftInvertory, deleteUserPick } = require("../controllers/giftInventory.controller");
+const { selectUserGift, getGiftInvertory, deleteUserGift } = require("../controllers/giftInventory.controller");
 const { convertValuesToLowercase } = require("../middlewares/convertValuesToLowercase.middleWare")
 const { authenticateToken } = require("../middlewares/auth.middleWare")
-giftInventoryRouter.put('/users/:id/gifts', authenticateToken, convertValuesToLowercase, createUserPick);
-giftInventoryRouter.delete('/users/:id/gifts', authenticateToken, deleteUserPick);
+
+// routes for get all gigts picked by all users and select Gift And unselect gift
+giftInventoryRouter.put('/users/:id/gifts', authenticateToken, convertValuesToLowercase, selectUserGift);
+giftInventoryRouter.delete('/users/:id/gifts', authenticateToken, deleteUserGift);
 giftInventoryRouter.get('/gifts', authenticateToken, getGiftInvertory); // Get all gift inventory
 
 module.exports = giftInventoryRouter;
