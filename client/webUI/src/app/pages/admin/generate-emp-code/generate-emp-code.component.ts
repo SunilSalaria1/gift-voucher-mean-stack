@@ -143,19 +143,21 @@ export class GenerateEmpCodeComponent {
   // Admin toggle
   onAdminToggleChange(selectedValue: string, employeeId: any) {
     let payload: any;
+    let id:any
     if (selectedValue === 'yes') {
+      id=employeeId;
       payload = {
-        id: employeeId,
-        isAdmin: 'true',
+        isAdmin: true,
       };
     } else if (selectedValue === 'no') {
+      id= employeeId;
       payload = {
-        id: employeeId,
-        isAdmin: 'false',
+        
+        isAdmin: false,
       };
     }
     console.log(payload);
-    this._usersService.createAdminRemoveAdmin(payload).subscribe(
+    this._usersService.createAdminRemoveAdmin(id,payload).subscribe(
       (response) => {
         console.log('access granted :', response);
       },

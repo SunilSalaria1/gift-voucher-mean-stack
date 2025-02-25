@@ -1,7 +1,7 @@
 const { connectDB, db } = require("../config/db.config");
 const filesCollection = db.collection('images');
 const { ObjectId } = require('mongodb');
-
+// this route is only used for the saving the image object with their ProductId from where it belongs to.
 const uploadImage = async (req, res) => {
     /*  #swagger.tags = ['Upload Image']
      */
@@ -33,6 +33,10 @@ const uploadImage = async (req, res) => {
     }
 };
 
+
+
+
+//##############################################################################################################################
 // this getImage function is not used anywhere  this is only for testing purpose
 const getImage = async (req, res) => {
     /*  #swagger.tags = ['Upload Image']

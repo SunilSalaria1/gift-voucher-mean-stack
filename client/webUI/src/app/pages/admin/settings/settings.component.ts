@@ -108,11 +108,11 @@ export class SettingsComponent {
 
   matDelete() {
     let payload: any;
+   let id= this.selectedEmpId;
     payload = {
-      id: this.selectedEmpId,
-      isAdmin: 'false',
+      isAdmin: false,
     }
-    this._usersService.createAdminRemoveAdmin(payload).subscribe(
+    this._usersService.createAdminRemoveAdmin(id,payload).subscribe(
       (data: any) => {
         console.log('delete request is successfull', data)
       })

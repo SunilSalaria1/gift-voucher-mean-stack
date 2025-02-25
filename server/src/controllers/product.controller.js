@@ -266,8 +266,8 @@ const getAllProducts = async (req, res) => {
         // Fetch products
         const products = await productsCollection.aggregate(aggregationPipeline).toArray();
 
-        const getAllUsersWhoPicked = await usersCollection.find({ isPicked: true, isDeleted: false }).toArray();
-        const totalPickedUsersCount = await usersCollection.countDocuments({ isPicked: true, isDeleted: false })
+        const getAllUsersWhoPicked = await usersCollection.find({ isPicked: "completed", isDeleted: false }).toArray();
+        const totalPickedUsersCount = await usersCollection.countDocuments({ isPicked: "completed", isDeleted: false })
 
         // Convert buffer to Base64 and add imageUrl
         products.forEach(product => {
@@ -288,10 +288,11 @@ const getAllProducts = async (req, res) => {
                     product.pickedCount = 0;
                 }
                 getAllUsersWhoPicked.forEach(element => {
-                    if (element.productId == product._id) {
+                    console.log( product._id)
+                    if (element.productId.toString() === product._id.toString()) {
+                       
                         product.pickedCount += 1
                     }
-                    // product.pickedCountPercentage=
                 });
                 product.pickedCountPercentage = totalPickedUsersCount > 0
                     ? (product.pickedCount / totalPickedUsersCount) * 100
@@ -301,7 +302,7 @@ const getAllProducts = async (req, res) => {
         // Get total count for pagination
         const totalProducts = await productsCollection.countDocuments({ isDeleted: false, isActive: true });
         const totalUsers = await usersCollection.countDocuments({ isDeleted: false });
-        const usersPickedGift = await usersCollection.countDocuments({ isDeleted: false, isPicked: true });
+        const usersPickedGift = await usersCollection.countDocuments({ isDeleted: false, isPicked: "completed" });
         const userDidNotPickedGift = totalUsers - usersPickedGift;
 
         // If pagination was not provided, return all products in a separate response

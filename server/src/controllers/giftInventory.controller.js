@@ -31,11 +31,11 @@ const selectUserGift = async (req, res) => {
         if (!userDetails) {
             return res.status(404).json({ message: "User not found" });
         }
+        // Validate request body using required schema fields
         const userGiftPickSchema = userSchema.pick({
             productId: true,
             isPicked: true
         });
-        // Validate request body using existing schema
         const validationResult = userGiftPickSchema.safeParse(req.body);
         if (!validationResult.success) {
             return res.status(400).json({ errors: validationResult.error.format() });

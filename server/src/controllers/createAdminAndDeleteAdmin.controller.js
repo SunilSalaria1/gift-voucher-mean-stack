@@ -28,7 +28,12 @@ const createAdminAndDeleteAdmin = async (req, res) => {
         if (!ObjectId.isValid(userId)) {
             return res.status(400).json({ message: "Invalid User Id" });
         }
-        const { isAdmin } = req.body;
+        console.log("#############",req.body)
+        let { isAdmin } = req.body;
+        
+
+        // // Convert "true"/"false" string to boolean
+        // const isAdminBoolean = isAdmin === 'true'; // Converts "true" to true, "false" to false
         const userGiftPickSchema = userSchema.pick({
             isAdmin: true
         });
@@ -38,21 +43,17 @@ const createAdminAndDeleteAdmin = async (req, res) => {
             return res.status(400).json({ errors: validationResult.error.format() });
         }
 
-        // if (!isAdmin) {
-        //     return res.status(400).json({ message: " isAdmin is missing" });
-        // }
-
         // // Find the user by ID
         const user = await usersCollection.findOne(
             { _id: ObjectId.createFromHexString(userId) })
         if (user.isPrimaryAdmin == true) {
             return res.status(401).json({ message: "Unauthorised Access" });
         }
-        if (isAdmin == 'true') {
+        if (isAdmin == true) {
 
             const result = await usersCollection.findOneAndUpdate(
                 { _id: ObjectId.createFromHexString(userId) },
-                { $set: { isAdmin: true } },
+                { $set: { isAdmin } },
                 { returnDocument: "after" }
             );
             // Check if update was successful
@@ -61,7 +62,8 @@ const createAdminAndDeleteAdmin = async (req, res) => {
             }
 
             return res.status(200).json({ message: "Admin Created successfully", admin: result });
-        } else {
+        } else if(isAdmin == false){
+            // this part if isAdmin value is false 
             const result = await usersCollection.findOneAndUpdate(
                 { _id: ObjectId.createFromHexString(userId) },
                 { $set: { isAdmin: false } },

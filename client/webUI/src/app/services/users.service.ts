@@ -63,12 +63,12 @@ export class UsersService {
 
   // delete request (delete user by id)
   deleteUser(userId: any): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/api/users/${userId}`, userId);
+    return this.http.delete(`${this.apiUrl}/api/users/${userId}`);
   }
 
   // create and remove admin
-  createAdminRemoveAdmin(data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/api/users/${data.id}/role`, data);
+  createAdminRemoveAdmin(id,data): Observable<any> {
+    return this.http.put(`${this.apiUrl}/api/users/${id}/role`, data);
   }
 
   // get all admins

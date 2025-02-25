@@ -4,7 +4,8 @@ const jwt = require('jsonwebtoken')
 const usersCollection = db.collection('users');
 const SECRET_KEY = "Aniwer32432@#^%&^#!%@&#%&%!@#!&%@#!&@2153"
 const bcrypt = require("bcryptjs");
-
+const userSchema = require("../models/user.model");
+const {generateEmpCodeAndPassword} = require("../utility/utils")
 
 
 const loginUser = async (req, res) => {
@@ -126,25 +127,22 @@ const logoutUser = async (req, res) => {
        }
    */
     try {
+        await connectDB();
         const authHeader = req.headers.authorization;
         if (!authHeader || !authHeader.startsWith("Bearer ")) {
             return res.status(400).json({ message: "Token is required for logout" });
         }
-
         const token = authHeader.split(" ")[1]; // Extract token
-
         // Find the user by token
         const result = await usersCollection.findOne({ tokens: token });
         if (!result) {
             return res.status(404).json({ message: "User not found" });
         }
-
         // Remove the token from the user's tokens array
         await usersCollection.updateOne(
             { _id: result._id },
             { $pull: { tokens: token } }
         );
-
         return res.status(200).json({ message: "Logout successful" });
     } catch (e) {
         console.log(e);
@@ -154,5 +152,66 @@ const logoutUser = async (req, res) => {
     }
 };
 
+const register = async (req, res) => {
+    /*  #swagger.tags = ['Auth']
+                #swagger.description = 'Register user'
+                #swagger.parameters['body'] = {
+                in: 'body',
+                description: 'User registration details',
+                required: true,
+                schema: { $ref: '#/definitions/registerUser' }
+                }
+                #swagger.responses[201] = {
+                description: 'User Created successfully',
+                }
+                #swagger.responses[404] = {
+                description: 'Invalid credentials'
+                }
+                */
+    try {
+        await connectDB();
+        // Step 1: Generate empCode
+        const { name, email, department, dob } = req.body;
+        const { empCode, hashedPassword } = await generateEmpCodeAndPassword(name, email, department, dob, usersCollection);
 
-module.exports = { loginUser, logoutUser }
+
+        // Step 2: Add generated empCode to req.body
+        req.body.empCode = empCode;
+        req.body.password = hashedPassword;
+
+
+        // Convert `dob` and `joiningDate` from string to Date
+        const parsedBody = {
+            ...req.body,
+            dob: req.body.dob ? new Date(req.body.dob) : undefined,
+            joiningDate: req.body.joiningDate ? new Date(req.body.joiningDate) : undefined
+        };
+        // Validate request body
+        const validation = userSchema.safeParse(parsedBody);
+        if (!validation.success) {
+            return res.status(400).json({ errors: validation.error.format() }); //  Added return
+        }
+        // Check if email already exists
+        const existingUser = await usersCollection.findOne({ email: req.body.email, isDeleted: false });
+        if (existingUser) {
+            return res.status(400).json({ error: "Email already exists" }); //  Added return
+        }
+
+        const result = await usersCollection.insertOne(validation.data);
+        const insertedDocument = await usersCollection.findOne({ _id: result.insertedId });
+        return res.status(201).json({
+            message: "User registered successfully", user: {
+                _id: insertedDocument._id,
+                name: insertedDocument.name,
+                empCode: insertedDocument.empCode,
+                password: insertedDocument.password
+            }
+        });
+
+    } catch (e) {
+        return res.status(500).json({ message: "Internal server error", error: e.message });
+    }
+};
+
+
+module.exports = { loginUser, logoutUser,register }
