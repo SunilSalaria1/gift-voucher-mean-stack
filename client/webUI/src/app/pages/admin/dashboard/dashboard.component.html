@@ -16,15 +16,15 @@
                         appearance="outlined">
                         <mat-card-content>
                             <div class="row">
-                                <div class="col-5">
+                                <div class="col-7">
                                     <div>
-                                        <h4>Welcome {{loggedUser.name}}!</h4>
+                                        <h4 class="fw-bold text-primary">Welcome {{loggedUser.name}}!</h4>
                                     </div>
                                     <div>Manage employee gift selections with ease! Here, you can track employee
                                         preferences, and analyze ratings to ensure the best gifting experience.
                                     </div>
                                 </div>
-                                <div class="col-7">
+                                <div class="col-5">
                                     <img src="assets/images/welcome-admin.png" width="300" height="300" alt=""
                                         class="welcome-admin">
                                 </div>
@@ -38,23 +38,23 @@
                     <div class="col-6">
                         <mat-card class="bg-white shadow-sm product-reward-card p-3 text-center" appearance="outlined">
                             <mat-card-content>
-                                <div>
-                                    <h5>Total Employees</h5>
+                                <div class="employees fw-bold">{{totalEmployees}}</div>
+                                <div class="fs-14 mt-4">
+                                    Total Employees
                                 </div>
-                                <div>{{totalEmployees}}</div>
                             </mat-card-content>
                         </mat-card>
                     </div>
                     <div class="col-6">
                         <mat-card class="bg-white shadow-sm text-center product-reward-card p-3" appearance="outlined">
                             <mat-card-content>
-                                <div>
-                                    <h5>Total Products</h5>
+                                <div class="products fw-bold">{{totalProducts}}</div>
+                                <div class="fs-14 mt-4">
+                                    Total Products
                                 </div>
-                                <div>{{totalProducts}}</div>
                             </mat-card-content>
                         </mat-card>
-                    </div>                    
+                    </div>
                 </div>
                 <!-- /employees products employees -->
                 <!-- upgrade data analytics -->
