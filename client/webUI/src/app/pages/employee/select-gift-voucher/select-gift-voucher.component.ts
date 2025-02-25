@@ -109,7 +109,7 @@ export class SelectGiftVoucherComponent {
   selected() {
     if (this.user.role === "employee") {
       const payload = {
-        isPicked: "true",
+        isPicked: "completed",
         productId: this.selectedProductId
       }
       this._productsService.giftPick(this.currentUserId, payload).subscribe(

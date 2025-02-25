@@ -93,9 +93,8 @@ export class ProductsService {
   // delete employee selected gift
   deleteUser(userId: any): Observable<any> {
     const params: any = {
-      isPicked: 'false',
+      isPicked: 'pending',
     };
-
     return this.http.delete(`${this.apiUrl}/api/users/${userId}/gifts`, {
       params,
     });

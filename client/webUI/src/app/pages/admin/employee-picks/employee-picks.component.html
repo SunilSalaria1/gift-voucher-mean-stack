@@ -59,10 +59,10 @@
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Status</th>
           <td mat-cell *matCellDef="let element">
-            <span *ngIf="element.isPicked" class="badge bg-success text-white p-2">
+            <span *ngIf="element.isPicked==='completed'" class="badge bg-success text-white p-2">
               Completed
             </span>
-            <span *ngIf="!element.isPicked" class="badge bg-warning text-white p-2">
+            <span *ngIf="element.isPicked==='pending'" class="badge bg-warning text-white p-2">
               Pending
             </span>
           </td>
