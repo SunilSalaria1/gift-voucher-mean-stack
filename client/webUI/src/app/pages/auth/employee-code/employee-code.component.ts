@@ -56,7 +56,7 @@ export class EmployeeCodeComponent implements OnInit {
           console.log(response);
           localStorage.setItem('loginUser', JSON.stringify(response.userDetails));
           this._usersService.saveToken(response.token); // Store token
-          if(!response.userDetails.isPicked){
+          if(response.userDetails.isPicked==='pending'){
             this.router.navigate(['/select-gift-voucher']);
             this.snackBar.open('Welcome! Now you can access your rewards.', 'Close', {
               duration: 5000,
@@ -64,7 +64,7 @@ export class EmployeeCodeComponent implements OnInit {
               horizontalPosition: "center",
               verticalPosition: "top",
             });            
-          }else{
+          }else if(response.userDetails.isPicked==='completed'){
             this.router.navigate(['/selected-gift-details']);  
           }
           

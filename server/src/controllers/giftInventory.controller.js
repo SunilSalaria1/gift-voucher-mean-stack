@@ -54,7 +54,7 @@ const selectUserGift = async (req, res) => {
             return res.status(400).json({ message: "Invalid product ID format" });
         }
         // fetching the object by productId
-        const productDetails = await productsCollection.findOne({ _id: ObjectId.createFromHexString(productId), isDeleted: false });
+        const productDetails = await productsCollection.findOne({ _id: (productId), isDeleted: false });
         // if product does not exists in following collection
         if (!productDetails) {
             return res.status(404).json({ message: "Product not found" });
@@ -106,7 +106,7 @@ const deleteUserGift = async (req, res) => {
         // Update user in MongoDB
         const deletedUser = await usersCollection.findOneAndUpdate(
             { _id: ObjectId.createFromHexString(userId) },
-            { $set: { productId: "", isPicked } },
+            { $set: { productId: "",isPicked: req.body.isPicked } },
             { returnDocument: "after" }
         );
         // if failed to delete user
