@@ -1,17 +1,29 @@
 <div>
   <h5 class="fw-bold mb-4">Generate EmpCode</h5>
 </div>
-<div *ngIf="isLoading" class="spinner-container d-flex justify-content-center align-items-center h-100 w-100">
+<div
+  *ngIf="isLoading"
+  class="spinner-container d-flex justify-content-center align-items-center h-100 w-100"
+>
   <mat-spinner [diameter]="50"></mat-spinner>
 </div>
 <div *ngIf="!isLoading">
-  <mat-card class="bg-white border-light product-reward-card p-3" appearance="outlined">
-    <div class="d-flex justify-content-between align-items-baseline ">
+  <mat-card
+    class="bg-white border-light product-reward-card p-3"
+    appearance="outlined"
+  >
+    <div class="d-flex justify-content-between align-items-baseline">
       <!-- searchbar -->
       <form [formGroup]="searchForm" action="">
         <mat-form-field appearance="outline">
-          <input matInput type="text" formControlName="searchTerm" class="form-control" name="search"
-            placeholder="Search..." />
+          <input
+            matInput
+            type="text"
+            formControlName="searchTerm"
+            class="form-control"
+            name="search"
+            placeholder="Search..."
+          />
           <button matSuffix mat-icon-button aria-label="Search">
             <mat-icon>search</mat-icon>
           </button>
@@ -19,78 +31,121 @@
       </form>
       <!-- /searchbar -->
       <!-- add product button -->
-      <a mat-flat-button [routerLink]="['/admin/add-emp-code']"
-        class="bg-dark shadow-sm button-mh-60 text-white px-5 py-4"><mat-icon>person_add</mat-icon>
+      <a
+        mat-flat-button
+        [routerLink]="['/admin/add-emp-code']"
+        class="bg-dark shadow-sm button-mh-60 text-white px-5 py-4"
+        ><mat-icon>person_add</mat-icon>
         <span>Add Employee Code</span>
       </a>
       <!-- /add product button -->
     </div>
     <!-- table reference with search and pagination -->
     <div>
-
       <!-- table -->
 
-      <table mat-table [dataSource]="dataSource" class="bg-white border border-light">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="bg-white border border-light"
+      >
         <!-- Position Column -->
         <ng-container matColumnDef="position">
-          <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">No.</th>
-          <td mat-cell *matCellDef="let element; let i = index">{{ index(i) }}</td> <!-- Showing index -->
+          <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">
+            No.
+          </th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ index(i) }}
+          </td>
+          <!-- Showing index -->
         </ng-container>
         <!-- employee name -->
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Employee Name</th>
+          <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">
+            Employee Name
+          </th>
           <td mat-cell *matCellDef="let element">{{ element.name }}</td>
         </ng-container>
         <!-- employee code -->
         <ng-container matColumnDef="empCode">
-          <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Employee Code</th>
+          <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">
+            Employee Code
+          </th>
           <td mat-cell *matCellDef="let element" class="position-relative">
             {{ element.empCode }}
-            <span class="ms-2"><mat-icon matSuffix cdkCopyToClipboard={{element.empCode}}
-                (click)="copied(element.empCode)" class="copy-icon">content_copy</mat-icon></span>
-            <div *ngIf="copiedMap.get(element.empCode)" class="copy-text fs-12 position-absolute bg-dark text-white">
+            <span class="ms-2"
+              ><mat-icon
+                matSuffix
+                cdkCopyToClipboard="{{ element.empCode }}"
+                (click)="copied(element.empCode)"
+                class="copy-icon"
+                >content_copy</mat-icon
+              ></span
+            >
+            <div
+              *ngIf="copiedMap.get(element.empCode)"
+              class="copy-text fs-12 position-absolute bg-dark text-white"
+            >
               copied
             </div>
           </td>
         </ng-container>
         <!-- email -->
         <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Email</th>
+          <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">
+            Email
+          </th>
           <td mat-cell *matCellDef="let element" class="position-relative">
             {{ element.email }}
           </td>
         </ng-container>
         <!-- department -->
         <ng-container matColumnDef="department">
-          <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Department</th>
+          <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">
+            Department
+          </th>
           <td mat-cell *matCellDef="let element">
             {{ element.department }}
           </td>
         </ng-container>
         <!-- joining date -->
         <ng-container matColumnDef="joiningDate">
-          <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Joining Date</th>
+          <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">
+            Joining Date
+          </th>
           <td mat-cell *matCellDef="let element">
-            {{element.joiningDate | date:'dd-MM-yyyy'}}
+            {{ element.joiningDate | date : "dd-MM-yyyy" }}
           </td>
         </ng-container>
         <!-- dob -->
         <ng-container matColumnDef="dob">
-          <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">DOB</th>
+          <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">
+            DOB
+          </th>
           <td mat-cell *matCellDef="let element">
             <div class="p-3">
-              {{element.dob | date:'dd-MM-yyyy'}}
+              {{ element.dob | date : "dd-MM-yyyy" }}
             </div>
           </td>
         </ng-container>
         <!-- admin access -->
         <ng-container matColumnDef="isAdmin">
-          <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Is Admin</th>
+          <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">
+            Is Admin
+          </th>
           <td mat-cell *matCellDef="let element">
             <div class="p-3">
-              <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [value]="element.isAdmin ? 'yes' : 'no'"
-                (change)="onAdminToggleChange($event.value, element._id)">
-                <mat-button-toggle value="no" [disabled]="element.isPrimaryAdmin">No</mat-button-toggle>
+              <mat-button-toggle-group
+                name="fontStyle"
+                aria-label="Font Style"
+                [value]="element.isAdmin ? 'yes' : 'no'"
+                (change)="onAdminToggleChange($event.value, element._id)"
+              >
+                <mat-button-toggle
+                  value="no"
+                  [disabled]="element.isPrimaryAdmin"
+                  >No</mat-button-toggle
+                >
                 <mat-button-toggle value="yes">Yes</mat-button-toggle>
               </mat-button-toggle-group>
             </div>
@@ -98,25 +153,53 @@
         </ng-container>
         <!-- action -->
         <ng-container matColumnDef="Action">
-          <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">Action</th>
+          <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">
+            Action
+          </th>
           <td mat-cell *matCellDef="let element">
             <div class="d-flex">
-              <button routerLink="/admin/edit-emp-code/{{ element._id }}" [disabled]="element.isPrimaryAdmin"
-                class="me-2 border border-light p-2 shadow-sm table-action-buttons cursor-pointer">
-                <svg width="16" height="16" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+              <span
+                routerLink="/admin/edit-emp-code/{{ element._id }}"
+                [ngClass]="{
+                  disabled: element.isPrimaryAdmin,
+                  'opacity-fade': element.isPrimaryAdmin
+                }"
+                class="me-2 border border-light p-2 shadow-sm table-action-buttons cursor-pointer"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 12 12"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <path
                     d="M1.287 8.208a.247.247 0 0 1 .348 0l2.111 2.106a.246.246 0 0 1-.099.408L.485 11.773a.245.245 0 0 1-.311-.311l1.054-3.156a.25.25 0 0 1 .06-.098zm6.498-6.49a.253.253 0 0 1 .348 0l2.109 2.105a.245.245 0 0 1 0 .348L4.619 9.78a.247.247 0 0 1-.349 0L2.16 7.677a.246.246 0 0 1 0-.348zM9.017.49a1.782 1.782 0 0 1 2.457 0 1.733 1.733 0 0 1 0 2.45l-.352.353a.247.247 0 0 1-.348 0L8.666 1.189a.246.246 0 0 1 0-.347z"
-                    fill="#FCA500" fill-rule="evenodd" />
+                    fill="#FCA500"
+                    fill-rule="evenodd"
+                  />
                 </svg>
-              </button>
-              <button (click)="openDialog(element._id)" [disabled]="element.isPrimaryAdmin"
-                class="border border-light p-2 shadow-sm table-action-buttons cursor-pointer">
-                <svg width="16" height="16" viewBox="0 0 12.375 13.75" xmlns="http://www.w3.org/2000/svg">
+              </span>
+              <span
+                (click)="openDialog(element._id)"
+                [ngClass]="{
+                  disabled: element.isPrimaryAdmin,
+                  'opacity-fade': element.isPrimaryAdmin
+                }"
+                class="border border-light p-2 shadow-sm table-action-buttons cursor-pointer"
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 12.375 13.75"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <path
                     d="M8.017 11.745c0 .237-.19.43-.422.43a.426.426 0 0 1-.422-.43V6.589c0-.238.189-.43.422-.43.233 0 .422.192.422.43v5.156zm-2.813 0c0 .237-.189.43-.422.43a.426.426 0 0 1-.421-.43V6.589c0-.238.189-.43.421-.43.233 0 .422.192.422.43v5.156zm5.175-7.448H1.995a.284.284 0 0 0-.281.312l.724 8.099c.053.59.539 1.042 1.12 1.042h5.258c.582 0 1.068-.452 1.12-1.042l.723-8.099a.288.288 0 0 0-.072-.219.277.277 0 0 0-.208-.093zM4.5 2.148v-.716c0-.158.126-.286.281-.286h2.813c.155 0 .281.128.281.286v.716c0 .08-.063.144-.14.144H4.64a.142.142 0 0 1-.141-.144m7.313.144H9.14A.142.142 0 0 1 9 2.148v-.716C9 .642 8.37 0 7.594 0H4.78c-.777 0-1.406.641-1.406 1.432v.716c0 .08-.063.144-.14.144H.562A.568.568 0 0 0 0 2.865c0 .316.252.572.563.572h11.25a.568.568 0 0 0 .562-.572.568.568 0 0 0-.563-.573"
-                    fill="#FC3E30" fill-rule="evenodd" />
+                    fill="#FC3E30"
+                    fill-rule="evenodd"
+                  />
                 </svg>
-              </button>
+              </span>
             </div>
           </td>
         </ng-container>
@@ -124,13 +207,23 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
       <!-- /table -->
-      <div class="d-flex justify-content-center mt-2 fw-bold bg-light" *ngIf="dataSource.filteredData.length === 0">
+      <div
+        class="d-flex justify-content-center mt-2 fw-bold bg-light"
+        *ngIf="dataSource.filteredData.length === 0"
+      >
         No result found.
       </div>
       <!-- paginator -->
-      <mat-paginator class="bg-white" [length]="totalUsers" [pageSize]="pageSize" [pageIndex]="currentPage - 1"
-        [pageSizeOptions]="[5, 10, 20]" (page)="onPageChange($event)" showFirstLastButtons
-        aria-label="Select page of periodic elements">
+      <mat-paginator
+        class="bg-white"
+        [length]="totalUsers"
+        [pageSize]="pageSize"
+        [pageIndex]="currentPage - 1"
+        [pageSizeOptions]="[5, 10, 20]"
+        (page)="onPageChange($event)"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements"
+      >
       </mat-paginator>
       <!-- /paginator -->
     </div>
@@ -140,15 +233,25 @@
 <!-- dialog -->
 <ng-template #content>
   <div mat-dialog-title class="banner-font fw-bold">Delete Product!</div>
-  <mat-dialog-content>This will delete the employee and cannot be undone.</mat-dialog-content>
+  <mat-dialog-content
+    >This will delete the employee and cannot be undone.</mat-dialog-content
+  >
   <mat-dialog-actions>
-    <button mat-button class="bg-dark text-white shadow-sm button-mh-45 py-3 px-4" mat-dialog-close>
+    <button
+      mat-button
+      class="bg-dark text-white shadow-sm button-mh-45 py-3 px-4"
+      mat-dialog-close
+    >
       <mat-icon>cancel</mat-icon>
       Cancel
     </button>
     <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-    <button mat-button class="bg-danger text-white shadow-sm button-mh-45 py-3 px-4" [mat-dialog-close]="true"
-      (click)="matDelete()">
+    <button
+      mat-button
+      class="bg-danger text-white shadow-sm button-mh-45 py-3 px-4"
+      [mat-dialog-close]="true"
+      (click)="matDelete()"
+    >
       <mat-icon>delete</mat-icon>
       Delete
     </button>
