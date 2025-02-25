@@ -2,7 +2,8 @@
 const { connectDB, db } = require('../config/db.config'); // Import db from db.js
 const jwt = require('jsonwebtoken')
 const usersCollection = db.collection('users');
-const SECRET_KEY = "Aniwer32432@#^%&^#!%@&#%&%!@#!&%@#!&@2153"
+require('dotenv').config(); 
+const SECRET_KEY = process.env.JWT_SECRET_KEY
 const bcrypt = require("bcryptjs");
 const userSchema = require("../models/user.model");
 const {generateEmpCodeAndPassword} = require("../utility/utils")

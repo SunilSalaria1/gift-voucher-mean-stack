@@ -1,5 +1,7 @@
 const { MongoClient } = require('mongodb');
-const url = 'mongodb+srv://aniketsharma:UxFmcjc3eNBaMWve@cluster0.xv0iu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+require('dotenv').config(); 
+const url = process.env.MONGO_URI
+
 const client = new MongoClient(url);
 const dbName = 'giftChase';
 async function connectDB() {
@@ -11,9 +13,7 @@ async function connectDB() {
     } catch (e) {
         console.log(e)
     }
-
 }
-
 connectDB()
     .then(console.log)
     .catch(console.error)

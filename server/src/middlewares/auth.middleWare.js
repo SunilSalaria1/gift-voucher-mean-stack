@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const SECRET_KEY = "Aniwer32432@#^%&^#!%@&#%&%!@#!&%@#!&@2153"
+require('dotenv').config(); 
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY
 
 const authenticateToken = (req, res, next) => {
     // 1. Get token from the Authorization header
@@ -11,7 +12,7 @@ const authenticateToken = (req, res, next) => {
     }
 
     // 3. Verify the token
-    jwt.verify(token, SECRET_KEY, (err, user) => {
+    jwt.verify(token, JWT_SECRET_KEY, (err, user) => {
         if (err) {
             if (err.name === 'TokenExpiredError') {
                 // If the token is expired, return the token expired error

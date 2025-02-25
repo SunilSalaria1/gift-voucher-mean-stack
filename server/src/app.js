@@ -1,18 +1,21 @@
 require("./config/db.config");
-
+require('dotenv').config(); 
 const express = require('express');
-const logger = require('morgan');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('../swagger-output.json');
 const globalRouter = require("./routes/index");
 
+const PORT = process.env.PORT ;
+const CORS_ORIGIN = process.env.CORS_ORIGIN;
+
 const app = express();
 
-// ✅ Best practice CORS options
+//  Best practice CORS options
+
 const corsOptions = {
   origin: function (origin, callback) {
-    const allowedOrigins = ['http://localhost:4200', 'http://localhost:3000']; // Define trusted origins
+    const allowedOrigins = CORS_ORIGIN; // Define trusted origins
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -44,5 +47,4 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}/api-doc`));

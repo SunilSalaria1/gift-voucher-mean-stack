@@ -145,10 +145,12 @@ const getGiftInvertory = async (req, res) => {
                 { name: { $regex: req.query.searchItem, $options: "i" } },
                 { empCode: { $regex: req.query.searchItem, $options: "i" } },
                 { department: { $regex: req.query.searchItem, $options: "i" } },
-                { "productDetails?.couponCode": { $regex: req.query.searchItem, $options: "i" } },
-                { "productDetails?.title": { $regex: req.query.searchItem, $options: "i" } }
+                { isPicked: { $regex: req.query.searchItem, $options: "i" } },
+                { "productDetails.couponCode": { $regex: req.query.searchItem, $options: "i" } },  // ✅ Fix
+                { "productDetails.productTitle": { $regex: req.query.searchItem, $options: "i" } }       // ✅ Fix
             ];
         }
+        
 
         // Sorting
         const sort = {};
@@ -160,7 +162,7 @@ const getGiftInvertory = async (req, res) => {
 
         // Aggregation
         const giftInventoryData = await usersCollection.aggregate([
-            { $match: filter },
+           
 
             // Convert productId to ObjectId only if it's a valid string
             // {
@@ -192,6 +194,7 @@ const getGiftInvertory = async (req, res) => {
                 }
             },
             { $unwind: { path: "$productDetails", preserveNullAndEmptyArrays: true } },
+            { $match: filter },
 
             // // Convert productImg to ObjectId only if it's a valid string
             // {
@@ -216,7 +219,7 @@ const getGiftInvertory = async (req, res) => {
             // Lookup product image details (preserving unmatched users)
             {
                 $lookup: {
-                    from: 'files',
+                    from: 'images',
                     localField: "productDetails.productImageId",
                     foreignField: "_id",
                     as: "productDetails.productImageDetails"
@@ -229,7 +232,7 @@ const getGiftInvertory = async (req, res) => {
                 $project: {
                     password: 0, email: 0, tokens: 0, isDeleted: 0, isAdmin: 0, isPrimaryAdmin: 0,
                     joiningDate: 0, dob: 0,
-                    "productDetails.isDeleted": 0, "productDetails._id": 0, "productDetails.productImageId": 0,
+                    "productDetails.isDeleted": 0, "productDetails._id": 0, 
                     "productDetails.productDescription": 0, "productDetails.addedAt": 0
                 }
             },
@@ -246,7 +249,7 @@ const getGiftInvertory = async (req, res) => {
         giftInventoryData.forEach(data => {
             if (data.productDetails?.productImageDetails?.fileBuffer) {
                 data.productDetails.imageUrl = `data:${data.productDetails.productImageDetails.fileType};base64,${data.productDetails.productImageDetails.fileBuffer.toString('base64')}`;
-                delete data.productDetails.productImageDetails.fileBuffer;
+                // delete data.productDetails.productImageDetails.fileBuffer;
             }
             delete data.productDetails?.productImageDetails;
         });
