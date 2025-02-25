@@ -17,4 +17,13 @@
     top: 10px;
   }
   /* /copy */
+
+  .disabled {
+    pointer-events: none;    
+  }
+
+
+  .primary-admin{
+    border-radius: 5px;
+  }
   
