@@ -39,7 +39,6 @@ const selectUserGift = async (req, res) => {
         if (!validationResult.success) {
             return res.status(400).json({ errors: validationResult.error.format() });
         }
-
         // Extract validated data
         const { productId, isPicked } = validationResult.data;
         // Validate `isPicked` value
@@ -67,10 +66,10 @@ const selectUserGift = async (req, res) => {
         );
         // if Failed to update user
         if (!updatedUser) {
-            return res.status(404).json({ message: "Failed to update user" });
+            return res.status(404).json({ message: "Failed to select Gift" });
         }
 
-        return res.status(200).json({ message: "User updated successfully", updatedUser });
+        return res.status(200).json({ message: "User selected their gift  successfully", });
 
     } catch (error) {
         console.error("MongoDB Error:", error);
@@ -105,7 +104,7 @@ const deleteUserGift = async (req, res) => {
         // Update user in MongoDB
         const deletedUser = await usersCollection.findOneAndUpdate(
             { _id: ObjectId.createFromHexString(userId) },
-            { $set: { productId: "",isPicked: req.query.isPicked } },
+            { $set: { productId: "", isPicked: req.query.isPicked } },
             { returnDocument: "after" }
         );
         // if failed to delete user
@@ -149,7 +148,7 @@ const getGiftInvertory = async (req, res) => {
                 { "productDetails.productTitle": { $regex: req.query.searchItem, $options: "i" } }       // ✅ Fix
             ];
         }
-        
+
 
         // Sorting
         const sort = {};
@@ -161,7 +160,7 @@ const getGiftInvertory = async (req, res) => {
 
         // Aggregation
         const giftInventoryData = await usersCollection.aggregate([
-           
+
 
             // Lookup product details (preserving unmatched users)
             {
@@ -191,7 +190,7 @@ const getGiftInvertory = async (req, res) => {
                 $project: {
                     password: 0, email: 0, tokens: 0, isDeleted: 0, isAdmin: 0, isPrimaryAdmin: 0,
                     joiningDate: 0, dob: 0,
-                    "productDetails.isDeleted": 0, "productDetails._id": 0, 
+                    "productDetails.isDeleted": 0, "productDetails._id": 0,
                     "productDetails.productDescription": 0, "productDetails.addedAt": 0
                 }
             },

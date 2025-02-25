@@ -21,13 +21,17 @@ const userSchema = z.object({
     isDeleted: z.boolean().default(false),
     tokens: z.array(z.string()).optional(),
     isPrimaryAdmin: z.boolean().default(false),
-    isPicked: z.string().default("pending"),
+    isPicked: z.string()
+    .default("pending")
+    .refine(val => val === "completed" || val === "pending", {
+        message: "Invalid isPicked value. Allowed values: 'completed', 'pending'",
+    }),
     productId: z.string()
         .default("null") // Default value as "null"
         .refine((val) => val === "null" || ObjectId.isValid(val), { message: "Invalid MongoDB ObjectId" }) // Validate ObjectId when not "null"
         .transform((val) => (val === "null" ? val : new ObjectId(val))), // Convert to ObjectId unless default
-    updatedAt:z.preprocess((val) => (val ? new Date(val) : new Date()), z.date()),
-    createdAt:z.preprocess((val) => (val ? new Date(val) : new Date()), z.date()),
+    updatedAt: z.preprocess((val) => (val ? new Date(val) : new Date()), z.date()),
+    createdAt: z.preprocess((val) => (val ? new Date(val) : new Date()), z.date()),
 }).strict(); // 🔹 This will reject extra fields
 
 

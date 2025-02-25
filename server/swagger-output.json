@@ -80,48 +80,6 @@
             "description": "Internal Server Error"
           }
         }
-      },
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "description": "Register user",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "User registration details",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/registerUser"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "User Created successfully"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Invalid credentials"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
       }
     },
     "/api/users/{id}": {
@@ -319,6 +277,50 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Register user",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User registration details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/registerUser"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User Created successfully"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Invalid credentials"
           },
           "500": {
             "description": "Internal Server Error"
@@ -940,11 +942,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Tue Feb 25 2025 17:22:50 GMT+0530 (India Standard Time)"
+          "example": "Tue Feb 25 2025 18:16:00 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Tue Feb 25 2025 17:22:50 GMT+0530 (India Standard Time)"
+          "example": "Tue Feb 25 2025 18:16:00 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
