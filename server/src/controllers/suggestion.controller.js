@@ -15,7 +15,6 @@ const createSuggestion = async (req, res) => {
         if (!ObjectId.isValid(userId)) {
             return res.status(400).json({ message: "Invalid User Id" })
         }
-
         // Validate request body
         const validation = suggestionSchema.safeParse(req.body);
         if (!validation.success) {
@@ -40,17 +39,7 @@ const getAllSuggestions = async (req, res) => {
         await connectDB();
         const suggestions = await suggestionCollection.aggregate([
             { $match: { isDeleted: false } },
-            // {
-            //     $addFields: {
-            //         userIdObj: {
-            //             $cond: {
-            //                 if: { $eq: [{ $strLenCP: "$userId" }, 24] }, // Check if userId is 24 characters long
-            //                 then: { $toObjectId: "$userId" },  // Convert valid userId to ObjectId
-            //                 else: null  // Set null if invalid
-            //             }
-            //         }
-            //     }
-            // },
+            
             {
                 $lookup: {
                     from: "users",              // Join with users collection
@@ -64,6 +53,14 @@ const getAllSuggestions = async (req, res) => {
             },
             {
                 $project: {
+                    createdAt:0,
+                    updatedAt:0,
+                    isDeleted:0,
+                    "userDetails.email":0,
+                    "userDetails.updatedAt":0,
+                    "userDetails.createdAt":0,
+                    "userDetails.productId":0,
+                    "userDetails.isPicked":0,
                     "userDetails.password": 0,
                     "userDetails.tokens": 0,
                     "userDetails.isDeleted": 0,
@@ -72,8 +69,6 @@ const getAllSuggestions = async (req, res) => {
                     "userDetails._id": 0,
                     "userDetails.joiningDate": 0,
                     "userDetails.dob": 0,
-
-
                 }
             }
         ]).toArray();
