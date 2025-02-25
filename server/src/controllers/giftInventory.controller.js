@@ -106,7 +106,7 @@ const deleteUserGift = async (req, res) => {
         // Update user in MongoDB
         const deletedUser = await usersCollection.findOneAndUpdate(
             { _id: ObjectId.createFromHexString(userId) },
-            { $set: { productId: "",isPicked: req.body.isPicked } },
+            { $set: { productId: "",isPicked: req.query.isPicked } },
             { returnDocument: "after" }
         );
         // if failed to delete user
