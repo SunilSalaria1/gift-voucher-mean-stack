@@ -164,26 +164,6 @@ const getGiftInvertory = async (req, res) => {
         const giftInventoryData = await usersCollection.aggregate([
            
 
-            // Convert productId to ObjectId only if it's a valid string
-            // {
-            //     $addFields: {
-            //         productObjId: {
-            //             $cond: {
-            //                 if: {
-            //                     $and: [
-            //                         { $ifNull: ["$productId", false] },  // Ensure it exists
-            //                         { $ne: ["$productId", ""] },  // Ignore empty strings
-            //                         { $eq: [{ $type: "$productId" }, "string"] },  // Ensure it's a string
-            //                         { $eq: [{ $strLenCP: "$productId" }, 24] }  // Ensure valid ObjectId length
-            //                     ]
-            //                 },
-            //                 then: { $toObjectId: "$productId" },
-            //                 else: null
-            //             }
-            //         }
-            //     }
-            // },
-
             // Lookup product details (preserving unmatched users)
             {
                 $lookup: {
@@ -195,26 +175,6 @@ const getGiftInvertory = async (req, res) => {
             },
             { $unwind: { path: "$productDetails", preserveNullAndEmptyArrays: true } },
             { $match: filter },
-
-            // // Convert productImg to ObjectId only if it's a valid string
-            // {
-            //     $addFields: {
-            //         productImgObjId: {
-            //             $cond: {
-            //                 if: {
-            //                     $and: [
-            //                         { $ifNull: ["$productDetails.productImageId", false] },  // Ensure it exists
-            //                         { $ne: ["$productDetails.productImageId", ""] },  // Ignore empty strings
-            //                         { $eq: [{ $type: "$productDetails.productImageId" }, "string"] },  // Ensure it's a string
-            //                         { $eq: [{ $strLenCP: "$productDetails.productImageId" }, 24] }  // Ensure valid ObjectId length
-            //                     ]
-            //                 },
-            //                 then: { $toObjectId: "$productDetails.productImageId" },
-            //                 else: null
-            //             }
-            //         }
-            //     }
-            // },
 
             // Lookup product image details (preserving unmatched users)
             {

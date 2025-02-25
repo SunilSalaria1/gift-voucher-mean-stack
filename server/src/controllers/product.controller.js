@@ -231,17 +231,7 @@ const getAllProducts = async (req, res) => {
         const aggregationPipeline = [
 
             { $match: filter }, // Apply filtering
-            // {
-            //     $addFields: {
-            //         productObjId: {
-            //             $cond: {
-            //                 if: { $eq: [{ $strLenCP: "$productImageId" }, 24] }, // Check if productImageId is a valid ObjectId
-            //                 then: { $toObjectId: "$productImageId" }, // Convert to ObjectId
-            //                 else: null // Set null if invalid
-            //             }
-            //         }
-            //     }
-            // },
+            
             {
                 $lookup: {
                     from: 'images', // Join with the 'images' collection
