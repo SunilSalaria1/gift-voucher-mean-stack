@@ -1,152 +1,230 @@
 <section class="h-100">
-    <div>
-        <h5 class="fw-bold mb-4">Dashboard</h5>
-    </div>
-    <!-- loader -->
-    <div *ngIf="isLoading" class="spinner-container d-flex justify-content-center align-items-center h-100 w-100">
-        <mat-spinner [diameter]="50"></mat-spinner>
-    </div>
-    <!-- /loader -->
-    <div *ngIf="!isLoading">
-        <div class="row">
-            <div class="col-8">
-                <!-- welcome admin -->
-                <div class="row mb-4">
-                    <mat-card class="bg-white shadow-sm product-reward-card p-3 position-relative"
-                        appearance="outlined">
-                        <mat-card-content>
-                            <div class="row">
-                                <div class="col-7">
-                                    <div>
-                                        <h4 class="fw-bold text-primary">Welcome {{loggedUser.name}}!</h4>
-                                    </div>
-                                    <div>Manage employee gift selections with ease! Here, you can track employee
-                                        preferences, and analyze ratings to ensure the best gifting experience.
-                                    </div>
-                                </div>
-                                <div class="col-5">
-                                    <img src="assets/images/welcome-admin.png" width="300" height="300" alt=""
-                                        class="welcome-admin">
-                                </div>
-                            </div>
-                        </mat-card-content>
-                    </mat-card>
+  <div>
+    <h5 class="fw-bold mb-4">Dashboard</h5>
+  </div>
+  <!-- loader -->
+  <div
+    *ngIf="isLoading"
+    class="spinner-container d-flex justify-content-center align-items-center h-100 w-100"
+  >
+    <mat-spinner [diameter]="50"></mat-spinner>
+  </div>
+  <!-- /loader -->
+  <div *ngIf="!isLoading">
+    <div class="row">
+      <div class="col-8">
+        <!-- welcome admin -->
+        <div class="row mb-4">
+          <mat-card
+            class="bg-white shadow-sm product-reward-card p-3 position-relative"
+            appearance="outlined"
+          >
+            <mat-card-content>
+              <div class="row">
+                <div class="col-7">
+                  <div>
+                    <h4 class="fw-bold text-primary">
+                      Welcome {{ loggedUser.name }}!
+                    </h4>
+                  </div>
+                  <div>
+                    Manage employee gift selections with ease! Here, you can
+                    track employee preferences, and analyze ratings to ensure
+                    the best gifting experience.
+                  </div>
                 </div>
-                <!-- /welcome admin -->
-                <!-- employees products employees -->
-                <div class="row mb-4">
-                    <div class="col-6">
-                        <mat-card class="bg-white shadow-sm product-reward-card p-3 text-center" appearance="outlined">
-                            <mat-card-content>
-                                <div class="employees fw-bold">{{totalEmployees}}</div>
-                                <div class="fs-14 mt-4">
-                                    Total Employees
-                                </div>
-                            </mat-card-content>
-                        </mat-card>
-                    </div>
-                    <div class="col-6">
-                        <mat-card class="bg-white shadow-sm text-center product-reward-card p-3" appearance="outlined">
-                            <mat-card-content>
-                                <div class="products fw-bold">{{totalProducts}}</div>
-                                <div class="fs-14 mt-4">
-                                    Total Products
-                                </div>
-                            </mat-card-content>
-                        </mat-card>
-                    </div>
+                <div class="col-5">
+                  <img
+                    src="assets/images/welcome-admin.png"
+                    width="300"
+                    height="300"
+                    alt=""
+                    class="welcome-admin"
+                  />
                 </div>
-                <!-- /employees products employees -->
-                <!-- upgrade data analytics -->
-                <div class="row">
-                    <!-- data analytics -->
-                    <div class="col-12">
-                        <mat-card class="bg-white shadow-sm product-reward-card p-3 mb-4" appearance="outlined">
-                            <mat-card-content>
-                                <div>
-                                    <h5>Data Analytics Overview</h5>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        From predictive modeling to real-time analysis, data analytics empowers
-                                        businesses to stay ahead of the competition.""With the right data analytics
-                                        tools, organizations can enhance efficiency, reduce risks, and improve customer
-                                        experiences.
-                                    </div>
-                                </div>
-                            </mat-card-content>
-                        </mat-card>
-                    </div>
-                    <!-- /data analytics -->
-                    <!-- upgrade -->
-                    <div class="col-12">
-                        <mat-card class="bg-white shadow-sm product-reward-card p-3 " appearance="outlined">
-                            <mat-card-content>
-                                <div>
-                                    <h5>Employee Picks</h5>
-                                </div>
-                                <!-- pie chart -->
-                                <div class="pie-chart">
-                                    <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="pieChartData"
-                                        [gradient]="gradient" [legend]="showLegend" [legendPosition]="legendPosition"
-                                        [labels]="showLabels" [doughnut]="isDoughnut" (select)="onSelect($event)"
-                                        [tooltipDisabled]="false" (activate)="onActivate($event)"
-                                        (deactivate)="onDeactivate($event)">
-                                    </ngx-charts-pie-chart>
-                                </div>
-                                <!-- /pie chart -->
-                                <div>
-                                    From predictive modeling to real-time analysis, data analytics empowers
-                                    businesses to stay ahead of the competition.""With the right data analytics
-                                    tools, organizations can enhance efficiency, reduce risks.
-                                </div>
-                            </mat-card-content>
-                        </mat-card>
-                    </div>
-                    <!-- /upgrade -->
-
-                </div>
-                <!-- /upgrade data analytics -->
-            </div>
-            <!-- transactions -->
-            <div class="col-4">
-                <mat-card class="bg-white shadow-sm product-reward-card p-3 h-100" appearance="outlined">
-                    <mat-card-content>
-                        <div>
-                            <h4>Transactions</h4>
-                        </div>
-                        <!-- virtual scroll -->
-                        <cdk-virtual-scroll-viewport itemSize="80" class="viewport"
-                            (scrolledIndexChange)="onScrollProducts()">
-                            <div *cdkVirtualFor="let product of productData; let i = index" class="col-12">
-                                <mat-card class="bg-white shadow-sm product-reward-card p-3 my-4" appearance="outlined">
-                                    <mat-card-content class="d-flex justify-content-between align-items-center">
-                                        <div class="d-flex">
-                                            <div>
-                                                <img [src]="product.productImageDetails.imageUrl" class="user-profile"
-                                                    alt="">
-                                            </div>
-                                            <div>
-                                                <div>
-                                                    {{product.productTitle}}
-                                                </div>
-                                                <div>
-                                                    {{product.couponCode}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            {{product.pickedCountPercentage}}%
-                                        </div>
-                                    </mat-card-content>
-                                </mat-card>
-                            </div>
-                        </cdk-virtual-scroll-viewport>
-                        <!-- End Virtual Scroll -->
-                    </mat-card-content>
-                </mat-card>
-            </div>
-            <!-- /transactions -->
+              </div>
+            </mat-card-content>
+          </mat-card>
         </div>
+        <!-- /welcome admin -->
+        <!-- employees products employees -->
+        <div class="row mb-4">
+          <div class="col-6">
+            <mat-card
+              class="bg-white shadow-sm product-reward-card p-3 text-center"
+              appearance="outlined"
+            >
+              <mat-card-content>
+                <div class="employees fw-bold">{{ totalEmployees }}</div>
+                <div class="fs-14 mt-4">Total Employees</div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <div class="col-6">
+            <mat-card
+              class="bg-white shadow-sm text-center product-reward-card p-3"
+              appearance="outlined"
+            >
+              <mat-card-content>
+                <div class="products fw-bold">{{ totalProducts }}</div>
+                <div class="fs-14 mt-4">Total Products</div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+        <!-- /employees products employees -->
+        <!-- upgrade data analytics -->
+        <div class="row">
+          <!-- data analytics -->
+          <div class="col-12">
+            <mat-card
+              class="bg-white shadow-sm product-reward-card p-3 mb-4"
+              appearance="outlined"
+            >
+              <mat-card-content>
+                <div>
+                  <h5>Data Analytics Overview</h5>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    From predictive modeling to real-time analysis, data
+                    analytics empowers businesses to stay ahead of the
+                    competition.""With the right data analytics tools,
+                    organizations can enhance efficiency, reduce risks, and
+                    improve customer experiences.
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <!-- /data analytics -->
+          <!-- upgrade -->
+          <div class="col-12">
+            <mat-card
+              class="bg-white shadow-sm product-reward-card p-3"
+              appearance="outlined"
+            >
+              <mat-card-content>
+                <div>
+                  <h5>Employee Picks</h5>
+                </div>
+                <!-- pie chart -->
+                <div class="pie-chart">
+                  <ngx-charts-pie-chart
+                    [view]="view"
+                    [scheme]="colorScheme"
+                    [results]="pieChartData"
+                    [gradient]="gradient"
+                    [legend]="showLegend"
+                    [legendPosition]="legendPosition"
+                    [labels]="showLabels"
+                    [doughnut]="isDoughnut"
+                    (select)="onSelect($event)"
+                    [tooltipDisabled]="false"
+                    (activate)="onActivate($event)"
+                    (deactivate)="onDeactivate($event)"
+                  >
+                  </ngx-charts-pie-chart>
+                </div>
+                <!-- /pie chart -->
+                <div>
+                  From predictive modeling to real-time analysis, data analytics
+                  empowers businesses to stay ahead of the competition.""With
+                  the right data analytics tools, organizations can enhance
+                  efficiency, reduce risks.
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          <!-- /upgrade -->
+        </div>
+        <!-- /upgrade data analytics -->
+      </div>
+      <!-- transactions -->
+      <div class="col-4">
+        <mat-card
+          class="bg-white shadow-sm product-reward-card p-3 h-100"
+          appearance="outlined"
+        >
+          <mat-card-content>
+            <div>
+              <h4>Transactions</h4>
+            </div>
+            <!-- virtual scroll -->
+            <cdk-virtual-scroll-viewport
+              itemSize="80"
+              class="viewport"
+              (scrolledIndexChange)="onScrollProducts()"
+            >
+              <div
+                *cdkVirtualFor="let product of productData; let i = index"
+                class="col-12 p-1"
+              >
+                <mat-card
+                  class="product-card bg-white shadow-sm product-reward-card p-3 my-2"
+                  appearance="outlined"
+                >
+                  <mat-card-content
+                    class="card-product-percentage d-flex justify-content-between align-items-center"
+                  >
+                    <div class="d-flex">
+                      <div class="d-flex align-items-center">
+                        <img
+                          [src]="product.productImageDetails.imageUrl"
+                          class="user-profile"
+                          alt=""
+                        />
+                      </div>
+                      <div class="ps-2">
+                        <div class="fw-bold">{{ product.productTitle }}</div>
+                        <div class="product-code">
+                          {{ product.couponCode }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="progress-circle">
+                      {{ product.pickedCountPercentage }}%
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <!-- <div
+                *cdkVirtualFor="let product of productData; let i = index"
+                class="col-12"
+              >
+                <mat-card class="product-card shadow-sm p-3 my-4">
+                  <mat-card-content
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="d-flex align-items-center">
+                      <img
+                        [src]="product.productImageDetails.imageUrl"
+                        class="product-image"
+                        alt=""
+                      />
+                      <div class="ps-3">
+                        <div class="fw-bold product-title">
+                          {{ product.productTitle }}
+                        </div>
+                        <div>
+                          <small class="product-code">{{
+                            product.couponCode
+                          }}</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="progress-circle">
+                      {{ product.pickedCountPercentage }}%
+                    </div>
+                  </mat-card-content>
+                </mat-card>
+              </div> -->
+            </cdk-virtual-scroll-viewport>
+            <!-- End Virtual Scroll -->
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <!-- /transactions -->
     </div>
+  </div>
 </section>

@@ -26,8 +26,8 @@ const createProduct = async (req, res) => {
             return res.status(400).json({ errors: validation.error.format() }); // 🔹 Added return
         }
         // Check coupon code if aleady exists then return.
-        const result1 = await productsCollection.find({couponCode:validation.data.couponCode, isDeleted:false}).toArray();
-        if(result1.length>0){
+        const result1 = await productsCollection.find({ couponCode: validation.data.couponCode, isDeleted: false }).toArray();
+        if (result1.length > 0) {
             return res.status(401).json({ message: "Coupon code already exist" });
         }
         // creating a new product using insertOne 
@@ -236,7 +236,7 @@ const getAllProducts = async (req, res) => {
         const aggregationPipeline = [
 
             { $match: filter }, // Apply filtering
-            
+
             {
                 $lookup: {
                     from: 'images', // Join with the 'images' collection
@@ -285,14 +285,14 @@ const getAllProducts = async (req, res) => {
                     product.pickedCount = 0;
                 }
                 getAllUsersWhoPicked.forEach(element => {
-                    console.log( product._id)
+                    console.log(product._id)
                     if (element.productId.toString() === product._id.toString()) {
-                       
+
                         product.pickedCount += 1
                     }
                 });
                 product.pickedCountPercentage = totalPickedUsersCount > 0
-                    ? (product.pickedCount / totalPickedUsersCount) * 100
+                    ? parseFloat((product.pickedCount / totalPickedUsersCount * 100).toFixed(1)).toString().replace(/\.0$/, "")
                     : 0;
             }
         });
