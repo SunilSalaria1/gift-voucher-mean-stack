@@ -7,6 +7,17 @@
     padding: 3px 7px;
 }
 
+.completed{
+  border-radius: 50px;
+  padding: 10px 15px;
+  background-color: #096e0933;
+}
+
+.pending{
+  border-radius: 50px;
+  padding: 10px 15px;
+ background-color: #e9af0b36;
+}
 .disabled {
     pointer-events: none;    
   }

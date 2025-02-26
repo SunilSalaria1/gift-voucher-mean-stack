@@ -27,3 +27,17 @@
   .primary-admin{
     border-radius: 5px;
   }
+
+  /* lock icon */
+.lock.material-icons{
+  font-size: 20px !important;
+}
+
+/* note */
+.info{
+  border: 1px solid #096e0999;
+  background-color: #096e0933;
+  color:#096e09 ;
+  border-radius: 10px;
+}
+/* /note */
