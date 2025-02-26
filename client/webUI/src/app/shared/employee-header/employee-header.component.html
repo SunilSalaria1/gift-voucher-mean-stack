@@ -28,9 +28,9 @@
                 <div
                   [routerLink]="['/employee-code']"
                   (click)="logOut()"
-                  class="d-flex align-items-center"
+                  class="d-flex"
                 >
-                  <mat-icon>power_settings_new</mat-icon>
+                  <mat-icon class="dropdown-icon">power_settings_new</mat-icon>
                   <span>Logout</span>
                 </div>
               </button>
@@ -51,6 +51,12 @@
           <div>
             <mat-menu #menu="matMenu">
               <button mat-menu-item>
+                <div (click)="openDialog()" class="d-flex">
+                  <mat-icon class="dropdown-icon">comment</mat-icon>
+                  <span>Suggestions</span>
+                </div>
+              </button>
+              <button mat-menu-item>
                 <div
                   [routerLink]="['/employee-code']"
                   (click)="logOut()"
@@ -59,13 +65,7 @@
                   <mat-icon class="dropdown-icon">power_settings_new</mat-icon>
                   <span>Logout</span>
                 </div>
-              </button>
-              <button mat-menu-item>
-                <div (click)="openDialog()" class="d-flex">
-                  <mat-icon class="dropdown-icon">comment</mat-icon>
-                  <span>Suggestions</span>
-                </div>
-              </button>
+              </button>             
             </mat-menu>
           </div>
           <!-- /mat menu -->
