@@ -143,7 +143,6 @@ export class DashboardComponent {
           console.error('Error fetching users', error)
           this.isLoading = false; // Hide spinner after data is received
         }
-           
       );
   }
 
