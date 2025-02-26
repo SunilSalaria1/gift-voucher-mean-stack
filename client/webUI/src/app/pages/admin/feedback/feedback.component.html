@@ -5,12 +5,26 @@
   <div class="row">
     <div class="col-3" *ngFor="let card of cards">
       <mat-card
-        class="bg-white shadow-sm product-reward-card p-3 h-100 justify-content-between"
+        class="bg-white shadow-sm product-reward-card   justify-content-between"
         appearance="outlined"
       >
-        <mat-card-content>
+        <mat-card-content class="pb-3">
+          <!-- User Image and Name -->
+          <div>
+            <div class="user-info">
+              <div class="user-initials shadow-sm d-flex align-item-center me-3">
+                {{ getInitials(card.name) }}
+              </div>
+              <div>
+                <span class="user-name fw-bold">{{ card.name }}</span>
+                <div class="emp-code">{{ card.employeeCode }}</div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions class="border-top border-light ps-3">
           <!-- Description -->
-          <p class="description fs-12">
+          <p class="description ">
             {{ card.description | truncate : 40 : card.expanded }}
           </p>
           <span
@@ -20,18 +34,7 @@
           >
             {{ card.expanded ? "Read Less" : "Read More" }}
           </span>
-        </mat-card-content>
-        <mat-card-actions class="border-top border-light">
-          <!-- User Image and Name -->
-          <div>
-            <div class="user-info">
-              <div class="user-initials shadow-sm">
-                {{ getInitials(card.name) }}
-              </div>
-              <span class="user-name fs-14">{{ card.name }}</span>
-            </div>
-            <div class="emp-code fs-14 ps-5">{{ card.employeeCode }}</div>
-          </div>
+          
         </mat-card-actions>
       </mat-card>
     </div>

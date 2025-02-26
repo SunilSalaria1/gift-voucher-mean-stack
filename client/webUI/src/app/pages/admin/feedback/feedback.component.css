@@ -1,48 +1,61 @@
 /* user */
 .user-info {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
 }
 
 .user-initials {
-    /* width: 40px;
+  /* width: 40px;
     height: 40px;
     border: 1px solid white;
     background: antiquewhite;
     border-radius: 50%;
     object-fit: cover;
     margin-right: 10px; */
-    width: 40px;
-    height: 40px;
-    border: 1px solid white;
-    background: antiquewhite;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 18px;
-    margin-bottom: 8px;
-    margin-right: 10px;
-}
-.description {   
-    color: #555;
-    margin: 10px 0;
+  min-width: 50px;
+  min-height: 50px;
+  border: 1px solid white;
+  background: antiquewhite;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  /* margin-bottom: 8px;
+    margin-right: 10px; */
 }
 
-.row{
-    row-gap: 25px;
+.emp-code {
+  color: #777;
+  font-size: 12px;
+  margin-top: -5px;
+}
+
+.user-name {
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.description {
+  color: #777;
+  margin: 10px 0;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.row {
+  row-gap: 25px;
 }
 
 .read-more-less {
-     /* Angular Material primary color */
-    cursor: pointer;
-    font-weight: 500;
-    margin-left: 5px;
-  }
-  
-  .read-more-less:hover {
-    text-decoration: underline;
-  }
-  
+  /* Angular Material primary color */
+  cursor: pointer;
+  font-weight: 500;
+  margin-left: 5px;
+}
+
+.read-more-less:hover {
+  text-decoration: underline;
+}
