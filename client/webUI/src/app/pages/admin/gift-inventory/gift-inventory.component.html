@@ -44,7 +44,7 @@
             <span class="ms-2"><mat-icon matSuffix cdkCopyToClipboard={{element.couponCode}}
                 (click)="copied(element.couponCode)" class="copy-icon">content_copy</mat-icon></span>
             <div *ngIf="copiedMap.get(element.couponCode)" class="copy-text fs-12 position-absolute bg-dark text-white">
-              copied
+              copied !
             </div>
           </td>
         </ng-container>

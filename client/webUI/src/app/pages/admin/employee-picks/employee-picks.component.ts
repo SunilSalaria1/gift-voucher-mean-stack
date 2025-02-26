@@ -29,6 +29,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductsService } from '../../../services/products.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 @Component({
   selector: 'app-employee-picks',
   standalone: true,
@@ -46,6 +47,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatButtonModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
+    ClipboardModule,
   ],
   templateUrl: './employee-picks.component.html',
   styleUrl: './employee-picks.component.css',
@@ -67,6 +69,10 @@ export class EmployeePicksComponent {
   pageSize: number = 10;
   selectedEmpId: string | null = null;
   isLoading = false; // To track loading state
+
+  // Create a map to store copied state for each coupon code
+  copiedMap = new Map<string, boolean>();
+
   // ngOnInIt
   ngOnInit() {
     this.dataSource = new MatTableDataSource<any>([]); // Initialize with an empty array
@@ -184,18 +190,18 @@ export class EmployeePicksComponent {
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
+
+  // Method to handle copying
+  copied(employeeCode: string) {
+    // Set copied state to true for this couponCode
+    this.copiedMap.set(employeeCode, true);
+    setTimeout(() => {
+      this.copiedMap.set(employeeCode, false);
+    }, 1500);
+  }
 }
 
-// export interface PeriodicElement {
-//   position: number;
-//   employeeName: string;
-//   employeeCode: string;
-//   employeeDepartment: string;
-//   status: string;
-//   couponCode: string;
-//   productTitle: string;
-//   productImage: string;
-// }
+
 export interface EmployeePick {
   _id: string;
   name: string;
