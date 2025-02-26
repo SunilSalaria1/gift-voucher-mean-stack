@@ -1,7 +1,9 @@
-.welcome-admin {
-  position: absolute;
+.welcome-admin { 
   right: 10px;
   bottom: -44px;
+}
+.gift-selection-overview{
+  bottom: -7px;
 }
 
 .user-profile {
