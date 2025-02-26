@@ -9,7 +9,7 @@
   height: 50px;
   border: 2px solid white;
   background: antiquewhite;
-  border-radius: 50%;
+  border-radius: 12px;
   object-fit: cover;
   margin-right: 10px;
 }
@@ -55,10 +55,11 @@
 .product-code {
   font-size: 12px;
   color: #777;
-  margin-top: -7px;
+  margin-top: -5px;
 }
+
 .product-title {
-  margin-top: 7px;
+  margin-top: 5px;
 }
 
 .progress-circle {

@@ -1,6 +1,6 @@
 <section class="h-100">
   <div>
-    <h5 class="fw-bold mb-4">Dashboard</h5>
+    <h4 class="fw-bold mb-4">Dashboard</h4>
   </div>
   <!-- loader -->
   <div
@@ -15,36 +15,38 @@
       <div class="col-8">
         <!-- welcome admin -->
         <div class="row mb-4">
-          <mat-card
-            class="bg-white shadow-sm product-reward-card p-3 position-relative"
-            appearance="outlined"
-          >
-            <mat-card-content>
-              <div class="row">
-                <div class="col-7">
-                  <div>
-                    <h4 class="fw-bold text-primary">
-                      Welcome {{ loggedUser.name }}!
-                    </h4>
+          <div class="col-12">
+            <mat-card
+              class="bg-white shadow-sm product-reward-card p-3 position-relative"
+              appearance="outlined"
+            >
+              <mat-card-content>
+                <div class="row">
+                  <div class="col-7">
+                    <div>
+                      <h4 class="fw-bold text-primary">
+                        Welcome {{ loggedUser.name }}!
+                      </h4>
+                    </div>
+                    <div>
+                      Manage employee gift selections with ease! Here, you can
+                      track employee preferences, and analyze ratings to ensure
+                      the best gifting experience.
+                    </div>
                   </div>
-                  <div>
-                    Manage employee gift selections with ease! Here, you can
-                    track employee preferences, and analyze ratings to ensure
-                    the best gifting experience.
+                  <div class="col-5">
+                    <img
+                      src="assets/images/welcome-admin.png"
+                      width="300"
+                      height="300"
+                      alt=""
+                      class="welcome-admin"
+                    />
                   </div>
                 </div>
-                <div class="col-5">
-                  <img
-                    src="assets/images/welcome-admin.png"
-                    width="300"
-                    height="300"
-                    alt=""
-                    class="welcome-admin"
-                  />
-                </div>
-              </div>
-            </mat-card-content>
-          </mat-card>
+              </mat-card-content>
+            </mat-card>
+          </div>
         </div>
         <!-- /welcome admin -->
         <!-- employees products employees -->
@@ -83,7 +85,7 @@
             >
               <mat-card-content>
                 <div>
-                  <h5>Data Analytics Overview</h5>
+                  <h4 class="fw-bold">Data Analytics Overview</h4>
                 </div>
                 <div class="row">
                   <div class="col-6">
@@ -106,7 +108,7 @@
             >
               <mat-card-content>
                 <div>
-                  <h5>Employee Picks</h5>
+                  <h4 class="fw-bold">Employee Picks</h4>
                 </div>
                 <!-- pie chart -->
                 <div class="pie-chart">
@@ -148,7 +150,7 @@
         >
           <mat-card-content>
             <div>
-              <h4>Transactions</h4>
+              <h4 class="fw-bold">Transactions</h4>
             </div>
             <!-- virtual scroll -->
             <cdk-virtual-scroll-viewport
@@ -175,8 +177,10 @@
                           alt=""
                         />
                       </div>
-                      <div >
-                        <div class="fw-bold product-title">{{ product.productTitle }}</div>
+                      <div>
+                        <div class="fw-bold product-title">
+                          {{ product.productTitle }}
+                        </div>
                         <div class="product-code">
                           {{ product.couponCode }}
                         </div>
