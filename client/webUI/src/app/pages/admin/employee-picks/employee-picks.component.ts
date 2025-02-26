@@ -142,6 +142,11 @@ export class EmployeePicksComponent {
         this.userData = this.userData.filter(
           (user) => user._id !== this.selectedEmpId
         );
+        this.loadEmployeePicks(
+          this.currentPage,
+          this.pageSize,
+          this.searchForm.value
+        );
         this.dataSource.data = [...this.userData];
 
         // Show success snackbar
