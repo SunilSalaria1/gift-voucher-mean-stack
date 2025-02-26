@@ -20,6 +20,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UsersService } from '../../../services/users.service';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
   selector: 'app-settings',
   standalone: true,
@@ -38,6 +39,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
     RouterLink,
     CommonModule,
     ClipboardModule,
+    MatTooltipModule
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.css',
