@@ -1,21 +1,26 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { UsersService } from '../services/users.service';
+import { tap } from 'rxjs/operators';
 
 export const authorisationInterceptor: HttpInterceptorFn = (req, next) => {
-  const userService = inject(UsersService); // Inject UsersService
+  const userService = inject(UsersService);
+  const router = inject(Router);
   const token = userService.getToken(); // Retrieve token
 
-  // If token exists, clone the request and attach Authorization header
-  if (token) {
-    const clonedRequest = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-    return next(clonedRequest);
-  }
+  // Clone request and add Authorization header if token exists
+  const clonedRequest = token ? req.clone({ setHeaders: { Authorization: `Bearer ${token}` } }) : req;
 
-  // Proceed with original request if no token is found
-  return next(req);
+  return next(clonedRequest).pipe(
+    tap({
+      error: (error) => {
+        console.log('@@@@@')
+        if (error.status === 401) {
+          userService.logout(); // Clear token and user data
+          router.navigate(['/home']); // Redirect to home page
+        }
+      }
+    })
+  );
 };

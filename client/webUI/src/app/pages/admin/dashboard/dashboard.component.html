@@ -3,10 +3,7 @@
     <h4 class="fw-bold mb-4">Dashboard</h4>
   </div>
   <!-- loader -->
-  <div
-    *ngIf="isLoading"
-    class="spinner-container d-flex justify-content-center align-items-center h-100 w-100"
-  >
+  <div *ngIf="isLoading" class="spinner-container d-flex justify-content-center align-items-center h-100 w-100">
     <mat-spinner [diameter]="50"></mat-spinner>
   </div>
   <!-- /loader -->
@@ -16,10 +13,7 @@
         <!-- welcome admin -->
         <div class="row mb-4">
           <div class="col-12">
-            <mat-card
-              class="bg-white shadow-sm product-reward-card p-3 position-relative"
-              appearance="outlined"
-            >
+            <mat-card class="bg-white shadow-sm product-reward-card p-3 position-relative" appearance="outlined">
               <mat-card-content>
                 <div class="row">
                   <div class="col-7">
@@ -35,13 +29,7 @@
                     </div>
                   </div>
                   <div class="col-5">
-                    <img
-                      src="assets/images/welcome-admin.png"
-                      width="300"
-                      height="300"
-                      alt=""
-                      class="welcome-admin"
-                    />
+                    <img src="assets/images/welcome-admin.png" width="300" height="300" alt="" class="welcome-admin" />
                   </div>
                 </div>
               </mat-card-content>
@@ -52,10 +40,7 @@
         <!-- employees products employees -->
         <div class="row mb-4">
           <div class="col-6">
-            <mat-card
-              class="bg-white shadow-sm product-reward-card p-3 text-center"
-              appearance="outlined"
-            >
+            <mat-card class="bg-white shadow-sm product-reward-card p-3 text-center" appearance="outlined">
               <mat-card-content>
                 <div class="employees fw-bold">{{ totalEmployees }}</div>
                 <div class="fs-14 mt-4">Total Employees</div>
@@ -63,10 +48,7 @@
             </mat-card>
           </div>
           <div class="col-6">
-            <mat-card
-              class="bg-white shadow-sm text-center product-reward-card p-3"
-              appearance="outlined"
-            >
+            <mat-card class="bg-white shadow-sm text-center product-reward-card p-3" appearance="outlined">
               <mat-card-content>
                 <div class="products fw-bold">{{ totalProducts }}</div>
                 <div class="fs-14 mt-4">Total Products</div>
@@ -79,21 +61,19 @@
         <div class="row">
           <!-- data analytics -->
           <div class="col-12">
-            <mat-card
-              class="bg-white shadow-sm product-reward-card p-3 mb-4"
-              appearance="outlined"
-            >
-              <mat-card-content>
-                <div>
-                  <h4 class="fw-bold">Data Analytics Overview</h4>
-                </div>
+            <mat-card class="bg-white shadow-sm product-reward-card p-3 mb-4" appearance="outlined">
+              <mat-card-content>                
                 <div class="row">
-                  <div class="col-6">
-                    From predictive modeling to real-time analysis, data
-                    analytics empowers businesses to stay ahead of the
-                    competition.""With the right data analytics tools,
-                    organizations can enhance efficiency, reduce risks, and
-                    improve customer experiences.
+                  <div class="col-5">
+                    <img src="" width="300" height="300" alt=""  />
+                  </div>             
+                  <div class="col-7">
+                    <div>
+                      <h4 class="fw-bold">Gift Selection Overview</h4>
+                    </div>
+                    Get a quick snapshot of employee gift selections and product popularity. Track total employees,
+                    available products, and selection trends in real-time. Analyze the pick percentage to understand
+                    gifting preferences and make informed decisions for future rewards!
                   </div>
                 </div>
               </mat-card-content>
@@ -102,30 +82,17 @@
           <!-- /data analytics -->
           <!-- upgrade -->
           <div class="col-12">
-            <mat-card
-              class="bg-white shadow-sm product-reward-card p-3"
-              appearance="outlined"
-            >
+            <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
               <mat-card-content>
                 <div>
                   <h4 class="fw-bold">Employee Picks</h4>
                 </div>
                 <!-- pie chart -->
                 <div class="pie-chart">
-                  <ngx-charts-pie-chart
-                    [view]="view"
-                    [scheme]="colorScheme"
-                    [results]="pieChartData"
-                    [gradient]="gradient"
-                    [legend]="showLegend"
-                    [legendPosition]="legendPosition"
-                    [labels]="showLabels"
-                    [doughnut]="isDoughnut"
-                    (select)="onSelect($event)"
-                    [tooltipDisabled]="false"
-                    (activate)="onActivate($event)"
-                    (deactivate)="onDeactivate($event)"
-                  >
+                  <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="pieChartData"
+                    [gradient]="gradient" [legend]="showLegend" [legendPosition]="legendPosition" [labels]="showLabels"
+                    [doughnut]="isDoughnut" (select)="onSelect($event)" [tooltipDisabled]="false"
+                    (activate)="onActivate($event)" (deactivate)="onDeactivate($event)">
                   </ngx-charts-pie-chart>
                 </div>
                 <!-- /pie chart -->
@@ -144,38 +111,19 @@
       </div>
       <!-- transactions -->
       <div class="col-4">
-        <mat-card
-          class="bg-white shadow-sm product-reward-card p-3 h-100"
-          appearance="outlined"
-        >
+        <mat-card class="bg-white shadow-sm product-reward-card p-3 h-100" appearance="outlined">
           <mat-card-content>
             <div>
               <h4 class="fw-bold">Transactions</h4>
             </div>
             <!-- virtual scroll -->
-            <cdk-virtual-scroll-viewport
-              itemSize="80"
-              class="viewport"
-              (scrolledIndexChange)="onScrollProducts()"
-            >
-              <div
-                *cdkVirtualFor="let product of productData; let i = index"
-                class="col-12 p-1"
-              >
-                <mat-card
-                  class="product-card bg-white shadow-sm product-reward-card p-2 my-1"
-                  appearance="outlined"
-                >
-                  <mat-card-content
-                    class="card-product-percentage d-flex justify-content-between align-items-center"
-                  >
+            <cdk-virtual-scroll-viewport itemSize="80" class="viewport" (scrolledIndexChange)="onScrollProducts()">
+              <div *cdkVirtualFor="let product of productData; let i = index" class="col-12 p-1">
+                <mat-card class="product-card bg-white shadow-sm product-reward-card p-2 my-1" appearance="outlined">
+                  <mat-card-content class="card-product-percentage d-flex justify-content-between align-items-center">
                     <div class="d-flex">
                       <div class="d-flex align-items-center">
-                        <img
-                          [src]="product.productImageDetails.imageUrl"
-                          class="user-profile"
-                          alt=""
-                        />
+                        <img [src]="product.productImageDetails.imageUrl" class="user-profile" alt="" />
                       </div>
                       <div>
                         <div class="fw-bold product-title">
