@@ -3,11 +3,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { UsersService } from '../../../services/users.service';
-import { TruncatePipe } from '../../../shared/pipes/truncate.pipe';
 @Component({
   selector: 'app-feedback',
   standalone: true,
-  imports: [MatCardModule, MatIconModule, CommonModule, TruncatePipe],
+  imports: [MatCardModule, MatIconModule, CommonModule],
   templateUrl: './feedback.component.html',
   styleUrl: './feedback.component.css',
 })
@@ -24,10 +23,7 @@ export class FeedbackComponent {
       }));
       console.log(this.cards);
     });
-  }
-  toggleReadMore(card: Feedback) {
-    card.expanded = !card.expanded;
-  }
+  }  
 
   // initials of first and last name
   getInitials(name: string): string {

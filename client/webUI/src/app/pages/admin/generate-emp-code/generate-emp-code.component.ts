@@ -161,6 +161,13 @@ export class GenerateEmpCodeComponent {
     this._usersService.createAdminRemoveAdmin(id, payload).subscribe(
       (response) => {
         console.log('access granted :', response);
+        // Show success snackbar
+    this.snackBar.open('You have successfully changed the admin status!.', 'close', {
+      duration: 5000,
+      panelClass: ['snackbar-success'],
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
       },
       (error) => {
         console.error('error while granting admin access:', error);

@@ -163,6 +163,7 @@ export class SettingsComponent {
     'position',
     'name',
     'adminCode',
+    'adminKey',
     'email',
     'department',
     'dob',

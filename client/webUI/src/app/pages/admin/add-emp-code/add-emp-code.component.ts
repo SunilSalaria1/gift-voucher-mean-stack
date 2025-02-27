@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
@@ -50,11 +50,10 @@ export class AddEmpCodeComponent {
   departments = ['HR', 'Frontend', 'Backend', 'Audit', 'Bidding'];
   generatedCode: string | null = null;
   addEmployeeCodeForm!: FormGroup;
-  dialogEmployee: any;
-  isEmailAlreadyExist: boolean = false;
+  dialogEmployee: any;  
   private _usersService = inject(UsersService)
   constructor(
-    private formBuilder: FormBuilder, private snackBar: MatSnackBar, private router: Router
+    private formBuilder: FormBuilder, private snackBar: MatSnackBar, private router: Router,
   ) { }
   // ngAfterViewInit(): void {
   //   throw new Error('Method not implemented.');
@@ -63,7 +62,7 @@ export class AddEmpCodeComponent {
   ngOnInit(): void {
     // form
     this.addEmployeeCodeForm = this.formBuilder.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required,Validators.minLength(3)]],
       department: ['', Validators.required],
       dob: ['', Validators.required],
       joiningDate: ['', Validators.required],
@@ -141,8 +140,7 @@ export class AddEmpCodeComponent {
   
 
   // Call the openDialog method conditionally
-  submitForm(): void {
-    this.isEmailAlreadyExist = false;
+  submitForm(): void {    
     if (this.addEmployeeCodeForm.valid) {
       const newPost = this.addEmployeeCodeForm.value;
       this._usersService.registerUser(newPost).subscribe(
@@ -161,8 +159,9 @@ export class AddEmpCodeComponent {
         },
         (error) => {
           let errorMessage = error.error.error;
-          if (errorMessage == "Email already exists") {
-            this.isEmailAlreadyExist = true;
+          if (errorMessage == "Email already exists") {            
+            this.addEmployeeCodeForm.get('email')?.setErrors({ emailExists: true });
+          this.addEmployeeCodeForm.get('email')?.markAsTouched(); // Force validation message            
           }
           this.snackBar.open(errorMessage, 'Close', {
             duration: 5000,

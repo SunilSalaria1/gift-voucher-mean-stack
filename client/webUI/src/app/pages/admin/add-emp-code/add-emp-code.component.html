@@ -44,7 +44,8 @@
               >
                 <input matInput formControlName="name" />
                 <mat-icon matSuffix>person</mat-icon>
-                <mat-error>This is Required</mat-error>
+                <mat-error *ngIf="addEmployeeCodeForm.get('name')?.hasError('required')">This is Required</mat-error>
+                <mat-error *ngIf="addEmployeeCodeForm.get('name')?.hasError('minlength')"> Name must be at least 3 characters long</mat-error>
               </mat-form-field>
               <h4 class="fw-bold mb-1">Department</h4>
               <mat-form-field
@@ -77,11 +78,12 @@
                   *ngIf="addEmployeeCodeForm.get('email')?.hasError('email')"
                 >
                   Enter a valid email.
+                </mat-error>                
+                <mat-error *ngIf="addEmployeeCodeForm.get('email')?.hasError('emailExists')">
+                  This email already exists.
                 </mat-error>
               </mat-form-field>
-              <div *ngIf="isEmailAlreadyExist" class="text-danger">
-                this email already exists
-              </div>
+              
               <h4 class="fw-bold mb-1">DOB</h4>
               <mat-form-field
                 appearance="outline"

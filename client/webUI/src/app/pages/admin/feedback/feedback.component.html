@@ -25,16 +25,10 @@
         <mat-card-actions class="border-top border-light ps-3">
           <!-- Description -->
           <p class="description ">
-            {{ card.description | truncate : 40 : card.expanded }}
+            {{ card.description }}
+            
           </p>
-          <span
-            *ngIf="card.description.split('').length > 50"
-            class="read-more-less text-primary"
-            (click)="toggleReadMore(card)"
-          >
-            {{ card.expanded ? "Read Less" : "Read More" }}
-          </span>
-          
+                  
         </mat-card-actions>
       </mat-card>
     </div>

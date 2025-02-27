@@ -89,11 +89,14 @@
                   (blur)="validateCouponCode()"
                 />
                 <mat-icon matSuffix>vpn_key</mat-icon>
-                <mat-error>This is Required</mat-error>
+                <mat-error *ngIf="addGiftItemForm.get('couponCode')?.hasError('required')">This is Required</mat-error>
+                <mat-error *ngIf="addGiftItemForm.get('couponCode')?.hasError('couponExists')">
+                  This coupon code already exists.
+                </mat-error>
               </mat-form-field>
-              <div *ngIf="isCouponCodeAlreadyExists" class="text-danger">
+              <!-- <div *ngIf="isCouponCodeAlreadyExists" class="text-danger">
                 this coupon code aready exists
-              </div>
+              </div> -->
               <h4 class="fw-bold mb-1">Product Image</h4>
               <mat-form-field
                 appearance="outline"
@@ -170,8 +173,7 @@
               <div class="mt-2">
                 <button
                   mat-flat-button
-                  class="button-mh-60 text-white bg-dark shadow-sm w-100 me-2"
-                  [disabled]="isCouponCodeAlreadyExists"
+                  class="button-mh-60 text-white bg-dark shadow-sm w-100 me-2"                  
                 >
                   <mat-icon>celebration</mat-icon>Create Reward
                 </button>

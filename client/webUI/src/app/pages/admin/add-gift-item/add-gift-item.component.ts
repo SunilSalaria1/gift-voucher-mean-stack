@@ -30,8 +30,7 @@ import { ProductsService } from '../../../services/products.service';
 export class AddGiftItemComponent {
   submitted: boolean = false;
   currentImage: any;
-  productImage: any;
-  isCouponCodeAlreadyExists: boolean;
+  productImage: any; 
   addGiftItemForm!: FormGroup;
   constructor(
     private formBuilder: FormBuilder, private snackBar: MatSnackBar, private router: Router, private productsService: ProductsService
@@ -50,20 +49,19 @@ export class AddGiftItemComponent {
     });
 
      // Reset error when coupon code changes
-  this.addGiftItemForm.get('couponCode')?.valueChanges.subscribe(() => {
-    this.isCouponCodeAlreadyExists = false;
-  });
+  // this.addGiftItemForm.get('couponCode')?.valueChanges.subscribe(() => {
+  //   this.isCouponCodeAlreadyExists = false;
+  // });
   }
 
   // validating coupon code
-  validateCouponCode() {
-    this.isCouponCodeAlreadyExists = false;
+  validateCouponCode() {    
     const couponCode = this.addGiftItemForm.get('couponCode')?.value;
     if (couponCode) {
       this.productsService.checkCouponCode(couponCode).subscribe(
         (response) => {
-          if (response) {
-            this.isCouponCodeAlreadyExists = true; // Set error if exists
+          if (response) {            
+            this.addGiftItemForm.get('couponCode')?.setErrors({ couponExists: true });
             console.log('Coupon code already exists!');
           }
         },
