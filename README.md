@@ -1,7 +1,7 @@
 # gift-voucher-mean-stack
 
 Primary Admin : Administrator Code - LPIT21871281
-                Administrator Key - adm04082000 
+Administrator Key - adm04082000
 
 MEAN stack gift voucher.
 
@@ -67,30 +67,27 @@ MEAN stack gift voucher.
 
 ## i am using Zod is a TypeScript-first schema validation library for JavaScript and Node.js
 
-Installation Command:- npm install mongodb zod :- ("zod": "^3.24.1")version
-Installation Command:- npm i mongodb --- ("mongodb": "^6.13.1")version
+Installation Command:- npm install zod --- ("zod": "^3.24.1")version
+Installation Command:- npm install mongodb --- ("mongodb": "^6.13.1")version
 
 ## i am using bcryptjs is a JavaScript library used to hash passwords securely in Node.js
 
-Installation Command:- npm install bcryptjs --- i have install bcryptjs using this command. ("bcryptjs": "^2.4.3")version
+Installation Command:- npm install bcryptjs --- ("bcryptjs": "^2.4.3")version
 
 ## i am using multer for storing images as buffers in a database & it is a (middleware for handling multipart/form-data in Node.js.)
 
-Installation Command:- npm install multer --- i have install multer using this command. ("multer": "^1.4.5-lts.1")version
+Installation Command:- npm install multer --- ("multer": "^1.4.5-lts.1")version
 
-##  The jsonwebtoken library (jwt) is used for creating, signing, and verifying JSON Web Tokens (JWTs)
+## The jsonwebtoken library (jwt) is used for creating, signing, and verifying JSON Web Tokens (JWTs)
 
-Installation Command:- npm install jsonwebtoken --- i have installed jsonwebtoken (jwt) using this command. ("jsonwebtoken": "^9.0.2")version
+Installation Command:- npm install jsonwebtoken --- ("jsonwebtoken": "^9.0.2")version
 
 ## i am using Cors (Cross-Origin Resource Sharing) is a Node.js middleware that allows or restricts access to your API from different domains (origins).
 
-Installation Command:- npm install cors --- i have installed cors (Cross-Origin Resource Sharing) using this command. ("cors": "^2.8.5")version
+Installation Command:- npm install cors --- ("cors": "^2.8.5")version
 
 ## i am using dotenv is a Node.js package that loads environment variables from a .env file into process.env.
 
-Installation Command:- npm install dotenv  :- ("dotenv": "^16.4.7",)version
+Installation Command:- npm install dotenv --- ("dotenv": "^16.4.7",)version
 
 
-Installation Command:
-npm install dotenv
-Installed Version: "dotenv": "^16.4.7"
