@@ -34,6 +34,7 @@ export class DashboardComponent {
   userData: any;
   productData: any[] = [];
   totalProducts: any;
+  totalSuggestions:any;
   employeesPickedGift: any;
   employeesDidNotPickedGift: any;
   pickedPercentage: any;
@@ -110,6 +111,7 @@ export class DashboardComponent {
           const products = data.products ?? []; // Ensure products is always an array
           this.totalEmployees = data.totalUsers;
           this.totalProducts = data.totalProducts;
+          this.totalSuggestions = data.totalSuggestions;
           this.employeesPickedGift = data.usersPickedGift;
           this.employeesDidNotPickedGift = data.userDidNotPickedGift;
           this.pickedPercentage = this.totalEmployees
