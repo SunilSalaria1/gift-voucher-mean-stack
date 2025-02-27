@@ -65,19 +65,19 @@ Administrator Key - adm04082000
 "swagger": "node ./swagger.js"
 },
 
-## i am using Zod is a TypeScript-first schema validation library for JavaScript and Node.js.
+## Zod is a TypeScript-first schema validation library for JavaScript and Node.js.
 
 Installation Command:- npm install zod --- ("zod": "^3.24.1")version
 
-## i am using MongoDB is a NoSQL database that stores data in a flexible, JSON-like format. Instead of tables and rows (like SQL databases), it uses collections and documents.
+## MongoDB is a NoSQL database that stores data in a flexible, JSON-like format. Instead of tables and rows (like SQL databases), it uses collections and documents.
 
 Installation Command:- npm install mongodb --- ("mongodb": "^6.13.1")version
 
-## i am using bcryptjs is a JavaScript library used to hash passwords securely in Node.js.
+## bcryptjs is a JavaScript library used to hash passwords securely in Node.js.
 
 Installation Command:- npm install bcryptjs --- ("bcryptjs": "^2.4.3")version
 
-## i am using multer for storing images as buffers in a database & it is a (middleware for handling multipart/form-data in Node.js.)
+## multer for storing images as buffers in a database & it is a (middleware for handling multipart/form-data in Node.js.)
 
 Installation Command:- npm install multer --- ("multer": "^1.4.5-lts.1")version
 
@@ -85,10 +85,10 @@ Installation Command:- npm install multer --- ("multer": "^1.4.5-lts.1")version
 
 Installation Command:- npm install jsonwebtoken --- ("jsonwebtoken": "^9.0.2")version
 
-## i am using Cors (Cross-Origin Resource Sharing) is a Node.js middleware that allows or restricts access to your API from different domains (origins).
+## Cors (Cross-Origin Resource Sharing) is a Node.js middleware that allows or restricts access to your API from different domains (origins).
 
 Installation Command:- npm install cors --- ("cors": "^2.8.5")version
 
-## i am using dotenv is a Node.js package that loads environment variables from a .env file into process.env.
+## dotenv is a Node.js package that loads environment variables from a .env file into process.env.
 
 Installation Command:- npm install dotenv --- ("dotenv": "^16.4.7",)version
