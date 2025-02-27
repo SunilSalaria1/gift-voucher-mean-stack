@@ -90,10 +90,10 @@ export class SettingsComponent {
       .getUsers(page, limit, searchTerm, sortBy, role)
       .subscribe(
         (data) => {
-          // Assuming data has a structure like { users: [], totalPages: number, currentPage: number, totalUsers: number }
-          this.userData = data.users.sort(
-            (a, b) => b.isPrimaryAdmin - a.isPrimaryAdmin
-          ); // Sort the array
+          this.userData = data.users.map((user) => ({
+            ...user,
+            adminKey: this.generateAdminKey(user.name, user.dob),
+          }));
           this.totalPages = data.totalPages;
           this.currentPage = data.currentPage;
           this.totalUsers = data.totalUsers;
@@ -105,6 +105,17 @@ export class SettingsComponent {
       );
   }
 
+  // function for generating admin key
+  generateAdminKey(name: string, dob: string): string {
+    if (!name || !dob) return ''; // Handle missing values
+  
+    const namePart = name.substring(0, 3) // First 3 letters of name
+    const dobPart = dob.split('T')[0].split('-').reverse().join(''); // Converts YYYY-MM-DD to DDMMYYYY
+  
+    return `${namePart}${dobPart}`;
+  }
+  
+// on page change
   onPageChange(event: PageEvent) {
     console.log(event, 'kkkk');
     this.currentPage = event.pageIndex + 1; // MatPaginator uses 0-based index
