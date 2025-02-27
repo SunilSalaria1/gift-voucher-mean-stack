@@ -4,6 +4,7 @@ const { ObjectId } = require('mongodb');
 const { ZodError } = require("zod");
 const productsCollection = db.collection('products');
 const usersCollection = db.collection('users');
+const suggestionCollection = db.collection('suggestions');
 
 const createProduct = async (req, res) => {
     /*  #swagger.tags = ['Products']
@@ -301,10 +302,11 @@ const getAllProducts = async (req, res) => {
         const totalUsers = await usersCollection.countDocuments({ isDeleted: false });
         const usersPickedGift = await usersCollection.countDocuments({ isDeleted: false, isPicked: "completed" });
         const userDidNotPickedGift = totalUsers - usersPickedGift;
+        const totalSuggestions = await suggestionCollection.countDocuments({ isDeleted: false, });
 
         // If pagination was not provided, return all products in a separate response
         if (!isPaginationProvided) {
-            return res.json({ products, totalProducts, totalUsers, usersPickedGift, userDidNotPickedGift });
+            return res.json({ products, totalProducts, totalUsers, usersPickedGift, userDidNotPickedGift, totalSuggestions });
         }
 
         // Return paginated response

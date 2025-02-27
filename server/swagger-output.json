@@ -13,7 +13,9 @@
       "description": "User Routes"
     }
   ],
-  "schemes": ["http"],
+  "schemes": [
+    "http"
+  ],
   "securityDefinitions": {
     "Bearer": {
       "type": "apiKey",
@@ -25,7 +27,9 @@
   "paths": {
     "/api/users": {
       "get": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "description": "Get all users.",
         "parameters": [
           {
@@ -80,7 +84,9 @@
     },
     "/api/users/{id}": {
       "get": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "description": "Get User with Id.",
         "parameters": [
           {
@@ -117,7 +123,9 @@
         }
       },
       "put": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "description": "Update User with Id.",
         "parameters": [
           {
@@ -163,7 +171,9 @@
         }
       },
       "delete": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "description": "Delete User with Id .",
         "parameters": [
           {
@@ -202,7 +212,9 @@
     },
     "/api/login": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "description": "Login user",
         "parameters": [
           {
@@ -239,7 +251,9 @@
     },
     "/api/logout": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "description": "Logout user",
         "parameters": [
           {
@@ -272,7 +286,9 @@
     },
     "/api/register": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "description": "Register user",
         "parameters": [
           {
@@ -314,7 +330,9 @@
     },
     "/api/suggestion": {
       "post": {
-        "tags": ["Suggestion section"],
+        "tags": [
+          "Suggestion section"
+        ],
         "description": "",
         "parameters": [
           {
@@ -357,7 +375,9 @@
         }
       },
       "get": {
-        "tags": ["Suggestion section"],
+        "tags": [
+          "Suggestion section"
+        ],
         "description": "",
         "parameters": [
           {
@@ -384,7 +404,9 @@
     },
     "/api/upload": {
       "post": {
-        "tags": ["Upload Image"],
+        "tags": [
+          "Upload Image"
+        ],
         "description": "",
         "parameters": [
           {
@@ -414,7 +436,9 @@
     },
     "/api/products": {
       "post": {
-        "tags": ["Products"],
+        "tags": [
+          "Products"
+        ],
         "description": "Add Product",
         "parameters": [
           {
@@ -451,7 +475,9 @@
         }
       },
       "get": {
-        "tags": ["Products"],
+        "tags": [
+          "Products"
+        ],
         "description": "Get all Products.",
         "parameters": [
           {
@@ -501,7 +527,9 @@
     },
     "/api/products/{id}": {
       "put": {
-        "tags": ["Products"],
+        "tags": [
+          "Products"
+        ],
         "description": "Add Product",
         "parameters": [
           {
@@ -550,7 +578,9 @@
         }
       },
       "get": {
-        "tags": ["Products"],
+        "tags": [
+          "Products"
+        ],
         "description": "Get Product with Id .",
         "parameters": [
           {
@@ -587,7 +617,9 @@
         }
       },
       "delete": {
-        "tags": ["Products"],
+        "tags": [
+          "Products"
+        ],
         "description": "Delete User with Id .",
         "parameters": [
           {
@@ -626,7 +658,9 @@
     },
     "/api/users/{id}/gifts": {
       "put": {
-        "tags": ["Gifts"],
+        "tags": [
+          "Gifts"
+        ],
         "description": "Update User Gift Pick with Id.",
         "parameters": [
           {
@@ -672,7 +706,9 @@
         }
       },
       "delete": {
-        "tags": ["Gifts"],
+        "tags": [
+          "Gifts"
+        ],
         "description": "Delete User Gift Pick with Id.",
         "parameters": [
           {
@@ -716,7 +752,9 @@
     },
     "/api/gifts": {
       "get": {
-        "tags": ["Gifts"],
+        "tags": [
+          "Gifts"
+        ],
         "description": "All Users Gift Pick.",
         "parameters": [
           {
@@ -768,7 +806,9 @@
     },
     "/api/couponCode/{couponCode}": {
       "get": {
-        "tags": ["Validate Coupon Code"],
+        "tags": [
+          "Validate Coupon Code"
+        ],
         "description": "Get Coupon Code .",
         "parameters": [
           {
@@ -804,7 +844,9 @@
     },
     "/api/users/{id}/role": {
       "put": {
-        "tags": ["Admin"],
+        "tags": [
+          "Admin"
+        ],
         "description": "Update User with Id.",
         "parameters": [
           {
@@ -857,11 +899,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Tue Feb 25 2025 18:49:42 GMT+0530 (India Standard Time)"
+          "example": "Thu Feb 27 2025 10:13:55 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Tue Feb 25 2025 18:49:42 GMT+0530 (India Standard Time)"
+          "example": "Thu Feb 27 2025 10:13:55 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
