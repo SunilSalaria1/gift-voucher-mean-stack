@@ -1,8 +1,9 @@
 # gift-voucher-mean-stack
 
-administrator :- Ad1234 | 123123 , employee :- Lp1234
+## Primary Admin --:
 
-MEAN stack gift voucher.
+Administrator Code - LPIT21871281
+Administrator Key - adm04082000
 
 ## client detail :
 
@@ -23,12 +24,6 @@ MEAN stack gift voucher.
 - [need to run all three packages from scripts to run the environment]
 
 ## steps to install + setup node environment :
-
-<!-- - npx express-generator [https://expressjs.com/en/starter/generator.html]
-
-- create a MongoDB database (used sunil.salaria@lpinfotech.com for this project) [https://cloud.mongodb.com/v2/658e6346ad14f147c8beae92#/clusters]
-
-- npm i mongoose [https://www.npmjs.com/package/mongoose] Install Mongoose library to connect with MongoDB and make modals/schemas. -->
 
 - connect with the MongoDB database via Express js:
 
@@ -52,11 +47,11 @@ MEAN stack gift voucher.
 
 ## swagger setup
 
-- npm i swagger-autogen
-- npm i swagger-ui-express
+- npm i swagger-autogen ("swagger-autogen": "^2.23.7")version
+- npm i swagger-ui-express ("swagger-ui-express": "^5.0.1")version
 
 - need to create swager.js file in root of project and also copy code from swagger.js and paste in new file.
-- in app.js import swagger as well like below :
+- in app.js import swagger as -:
   const swaggerUi = require('swagger-ui-express');
   const swaggerFile = require('./swagger-output.json');
 - app.use('/api/v1/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
@@ -70,7 +65,30 @@ MEAN stack gift voucher.
 "swagger": "node ./swagger.js"
 },
 
-## i am using zod for models
+## i am using Zod is a TypeScript-first schema validation library for JavaScript and Node.js.
 
-- npm install mongodb zod --- i have install zod using this command.
-- npm i mongodb --- i have also installed mongodb for that beore using command.
+Installation Command:- npm install zod --- ("zod": "^3.24.1")version
+
+## i am using MongoDB is a NoSQL database that stores data in a flexible, JSON-like format. Instead of tables and rows (like SQL databases), it uses collections and documents.
+
+Installation Command:- npm install mongodb --- ("mongodb": "^6.13.1")version
+
+## i am using bcryptjs is a JavaScript library used to hash passwords securely in Node.js.
+
+Installation Command:- npm install bcryptjs --- ("bcryptjs": "^2.4.3")version
+
+## i am using multer for storing images as buffers in a database & it is a (middleware for handling multipart/form-data in Node.js.)
+
+Installation Command:- npm install multer --- ("multer": "^1.4.5-lts.1")version
+
+## The jsonwebtoken library (jwt) is used for creating, signing, and verifying JSON Web Tokens (JWTs)
+
+Installation Command:- npm install jsonwebtoken --- ("jsonwebtoken": "^9.0.2")version
+
+## i am using Cors (Cross-Origin Resource Sharing) is a Node.js middleware that allows or restricts access to your API from different domains (origins).
+
+Installation Command:- npm install cors --- ("cors": "^2.8.5")version
+
+## i am using dotenv is a Node.js package that loads environment variables from a .env file into process.env.
+
+Installation Command:- npm install dotenv --- ("dotenv": "^16.4.7",)version
