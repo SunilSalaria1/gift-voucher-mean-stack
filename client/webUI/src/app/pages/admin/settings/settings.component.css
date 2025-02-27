@@ -33,6 +33,11 @@
   font-size: 20px !important;
 }
 
+.lock{
+  top: -2px;
+  left: -1px;
+}
+
 /* note */
 .info{
   border: 1px solid #096e0999;
