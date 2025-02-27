@@ -1,9 +1,9 @@
 # gift-voucher-mean-stack
 
-Primary Admin : Administrator Code - LPIT21871281
-Administrator Key - adm04082000
+## Primary Admin --:
 
-MEAN stack gift voucher.
+Administrator Code - LPIT21871281
+Administrator Key - adm04082000
 
 ## client detail :
 
