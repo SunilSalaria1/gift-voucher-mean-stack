@@ -1,7 +1,7 @@
 /* copy */
 .copy-text{
     font-size: 20px;    
-    right: 29px;  
+    right: 20px;  
     border-radius: 5px;  
     padding: 3px 7px;
     font-weight: 500;
@@ -14,8 +14,27 @@
 
   mat-icon.copy-icon{
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 5px;
+    top: 5px;
+    font-size: 20px;   
+  }
+
+  .admin-copy-text{
+    font-size: 20px;    
+    right: 20px;  
+    border-radius: 5px;  
+    padding: 3px 7px;
+    font-weight: 500;
+    bottom: 1px;
+  }
+  mat-icon.admin-copy-icon:hover{
+    cursor: pointer;
+  }
+
+  mat-icon.admin-copy-icon{
+    position: absolute;
+    right: 5px;
+    top: 5px;
     font-size: 20px;   
   }
   /* /copy */

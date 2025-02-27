@@ -67,6 +67,7 @@ export class SettingsComponent {
   role = 'admin';
   // Create a map to store copied state for each coupon code
   copiedMap = new Map<string, boolean>();
+  copiedKeyMap = new Map<string, boolean>();
   // ngOnInIt
   ngOnInit() {
     this.dataSource = new MatTableDataSource<any>([]); // Initialize with an empty array
@@ -196,6 +197,15 @@ export class SettingsComponent {
       this.copiedMap.set(employeeCode, false);
     }, 1500);
   }
+
+  copiedKey(adminKey: string) {
+    // Set copied state to true for this couponCode
+    this.copiedMap.set(adminKey, true);
+    setTimeout(() => {
+      this.copiedMap.set(adminKey, false);
+    }, 1500);
+  }
+
 }
 export interface PeriodicElement {
   position: number;
