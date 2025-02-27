@@ -65,12 +65,15 @@ MEAN stack gift voucher.
 "swagger": "node ./swagger.js"
 },
 
-## i am using Zod is a TypeScript-first schema validation library for JavaScript and Node.js
+## i am using Zod is a TypeScript-first schema validation library for JavaScript and Node.js.
 
 Installation Command:- npm install zod --- ("zod": "^3.24.1")version
+
+## i am using MongoDB is a NoSQL database that stores data in a flexible, JSON-like format. Instead of tables and rows (like SQL databases), it uses collections and documents.
+
 Installation Command:- npm install mongodb --- ("mongodb": "^6.13.1")version
 
-## i am using bcryptjs is a JavaScript library used to hash passwords securely in Node.js
+## i am using bcryptjs is a JavaScript library used to hash passwords securely in Node.js.
 
 Installation Command:- npm install bcryptjs --- ("bcryptjs": "^2.4.3")version
 
@@ -89,5 +92,3 @@ Installation Command:- npm install cors --- ("cors": "^2.8.5")version
 ## i am using dotenv is a Node.js package that loads environment variables from a .env file into process.env.
 
 Installation Command:- npm install dotenv --- ("dotenv": "^16.4.7",)version
-
-
