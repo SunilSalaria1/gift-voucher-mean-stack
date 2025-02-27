@@ -168,10 +168,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
       <!-- /table -->
-      <div
-        class="d-flex justify-content-center mt-2 fw-bold bg-light"
-        *ngIf="dataSource.filteredData.length === 0"
-      >
+      <div class="d-flex justify-content-center mt-2 fw-bold bg-light" *ngIf="searchForm.get('searchTerm')?.value && dataSource.data.length === 0">
         No result found.
       </div>
       <!-- paginator -->
