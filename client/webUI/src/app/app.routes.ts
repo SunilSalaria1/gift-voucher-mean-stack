@@ -20,6 +20,7 @@ import { FeedbackComponent } from './pages/admin/feedback/feedback.component';
 import { SelectedGiftDetailsComponent } from './pages/employee/selected-gift-details/selected-gift-details.component';
 import { EventsComponent } from './pages/admin/events/events.component';
 import { AddEventComponent } from './pages/admin/add-event/add-event.component';
+import { EditEventComponent } from './pages/admin/edit-event/edit-event.component';
 
 export const routes: Routes = [
     //auth routes
@@ -46,6 +47,7 @@ export const routes: Routes = [
             { path: 'edit-emp-code/:id', component:EditEmpCodeComponent },            
             { path: 'events', component:EventsComponent },
             { path: 'add-event', component:AddEventComponent },
+            { path: 'edit-event', component:EditEventComponent },
 
         ]
      },

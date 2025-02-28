@@ -16,6 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { UsersService } from '../../../services/users.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { EventsService } from '../../../services/events.service';
 
 @Component({
   selector: 'app-events',
@@ -53,13 +54,13 @@ export class EventsComponent {
   }
 
   readonly dialog = inject(MatDialog);
-  private _usersService = inject(UsersService);
-  userData: any[] = [];
+  private _eventsService = inject(EventsService);
+  eventsData: any[] = [];
   selectedEmpId: string | null = null;
   searchForm: FormGroup;
   totalPages = 0;
   currentPage = 1;
-  totalUsers: number;
+  totalEvents: number;
   pageSize: number = 10;
   isLoading = false; // To track loading state
 
@@ -67,25 +68,26 @@ export class EventsComponent {
   // ngOnInIt
   ngOnInit() {
     this.dataSource = new MatTableDataSource<any>([]); // Initialize with an empty array
-    this.loadUsers(this.currentPage, this.pageSize, this.searchForm.value);
+    this.loadEvents(this.currentPage, this.pageSize, this.searchForm.value);
     this.searchForm
       .get('searchTerm')
       ?.valueChanges.pipe(debounceTime(500), distinctUntilChanged())
       .subscribe((searchTerm) => {
-        this.loadUsers(this.currentPage, this.pageSize, searchTerm);
+        this.loadEvents(this.currentPage, this.pageSize, searchTerm);
       });
   }
 
-  loadUsers(page: number, limit: number, searchTerm: any, sortBy: string = '') {
+  loadEvents(page: number, limit: number, searchTerm: any, sortBy: string = '') {
     this.isLoading = true; // Show spinner before API call starts
-    this._usersService.getUsers(page, limit, searchTerm, sortBy).subscribe(
+    console.log("!!!!!!!!!!!!!!!!!!",page,limit)
+    this._eventsService.getEvents(page, limit, searchTerm, sortBy).subscribe(
       (data) => {
-        this.userData = data.users;
+        this.eventsData = data.events;
         this.totalPages = data.totalPages;
         this.currentPage = data.currentPage;
-        this.totalUsers = data.totalUsers;
-        this.dataSource.data = this.userData;
-        console.log(data, this.totalUsers);
+        this.totalEvents = data.totalEvents;
+        this.dataSource.data = this.eventsData;
+        console.log(data, this.totalEvents);
         this.isLoading = false; // Hide spinner after data is received
       },
       (error) => {
@@ -99,8 +101,8 @@ export class EventsComponent {
     console.log(event, 'kkkk');
     this.currentPage = event.pageIndex + 1; // MatPaginator uses 0-based index
     this.pageSize = event.pageSize;
-    this.totalUsers = event.length;
-    this.loadUsers(this.currentPage, this.pageSize, this.searchForm.value); // Fetch data for the new page
+    this.totalEvents = event.length;
+    this.loadEvents(this.currentPage, this.pageSize, this.searchForm.value); // Fetch data for the new page
   }
 
   index(i: number): number {
@@ -119,30 +121,26 @@ export class EventsComponent {
 
   // displaying table headings
   displayedColumns: string[] = [
-    'position',
-    'name',
-    'employeeCode',
-    'email',
-    'department',
-    'dob',
-    'joiningDate',   
+    'position',    
+    'title',
+    'date',
+    'time',
+    'about',
+    'address',
     'Action',
   ];
 
   dataSource = new MatTableDataSource<any>([]);
 
-
-
 }
 
 export interface PeriodicElement {
   position: number;
-  employeeCode: string;
-  name: string;
-  department: string;
-  dob: string;
-  joiningDate: string;
-  email: string;
+  title: string; 
+  date: string;
+  time: string;
+  about: string;
+  address:string;
 }
 
 

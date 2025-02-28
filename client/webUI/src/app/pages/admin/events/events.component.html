@@ -41,59 +41,52 @@
                     <!-- Showing index -->
                 </ng-container>
                 <!-- employee name -->
-                <ng-container matColumnDef="name">
+                <ng-container matColumnDef="title">
                     <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">
                         Event Name
                     </th>
-                    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-                </ng-container>
-                <!-- employee code -->
-                <ng-container matColumnDef="employeeCode">
-                    <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">
-                        Event Image
-                    </th>
-                    <td mat-cell *matCellDef="let element" class="position-relative">
-                        {{ element.employeeCode }}
-                    </td>
-                </ng-container>
+                    <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+                </ng-container>             
+               
                 <!-- email -->
-                <ng-container matColumnDef="email">
+                <ng-container matColumnDef="date">
                     <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">
                         Event Date
                     </th>
                     <td mat-cell *matCellDef="let element" class="position-relative">
-                        {{ element.email }}
+                        {{ element.date | date : "dd-MM-yyyy" }}
                     </td>
                 </ng-container>
                 <!-- department -->
-                <ng-container matColumnDef="department">
+                <ng-container matColumnDef="time">
                     <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">
                         Event Time
                     </th>
                     <td mat-cell *matCellDef="let element">
-                        {{ element.department }}
+                        {{ element.time }}
                     </td>
                 </ng-container>
                 <!-- joining date -->
-                <ng-container matColumnDef="joiningDate">
+                <ng-container matColumnDef="address">
                     <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">
                         Address
                     </th>
                     <td mat-cell *matCellDef="let element">
-                        {{ element.joiningDate | date : "dd-MM-yyyy" }}
+                        {{ element.address }}
                     </td>
                 </ng-container>
                 <!-- dob -->
-                <ng-container matColumnDef="dob">
+                <ng-container matColumnDef="about">
                     <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">
                         About
                     </th>
                     <td mat-cell *matCellDef="let element">
                         <div class="p-3">
-                            {{ element.dob | date : "dd-MM-yyyy" }}
+                            {{ element.about }}
                         </div>
                     </td>
                 </ng-container>
+                
                 <!-- action -->
                 <ng-container matColumnDef="Action">
                     <th mat-header-cell *matHeaderCellDef class="fw-bold bg-light">
@@ -101,7 +94,7 @@
                     </th>
                     <td mat-cell *matCellDef="let element">
                         <div class="d-flex">
-                            <span routerLink="/admin/edit-emp-code/{{ element._id }}"
+                            <span routerLink="/admin/edit-event/{{ element._id }}"
                                 class="me-2 border border-light p-2 shadow-sm table-action-buttons cursor-pointer">
                                 <svg width="16" height="16" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -130,7 +123,7 @@
                 No result found.
             </div>
             <!-- paginator -->
-            <mat-paginator class="bg-white" [length]="totalUsers" [pageSize]="pageSize" [pageIndex]="currentPage - 1"
+            <mat-paginator class="bg-white" [length]="totalEvents" [pageSize]="pageSize" [pageIndex]="currentPage - 1"
                 [pageSizeOptions]="[5, 10, 20]" (page)="onPageChange($event)" showFirstLastButtons
                 aria-label="Select page of periodic elements">
             </mat-paginator>

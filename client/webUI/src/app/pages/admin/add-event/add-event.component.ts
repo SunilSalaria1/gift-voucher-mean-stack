@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, RouterLink } from '@angular/router';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { ProductsService } from '../../../services/products.service';
+import { EventsService } from '../../../services/events.service';
 @Component({
   selector: 'app-add-event',
   standalone: true,
@@ -33,11 +34,12 @@ import { ProductsService } from '../../../services/products.service';
 })
 export class AddEventComponent {
   constructor(
-    private formBuilder: FormBuilder, private snackBar: MatSnackBar, private router: Router,private productsService: ProductsService
+    private formBuilder: FormBuilder, private snackBar: MatSnackBar, private router: Router,private eventsService: EventsService,private productsService: ProductsService
   ) { }
   addEventForm!: FormGroup;
   eventImage: any;
   imageId: any; 
+  submitted: boolean = false;
 
   ngOnInit(): void {
     // form
@@ -85,6 +87,31 @@ export class AddEventComponent {
     this.addEventForm.get('eventImage')?.setValue('');
   }
   submitForm(): void { 
+    this.submitted = true;
+    if (this.addEventForm.valid) {
+      const payload = {
+        title: this.addEventForm.value.name,
+       imageId: this.imageId,
+        about: this.addEventForm.value.about,
+        address: this.addEventForm.value.address,
+        date:this.addEventForm.value.date,
+        time:this.addEventForm.value.time,
+        note:this.addEventForm.value.note,
+        whyYouAttend:this.addEventForm.value.attend
+      }
+      this.eventsService.addEvent(payload).subscribe(
+        (response) => {
+          this.router.navigate(['/admin/events']);
+          // Show success snackbar
+          this.snackBar.open('You have successfully created an event!.', 'close', {
+            duration: 5000,
+            panelClass: ['snackbar-success'],
+            horizontalPosition: "center",
+            verticalPosition: "top",
+          });
+        }
+      )
+    }
   }
 
 

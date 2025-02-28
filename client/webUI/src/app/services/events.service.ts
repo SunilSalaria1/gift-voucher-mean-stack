@@ -12,7 +12,7 @@ export class EventsService {
 
   // add event
   addEvent(postData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/event`, postData);
+    return this.http.post(`${this.apiUrl}/api/events`, postData);
   }
 
   // get events
@@ -24,6 +24,7 @@ export class EventsService {
       page: page,
       limit: limit,
     };
+    console.log(params)
     if (searchItem.searchTerm != '') {
       console.log('222222222222');
       params.searchItem = searchItem;
@@ -31,6 +32,6 @@ export class EventsService {
     if (sortBy) {
       params.sortBy = sortBy;
     }
-    return this.http.get(`${this.apiUrl}/api/event`);
+    return this.http.get(`${this.apiUrl}/api/events`,{params});
   }
 }
