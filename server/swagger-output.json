@@ -1138,11 +1138,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Fri Feb 28 2025 16:50:13 GMT+0530 (India Standard Time)"
+          "example": "Fri Feb 28 2025 19:55:13 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Fri Feb 28 2025 16:50:13 GMT+0530 (India Standard Time)"
+          "example": "Fri Feb 28 2025 19:55:13 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
@@ -1301,7 +1301,15 @@
           "type": "string",
           "example": "01/03/2025"
         },
-        "time": {
+        "city": {
+          "type": "string",
+          "example": "mohali"
+        },
+        "startTime": {
+          "type": "string",
+          "example": "hh:mm AM/PM"
+        },
+        "endTime": {
           "type": "string",
           "example": "hh:mm AM/PM"
         },
@@ -1338,7 +1346,15 @@
           "type": "string",
           "example": "01/03/2025"
         },
-        "time": {
+        "city": {
+          "type": "string",
+          "example": "mohali"
+        },
+        "startTime": {
+          "type": "string",
+          "example": "hh:mm AM/PM"
+        },
+        "endTime": {
           "type": "string",
           "example": "hh:mm AM/PM"
         },

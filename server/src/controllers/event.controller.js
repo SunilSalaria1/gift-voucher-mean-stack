@@ -98,55 +98,7 @@ const updateEventById = async (req, res) => {
 
     }
 }
-// const deleteEventById = async (req, res) => {
-//     /*  #swagger.tags = ['Event']
-//           #swagger.description = 'Update'
-//            #swagger.parameters['body'] = {
-//                    in: 'body',
-//                    description: 'Event update details',
-//                    required: true,
-//                    schema: { $ref: '#/definitions/updateEvent' }
-//                    }
-//                    #swagger.responses[200] = {
-//                    description: 'Event Updated successfully',
-//                    }
-//                    #swagger.responses[404] = {
-//                    description: 'Invalid '*/
-//     try {
-//         await connectDB();
-//         const eventId = req.params.id;
-//         if (!ObjectId.isValid(eventId)) {
-//             return res.status(400).json({ message: "Invalid Event ID format" });
-//         }
 
-//         //  Apply strict validation ONLY for this API call
-//         const eventUpdatedSchema = eventSchema.pick({ isDeleted: true }).extend({
-//             isDeleted: z.literal(true) // Ensures isDeleted is always `true`
-//         });
-//         // Fetch Event details
-//         const eventDetails = await eventCollection.findOne({ _id: ObjectId.createFromHexString(eventId), isDeleted: false });
-//         if (!eventDetails) {
-//             return res.status(404).json({ message: "Event not found" });
-//         }
-//         const validation = eventUpdatedSchema.safeParse(req.query);
-//         if (!validation.success) {
-//             return res.status(400).json({ error: validation.error.format() });
-//         }
-
-
-//         const deletededEvent = await eventCollection.findOneAndUpdate(
-//             { _id: ObjectId.createFromHexString(eventId) },
-//             { $set: { isDeleted: true } },
-//             { returnDocument: 'after' }
-//         )
-//         if (!deletededEvent) {
-//             return res.status(404).json({ message: " Failed to delete event " });
-//         }
-//         return res.status(200).json({ message: " Event deleted successfully " })
-//     } catch (error) {
-
-//     }
-// }
 const deleteEventById = async (req, res) => {
     /*  #swagger.tags = ['Event']
         #swagger.description = 'Deletes an event by marking it as deleted'
@@ -277,9 +229,15 @@ const getAllEvents = async (req, res) => {
             typeof req.query.searchItem === 'string' &&
             req.query.searchItem !== '[object Object]') {
             filter.$or = [
-                { couponCode: { $regex: req.query.searchItem, $options: "i" } },
-                { productDescription: { $regex: req.query.searchItem, $options: "i" } },
-                { productTitle: { $regex: req.query.searchItem, $options: "i" } }
+                { title: { $regex: req.query.searchItem, $options: "i" } },
+                { about: { $regex: req.query.searchItem, $options: "i" } },
+                { city: { $regex: req.query.searchItem, $options: "i" } },
+                { address: { $regex: req.query.searchItem, $options: "i" } },
+                { startTime: { $regex: req.query.searchItem, $options: "i" } },
+                { endTime: { $regex: req.query.searchItem, $options: "i" } },
+                { note: { $regex: req.query.searchItem, $options: "i" } },
+                { whyYouAttend: { $regex: req.query.searchItem, $options: "i" } }
+
             ];
         }
 
@@ -292,6 +250,7 @@ const getAllEvents = async (req, res) => {
         const sortStage = req.query.sortBy ? [{ $sort: sort }] : [];
 
         const aggregationPipeline = [
+            { $match: filter },
             {
                 $lookup: {
                     from: 'images', // Join with the 'images' collection

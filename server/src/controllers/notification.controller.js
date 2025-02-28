@@ -7,12 +7,20 @@ const getAllNotifications = async (req, res) => {
     try {
         await connectDB();
         const userId = req.user.userId; // Get user ID from JWT token
-        const notifications = await notificationCollection.find({isDeleted:false}).sort({ createdAt: -1 }).toArray();
+        const notifications = await notificationCollection.find({ isDeleted: false }).sort({ createdAt: -1 }).toArray();
         // Mark notifications as seen/unseen
+        let unreadCount = 0
         notifications.forEach((object) => {
-            object.isSeen = object.readBy && object.readBy.some(id => id.toString() === userId.toString());
+            if (object.readBy) {
+                object.isSeen = object.readBy.some(id => id.toString() === userId.toString());
+            } else {
+                object.isSeen = false
+            }
+            if (!object.isSeen) {
+                unreadCount++; // Increase count for unseen notifications
+            }
         });
-        return res.status(200).json(notifications);
+        return res.status(200).json({ notifications, unreadCount });
     } catch (error) {
         return res.status(500).json({ message: "Internal Server Error", error: error.message });
     }

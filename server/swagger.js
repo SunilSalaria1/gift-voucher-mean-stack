@@ -76,7 +76,9 @@ const doc = {
       imageId: "string imageId",
       address: "mohali 8b near airport road",
       date: "01/03/2025",
-      time: "hh:mm AM/PM",
+      city: "mohali",
+      startTime: "hh:mm AM/PM",
+      endTime: "hh:mm AM/PM",
       note: "optional",
       whyYouAttend: "optional"
     },
@@ -86,7 +88,9 @@ const doc = {
       imageId: "string imageId",
       address: "mohali 8b near airport road",
       date: "01/03/2025",
-      time: "hh:mm AM/PM",
+      city: "mohali",
+      startTime: "hh:mm AM/PM",
+      endTime: "hh:mm AM/PM",
       note: "optional",
       whyYouAttend: "optional"
     },
