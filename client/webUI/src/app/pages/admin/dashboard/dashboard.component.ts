@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTabsModule } from '@angular/material/tabs';
 import {
   Color,
   LegendPosition,
@@ -17,8 +16,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
   standalone: true,
   imports: [
     MatCardModule,
-    MatIconModule,
-    MatTabsModule,
+    MatIconModule,   
     NgxChartsModule,
     ScrollingModule,
     MatProgressSpinnerModule,

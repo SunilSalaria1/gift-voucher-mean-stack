@@ -55,23 +55,23 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   ],
   templateUrl: './generate-emp-code.component.html',
   styleUrl: './generate-emp-code.component.css',
-  animations: [
-    trigger('fadeOut', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(-5px)' }),
-        animate(
-          '200ms ease-in',
-          style({ opacity: 1, transform: 'translateY(0)' })
-        ),
-      ]),
-      transition(':leave', [
-        animate(
-          '200ms ease-out',
-          style({ opacity: 0, transform: 'translateY(-5px)' })
-        ),
-      ]),
-    ]),
-  ],
+  // animations: [
+  //   trigger('fadeOut', [
+  //     transition(':enter', [
+  //       style({ opacity: 0, transform: 'translateY(-5px)' }),
+  //       animate(
+  //         '200ms ease-in',
+  //         style({ opacity: 1, transform: 'translateY(0)' })
+  //       ),
+  //     ]),
+  //     transition(':leave', [
+  //       animate(
+  //         '200ms ease-out',
+  //         style({ opacity: 0, transform: 'translateY(-5px)' })
+  //       ),
+  //     ]),
+  //   ]),
+  // ],
 })
 export class GenerateEmpCodeComponent {
   @ViewChild('content') dialogTemplate!: TemplateRef<any>;
