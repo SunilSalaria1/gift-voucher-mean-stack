@@ -34,17 +34,18 @@ const createEvent = async (req, res) => {
         if (!result.insertedId) {
             return res.status(500).json({ message: "Failed to insert event" });
         }
-        // console.log(result)
-        // const notificationObj = {
-        //     message: `New event Added ${validation.data.title}`,
-        //     eventId: result.insertedId.toString(),
-        // }
-        // const validateNotification = notificationSchema.safeParse(notificationObj)
-        // if (!validateNotification.success) {
-        //     return res.status(400).json({ error: validateNotification.error.format() });
-        // }
-        // const result2 = await notificationCollection.insertOne(validateNotification.data)
-        return res.status(201).json({ message: "Event created successfully", event: result })
+        console.log(result)
+        const notificationObj = {
+            message: `New event Added ${validation.data.title}`,
+            eventId: result.insertedId.toString(),
+        }
+        const validateNotification = notificationSchema.safeParse(notificationObj)
+        if (!validateNotification.success) {
+            return res.status(400).json({ error: validateNotification.error.format() });
+        }
+        const result2 = await notificationCollection.insertOne(validateNotification.data)
+        return res.status(201).json({ message: "Event created successfully", event: result, notification: result2 })
+
     } catch (error) {
         console.log(error)
     }
@@ -200,9 +201,7 @@ const getEventById = async (req, res) => {
           */
     try {
         await connectDB();
-
         const eventId = req.params.id;
-
         // Validate Product Id
         if (!ObjectId.isValid(eventId)) {
             return res.status(400).json({ message: "Invalid Product Id" });
@@ -339,9 +338,9 @@ const getAllEvents = async (req, res) => {
                 delete eventObj.createdAt;
             }
         });
-           // If pagination was not provided, return all products in a separate response
-           if (!isPaginationProvided) {
-            return res.json({ events, totalEvents});
+        // If pagination was not provided, return all products in a separate response
+        if (!isPaginationProvided) {
+            return res.json({ events, totalEvents });
         }
 
         return res.json({

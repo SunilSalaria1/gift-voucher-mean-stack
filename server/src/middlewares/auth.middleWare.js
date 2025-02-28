@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-require('dotenv').config(); 
+require('dotenv').config();
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY
 
 const authenticateToken = (req, res, next) => {
@@ -25,6 +25,7 @@ const authenticateToken = (req, res, next) => {
 
         // Attach the user information (decoded token) to the request object
         req.user = user;
+        console.log(user, req.user)
 
         // Call the next middleware or route handler
         next();

@@ -4,6 +4,7 @@ const { ObjectId } = require('mongodb');
 // Notification Schema
 
 const notificationSchema = z.object({
+
     message: z.string().min(5, { message: "Event description should be at least 5 characters" }),
     eventId: z.string()
         .refine((val) => ObjectId.isValid(val), { message: "Invalid MongoDB ObjectId" }) // Validate ObjectId
@@ -11,7 +12,7 @@ const notificationSchema = z.object({
     updatedAt: z.preprocess((val) => (val ? new Date(val) : new Date()), z.date()),
     createdAt: z.preprocess((val) => (val ? new Date(val) : new Date()), z.date()),
     isDeleted: z.boolean().default(false),
-    readBy:z.array(z.string()).optional()
+    readBy: z.array(z.string()).optional()
 }).strict();
 
 module.exports = notificationSchema;
