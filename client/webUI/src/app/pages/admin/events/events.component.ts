@@ -36,8 +36,7 @@ import { EventsService } from '../../../services/events.service';
     ClipboardModule,
     MatButtonToggleModule,
     ReactiveFormsModule,
-    MatProgressSpinnerModule,
-    MatTooltipModule,
+    MatProgressSpinnerModule,   
   ],
   templateUrl: './events.component.html',
   styleUrl: './events.component.css'

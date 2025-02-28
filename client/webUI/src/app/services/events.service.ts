@@ -34,4 +34,9 @@ export class EventsService {
     }
     return this.http.get(`${this.apiUrl}/api/events`,{params});
   }
+
+  // update event
+  updateEvent(eventId: any,data:any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/api/events/${eventId}`,data);
+  }
 }

@@ -47,8 +47,7 @@ export const routes: Routes = [
             { path: 'edit-emp-code/:id', component:EditEmpCodeComponent },            
             { path: 'events', component:EventsComponent },
             { path: 'add-event', component:AddEventComponent },
-            { path: 'edit-event', component:EditEventComponent },
-
+            { path: 'edit-event/:id', component:EditEventComponent },
         ]
      },
     { path: '**', component: PageNotFoundComponent }
