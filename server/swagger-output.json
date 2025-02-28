@@ -929,6 +929,28 @@
           "Event"
         ],
         "description": "Get all Events",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "searchItem",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -1041,11 +1063,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Fri Feb 28 2025 13:37:04 GMT+0530 (India Standard Time)"
+          "example": "Fri Feb 28 2025 15:14:28 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Fri Feb 28 2025 13:37:04 GMT+0530 (India Standard Time)"
+          "example": "Fri Feb 28 2025 15:14:28 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",

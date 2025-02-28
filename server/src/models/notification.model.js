@@ -2,6 +2,7 @@ const { z } = require("zod");
 const { ObjectId } = require('mongodb');
 
 // Notification Schema
+
 const notificationSchema = z.object({
     message: z.string().min(5, { message: "Event description should be at least 5 characters" }),
     eventId: z.string()
@@ -12,4 +13,5 @@ const notificationSchema = z.object({
     isDeleted: z.boolean().default(false),
     readBy:z.array(z.string()).optional()
 }).strict();
+
 module.exports = notificationSchema;

@@ -265,8 +265,34 @@ const getAllEvents = async (req, res) => {
               */
     try {
         await connectDB();
+        // Check if pagination is provided in the request
+        const isPaginationProvided = req.query.page !== undefined && req.query.limit !== undefined;
+        const page = parseInt(req.query.page);
+        const limit = parseInt(req.query.limit);
+        const skip = (page - 1) * limit;
 
-        const events = await eventCollection.aggregate([
+        // Filtering
+        const filter = { isDeleted: false, isActive: true };
+
+        if (req.query.searchItem &&
+            typeof req.query.searchItem === 'string' &&
+            req.query.searchItem !== '[object Object]') {
+            filter.$or = [
+                { couponCode: { $regex: req.query.searchItem, $options: "i" } },
+                { productDescription: { $regex: req.query.searchItem, $options: "i" } },
+                { productTitle: { $regex: req.query.searchItem, $options: "i" } }
+            ];
+        }
+
+        // Sorting
+        const sort = {};
+        if (req.query.sortBy) {
+            const [field, order] = req.query.sortBy.split(":");
+            sort[field] = order === 'desc' ? -1 : 1;
+        }
+        const sortStage = req.query.sortBy ? [{ $sort: sort }] : [];
+
+        const aggregationPipeline = [
             {
                 $lookup: {
                     from: 'images', // Join with the 'images' collection
@@ -282,10 +308,22 @@ const getAllEvents = async (req, res) => {
                     "eventImageDetails.isDeleted": 0 // Remove isDeleted from productImageDetails
                 }
             }
-        ]).toArray();
+        ]
+        // Apply sorting if specified
+        if (sortStage.length) {
+            aggregationPipeline.push(...sortStage);
+        }
+
+        // Apply pagination only if pagination parameters were provided
+        if (isPaginationProvided) {
+            aggregationPipeline.push({ $skip: skip }, { $limit: limit });
+        }
+        const events = await eventCollection.aggregate(aggregationPipeline).toArray();
+        const totalEvents = await eventCollection.countDocuments({ isDeleted: false, isActive: true });
+
         // Check if the product is found
         if (events.length === 0) {
-            return res.status(404).json({ message: "Product not found" });
+            return res.status(404).json({ message: "Events not found" });
         }
         // Convert buffer to Base64 and add imageUrl
         events.forEach(eventObj => {
@@ -301,8 +339,16 @@ const getAllEvents = async (req, res) => {
                 delete eventObj.createdAt;
             }
         });
+           // If pagination was not provided, return all products in a separate response
+           if (!isPaginationProvided) {
+            return res.json({ events, totalEvents});
+        }
 
-        return res.json({ events });
+        return res.json({
+            events, totalPages: Math.ceil(totalEvents / limit),
+            currentPage: page,
+            totalEvents
+        });
 
     } catch (error) {
         return res.status(500).json({ message: "Internal Server Error", error: error.message });
