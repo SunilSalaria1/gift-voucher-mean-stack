@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EventsService {
   private apiUrl = 'http://localhost:3000';
@@ -16,15 +16,17 @@ export class EventsService {
   }
 
   // get events
-  getEvents(page: number,
+  getEvents(
+    page: number,
     limit: number,
     searchItem: any,
-    sortBy: string = ''): Observable<any> {
-    const params: any = {      
+    sortBy: string = ''
+  ): Observable<any> {
+    const params: any = {
       page: page,
       limit: limit,
     };
-    console.log(params)
+    console.log(params);
     if (searchItem.searchTerm != '') {
       console.log('222222222222');
       params.searchItem = searchItem;
@@ -32,11 +34,15 @@ export class EventsService {
     if (sortBy) {
       params.sortBy = sortBy;
     }
-    return this.http.get(`${this.apiUrl}/api/events`,{params});
+    return this.http.get(`${this.apiUrl}/api/events`, { params });
   }
 
   // update event
-  updateEvent(eventId: any,data:any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/api/events/${eventId}`,data);
+  updateEvent(eventId: any, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/api/events/${eventId}`, data);
+  }
+  //get event by id
+  getEventById(userId: any): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/events/${userId}`);
   }
 }

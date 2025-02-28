@@ -216,7 +216,7 @@ const getEventById = async (req, res) => {
             {
                 $lookup: {
                     from: 'images', // Join with the 'images' collection
-                    localField: 'eventImageId', // The field in event collection that holds the file _id
+                    localField: 'imageId', // The field in event collection that holds the file _id
                     foreignField: '_id', // The field in images collection that corresponds to the productImage _id
                     as: 'eventImageDetails' // The alias for the joined data
                 }
