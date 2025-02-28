@@ -210,24 +210,120 @@ const getEventById = async (req, res) => {
     }
 };
 
+// const getAllEvents = async (req, res) => {
+//     /*  #swagger.tags = ['Event']
+//               #swagger.description = 'Get all Events'
+//               */
+//     try {
+//         await connectDB();
+//         // Check if pagination is provided in the request
+//         const isPaginationProvided = req.query.page !== undefined && req.query.limit !== undefined;
+//         const page = parseInt(req.query.page);
+//         const limit = parseInt(req.query.limit);
+//         const skip = (page - 1) * limit;
+
+//         // Filtering
+//         const filter = { isDeleted: false, isActive: true };
+
+//         if (req.query.searchItem && typeof req.query.searchItem === 'string') {
+//             filter.$or = [
+//                 { title: { $regex: req.query.searchItem, $options: "i" } },
+//                 { about: { $regex: req.query.searchItem, $options: "i" } },
+//                 { city: { $regex: req.query.searchItem, $options: "i" } },
+//                 { address: { $regex: req.query.searchItem, $options: "i" } },
+//                 { startTime: { $regex: req.query.searchItem, $options: "i" } },
+//                 { endTime: { $regex: req.query.searchItem, $options: "i" } },
+//                 { note: { $regex: req.query.searchItem, $options: "i" } },
+//                 { whyYouAttend: { $regex: req.query.searchItem, $options: "i" } }
+
+//             ];
+//         }
+//         console.log("@@@@@@@@@@@@@@@@@@@@@@@", filter)
+
+//         // Sorting
+//         const sort = {};
+//         if (req.query.sortBy && req.query.sortBy.includes(":")) {
+//             const [field, order] = req.query.sortBy.split(":");
+//             sort[field] = order === 'desc' ? -1 : 1;
+//         } else {
+//             sort["createdAt"] = -1; // Default sorting
+//         }
+//         const aggregationPipeline = [
+//             { $match: filter }, // Apply filtering
+//             {
+//                 $lookup: {
+//                     from: 'images', // Join with the 'images' collection
+//                     localField: 'imageId', // The field in event collection that holds the file _id
+//                     foreignField: '_id', // The field in images collection that corresponds to the productImage _id
+//                     as: 'eventImageDetails' // The alias for the joined data
+//                 }
+//             },
+//             { $unwind: "$eventImageDetails" }, // Unwind the array to get a single image
+//             { $sort: sort },
+//             {
+//                 $project: {
+
+//                     "eventImageDetails.isDeleted": 0 // Remove isDeleted from productImageDetails
+//                 }
+//             }
+//         ]
+
+
+
+//         // Apply pagination only if pagination parameters were provided
+//         if (isPaginationProvided) {
+//             aggregationPipeline.push({ $skip: skip }, { $limit: limit });
+//         }
+//         const events = await eventCollection.aggregate(aggregationPipeline).toArray();
+//         const totalEvents = await eventCollection.countDocuments({ isDeleted: false, isActive: true });
+
+//         // Check if the product is found
+//         if (events.length === 0) {
+//             return res.status(404).json({ message: "Events not found" });
+//         }
+//         // Convert buffer to Base64 and add imageUrl
+//         events.forEach(eventObj => {
+//             if (eventObj.eventImageDetails && eventObj.eventImageDetails.fileBuffer) {
+//                 // Convert the fileBuffer to Base64
+//                 const base64Image = eventObj.eventImageDetails.fileBuffer.toString('base64');
+//                 // Add the Base64 string as a new field in the image details
+//                 eventObj.imageUrl = `data:${eventObj.eventImageDetails.fileType};base64,${base64Image}`;
+//                 delete eventObj.eventImageDetails
+//                 delete eventObj.isDeleted;
+//                 delete eventObj.isActive;
+//                 delete eventObj.updatedAt;
+//                 delete eventObj.createdAt;
+//             }
+//         });
+//         // If pagination was not provided, return all products in a separate response
+//         if (!isPaginationProvided) {
+//             return res.json({ events, totalEvents });
+//         }
+
+//         return res.json({
+//             events, totalPages: Math.ceil(totalEvents / limit),
+//             currentPage: page,
+//             totalEvents
+//         });
+
+//     } catch (error) {
+//         return res.status(500).json({ message: "Internal Server Error", error: error.message });
+//     }
+// }
 const getAllEvents = async (req, res) => {
-    /*  #swagger.tags = ['Event']
-              #swagger.description = 'Get all Events'
-              */
     try {
         await connectDB();
-        // Check if pagination is provided in the request
-        const isPaginationProvided = req.query.page !== undefined && req.query.limit !== undefined;
-        const page = parseInt(req.query.page);
-        const limit = parseInt(req.query.limit);
+
+        // Pagination Setup
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
         const skip = (page - 1) * limit;
+        const isPaginationProvided = req.query.page !== undefined && req.query.limit !== undefined;
 
         // Filtering
         const filter = { isDeleted: false, isActive: true };
 
-        if (req.query.searchItem &&
-            typeof req.query.searchItem === 'string' &&
-            req.query.searchItem !== '[object Object]') {
+        if (req.query.searchItem && typeof req.query.searchItem === 'string') {
             filter.$or = [
                 { title: { $regex: req.query.searchItem, $options: "i" } },
                 { about: { $regex: req.query.searchItem, $options: "i" } },
@@ -237,81 +333,78 @@ const getAllEvents = async (req, res) => {
                 { endTime: { $regex: req.query.searchItem, $options: "i" } },
                 { note: { $regex: req.query.searchItem, $options: "i" } },
                 { whyYouAttend: { $regex: req.query.searchItem, $options: "i" } }
-
             ];
         }
 
         // Sorting
         const sort = {};
-        if (req.query.sortBy) {
+        if (req.query.sortBy && req.query.sortBy.includes(":")) {
             const [field, order] = req.query.sortBy.split(":");
             sort[field] = order === 'desc' ? -1 : 1;
+        } else {
+            sort["createdAt"] = -1; // Default sorting
         }
-        const sortStage = req.query.sortBy ? [{ $sort: sort }] : [];
 
+        // Aggregation Pipeline
         const aggregationPipeline = [
             { $match: filter },
             {
                 $lookup: {
-                    from: 'images', // Join with the 'images' collection
-                    localField: 'imageId', // The field in event collection that holds the file _id
-                    foreignField: '_id', // The field in images collection that corresponds to the productImage _id
-                    as: 'eventImageDetails' // The alias for the joined data
+                    from: 'images',
+                    localField: 'imageId',
+                    foreignField: '_id',
+                    as: 'eventImageDetails'
                 }
             },
-            { $unwind: "$eventImageDetails" }, // Unwind the array to get a single image
+            { $unwind: { path: "$eventImageDetails", preserveNullAndEmptyArrays: true } },
+            { $sort: sort },
             {
                 $project: {
-
-                    "eventImageDetails.isDeleted": 0 // Remove isDeleted from productImageDetails
+                    "eventImageDetails.isDeleted": 0
                 }
             }
-        ]
-        // Apply sorting if specified
-        if (sortStage.length) {
-            aggregationPipeline.push(...sortStage);
-        }
+        ];
 
-        // Apply pagination only if pagination parameters were provided
+        // Apply Pagination
         if (isPaginationProvided) {
             aggregationPipeline.push({ $skip: skip }, { $limit: limit });
         }
+
+        // Fetch Events
         const events = await eventCollection.aggregate(aggregationPipeline).toArray();
-        const totalEvents = await eventCollection.countDocuments({ isDeleted: false, isActive: true });
+        const totalEvents = await eventCollection.countDocuments(filter);
 
-        // Check if the product is found
         if (events.length === 0) {
-            return res.status(404).json({ message: "Events not found" });
-        }
-        // Convert buffer to Base64 and add imageUrl
-        events.forEach(eventObj => {
-            if (eventObj.eventImageDetails && eventObj.eventImageDetails.fileBuffer) {
-                // Convert the fileBuffer to Base64
-                const base64Image = eventObj.eventImageDetails.fileBuffer.toString('base64');
-                // Add the Base64 string as a new field in the image details
-                eventObj.imageUrl = `data:${eventObj.eventImageDetails.fileType};base64,${base64Image}`;
-                delete eventObj.eventImageDetails
-                delete eventObj.isDeleted;
-                delete eventObj.isActive;
-                delete eventObj.updatedAt;
-                delete eventObj.createdAt;
-            }
-        });
-        // If pagination was not provided, return all products in a separate response
-        if (!isPaginationProvided) {
-            return res.json({ events, totalEvents });
+            return res.status(404).json({ message: "No Events Found" });
         }
 
+        // Convert image buffer to Base64
+        events.forEach(eventObj => {
+            if (eventObj.eventImageDetails?.fileBuffer) {
+                const base64Image = eventObj.eventImageDetails.fileBuffer.toString('base64');
+                eventObj.imageUrl = `data:${eventObj.eventImageDetails.fileType};base64,${base64Image}`;
+            }
+            delete eventObj.eventImageDetails;
+            delete eventObj.isDeleted;
+            delete eventObj.isActive;
+            delete eventObj.updatedAt;
+            delete eventObj.createdAt;
+        });
+
+        // Return Response
         return res.json({
-            events, totalPages: Math.ceil(totalEvents / limit),
+            events,
+            totalPages: Math.ceil(totalEvents / limit),
             currentPage: page,
             totalEvents
         });
 
     } catch (error) {
+        console.error("Error Fetching Events:", error);
         return res.status(500).json({ message: "Internal Server Error", error: error.message });
     }
-}
+};
+
 
 module.exports = { createEvent, updateEventById, deleteEventById, getEventById, getAllEvents }
 

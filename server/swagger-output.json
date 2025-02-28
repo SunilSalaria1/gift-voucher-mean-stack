@@ -1138,11 +1138,11 @@
       "properties": {
         "dob": {
           "type": "string",
-          "example": "Fri Feb 28 2025 19:55:13 GMT+0530 (India Standard Time)"
+          "example": "Fri Feb 28 2025 20:17:49 GMT+0530 (India Standard Time)"
         },
         "joiningDate": {
           "type": "string",
-          "example": "Fri Feb 28 2025 19:55:13 GMT+0530 (India Standard Time)"
+          "example": "Fri Feb 28 2025 20:17:49 GMT+0530 (India Standard Time)"
         },
         "email": {
           "type": "string",
