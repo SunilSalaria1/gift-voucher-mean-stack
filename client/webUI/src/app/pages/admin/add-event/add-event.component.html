@@ -1,4 +1,7 @@
 <section class="h-100">
+    <h4 class="fw-bold"> 
+        Let's Create an Event!
+    </h4>
     <div class="row">        
         <div class="col-12 mb-4">
             <!-- welcome admin -->
@@ -7,7 +10,7 @@
                     <div class="row">
                         <div class="col-7">
                             <div>
-                                <h5 class="fw-bold text-primary">
+                                <h5 class="fw-bold text-primary"> 
                                     Welcome!
                                 </h5>
                             </div>
@@ -33,56 +36,87 @@
                     <form [formGroup]="addEventForm">
                         <div class="row">
                             <div class="col-6">
-                                <h4 class="fw-bold mb-1">Event Name</h4>
+                                <h4 class="fw-bold mb-1">Name</h4>
                                 <mat-form-field appearance="outline" class="d-block input-lg input">
-                                    <input matInput formControlName="eventName" />
+                                    <input matInput formControlName="name" />
                                     <mat-icon matSuffix>person</mat-icon>
-                                    <mat-error *ngIf="addEventForm.get('eventName')?.hasError('required')">This is
+                                    <mat-error *ngIf="addEventForm.get('name')?.hasError('required')">This is
                                         Required</mat-error>
-                                    <mat-error *ngIf="addEventForm.get('eventName')?.hasError('minlength')"> Name must be at
+                                    <mat-error *ngIf="addEventForm.get('name')?.hasError('minlength')"> Name must be at
                                         least 3 characters long</mat-error>
                                 </mat-form-field>
-                            </div>                        
+                            </div> 
                             <div class="col-6">
-                                <h4 class="fw-bold mb-1">Event Date</h4>
+                                <h4 class="fw-bold mb-1">Image</h4>
                                 <mat-form-field appearance="outline" class="d-block input-lg input">
-                                    <input matInput [matDatepicker]="picker" formControlName="eventDate" />
+                                    <div class="d-flex">
+                                        <input
+                                          readonly
+                                          matInput
+                                          formControlName="image"
+                                          [value]="selectedFiles?.name || ''"
+                                        />
+                                        @if (selectedFiles?.name) {
+                                        <mat-icon (click)="removeImage()" class="delete-btn"
+                                          >delete</mat-icon
+                                        >}
+                                      </div>                                  
+                                    <mat-error>This is
+                                        Required</mat-error>
+                                        @if (!selectedFiles?.name) {
+                                            <mat-icon matSuffix>cloud_upload</mat-icon>
+                                            } @if (!selectedFiles?.name) {
+                                            <input
+                                              formControlName="image"
+                                              type="file"
+                                              id="fileInput"
+                                              class="position-absolute cursor-pointer"
+                                              name="fileInput"
+                                              accept="image/*"
+                                              multiple
+                                              (change)="selectFiles($event)"
+                                            />}                                  
+                                </mat-form-field>
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <h4 class="fw-bold mb-1">Date</h4>
+                                <mat-form-field appearance="outline" class="d-block input-lg input">
+                                    <input matInput [matDatepicker]="picker" formControlName="date" />
                                     <mat-hint>MM/DD/YYYY</mat-hint>
                                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker #picker></mat-datepicker>
                                     <mat-error>This is Required</mat-error>
                                 </mat-form-field>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-6">
-                                <h4 class="fw-bold mb-1">Event Time</h4>
+                                <h4 class="fw-bold mb-1">Time</h4>
                                 <mat-form-field appearance="outline" class="d-block input-lg input">
-                                    <input matInput [ngxTimepicker]="timepicker" formControlName="eventTime" />
+                                    <input matInput [ngxTimepicker]="timepicker" formControlName="time" />
                                     <ngx-material-timepicker #timepicker></ngx-material-timepicker>                                   
                                     <mat-error>This is
                                         Required</mat-error>                                   
                                 </mat-form-field>
                             </div>
-                            <div class="col-6">
-                                <h4 class="fw-bold mb-1">Event Image</h4>
-                                <mat-form-field appearance="outline" class="d-block input-lg input">
-                                    <input matInput formControlName="eventImage" />
-                                    <mat-icon matSuffix>person</mat-icon>
-                                    <mat-error>This is
-                                        Required</mat-error>                                  
-                                </mat-form-field>
-                            </div>
+                            
                         </div>
                         <div class="row">
-                            <div class="col-12">
-                                <h4 class="fw-bold mb-1">Venue Address</h4>
+                            <div class="col-6">
+                                <h4 class="fw-bold mb-1">Address</h4>
                                 <mat-form-field appearance="outline" class="d-block input-lg input">
-                                    <textarea matInput formControlName="venueAddress" rows="5"></textarea>                                    
-                                    <mat-error *ngIf="addEventForm.get('venueAddress')?.hasError('required')">This is
+                                    <textarea matInput formControlName="address" rows="5"></textarea>                                    
+                                    <mat-error *ngIf="addEventForm.get('address')?.hasError('required')">This is
                                         Required</mat-error>
-                                    <mat-error *ngIf="addEventForm.get('venueAddress')?.hasError('minlength')"> Name must be at
+                                    <mat-error *ngIf="addEventForm.get('address')?.hasError('minlength')"> Name must be at
                                         least 3 characters long</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-6">
+                                <h4 class="fw-bold mb-1">About</h4>
+                                <mat-form-field appearance="outline" class="d-block input-lg input">
+                                    <textarea matInput formControlName="about" rows="5"></textarea>
+                                    <mat-error>This is required</mat-error>
                                 </mat-form-field>
                             </div>
                             <div class="col-12">
@@ -92,20 +126,14 @@
                                 </mat-form-field>
                             </div>
                             <div class="col-12">
-                                <h4 class="fw-bold mb-1">Why should you attend</h4>
+                                <h4 class="fw-bold mb-1">Why should you attend?</h4>
                                 <mat-form-field appearance="outline" class="d-block input-lg input">
                                     <input matInput formControlName="attend" />                                                                        
                                 </mat-form-field>
-                            </div>
-                            <div class="col-12">
-                                <h4 class="fw-bold mb-1">About</h4>
-                                <mat-form-field appearance="outline" class="d-block input-lg input">
-                                    <textarea matInput formControlName="about" rows="5"></textarea>
-                                </mat-form-field>
-                            </div>
+                            </div>                           
                         </div>
-                        <div class="mt-2">
-                            <button mat-flat-button class="button-mh-60 text-white bg-dark shadow-sm w-100 me-2"
+                        <div class="mt-2 text-center">
+                            <button mat-flat-button class="button-mh-60 text-white bg-dark shadow-sm w-25 me-2"
                                 (click)="submitForm()">
                                 <mat-icon>celebration</mat-icon>Add Event
                             </button>
