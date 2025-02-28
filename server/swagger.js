@@ -2,6 +2,7 @@ const swaggerAutogen = require('swagger-autogen')();
 const fs = require("fs");
 const { register } = require('module');
 const { updateUser } = require('./src/controllers/user.controller');
+const { createEvent } = require('./src/controllers/event.controller');
 
 const doc = {
   info: {
@@ -68,6 +69,26 @@ const doc = {
     },
     DeleteUserGiftPick: {
       isPicked: 'pending',
+    },
+    createEvent: {
+      title: "A friendly Cricket Match",
+      about: "A friendly Cricket Match",
+      imageId: "string imageId",
+      address: "mohali 8b near airport road",
+      date: "01/03/2025",
+      time: "hh:mm AM/PM",
+      note: "optional",
+      whyYouAttend: "optional"
+    },
+    updateEvent: {
+      title: "A friendly Cricket Match",
+      about: "A friendly Cricket Match",
+      imageId: "string imageId",
+      address: "mohali 8b near airport road",
+      date: "01/03/2025",
+      time: "hh:mm AM/PM",
+      note: "optional",
+      whyYouAttend: "optional"
     },
   }
 };

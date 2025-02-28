@@ -8,6 +8,8 @@ const productRouter = require("./product.router");
 const giftInventoryRouter = require("./giftInventory.router");
 const validateCouponCodeRouter = require("./validateCouponCode.router");
 const updateUserRoleRouter = require("./updateUserRole.router");
+const eventRouter = require("./event.router");
+
 //global routes for all router files
 globalRouter.use('/api', userRouter)
 globalRouter.use('/api', authRouter)
@@ -17,6 +19,7 @@ globalRouter.use('/api', productRouter)
 globalRouter.use('/api', giftInventoryRouter)
 globalRouter.use('/api', validateCouponCodeRouter)
 globalRouter.use('/api', updateUserRoleRouter)
+globalRouter.use('/api', eventRouter)
 
 module.exports = globalRouter;
 

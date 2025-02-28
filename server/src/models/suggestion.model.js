@@ -9,6 +9,6 @@ const suggestionSchema = z.object({
     createdAt: z.date().default(() => new Date()), // Timestamp for feedback
     updatedAt: z.date().default(() => new Date()), // Timestamp for feedback
     isDeleted: z.boolean().default(false)
-});
+}).strict();
 
 module.exports = suggestionSchema;

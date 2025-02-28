@@ -182,14 +182,8 @@ const register = async (req, res) => {
         req.body.password = hashedPassword;
 
 
-        // Convert `dob` and `joiningDate` from string to Date
-        const parsedBody = {
-            ...req.body,
-            dob: req.body.dob ? new Date(req.body.dob) : undefined,
-            joiningDate: req.body.joiningDate ? new Date(req.body.joiningDate) : undefined
-        };
         // Validate request body
-        const validation = userSchema.safeParse(parsedBody);
+        const validation = userSchema.safeParse(req.body);
         if (!validation.success) {
             return res.status(400).json({ errors: validation.error.format() }); //  Added return
         }
@@ -198,7 +192,7 @@ const register = async (req, res) => {
         if (existingUser) {
             return res.status(400).json({ error: "Email already exists" }); //  Added return
         }
-
+        // inserting the req.body object in DB usersCollection
         const result = await usersCollection.insertOne(validation.data);
         const insertedDocument = await usersCollection.findOne({ _id: result.insertedId });
         return res.status(201).json({

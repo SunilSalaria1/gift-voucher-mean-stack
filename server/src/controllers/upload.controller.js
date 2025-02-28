@@ -11,6 +11,7 @@ const uploadImage = async (req, res) => {
         if (!req.file) {
             return res.status(400).json({ message: "No file uploaded" });
         }
+        console.log(req.file)
 
         // Extract file details
         const fileData = {
@@ -73,4 +74,4 @@ const uploadImage = async (req, res) => {
 //     }
 // }
 
-module.exports = { uploadImage  };
+module.exports = { uploadImage };

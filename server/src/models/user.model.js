@@ -7,12 +7,13 @@ const userSchema = z.object({
 
     email: z.string()
         .email({ message: "Invalid email address" }),
-    dob: z.date({ required_error: "Date of birth is required" }),
-
-    joiningDate: z.date({ required_error: "Joining date is required" }),
+    // dob: z.date({ required_error: "Date of birth is required" }),
+    // joiningDate: z.date({ required_error: "Joining date is required" }),
 
     department: z.string({ required_error: "Department is required" }),
+    dob: z.preprocess((val) => (typeof val === "string" ? new Date(val) : val), z.date({ required_error: "Date of birth is required" })),
 
+    joiningDate: z.preprocess((val) => (typeof val === "string" ? new Date(val) : val), z.date({ required_error: "Joining date is required" })),
     employeeCode: z.string()
         .min(1, { message: "Employee Code is required" }),
     password: z.string()
@@ -32,7 +33,7 @@ const userSchema = z.object({
         .transform((val) => (val === "null" ? val : new ObjectId(val))), // Convert to ObjectId unless default
     updatedAt: z.preprocess((val) => (val ? new Date(val) : new Date()), z.date()),
     createdAt: z.preprocess((val) => (val ? new Date(val) : new Date()), z.date()),
-}).strict(); // 🔹 This will reject extra fields
+}).strict(); //  This will reject extra fields
 
 
 
