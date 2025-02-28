@@ -9,11 +9,12 @@ import { FeedbackComponent } from '../../pages/admin/feedback/feedback.component
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { EventsComponent } from '../../pages/admin/events/events.component';
 
 @Component({
   selector: 'app-aside',
   standalone: true,
-  imports: [RouterLink,DashboardComponent,GiftInventoryComponent,EmployeePicksComponent,GenerateEmpCodeComponent,FeedbackComponent,MatIconModule,CommonModule,RouterModule],
+  imports: [RouterLink,DashboardComponent,EventsComponent,GiftInventoryComponent,EmployeePicksComponent,GenerateEmpCodeComponent,FeedbackComponent,MatIconModule,CommonModule,RouterModule],
   templateUrl: './aside.component.html',
   styleUrl: './aside.component.css'
 })

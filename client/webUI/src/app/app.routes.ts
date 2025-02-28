@@ -18,6 +18,8 @@ import { AddEmpCodeComponent } from './pages/admin/add-emp-code/add-emp-code.com
 import { EditEmpCodeComponent } from './pages/admin/edit-emp-code/edit-emp-code.component';
 import { FeedbackComponent } from './pages/admin/feedback/feedback.component';
 import { SelectedGiftDetailsComponent } from './pages/employee/selected-gift-details/selected-gift-details.component';
+import { EventsComponent } from './pages/admin/events/events.component';
+import { AddEventComponent } from './pages/admin/add-event/add-event.component';
 
 export const routes: Routes = [
     //auth routes
@@ -41,7 +43,10 @@ export const routes: Routes = [
             { path: 'edit-gift-item/:id', component: EditGiftItemComponent },
             { path: 'generate-emp-code', component: GenerateEmpCodeComponent },
             { path: 'add-emp-code', component: AddEmpCodeComponent },
-            { path: 'edit-emp-code/:id', component:EditEmpCodeComponent }            
+            { path: 'edit-emp-code/:id', component:EditEmpCodeComponent },            
+            { path: 'events', component:EventsComponent },
+            { path: 'add-event', component:AddEventComponent },
+
         ]
      },
     { path: '**', component: PageNotFoundComponent }
