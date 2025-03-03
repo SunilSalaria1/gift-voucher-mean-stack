@@ -17,9 +17,9 @@ export class EventsService {
 
   // get events
   getEvents(
-    page: number,
-    limit: number,
-    searchItem: any,
+    page?: number,
+    limit?: number,
+    searchItem?: any,
     sortBy: string = ''
   ): Observable<any> {
     const params: any = {
@@ -42,7 +42,21 @@ export class EventsService {
     return this.http.put(`${this.apiUrl}/api/events/${eventId}`, data);
   }
   //get event by id
-  getEventById(userId: any): Observable<any> {
-    return this.http.get(`${this.apiUrl}/api/events/${userId}`);
+  getEventById(eventId: any): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/events/${eventId}`);
+  }
+// deleteEvent
+  deleteEvent(eventId:any):Observable<any>{
+    return this.http.delete(`${this.apiUrl}/api/events/${eventId}`);
+  }
+
+  // get notifications
+  getNotifications(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/notifications`);
+  }
+
+  // update notifications
+  updateNotifications(notificationId: any, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/api/notifications/${notificationId}`, data);
   }
 }

@@ -57,7 +57,9 @@ export class AddEventComponent {
     this.addEventForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
       date: ['', Validators.required],
-      time: ['', Validators.required],
+      city:['',Validators.required],
+      startTime: ['', Validators.required],
+      endTime: ['', Validators.required],
       imageId: ['', Validators.required],
       address: ['', Validators.required],
       note: '',

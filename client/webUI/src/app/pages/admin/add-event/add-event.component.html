@@ -117,7 +117,45 @@
                 </mat-form-field>
               </div>
               <div class="col-6">
-                <h4 class="fw-bold mb-1">Time</h4>
+                <h4 class="fw-bold mb-1">City</h4>
+                <mat-form-field
+                  appearance="outline"
+                  class="d-block input-lg input"
+                >
+                  <input matInput formControlName="title" />
+                  <mat-icon matSuffix>person</mat-icon>
+                  <mat-error
+                    *ngIf="addEventForm.get('title')?.hasError('required')"
+                    >This is Required</mat-error
+                  >
+                  <mat-error
+                    *ngIf="addEventForm.get('title')?.hasError('minlength')"
+                  >
+                    Name must be at least 3 characters long</mat-error
+                  >
+                </mat-form-field>
+              </div>              
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <h4 class="fw-bold mb-1">Start Time</h4>
+                <mat-form-field
+                  appearance="outline"
+                  class="d-block input-lg input"
+                >
+                  <input
+                    matInput
+                    [ngxTimepicker]="timepicker1"
+                    formControlName="startTime"
+                  />
+                  <ngx-material-timepicker
+                    #timepicker1
+                  ></ngx-material-timepicker>
+                  <mat-error>This is Required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-6">
+                <h4 class="fw-bold mb-1">End Time</h4>
                 <mat-form-field
                   appearance="outline"
                   class="d-block input-lg input"
@@ -125,7 +163,7 @@
                   <input
                     matInput
                     [ngxTimepicker]="timepicker"
-                    formControlName="time"
+                    formControlName="endTime"
                   />
                   <ngx-material-timepicker
                     #timepicker

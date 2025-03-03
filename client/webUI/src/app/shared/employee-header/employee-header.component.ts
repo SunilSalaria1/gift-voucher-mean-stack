@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { EventsService } from '../../services/events.service';
 
 @Component({
   selector: 'app-employee-header',
@@ -35,12 +36,13 @@ import { MatMenuModule } from '@angular/material/menu';
 })
 export class EmployeeHeaderComponent {
   private _usersService = inject(UsersService);
+  private _eventsService = inject(EventsService);
   constructor(
     private router: Router,
     private snackBar: MatSnackBar,
     private formBuilder: FormBuilder
-  ) {}
-
+  ) { }
+  notifications: any;
   submitted: boolean = false;
   suggestionsForm!: FormGroup;
   @ViewChild('content') dialogTemplate!: TemplateRef<any>;
@@ -56,6 +58,21 @@ export class EmployeeHeaderComponent {
       ],
     });
     console.log('Form Initialized:', this.suggestionsForm);
+   // Load notifications only on the selected gift details page
+  if (this.isSelectedGiftDetailsPage()) {
+    this.loadNotifications();
+  }
+  }
+
+  loadNotifications() {
+    this._eventsService.getNotifications().subscribe(
+      (response) => {
+        this.notifications = response.notifications
+        console.log(this.notifications)
+      }, (error) => {
+        console.log(error, 'error fetching notifications')
+      }
+    )
   }
 
   isLoginPage(): boolean {

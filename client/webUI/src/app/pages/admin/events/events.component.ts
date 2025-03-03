@@ -17,6 +17,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { UsersService } from '../../../services/users.service';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { EventsService } from '../../../services/events.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-events',
@@ -45,7 +46,8 @@ export class EventsComponent {
   @ViewChild('content') dialogTemplate!: TemplateRef<any>;
   constructor(
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private snackBar:MatSnackBar
   ) {
     this.searchForm = this.formBuilder.group({
       searchTerm: [''],
@@ -62,7 +64,7 @@ export class EventsComponent {
   totalEvents: number;
   pageSize: number = 10;
   isLoading = false; // To track loading state
-
+  selectedEventId: string | null = null;
 
   // ngOnInIt
   ngOnInit() {
@@ -110,11 +112,32 @@ export class EventsComponent {
 
   // dialog box
   openDialog(id: string): void {
-    this.selectedEmpId = id;
+    this.selectedEventId = id;
     // Use the TemplateRef for the dialog
     const dialogRef = this.dialog.open(this.dialogTemplate);
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  //delete
+  matDelete() {
+    this._eventsService
+      .deleteEvent(this.selectedEventId)
+      .subscribe((data: any) => {
+        console.log('delete request is successfull', data);
+      });
+    // Remove the deleted user from the table
+    this.eventsData = this.eventsData.filter(
+      (product) => product._id !== this.selectedEventId
+    );
+    this.dataSource.data = [...this.eventsData];
+    // Show success snackbar
+    this.snackBar.open('You have successfully deleted the reward!.', 'close', {
+      duration: 5000,
+      panelClass: ['snackbar-success'],
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
     });
   }
 
@@ -123,7 +146,9 @@ export class EventsComponent {
     'position',    
     'title',
     'date',
-    'time',
+    'startTime',
+    'endTime',
+    'city',
     'about',
     'address',
     'Action',
@@ -137,7 +162,9 @@ export interface PeriodicElement {
   position: number;
   title: string; 
   date: string;
-  time: string;
+  startTime: string;
+  endTime:string;
+  city:string;
   about: string;
   address:string;
 }

@@ -1,6 +1,9 @@
 .employee:hover {
   cursor: pointer;
 }
+.notification:hover {
+  cursor: pointer;
+}
 
 .dropdown-icon.material-icons {
   font-size: 18px !important;

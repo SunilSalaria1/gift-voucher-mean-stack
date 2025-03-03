@@ -151,6 +151,7 @@ export class GiftInventoryComponent {
       verticalPosition: 'top',
     });
   }
+  
   // this is for filtering the table data
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

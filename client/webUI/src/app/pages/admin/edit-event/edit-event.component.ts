@@ -50,7 +50,7 @@ export class EditEventComponent {
     private eventsService: EventsService,
     private productsService: ProductsService
   ) {}
-  currentUserId: any;
+  currentEventId: any;
 
   addEventForm!: FormGroup;
   eventImage: any;
@@ -60,11 +60,11 @@ export class EditEventComponent {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       console.log(params['id']);
-      this.currentUserId = params['id'];
+      this.currentEventId = params['id'];
       console.log(
         '@@@@@@@@@@@@@@@',
-        typeof this.currentUserId,
-        this.currentUserId
+        typeof this.currentEventId,
+        this.currentEventId
       );
     });
     // form
@@ -82,7 +82,7 @@ export class EditEventComponent {
   }
   getUser() {
     this.eventsService
-      .getEventById(this.currentUserId)
+      .getEventById(this.currentEventId)
       .subscribe((data: any) => {
         console.log('get request is successfull', data);
         

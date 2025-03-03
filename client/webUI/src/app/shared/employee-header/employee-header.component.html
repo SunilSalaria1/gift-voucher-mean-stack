@@ -1,27 +1,37 @@
 <section class="bg-white border-bottom border-light">
-  <header
-    class="container d-flex justify-content-between align-items-center py-3"
-  >
+  <header class="container d-flex justify-content-between align-items-center py-3">
     <div class="logo-font">
       <span class="text-dark fw-bold">Choice</span>
       <span class="text-primary">Chase</span>
     </div>
     <div>
       @if(isLoginPage()){
-      <a
-        mat-flat-button
-        class="bg-dark py-3 shadow-sm button-mh-45"
-        [routerLink]="['/admin-login-access']"
-        ><mat-icon>celebration</mat-icon><span>Manage Rewards</span></a
-      >
+      <a mat-flat-button class="bg-dark py-3 shadow-sm button-mh-45"
+        [routerLink]="['/admin-login-access']"><mat-icon>celebration</mat-icon><span>Manage Rewards</span></a>
       } @if(isSelectedGiftDetailsPage()){
       <div class="header-links d-flex align-items-center">
         <div class="d-flex align-items-center">
-          <a
-        mat-flat-button
-        class="bg-dark py-3 shadow-sm button-mh-45 me-2" [routerLink]="['/upcoming-events']">
-        <mat-icon>campaign</mat-icon>Events</a>
-          <mat-icon>notifications</mat-icon>
+          <a mat-flat-button class="bg-dark py-3 shadow-sm button-mh-45 me-2" [routerLink]="['/upcoming-events']">
+            <mat-icon>campaign</mat-icon>Events</a>
+          <div [matMenuTriggerFor]="notificationsMenu" class="mx-3 notification d-flex">
+            <mat-icon>notifications</mat-icon>
+          </div>
+          <!-- Notifications Dropdown -->
+          <mat-menu #notificationsMenu="matMenu">
+            <ng-container *ngIf="notifications?.length; else noNotifications">
+              <button mat-menu-item *ngFor="let notification of notifications" class="mb-3">
+                <mat-icon class="me-2">notifications</mat-icon>
+                <span>{{ notification.message }}</span>
+                <div>{{ notification.createdAt}}</div>
+              </button>
+            </ng-container>
+            <!-- No Notifications Message -->
+            <ng-template #noNotifications>
+              <button mat-menu-item disabled>
+                <span>No new notifications</span>
+              </button>
+            </ng-template>
+          </mat-menu>
         </div>
         <div class="d-flex align-items-baseline">
           <!-- admin name -->
@@ -32,11 +42,7 @@
           <div>
             <mat-menu #menu="matMenu">
               <button mat-menu-item>
-                <div
-                  [routerLink]="['/employee-code']"
-                  (click)="logOut()"
-                  class="d-flex"
-                >
+                <div [routerLink]="['/employee-code']" (click)="logOut()" class="d-flex">
                   <mat-icon class="dropdown-icon">power_settings_new</mat-icon>
                   <span>Logout</span>
                 </div>
@@ -64,15 +70,11 @@
                 </div>
               </button>
               <button mat-menu-item>
-                <div
-                  [routerLink]="['/employee-code']"
-                  (click)="logOut()"
-                  class="d-flex"
-                >
+                <div [routerLink]="['/employee-code']" (click)="logOut()" class="d-flex">
                   <mat-icon class="dropdown-icon">power_settings_new</mat-icon>
                   <span>Logout</span>
                 </div>
-              </button>             
+              </button>
             </mat-menu>
           </div>
           <!-- /mat menu -->
@@ -81,28 +83,14 @@
       </div>
 
       }@else if(isRewardClaimedPage()){
-      <a
-        mat-flat-button
-        [routerLink]="['/employee-code']"
-        class="bg-dark py-3 shadow-sm button-mh-45"
-      >
-        <mat-icon>celebration</mat-icon> <span>Back to Home</span></a
-      >
+      <a mat-flat-button [routerLink]="['/employee-code']" class="bg-dark py-3 shadow-sm button-mh-45">
+        <mat-icon>celebration</mat-icon> <span>Back to Home</span></a>
       }@else if(isHomePage()){
-      <a
-        mat-flat-button
-        [routerLink]="['/employee-code']"
-        class="bg-dark py-3 shadow-sm button-mh-45"
-        ><mat-icon>celebration</mat-icon> <span>Join Us </span></a
-      >
+      <a mat-flat-button [routerLink]="['/employee-code']"
+        class="bg-dark py-3 shadow-sm button-mh-45"><mat-icon>celebration</mat-icon> <span>Join Us </span></a>
       } @else if(isAdminLoginPage()){
-      <a
-        mat-flat-button
-        href="https://www.google.com/"
-        class="bg-dark py-3 shadow-sm button-mh-45"
-        [routerLink]="['/employee-code']"
-        ><mat-icon>celebration</mat-icon><span>Access your Rewards</span></a
-      >
+      <a mat-flat-button href="https://www.google.com/" class="bg-dark py-3 shadow-sm button-mh-45"
+        [routerLink]="['/employee-code']"><mat-icon>celebration</mat-icon><span>Access your Rewards</span></a>
       }
     </div>
   </header>
@@ -120,42 +108,25 @@
         Do you have any thoughts you'd like to share?
       </div>
       <mat-form-field appearance="outline" class="d-block input-lg input">
-        <textarea
-          matInput
-          formControlName="productDescription"
-          rows="5"
-          class="w-100"
-        ></textarea>
-        <mat-error
-          *ngIf="
+        <textarea matInput formControlName="productDescription" rows="5" class="w-100"></textarea>
+        <mat-error *ngIf="
             suggestionsForm.get('productDescription')?.hasError('required')
-          "
-        >
+          ">
           This is required.
         </mat-error>
-        <mat-error
-          *ngIf="
+        <mat-error *ngIf="
             suggestionsForm.get('productDescription')?.hasError('maxlength')
-          "
-        >
+          ">
           Maximum 200 characters allowed.
         </mat-error>
       </mat-form-field>
       <!-- /form -->
     </mat-dialog-content>
     <mat-dialog-actions class="d-flex border-top border-light">
-      <button
-        mat-flat-button
-        class="bg-danger py-3 shadow-sm button-mh-45 me-2"
-        [mat-dialog-close]="true"
-      >
+      <button mat-flat-button class="bg-danger py-3 shadow-sm button-mh-45 me-2" [mat-dialog-close]="true">
         <mat-icon>close</mat-icon> <span>Decline </span>
       </button>
-      <button
-        mat-flat-button
-        class="bg-success py-3 shadow-sm button-mh-45"
-        (click)="send()"
-      >
+      <button mat-flat-button class="bg-success py-3 shadow-sm button-mh-45" (click)="send()">
         <mat-icon>check</mat-icon> <span>Send </span>
       </button>
     </mat-dialog-actions>
