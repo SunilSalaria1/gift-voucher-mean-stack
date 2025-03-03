@@ -23,9 +23,12 @@ export class EventsService {
     sortBy: string = ''
   ): Observable<any> {
     const params: any = {
-      page: page,
-      limit: limit,
+      
     };
+    if(page && limit){
+      params.page=page,
+      params.limit=limit
+    }
     console.log(params);
     if (searchItem.searchTerm != '') {
       console.log('222222222222');
@@ -56,7 +59,7 @@ export class EventsService {
   }
 
   // update notifications
-  updateNotifications(notificationId: any, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/api/notifications/${notificationId}`, data);
+  updateNotifications(notificationId: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/api/notifications/${notificationId}`,notificationId);
   }
 }

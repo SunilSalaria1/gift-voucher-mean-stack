@@ -6,11 +6,12 @@ import { EmployeeHeaderComponent } from '../../../shared/employee-header/employe
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { EventsService } from '../../../services/events.service';
+import { EmployeeFooterComponent } from '../../../shared/employee-footer/employee-footer.component';
 
 @Component({
   selector: 'app-upcoming-events',
   standalone: true,
-  imports: [MatCardModule,MatButtonModule,CommonModule,EmployeeHeaderComponent,MatIconModule,MatDialogModule],
+  imports: [MatCardModule,MatButtonModule,CommonModule,EmployeeHeaderComponent,EmployeeFooterComponent,MatIconModule,MatDialogModule],
   templateUrl: './upcoming-events.component.html',
   styleUrl: './upcoming-events.component.css'
 })

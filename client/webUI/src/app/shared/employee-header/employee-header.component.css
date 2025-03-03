@@ -1,11 +1,28 @@
 .employee:hover {
   cursor: pointer;
 }
+
+/* dropdown mat icons */
+.dropdown-icon.material-icons {
+  font-size: 18px !important;
+  margin-right: 5px !important;
+}
+
+/* notification  */
 .notification:hover {
   cursor: pointer;
 }
 
-.dropdown-icon.material-icons {
-  font-size: 18px !important;
-  margin-right: 5px !important;
+.notification-badge {  
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.unread-notification{
+  background-color: #f8f9fa;
 }

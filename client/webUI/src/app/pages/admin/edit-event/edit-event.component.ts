@@ -69,13 +69,15 @@ export class EditEventComponent {
     });
     // form
     this.addEventForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
+      title: ['', [Validators.required, Validators.minLength(3)]],
       date: ['', Validators.required],
-      time: ['', Validators.required],
-      image: ['', Validators.required],
+      city:['',Validators.required],
+      startTime: ['', Validators.required],
+      endTime: ['', Validators.required],
+      imageId: ['', Validators.required],
       address: ['', Validators.required],
       note: '',
-      attend: '',
+      whyYouAttend: '',
       about: ['', Validators.required],
     });
     this.getUser();
@@ -86,17 +88,19 @@ export class EditEventComponent {
       .subscribe((data: any) => {
         console.log('get request is successfull', data);
         
-        // this.addEventForm.patchValue({
-        //   name: data.name,
-        //   date: data.date,
-        //   time: data.time ,
-        //   image: data.image,
-        //   address: data.,
-        //   note: data.,
-        //   attend: data.,
-        //   about: data.,
-        // })
-        // console.log("Patched department value:", this.addEventForm.value.department);
+        this.addEventForm.patchValue({
+          title: data.title,
+          date: data.date,
+          startTime: data.startTime,
+          endTime: data.endTime ,
+          city:data.city,
+          imageId: data.imageId,
+          address: data.address,
+          note: data.note,
+          whyYouAttend: data.whyYouAttend,
+          about: data.about,
+        })
+        console.log("Patched department value:", this.addEventForm.value.department);
       });
   }
 
@@ -130,18 +134,8 @@ export class EditEventComponent {
   }
   submitForm(): void {
     this.submitted = true;
-    if (this.addEventForm.valid) {
-      const payload = {
-        title: this.addEventForm.value.name,
-        imageId: this.imageId,
-        about: this.addEventForm.value.about,
-        address: this.addEventForm.value.address,
-        date: this.addEventForm.value.date,
-        time: this.addEventForm.value.time,
-        note: this.addEventForm.value.note,
-        whyYouAttend: this.addEventForm.value.attend,
-      };
-      this.eventsService.addEvent(payload).subscribe((response) => {
+    if (this.addEventForm.valid) {      
+      this.eventsService.updateEvent(this.currentEventId,this.addEventForm.value).subscribe((response) => {
         this.router.navigate(['/admin/events']);
         // Show success snackbar
         this.snackBar.open(

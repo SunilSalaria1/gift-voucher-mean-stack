@@ -3,10 +3,17 @@
     <app-employee-header></app-employee-header>
     <!-- /header section  -->
 </section>
-<section class="container my-5">
+<section class="container my-5 d-flex flex-column min-vh-100">
+    <div class="row">
+        <div class="col-12 mb-5">
+            <div class="banner-font fw-bold">
+                Upcoming <span class="text-primary">Events</span>
+            </div>
+        </div>
+    </div>
     <div class="row align-items-center">
         <div *ngFor='let event of events;let i= index' class="col-3 mb-4">
-            <mat-card class="bg-white shadow-sm product-reward-card p-3" appearance="outlined">
+            <mat-card class="bg-white shadow-sm product-reward-card p-3" (click)="openDialog(event)" appearance="outlined"> 
                 <mat-card-content>
                     <div class="text-uppercase fs-13 mb-2">
                         {{ event.date | date: 'MMM' }}
@@ -17,12 +24,17 @@
                     <div class="my-4">
                         {{event.title}}
                     </div>
-                    <div class="row">
-                        <div class="col-9 fs-13">
+                    <div>
+                        <div>
                             {{event.startTime}}-{{event.endTime}}
                         </div>
+                    </div>
+                    <div class=" row my-4">
+                        <div class="col-9">
+                            {{event.date | date}}
+                        </div>
                         <div class="col-3 text-end">
-                            <mat-icon (click)="openDialog(event)">arrow_forward</mat-icon>
+                            <mat-icon>arrow_forward</mat-icon>
                         </div>
                     </div>
                 </mat-card-content>
@@ -30,57 +42,64 @@
         </div>
     </div>
 </section>
+<!-- footer -->
+<app-employee-footer></app-employee-footer>
 <!-- dialog -->
 <ng-template #content>
     <mat-dialog-content>
         <div class="d-flex align-items-end">
             <div class="gift-img position-relative">
-                <img src="assets/images/gift-man.png" alt="" />
+                <img [src]="selectedEvent.imageUrl" width="250px" height="250px" alt="" />
             </div>
             <div class=" w-100">
                 <div class="mb-4">
                     <div>Event Name</div>
                     <div class="emp-code-label fs-12 pb-2 text-uppercase">
                         {{selectedEvent.title}}
-                    </div>                    
+                    </div>
                 </div>
                 <div class="mb-4">
                     <div>Event Date</div>
                     <div class="emp-code-label fs-12 pb-2 text-uppercase">
                         {{selectedEvent.date | date}}
-                    </div>                    
+                    </div>
                 </div>
                 <div class="mb-4">
                     <div>Event Time</div>
                     <div class="emp-code-label fs-12 pb-2 text-uppercase">
                         {{selectedEvent.startTime}}-{{selectedEvent.endTime}}
-                    </div>                    
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div>City</div>
+                    <div class="emp-code-label fs-12 pb-2 text-uppercase">
+                        {{selectedEvent.city}}
+                    </div>
                 </div>
                 <div class="mb-4">
                     <div>Address</div>
                     <div class="emp-code-label fs-12 pb-2 text-uppercase">
                         {{selectedEvent.address}}
-                    </div>                    
+                    </div>
                 </div>
                 <div class="mb-4">
                     <div>About</div>
                     <div class="emp-code-label fs-12 pb-2 text-uppercase">
                         {{selectedEvent.about}}
-                    </div>                    
+                    </div>
                 </div>
                 <div class="mb-4">
                     <div>Note</div>
                     <div class="emp-code-label fs-12 pb-2 text-uppercase">
                         {{selectedEvent.note}}
-                    </div>                    
+                    </div>
                 </div>
                 <div class="mb-4">
                     <div>Why should you attend?</div>
                     <div class="emp-code-label fs-12 pb-2 text-uppercase">
                         {{selectedEvent.whyYouAttend}}
-                    </div>                    
+                    </div>
                 </div>
-                
             </div>
         </div>
     </mat-dialog-content>

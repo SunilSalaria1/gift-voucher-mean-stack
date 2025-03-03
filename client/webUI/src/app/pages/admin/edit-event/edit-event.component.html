@@ -35,110 +35,197 @@
                     <!-- form -->
                     <form [formGroup]="addEventForm">
                         <div class="row">
-                            <div class="col-6">
-                                <h4 class="fw-bold mb-1">Name</h4>
-                                <mat-form-field appearance="outline" class="d-block input-lg input">
-                                    <input matInput formControlName="name" />
-                                    <mat-icon matSuffix>person</mat-icon>
-                                    <mat-error *ngIf="addEventForm.get('name')?.hasError('required')">This is
-                                        Required</mat-error>
-                                    <mat-error *ngIf="addEventForm.get('name')?.hasError('minlength')"> Name must be at
-                                        least 3 characters long</mat-error>
-                                </mat-form-field>
-                            </div> 
-                            <div class="col-6">
-                                <h4 class="fw-bold mb-1">Image</h4>
-                                <mat-form-field appearance="outline" class="d-block input-lg input">
-                                    <div class="d-flex">
-                                        <input
-                                          readonly
-                                          matInput
-                                          formControlName="image"
-                                          [value]="selectedFiles?.name || ''"
-                                        />
-                                        @if (selectedFiles?.name) {
-                                        <mat-icon (click)="removeImage()" class="delete-btn"
-                                          >delete</mat-icon
-                                        >}
-                                      </div>                                  
-                                    <mat-error>This is
-                                        Required</mat-error>
-                                        @if (!selectedFiles?.name) {
-                                            <mat-icon matSuffix>cloud_upload</mat-icon>
-                                            } @if (!selectedFiles?.name) {
-                                            <input
-                                              formControlName="image"
-                                              type="file"
-                                              id="fileInput"
-                                              class="position-absolute cursor-pointer"
-                                              name="fileInput"
-                                              accept="image/*"
-                                              multiple
-                                              (change)="selectFiles($event)"
-                                            />}                                  
-                                </mat-form-field>
-                            </div> 
+                          <div class="col-6">
+                            <h4 class="fw-bold mb-1">Name</h4>
+                            <mat-form-field
+                              appearance="outline"
+                              class="d-block input-lg input"
+                            >
+                              <input matInput formControlName="title" />
+                              <mat-icon matSuffix>person</mat-icon>
+                              <mat-error
+                                *ngIf="addEventForm.get('title')?.hasError('required')"
+                                >This is Required</mat-error
+                              >
+                              <mat-error
+                                *ngIf="addEventForm.get('title')?.hasError('minlength')"
+                              >
+                                Name must be at least 3 characters long</mat-error
+                              >
+                            </mat-form-field>
+                          </div>
+                          <div class="col-6">
+                            <h4 class="fw-bold mb-1">Image</h4>
+                            <mat-form-field
+                              appearance="outline"
+                              class="d-block input-lg input"
+                            >
+                              <div class="d-flex">
+                                <input
+                                  readonly
+                                  matInput
+                                  [value]="selectedFiles?.name || ''"
+                                />
+                                @if (selectedFiles?.name) {
+                                <mat-icon (click)="removeImage()" class="delete-btn"
+                                  >delete</mat-icon
+                                >}
+                              </div>
+                              <mat-error>This is Required</mat-error>
+                              @if (!selectedFiles?.name) {
+                              <mat-icon matSuffix>cloud_upload</mat-icon>
+                              } @if (!selectedFiles?.name) {
+                              <input
+                                formControlName="imageId"
+                                type="file"
+                                id="fileInput"
+                                class="position-absolute cursor-pointer"
+                                name="fileInput"
+                                accept="image/*"
+                                multiple
+                                (change)="selectFiles($event)"
+                              />}
+                            </mat-form-field>
+                          </div>
                         </div>
                         <div class="row">
-                            <div class="col-6">
-                                <h4 class="fw-bold mb-1">Date</h4>
-                                <mat-form-field appearance="outline" class="d-block input-lg input">
-                                    <input matInput [matDatepicker]="picker" formControlName="date" />
-                                    <mat-hint>MM/DD/YYYY</mat-hint>
-                                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker></mat-datepicker>
-                                    <mat-error>This is Required</mat-error>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-6">
-                                <h4 class="fw-bold mb-1">Time</h4>
-                                <mat-form-field appearance="outline" class="d-block input-lg input">
-                                    <input matInput [ngxTimepicker]="timepicker" formControlName="time" />
-                                    <ngx-material-timepicker #timepicker></ngx-material-timepicker>                                   
-                                    <mat-error>This is
-                                        Required</mat-error>                                   
-                                </mat-form-field>
-                            </div>
-                            
+                          <div class="col-6">
+                            <h4 class="fw-bold mb-1">Date</h4>
+                            <mat-form-field
+                              appearance="outline"
+                              class="d-block input-lg input"
+                            >
+                              <input
+                                matInput
+                                [matDatepicker]="picker"
+                                formControlName="date"
+                              />
+                              <mat-hint>MM/DD/YYYY</mat-hint>
+                              <mat-datepicker-toggle
+                                matIconSuffix
+                                [for]="picker"
+                              ></mat-datepicker-toggle>
+                              <mat-datepicker #picker></mat-datepicker>
+                              <mat-error>This is Required</mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-6">
+                            <h4 class="fw-bold mb-1">City</h4>
+                            <mat-form-field
+                              appearance="outline"
+                              class="d-block input-lg input"
+                            >
+                              <input matInput formControlName="city" />
+                              <mat-icon matSuffix>person</mat-icon>
+                              <mat-error
+                                *ngIf="addEventForm.get('city')?.hasError('required')"
+                                >This is Required</mat-error
+                              >                  
+                            </mat-form-field>
+                          </div>              
                         </div>
                         <div class="row">
-                            <div class="col-6">
-                                <h4 class="fw-bold mb-1">Address</h4>
-                                <mat-form-field appearance="outline" class="d-block input-lg input">
-                                    <textarea matInput formControlName="address" rows="5"></textarea>                                    
-                                    <mat-error *ngIf="addEventForm.get('address')?.hasError('required')">This is
-                                        Required</mat-error>
-                                    <mat-error *ngIf="addEventForm.get('address')?.hasError('minlength')"> Name must be at
-                                        least 3 characters long</mat-error>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-6">
-                                <h4 class="fw-bold mb-1">About</h4>
-                                <mat-form-field appearance="outline" class="d-block input-lg input">
-                                    <textarea matInput formControlName="about" rows="5"></textarea>
-                                    <mat-error>This is required</mat-error>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-12">
-                                <h4 class="fw-bold mb-1">Note</h4>
-                                <mat-form-field appearance="outline" class="d-block input-lg input">
-                                    <textarea matInput formControlName="note" rows="5"></textarea>                                                                       
-                                </mat-form-field>
-                            </div>
-                            <div class="col-12">
-                                <h4 class="fw-bold mb-1">Why should you attend?</h4>
-                                <mat-form-field appearance="outline" class="d-block input-lg input">
-                                    <input matInput formControlName="attend" />                                                                        
-                                </mat-form-field>
-                            </div>                           
+                          <div class="col-6">
+                            <h4 class="fw-bold mb-1">Start Time</h4>
+                            <mat-form-field
+                              appearance="outline"
+                              class="d-block input-lg input"
+                            >
+                              <input
+                                matInput
+                                [ngxTimepicker]="timepicker1"
+                                formControlName="startTime"
+                              />
+                              <ngx-material-timepicker
+                                #timepicker1
+                              ></ngx-material-timepicker>
+                              <mat-error>This is Required</mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-6">
+                            <h4 class="fw-bold mb-1">End Time</h4>
+                            <mat-form-field
+                              appearance="outline"
+                              class="d-block input-lg input"
+                            >
+                              <input
+                                matInput
+                                [ngxTimepicker]="timepicker"
+                                formControlName="endTime"
+                              />
+                              <ngx-material-timepicker
+                                #timepicker
+                              ></ngx-material-timepicker>
+                              <mat-error>This is Required</mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-6">
+                            <h4 class="fw-bold mb-1">Address</h4>
+                            <mat-form-field
+                              appearance="outline"
+                              class="d-block input-lg input"
+                            >
+                              <textarea
+                                matInput
+                                formControlName="address"
+                                rows="5"
+                              ></textarea>
+                              <mat-error
+                                *ngIf="addEventForm.get('address')?.hasError('required')"
+                                >This is Required</mat-error
+                              >
+                              <mat-error
+                                *ngIf="addEventForm.get('address')?.hasError('minlength')"
+                              >
+                                Name must be at least 3 characters long</mat-error
+                              >
+                            </mat-form-field>
+                          </div>
+                          <div class="col-6">
+                            <h4 class="fw-bold mb-1">About</h4>
+                            <mat-form-field
+                              appearance="outline"
+                              class="d-block input-lg input"
+                            >
+                              <textarea
+                                matInput
+                                formControlName="about"
+                                rows="5"
+                              ></textarea>
+                              <mat-error>This is required</mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-12">
+                            <h4 class="fw-bold mb-1">Note</h4>
+                            <mat-form-field
+                              appearance="outline"
+                              class="d-block input-lg input"
+                            >
+                              <textarea matInput formControlName="note" rows="5"></textarea>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-12">
+                            <h4 class="fw-bold mb-1">Why should you attend?</h4>
+                            <mat-form-field
+                              appearance="outline"
+                              class="d-block input-lg input"
+                            >
+                              <input matInput formControlName="whyYouAttend" />
+                            </mat-form-field>
+                          </div>
                         </div>
                         <div class="mt-2 text-center">
-                            <button mat-flat-button class="button-mh-60 text-white bg-dark shadow-sm w-25 me-2"
-                                (click)="submitForm()">
-                                <mat-icon>celebration</mat-icon>Add Event
-                            </button>
+                          <button
+                            mat-flat-button
+                            class="button-mh-60 text-white bg-dark shadow-sm w-25 me-2"
+                            (click)="submitForm()"
+                          >
+                            <mat-icon>celebration</mat-icon>Update Event
+                          </button>
                         </div>
-                    </form>
+                      </form>
                     <!-- /form -->
                 </mat-card-content>
             </mat-card>

@@ -13,13 +13,16 @@
         <div class="d-flex align-items-center">
           <a mat-flat-button class="bg-dark py-3 shadow-sm button-mh-45 me-2" [routerLink]="['/upcoming-events']">
             <mat-icon>campaign</mat-icon>Events</a>
-          <div [matMenuTriggerFor]="notificationsMenu" class="mx-3 notification d-flex">
+          <div [matMenuTriggerFor]="notificationsMenu" class="mx-3 notification d-flex position-relative">
             <mat-icon>notifications</mat-icon>
+            <span *ngIf="unreadCount > 0" class="notification-badge position-absolute"></span>
           </div>
           <!-- Notifications Dropdown -->
           <mat-menu #notificationsMenu="matMenu">
             <ng-container *ngIf="notifications?.length; else noNotifications">
-              <button mat-menu-item *ngFor="let notification of notifications" class="mb-3">
+              <button mat-menu-item *ngFor="let notification of notifications" class="mb-3"
+                (click)="updateNotifications(notification._id)"
+                [ngClass]="{ 'unread-notification': !notification.isSeen }">
                 <mat-icon class="me-2">notifications</mat-icon>
                 <span>{{ notification.message }}</span>
                 <div>{{ notification.createdAt}}</div>

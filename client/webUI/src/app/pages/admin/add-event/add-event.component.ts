@@ -96,19 +96,9 @@ export class AddEventComponent {
     this.selectedFiles = '';
     this.addEventForm.get('eventImage')?.setValue('');
   }
-  submitForm(): void {
+  submitForm(): void {    
     this.submitted = true;
-    if (this.addEventForm.valid) {
-      // const payload = {
-      //   title: this.addEventForm.value.name,
-      //   imageId: this.imageId,
-      //   about: this.addEventForm.value.about,
-      //   address: this.addEventForm.value.address,
-      //   date: this.addEventForm.value.date,
-      //   time: this.addEventForm.value.time,
-      //   note: this.addEventForm.value.note,
-      //   whyYouAttend: this.addEventForm.value.attend,
-      // };
+    // if (this.addEventForm.valid) {      
       this.eventsService
         .addEvent(this.addEventForm.value)
         .subscribe((response) => {
@@ -125,6 +115,6 @@ export class AddEventComponent {
             }
           );
         });
-    }
+    // }
   }
 }

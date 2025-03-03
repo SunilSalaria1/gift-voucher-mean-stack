@@ -43,7 +43,9 @@ export class EmployeeHeaderComponent {
     private formBuilder: FormBuilder
   ) { }
   notifications: any;
+  notificationId:any;
   submitted: boolean = false;
+  unreadCount:any;
   suggestionsForm!: FormGroup;
   @ViewChild('content') dialogTemplate!: TemplateRef<any>;
   readonly dialog = inject(MatDialog);
@@ -67,10 +69,24 @@ export class EmployeeHeaderComponent {
   loadNotifications() {
     this._eventsService.getNotifications().subscribe(
       (response) => {
-        this.notifications = response.notifications
-        console.log(this.notifications)
+        this.notifications = response.notifications;       
+        this.unreadCount = response.unreadCount
+        console.log(this.unreadCount)
       }, (error) => {
         console.log(error, 'error fetching notifications')
+      }
+    )
+  }
+
+  // update notifications
+  updateNotifications(id){
+    console.log(id)
+    this._eventsService.updateNotifications(id).subscribe(
+      (response) => {        
+        console.log("notification updated successfully")
+        this.router.navigateByUrl('/upcoming-events')
+      }, (error) => {
+        console.log(error, 'error updating notifications')
       }
     )
   }
