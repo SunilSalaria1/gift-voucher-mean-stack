@@ -6,9 +6,9 @@ const { authenticateToken } = require("../middlewares/auth.middleWare");
 // routes for the create, delete and update events
 
 eventRouter.post("/events", authenticateToken, createEvent);
-eventRouter.put("/events/:id", updateEventById);
-eventRouter.delete("/events/:id", deleteEventById);
-eventRouter.get("/events/:id", getEventById);
-eventRouter.get("/events", getAllEvents);
+eventRouter.put("/events/:id",authenticateToken, updateEventById);
+eventRouter.delete("/events/:id",authenticateToken, deleteEventById);
+eventRouter.get("/events/:id",authenticateToken, getEventById);
+eventRouter.get("/events", authenticateToken,getAllEvents);
 
 module.exports = eventRouter
