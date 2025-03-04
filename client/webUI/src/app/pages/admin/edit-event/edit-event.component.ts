@@ -49,13 +49,14 @@ export class EditEventComponent {
     private route: ActivatedRoute,
     private eventsService: EventsService,
     private productsService: ProductsService
-  ) {}
+  ) { }
   currentEventId: any;
 
   addEventForm!: FormGroup;
   eventImage: any;
   imageId: any;
   submitted: boolean = false;
+  displayFileName: string = '';
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
@@ -71,7 +72,7 @@ export class EditEventComponent {
     this.addEventForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
       date: ['', Validators.required],
-      city:['',Validators.required],
+      city: ['', Validators.required],
       startTime: ['', Validators.required],
       endTime: ['', Validators.required],
       imageId: ['', Validators.required],
@@ -87,14 +88,14 @@ export class EditEventComponent {
       .getEventById(this.currentEventId)
       .subscribe((data: any) => {
         console.log('get request is successfull', data);
-        
+        this.displayFileName = data.eventImageDetails.fileName;        
         this.addEventForm.patchValue({
           title: data.title,
           date: data.date,
           startTime: data.startTime,
-          endTime: data.endTime ,
-          city:data.city,
-          imageId: data.imageId,
+          endTime: data.endTime,
+          city: data.city,
+          imageId: data.eventImageDetails._id,
           address: data.address,
           note: data.note,
           whyYouAttend: data.whyYouAttend,
@@ -121,25 +122,23 @@ export class EditEventComponent {
     this.productsService.uploadProductImage(formData).subscribe((response) => {
       this.eventImage = response.imageUrl;
       this.imageId = response.fileDetails._id;
-      this.addEventForm.patchValue({
-        productImage: response.fileDetails.fileName,
-      });
+      this.displayFileName = response.fileDetails.fileName;
     });
   }
 
   // deleting image
-  removeImage() {
-    this.selectedFiles = '';
-    this.addEventForm.get('eventImage')?.setValue('');
-  }
+  // removeImage() {
+  //   this.selectedFiles = '';
+  //   this.addEventForm.get('eventImage')?.setValue('');
+  // }
   submitForm(): void {
     this.submitted = true;
-    if (this.addEventForm.valid) {      
-      this.eventsService.updateEvent(this.currentEventId,this.addEventForm.value).subscribe((response) => {
+    if (this.addEventForm.valid) {
+      this.eventsService.updateEvent(this.currentEventId, this.addEventForm.value).subscribe((response) => {
         this.router.navigate(['/admin/events']);
         // Show success snackbar
         this.snackBar.open(
-          'You have successfully created an event!.',
+          'You have successfully updated an event!.',
           'close',
           {
             duration: 5000,
