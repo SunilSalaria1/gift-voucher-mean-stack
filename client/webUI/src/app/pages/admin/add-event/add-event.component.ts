@@ -19,6 +19,7 @@ import { Router, RouterLink } from '@angular/router';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { ProductsService } from '../../../services/products.service';
 import { EventsService } from '../../../services/events.service';
+import {MatChipsModule} from '@angular/material/chips';
 @Component({
   selector: 'app-add-event',
   standalone: true,
@@ -34,6 +35,7 @@ import { EventsService } from '../../../services/events.service';
     MatDatepickerModule,
     RouterLink,
     NgxMaterialTimepickerModule,
+    MatChipsModule,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './add-event.component.html',
@@ -51,6 +53,7 @@ export class AddEventComponent {
   eventImage: any;
   imageId: any;
   submitted: boolean = false;
+  whyYouAttendList: string[] = []; // Array to store multiple "Why You Attend" reasons
 
   ngOnInit(): void {
     // form
@@ -96,11 +99,30 @@ export class AddEventComponent {
     this.selectedFiles = '';
     this.addEventForm.get('eventImage')?.setValue('');
   }
+
+  // Method to add a reason to the list
+  addReason() {
+    const reason = this.addEventForm.value.whyYouAttend.trim();
+    if (reason) {
+      this.whyYouAttendList.push(reason);
+      this.addEventForm.patchValue({ whyYouAttend: '' }); // Clear input field
+    }
+  }
+
+  // Remove reason from list
+  removeReason(index: number) {
+    this.whyYouAttendList.splice(index, 1);
+  }
+
   submitForm(): void {    
     this.submitted = true;
-    // if (this.addEventForm.valid) {      
+    if (this.addEventForm.valid) { 
+      const formData = {
+        ...this.addEventForm.value,
+        whyYouAttend: this.whyYouAttendList, // Include the array of reasons
+      };     
       this.eventsService
-        .addEvent(this.addEventForm.value)
+        .addEvent(formData)
         .subscribe((response) => {
           this.router.navigate(['/admin/events']);
           // Show success snackbar
@@ -115,6 +137,6 @@ export class AddEventComponent {
             }
           );
         });
-    // }
+    }
   }
 }

@@ -126,11 +126,7 @@ export class EditEventComponent {
     });
   }
 
-  // deleting image
-  // removeImage() {
-  //   this.selectedFiles = '';
-  //   this.addEventForm.get('eventImage')?.setValue('');
-  // }
+  // update event
   submitForm(): void {
     this.submitted = true;
     if (this.addEventForm.valid) {
