@@ -57,6 +57,7 @@ export class EditEventComponent {
   imageId: any;
   submitted: boolean = false;
   displayFileName: string = '';
+  whyYouAttendList: string[] = []; // Array to store multiple "Why You Attend" reasons
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
@@ -88,17 +89,18 @@ export class EditEventComponent {
       .getEventById(this.currentEventId)
       .subscribe((data: any) => {
         console.log('get request is successfull', data);
-        this.displayFileName = data.eventImageDetails.fileName;        
+        this.displayFileName = data.eventImageDetails.fileName;
+        this.whyYouAttendList = data.whyYouAttend || [];        
         this.addEventForm.patchValue({
           title: data.title,
           date: data.date,
           startTime: data.startTime,
           endTime: data.endTime,
           city: data.city,
-          imageId: data.eventImageDetails._id,
+          // imageId: data.eventImageDetails._id,
           address: data.address,
           note: data.note,
-          whyYouAttend: data.whyYouAttend,
+          whyYouAttend: "",
           about: data.about,
         })
         console.log("Patched department value:", this.addEventForm.value.department);
@@ -125,6 +127,21 @@ export class EditEventComponent {
       this.displayFileName = response.fileDetails.fileName;
     });
   }
+
+   // Method to add a reason to the list
+   addReason() {
+    const reason = this.addEventForm.value.whyYouAttend.trim();
+    if (reason) {
+      this.whyYouAttendList.push(reason);
+      this.addEventForm.patchValue({ whyYouAttend: '' }); // Clear input field
+    }
+  }
+
+  // Remove reason from list
+  removeReason(index: number) {
+    this.whyYouAttendList.splice(index, 1);
+  }
+
 
   // update event
   submitForm(): void {

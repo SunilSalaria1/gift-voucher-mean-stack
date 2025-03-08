@@ -24,6 +24,7 @@ currentPage: any;
   pageSize: any;
   events:any[] = [];
   selectedEvent: any = null;
+  whyYouAttendList:any[]=[]
 
   ngOnInit() {    
     this.loadUpcomingEvents(this.currentPage, this.pageSize);
@@ -36,7 +37,7 @@ loadUpcomingEvents(page: number,
     sortBy: string = ''){
 this._eventsService.getEvents(page, limit, { searchTerm: '' }, sortBy).subscribe(
   (response)=>{
-this.events=response.events
+this.whyYouAttendList=response.events.whyYouAttend
 console.log(this.events)
   },(error)=>{
     console.log(error,'error fetching events')
@@ -49,6 +50,7 @@ console.log(this.events)
 // dialog box
 openDialog(event:any): void {  
   this.selectedEvent = event; // Set selected event
+  this.whyYouAttendList = event.whyYouAttend || [];
   // Use the TemplateRef for the dialog
   const dialogRef = this.dialog.open(this.dialogTemplate,{
     width: '1200px',
@@ -56,6 +58,7 @@ openDialog(event:any): void {
   dialogRef.afterClosed().subscribe((result) => {
     console.log(`Dialog result: ${result}`);
     this.selectedEvent = null; // Clear selected event after closing dialog
+    this.whyYouAttendList = []; // Reset list after closing
   });
 }
 

@@ -96,9 +96,11 @@
                 </div>
                 <div class="mb-4">
                     <div>Why should you attend?</div>
-                    <div class="emp-code-label fs-12 pb-2 text-uppercase">
-                        {{selectedEvent.whyYouAttend}}
-                    </div>
+                    <ul class="ps-3">
+                        <li *ngFor="let reason of whyYouAttendList" class="emp-code-label fs-12 pb-2 text-uppercase">
+                            {{ reason }}
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

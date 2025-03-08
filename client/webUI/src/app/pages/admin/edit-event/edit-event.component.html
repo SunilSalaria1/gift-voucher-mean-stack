@@ -56,7 +56,7 @@
                                 >} -->
                   </div>
                   <mat-error>This is Required</mat-error>
-                  @if (displayFileName) {
+                  @if (!displayFileName) {
                   <mat-icon matSuffix>cloud_upload</mat-icon>
                   } @if (displayFileName) {
                   <input formControlName="imageId" type="file" id="fileInput" class="position-absolute cursor-pointer"
@@ -125,12 +125,26 @@
                   <textarea matInput formControlName="note" rows="5"></textarea>
                 </mat-form-field>
               </div>
-              <div class="col-12">
-                <h4 class="fw-bold mb-1">Why should you attend?</h4>
-                <mat-form-field appearance="outline" class="d-block input-lg input">
-                  <input matInput formControlName="whyYouAttend" />
-                </mat-form-field>
+              <div class="d-flex align-items-center">
+                <div class="col-9">
+                  <h4 class="fw-bold mb-1">Why should you attend?</h4>
+                  <mat-form-field appearance="outline" class="d-block input-lg input">
+                    <input matInput formControlName="whyYouAttend" />
+                  </mat-form-field>
+                </div>
+                <div class="col-3 ms-5">
+                  <a mat-flat-button class="bg-dark py-3 shadow-sm button-mh-45 me-2" (click)="addReason()">
+                    <mat-icon>add</mat-icon>Add</a>
+                </div>
               </div>
+              <!-- Display Added Reasons -->
+              <ul class="list-group mt-3">
+                <li *ngFor="let reason of whyYouAttendList; let i = index"
+                  class="list-group-item d-flex justify-content-between align-items-center">
+                  {{ reason }}
+                  <mat-icon class="text-danger cursor-pointer" (click)="removeReason(i)">cancel</mat-icon>
+                </li>
+              </ul>
             </div>
             <div class="mt-2 text-center">
               <button mat-flat-button class="button-mh-60 text-white bg-dark shadow-sm w-25 me-2"
