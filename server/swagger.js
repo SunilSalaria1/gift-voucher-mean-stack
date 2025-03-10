@@ -80,7 +80,7 @@ const doc = {
       startTime: "hh:mm AM/PM",
       endTime: "hh:mm AM/PM",
       note: "optional",
-      whyYouAttend: "optional"
+      whyYouAttend: ["optional"]
     },
     updateEvent: {
       title: "A friendly Cricket Match",
@@ -92,7 +92,7 @@ const doc = {
       startTime: "hh:mm AM/PM",
       endTime: "hh:mm AM/PM",
       note: "optional",
-      whyYouAttend: "optional"
+      whyYouAttend: ["optional"]
     },
   }
 };

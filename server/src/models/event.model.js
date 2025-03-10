@@ -18,7 +18,7 @@ const eventSchema = z.object({
         message: "Invalid end time format (hh:mm AM/PM required)"
     }),
     note: z.string().optional(),
-    whyYouAttend: z.string().optional(),
+    whyYouAttend: z.array(z.string()).optional(),
     isDeleted: z.boolean().default(false),
     isActive: z.boolean().default(true),
     updatedAt: z.preprocess((val) => (val ? new Date(val) : new Date()), z.date()),
