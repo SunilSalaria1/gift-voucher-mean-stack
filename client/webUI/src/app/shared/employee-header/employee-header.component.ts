@@ -61,7 +61,7 @@ export class EmployeeHeaderComponent {
     });
     console.log('Form Initialized:', this.suggestionsForm);
    // Load notifications only on the selected gift details page
-  if (this.isSelectedGiftDetailsPage()) {
+  if (this.isSelectedGiftDetailsPage() || this.isSelectGiftPage()) {
     this.loadNotifications();
   }
   }

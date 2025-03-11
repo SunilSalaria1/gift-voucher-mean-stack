@@ -52,7 +52,7 @@ export class EditEventComponent {
   ) { }
   currentEventId: any;
 
-  addEventForm!: FormGroup;
+  editEventForm!: FormGroup;
   eventImage: any;
   imageId: any;
   submitted: boolean = false;
@@ -70,7 +70,7 @@ export class EditEventComponent {
       );
     });
     // form
-    this.addEventForm = this.formBuilder.group({
+    this.editEventForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.minLength(3)]],
       date: ['', Validators.required],
       city: ['', Validators.required],
@@ -90,8 +90,8 @@ export class EditEventComponent {
       .subscribe((data: any) => {
         console.log('get request is successfull', data);
         this.displayFileName = data.eventImageDetails.fileName;
-        this.whyYouAttendList = data.whyYouAttend || [];        
-        this.addEventForm.patchValue({
+        this.whyYouAttendList = data.whyYouAttend;        
+        this.editEventForm.patchValue({
           title: data.title,
           date: data.date,
           startTime: data.startTime,
@@ -103,7 +103,7 @@ export class EditEventComponent {
           whyYouAttend: "",
           about: data.about,
         })
-        console.log("Patched department value:", this.addEventForm.value.department);
+        console.log("Patched department value:", this.editEventForm.value.department);
       });
   }
 
@@ -130,10 +130,10 @@ export class EditEventComponent {
 
    // Method to add a reason to the list
    addReason() {
-    const reason = this.addEventForm.value.whyYouAttend.trim();
+    const reason = this.editEventForm.value.whyYouAttend.trim();
     if (reason) {
       this.whyYouAttendList.push(reason);
-      this.addEventForm.patchValue({ whyYouAttend: '' }); // Clear input field
+      this.editEventForm.patchValue({ whyYouAttend: '' }); // Clear input field
     }
   }
 
@@ -146,9 +146,9 @@ export class EditEventComponent {
   // update event
   submitForm(): void {
     this.submitted = true;    
-    if (this.addEventForm.valid) {
+    if (this.editEventForm.valid) {
       const formData = {
-        ...this.addEventForm.value,
+        ...this.editEventForm.value,
         whyYouAttend: this.whyYouAttendList, // Include the array of reasons
       }; 
       console.log(this.currentEventId)
