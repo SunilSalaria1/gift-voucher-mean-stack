@@ -59,7 +59,7 @@ export class EditEmpCodeComponent {
   readonly dialog = inject(MatDialog);
   dialogRef: MatDialogRef<any> | null = null;
   submitted: boolean = false;
-  departments = ['hr', 'frontend', 'backend', 'audit', 'bidding'];
+  departments = ['HR', 'Frontend', 'Backend', 'Audit', 'Bidding'];
   generatedCode: string | null = null;
   editEmployeeCodeForm!: FormGroup;
   dialogEmployee: any;

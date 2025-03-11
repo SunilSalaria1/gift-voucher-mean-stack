@@ -82,9 +82,9 @@ export class EditEventComponent {
       whyYouAttend: '',
       about: ['', Validators.required],
     });
-    this.getUser();
+    this.getEvent();
   }
-  getUser() {
+  getEvent() {
     this.eventsService
       .getEventById(this.currentEventId)
       .subscribe((data: any) => {
@@ -97,7 +97,7 @@ export class EditEventComponent {
           startTime: data.startTime,
           endTime: data.endTime,
           city: data.city,
-          // imageId: data.eventImageDetails._id,
+          imageId: data.eventImageDetails._id,
           address: data.address,
           note: data.note,
           whyYouAttend: "",
@@ -145,9 +145,14 @@ export class EditEventComponent {
 
   // update event
   submitForm(): void {
-    this.submitted = true;
+    this.submitted = true;    
     if (this.addEventForm.valid) {
-      this.eventsService.updateEvent(this.currentEventId, this.addEventForm.value).subscribe((response) => {
+      const formData = {
+        ...this.addEventForm.value,
+        whyYouAttend: this.whyYouAttendList, // Include the array of reasons
+      }; 
+      console.log(this.currentEventId)
+      this.eventsService.updateEvent(this.currentEventId, formData).subscribe((response) => {
         this.router.navigate(['/admin/events']);
         // Show success snackbar
         this.snackBar.open(
