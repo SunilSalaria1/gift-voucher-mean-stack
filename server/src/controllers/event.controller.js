@@ -71,6 +71,7 @@ const updateEventById = async (req, res) => {
     try {
         await connectDB();
         const eventId = req.params.id;
+
         if (!ObjectId.isValid(eventId)) {
             return res.status(400).json({ message: "Invalid event ID format" });
         }
@@ -80,22 +81,48 @@ const updateEventById = async (req, res) => {
         if (!validation.success) {
             return res.status(400).json({ error: validation.error.format() });
         }
-        // Fetch event details
+
+        // Fetch existing event
+
         const eventDetails = await eventCollection.findOne({ _id: ObjectId.createFromHexString(eventId), isDeleted: false });
+
         if (!eventDetails) {
             return res.status(404).json({ message: "Event not found" });
         }
+
+        console.log("Request Body:", req.body);
+        console.log("Validated Data:", validation.data);
+
+        // Filter only fields present in req.body (ignores extra fields from validation.data)
+        const updateFields = {};
+        Object.keys(req.body).forEach((key) => {
+            if (validation.data.hasOwnProperty(key)) {
+                updateFields[key] = validation.data[key];
+            }
+        });
+        console.log("updateFields", updateFields)
+
+        // Update only filtered fields
         const updatedEvent = await eventCollection.findOneAndUpdate(
             { _id: ObjectId.createFromHexString(eventId) },
-            { $set: { ...req.body, updatedAt: new Date() } },
+            {
+                $set: {
+                    ...updateFields,
+                    updatedAt: new Date()
+                }
+            },
             { returnDocument: 'after' }
-        )
-        if (!updatedEvent) {
-            return res.status(404).json({ message: " Failed to update event " });
-        }
-        return res.status(200).json({ message: " Event updated successfully ", updatedEvent })
-    } catch (error) {
+        );
 
+        if (!updatedEvent) {
+            return res.status(500).json({ message: "Failed to update event" });
+        }
+
+        return res.status(200).json({ message: "Event updated successfully", updatedEvent: updatedEvent });
+
+    } catch (error) {
+        console.error("Error updating event:", error);
+        return res.status(500).json({ message: "Internal server error" });
     }
 }
 
