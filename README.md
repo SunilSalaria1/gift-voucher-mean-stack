@@ -1,10 +1,5 @@
 # gift-voucher-mean-stack
 
-## Primary Admin --:
-
-Administrator Code - LPIT21871281
-Administrator Key - adm04082000
-
 ## client detail :
 
 - Angular V-18
@@ -92,3 +87,24 @@ Installation Command:- npm install cors --- ("cors": "^2.8.5")version
 ## dotenv is a Node.js package that loads environment variables from a .env file into process.env.
 
 Installation Command:- npm install dotenv --- ("dotenv": "^16.4.7",)version
+
+## project attachments:
+
+![employee-picks-page](https://github.com/user-attachments/assets/c2d73dbd-d5a2-4571-a6d0-847a7f2f6fc5)
+![employee-login-page](https://github.com/user-attachments/assets/c516dc2c-a372-4888-8801-3e39ca464e74)
+![edit-gift-item-page](https://github.com/user-attachments/assets/662ffa39-f60e-4d93-9fea-990119bab271)
+![edit-empcode-page](https://github.com/user-attachments/assets/0aca2b31-5981-4834-9b7b-fc643aaa20bc)
+![dashboard-page](https://github.com/user-attachments/assets/8c4aeb72-e198-43b5-a836-61f094d93b30)
+![admin-profile-settings-page](https://github.com/user-attachments/assets/f25f7ccb-f269-42ed-9022-a77abd36701e)
+![admin-login-page](https://github.com/user-attachments/assets/77f43f5b-87d6-4ac9-b902-5f4934b60d0b)
+![add-gift-item-page](https://github.com/user-attachments/assets/904a644c-2844-4df7-9a5f-2ac18a9cb657)
+![add-empcode-page](https://github.com/user-attachments/assets/d6897d0b-e864-4aff-9ddf-63bbd278c069)
+![suggestions-page](https://github.com/user-attachments/assets/ee4425de-517f-4b14-a287-8589f4cb251f)
+![select-gift-voucher-page](https://github.com/user-attachments/assets/bde03e3b-a712-4884-b778-bced743eff70)
+![selected-gift-details-page](https://github.com/user-attachments/assets/e8b333ba-b1a7-4aeb-937a-7767da7b52ff)
+![reward-claimed-page](https://github.com/user-attachments/assets/60a00d70-8090-4d46-9848-e0516919cb28)
+![page-not-found](https://github.com/user-attachments/assets/532b6f6b-e1dc-46d5-a29c-c54d1de7621a)
+![home-page](https://github.com/user-attachments/assets/6bf97bfb-d8d1-419a-9ce4-96648598e00e)
+![gift-inventory-page](https://github.com/user-attachments/assets/86db5e8e-be92-4dfc-9736-3307eec8f69d)
+![generate-empcode-page](https://github.com/user-attachments/assets/d8fb55b4-98e3-499f-9fa2-4d5b26f890f8)
+
