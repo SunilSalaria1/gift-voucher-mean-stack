@@ -49,7 +49,7 @@ export class EditEventComponent {
     private route: ActivatedRoute,
     private eventsService: EventsService,
     private productsService: ProductsService
-  ) { }
+  ) {}
   currentEventId: any;
 
   editEventForm!: FormGroup;
@@ -57,7 +57,7 @@ export class EditEventComponent {
   imageId: any;
   submitted: boolean = false;
   displayFileName: string = '';
-  whyYouAttendList: string[] = []; // Array to store multiple "Why You Attend" reasons
+  whyYouAttendList: any; // Array to store multiple "Why You Attend" reasons
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
@@ -76,7 +76,7 @@ export class EditEventComponent {
       city: ['', Validators.required],
       startTime: ['', Validators.required],
       endTime: ['', Validators.required],
-      imageId: ['', Validators.required],
+      imageId: [''],
       address: ['', Validators.required],
       note: '',
       whyYouAttend: '',
@@ -89,21 +89,25 @@ export class EditEventComponent {
       .getEventById(this.currentEventId)
       .subscribe((data: any) => {
         console.log('get request is successfull', data);
+        this.imageId = data.eventImageDetails._id;
+        this.whyYouAttendList = data.whyYouAttend;
         this.displayFileName = data.eventImageDetails.fileName;
-        this.whyYouAttendList = data.whyYouAttend;        
+
         this.editEventForm.patchValue({
           title: data.title,
           date: data.date,
           startTime: data.startTime,
           endTime: data.endTime,
           city: data.city,
-          imageId: data.eventImageDetails._id,
+          // imageId: data.eventImageDetails._id,
           address: data.address,
           note: data.note,
-          whyYouAttend: "",
           about: data.about,
-        })
-        console.log("Patched department value:", this.editEventForm.value.department);
+        });
+        console.log(
+          'Patched department value:',
+          this.editEventForm.value.department
+        );
       });
   }
 
@@ -128,8 +132,8 @@ export class EditEventComponent {
     });
   }
 
-   // Method to add a reason to the list
-   addReason() {
+  // Method to add a reason to the list
+  addReason() {
     const reason = this.editEventForm.value.whyYouAttend.trim();
     if (reason) {
       this.whyYouAttendList.push(reason);
@@ -142,30 +146,32 @@ export class EditEventComponent {
     this.whyYouAttendList.splice(index, 1);
   }
 
-
   // update event
   submitForm(): void {
-    this.submitted = true;    
+    this.submitted = true;
     if (this.editEventForm.valid) {
       const formData = {
         ...this.editEventForm.value,
-        whyYouAttend: this.whyYouAttendList, // Include the array of reasons
-      }; 
-      console.log(this.currentEventId)
-      this.eventsService.updateEvent(this.currentEventId, formData).subscribe((response) => {
-        this.router.navigate(['/admin/events']);
-        // Show success snackbar
-        this.snackBar.open(
-          'You have successfully updated an event!.',
-          'close',
-          {
-            duration: 5000,
-            panelClass: ['snackbar-success'],
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-          }
-        );
-      });
+        whyYouAttend: this.whyYouAttendList,
+        imageId: this.imageId, // Include the array of reasons
+      };
+      console.log(this.currentEventId);
+      this.eventsService
+        .updateEvent(this.currentEventId, formData)
+        .subscribe((response) => {
+          this.router.navigate(['/admin/events']);
+          // Show success snackbar
+          this.snackBar.open(
+            'You have successfully updated an event!.',
+            'close',
+            {
+              duration: 5000,
+              panelClass: ['snackbar-success'],
+              horizontalPosition: 'center',
+              verticalPosition: 'top',
+            }
+          );
+        });
     }
   }
 }
