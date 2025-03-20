@@ -26,3 +26,12 @@
 .unread-notification{
   background-color: #f8f9fa;
 }
+
+.notification-outline{
+  height: 35px;
+  width: 35px;
+  background: black;
+  color: white;
+  border-radius: 50%;
+  padding: 5px;
+}

@@ -4,23 +4,19 @@
   <!-- /header section  -->
 </section>
 <!-- container-section -->
-<section
-  class="container-fluid p-0 vh-100 d-flex justify-content-between my-auto bg-light"
->
+<section class="container-fluid p-0 vh-100 d-flex justify-content-between my-auto bg-light">
   <!-- main-section -->
   <section class="container d-flex justify-content-center align-items-center">
     <div class="row justify-content-center align-items-center">
       <div class="col-6">
         <div class="banner-font fw-bold">
-          <div class="text-primary"><span>Awesome!</span></div>
-          <div>Your Selected Gift.</div>
+          <div class="text-primary"><span>Great Choice!</span></div>
+          <div>Your Gift Awaits.</div>
         </div>
         <p class="mt-4">
-          You’ve made a great choice! Your selected gift is displayed here, just
-          as you picked it. We hope it brings you joy and makes your day extra
-          special.You’ve made a great choice! Your selected gift is displayed
-          here, just as you picked it.We hope it brings you joy and makes your
-          day extra special.
+          Congratulations! You’ve picked a fantastic gift, and it’s right here waiting for you. We hope it brings you
+          joy and adds a little extra happiness to your day. Your thoughtful choice reflects your style, and we can’t
+          wait for you to enjoy it. If this gift brings a smile to your face, then our job is done!
         </p>
       </div>
       <!-- product-section -->
@@ -29,26 +25,18 @@
           <mat-card-content>
             <span class="badge shadow-sm bg-dark text-white fs-12">{{
               product.couponCode
-            }}</span>
+              }}</span>
             <div class="d-flex justify-content-center my-5">
-              <img
-                mat-card-image
-                height="200"
-                width="200"
-                [src]="product.productImageDetails?.imageUrl"
-                alt="product-image"
-              />
+              <img mat-card-image height="200" width="200" [src]="product.productImageDetails?.imageUrl"
+                alt="product-image" />
             </div>
             <div>
               <div>{{ product.productTitle }}</div>
               <div class="fs-12">{{ product.productDescription }}</div>
             </div>
             <div>
-              <button
-                mat-flat-button
-                class="button-mh-60 py-4 shadow-sm w-100 bg-dark mt-2 claim-gift-btn opacity-fade"
-                [disabled]="true"
-              >
+              <button mat-flat-button class="button-mh-60 py-4 shadow-sm w-100 bg-dark mt-2 claim-gift-btn opacity-fade"
+                [disabled]="true">
                 <mat-icon>celebration</mat-icon>Claim Reward
               </button>
             </div>
