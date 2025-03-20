@@ -7,17 +7,14 @@
   <div class="row">
     <div class="col-12 mb-5">
       <div class="banner-font fw-bold">
-        Upcoming <span class="text-primary">Events</span>
+        Upcoming <span class="text-primary">Events!</span>
       </div>
     </div>
   </div>
-  <div class="row align-items-center">
+  <div class="row align-items-center event-cards-ui">
     <div *ngFor="let event of events; let i = index" class="col-3 mb-4">
-      <mat-card
-        class="bg-white shadow-sm product-reward-card p-3"
-        (click)="openDialog(event)"
-        appearance="outlined"
-      >
+      <mat-card class="shadow-sm product-reward-card p-3 cursor-pointer" (click)="openDialog(event)"
+        appearance="outlined">
         <mat-card-content>
           <div class="text-uppercase fs-13 mb-2">
             {{ event.date | date : "MMM" }}
@@ -29,9 +26,9 @@
             {{ event.title }}
           </div>
           <div>
-            <div>{{ event.startTime }}-{{ event.endTime }}</div>
+            <div>{{ event.startTime }} - {{ event.endTime }}</div>
           </div>
-          <div class="row my-4">
+          <div class="row mt-4">
             <div class="col-9">
               {{ event.date | date }}
             </div>
@@ -51,12 +48,7 @@
   <mat-dialog-content>
     <div class="d-flex align-items-end">
       <div class="gift-img position-relative">
-        <img
-          [src]="selectedEvent.imageUrl"
-          width="250px"
-          height="250px"
-          alt=""
-        />
+        <img [src]="selectedEvent.imageUrl" width="250px" height="250px" alt="" />
       </div>
       <div class="w-100">
         <div class="mb-4">

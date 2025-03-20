@@ -1,3 +1,13 @@
 .event-date{
     font-size: 32px;
 }
+
+.event-cards-ui > div:nth-child(odd) mat-card {
+    background-color: black;
+    color: white; /* Ensure text is visible on black background */
+}
+
+.event-cards-ui > div:nth-child(even) mat-card {
+    background-color: #eb7d2e;
+    color: white; /* Ensure text is visible on green background */
+}
