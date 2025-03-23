@@ -26,7 +26,7 @@
                 [ngClass]="{ 'unread-notification': !notification.isSeen }">
                 <mat-icon class="me-2">notifications</mat-icon>
                 <span class="fw-bold">{{ notification.message }}</span>
-                <div>{{ notification.createdAt}}</div>
+                <div>{{ notification.createdAt | date: 'dd/MM/yyyy, h:mm a' }}</div>
               </button>
             </ng-container>
             <!-- No Notifications Message -->
@@ -74,7 +74,7 @@
                 [ngClass]="{ 'unread-notification': !notification.isSeen }">
                 <mat-icon class="me-2">notifications</mat-icon>
                 <span>{{ notification.message }}</span>
-                <div>{{ notification.createdAt}}</div>
+                <div>{{ notification.createdAt | date: 'dd/MM/yyyy, h:mm a' }}</div>
               </button>
             </ng-container>
             <!-- No Notifications Message -->

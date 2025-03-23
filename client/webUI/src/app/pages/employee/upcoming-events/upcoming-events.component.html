@@ -40,71 +40,88 @@
       </mat-card>
     </div>
   </div>
+
+  
+  
+  
+  
 </section>
 <!-- footer -->
 <app-employee-footer></app-employee-footer>
 <!-- dialog -->
 <ng-template #content>
   <mat-dialog-content>
-    <div class="d-flex align-items-end">
-      <div class="gift-img position-relative">
-        <img [src]="selectedEvent.imageUrl" width="250px" height="250px" alt="" />
-      </div>
-      <div class="w-100">
+    <h4>Event Overview</h4>
+    <div class="gift-img position-relative">
+      <img [src]="selectedEvent.imageUrl" width="500px" height="250px" alt="" />
+    </div>
+    <div class="row mt-4">
+      <div class="col-6">
         <div class="mb-4">
-          <div>Event Name</div>
-          <div class="emp-code-label fs-12 pb-2 text-uppercase">
+          <div  class="mb-2">Event Name</div>
+          <div class="fs-20 pb-2 text-uppercase">
             {{ selectedEvent.title }}
           </div>
         </div>
+      </div>
+      <div class="col-6">
         <div class="mb-4">
-          <div>Event Date</div>
-          <div class="emp-code-label fs-12 pb-2 text-uppercase">
+          <div  class="mb-2">Event Date</div>
+          <div class="emp-code-label fs-20 pb-2 text-uppercase">
             {{ selectedEvent.date | date }}
           </div>
         </div>
+      </div>
+      <div class="col-6">
         <div class="mb-4">
-          <div>Event Time</div>
-          <div class="emp-code-label fs-12 pb-2 text-uppercase">
+          <div  class="mb-2">Event Time</div>
+          <div class="emp-code-label fs-20 pb-2 text-uppercase">
             {{ selectedEvent.startTime }}-{{ selectedEvent.endTime }}
           </div>
         </div>
+      </div>
+      <div class="col-6">
         <div class="mb-4">
-          <div>City</div>
-          <div class="emp-code-label fs-12 pb-2 text-uppercase">
+          <div  class="mb-2">City</div>
+          <div class="emp-code-label fs-20 pb-2 text-uppercase">
             {{ selectedEvent.city }}
           </div>
         </div>
+      </div>
+      <div class="col-6">
         <div class="mb-4">
-          <div>Address</div>
-          <div class="emp-code-label fs-12 pb-2 text-uppercase">
+          <div  class="mb-2">Address</div>
+          <div class="emp-code-label fs-20 pb-2 text-uppercase">
             {{ selectedEvent.address }}
           </div>
         </div>
+      </div>
+      <div class="col-6">
         <div class="mb-4">
-          <div>About</div>
-          <div class="emp-code-label fs-12 pb-2 text-uppercase">
+          <div  class="mb-2">About</div>
+          <div class="emp-code-label fs-20 pb-2 text-uppercase">
             {{ selectedEvent.about }}
           </div>
         </div>
-        <div class="mb-4">
-          <div>Note</div>
-          <div class="emp-code-label fs-12 pb-2 text-uppercase">
-            {{ selectedEvent.note }}
-          </div>
-        </div>
-        <div class="mb-4">
-          <div>Why should you attend?</div>
-          <ul class="ps-3">
-            <ng-container *ngFor="let reason of whyYouAttendList">
-              <li class="emp-code-label fs-12 pb-2 text-uppercase">
-                {{ reason || "none" }}
-              </li>
-            </ng-container>
-          </ul>
+      </div>      
+      <div class="mb-4">
+        <div  class="mb-2">Note</div>
+        <div class="emp-code-label fs-20 pb-2 text-uppercase">
+          {{ selectedEvent.note }}
         </div>
       </div>
+      <div class="mb-4">
+        <div  class="mb-2">Why should you attend?</div>
+        <ul class="ps-3 mt-0">
+          <ng-container *ngFor="let reason of whyYouAttendList">
+            <li class="emp-code-label fs-16 pb-2 text-uppercase">
+              {{ reason }}
+            </li>
+          </ng-container>
+        </ul>
+      </div>
     </div>
+
   </mat-dialog-content>
 </ng-template>
 <!-- /dialog -->
